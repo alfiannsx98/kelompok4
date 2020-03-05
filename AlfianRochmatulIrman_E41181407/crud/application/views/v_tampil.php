@@ -24,8 +24,8 @@
 			<td><?php echo $u->alamat ?></td>
 			<td><?php echo $u->pekerjaan ?></td>
 			<td>
-			    <?php echo anchor('crud/edit/'.$u->id,'Edit'); ?>
-                <?php echo anchor('crud/hapus/'.$u->id,'Hapus'); ?>
+				<?php echo anchor('crud/edit/'.$u->id,'Edit'); ?>
+				<?php echo anchor('crud/hapus/'.$u->id,'Hapus'); ?>		
 			</td>
 		</tr>
 		<?php } ?>
