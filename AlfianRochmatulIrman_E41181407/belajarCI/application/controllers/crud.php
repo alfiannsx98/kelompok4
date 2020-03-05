@@ -1,6 +1,4 @@
 <?php 
-
-
 class Crud extends CI_Controller{
 
 	function __construct(){

@@ -73,6 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+// Pada bagian ini kita akan mengisikan Konfigurasi databasenya, seperti hostname, username, password dan nama database, tetapi jika mau mengisikan lebih dari konfigurasi ini juga bisa, jadi lebih bersifat kondisional.
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',

@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+// Untuk dibagian config ini digunakan dalam mengarahkan kedalam Default Homepage atau alamat utama yang akan dituju.
 $config['base_url'] = 'http://localhost/kelompok4/AlfianRochmatulIrman_E41181407/belajarCI/';
 
 /*
@@ -35,6 +36,7 @@ $config['base_url'] = 'http://localhost/kelompok4/AlfianRochmatulIrman_E41181407
 | variable so that it is blank.
 |
 */
+// Untuk bagian index_page dikosongi , dikarenakan kita sudah menggunakan htaccess.
 $config['index_page'] = '';
 
 /*
