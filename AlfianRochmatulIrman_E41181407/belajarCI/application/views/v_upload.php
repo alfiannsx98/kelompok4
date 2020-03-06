@@ -5,7 +5,7 @@
 <body>
 	<center><h1>Membuat Upload File Dengan CodeIgniter | MalasNgoding.com</h1></center>
 	<?php echo $error;?>
- 
+ <!-- pada echo form_open_multipart ini mirip dengan <form encrypt> yang ada di html, tetapi dikemas dalam codeigniter -->
 	<?php echo form_open_multipart('upload/aksi_upload');?>
  
 	<input type="file" name="berkas" />
