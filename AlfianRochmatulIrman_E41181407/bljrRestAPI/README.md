@@ -1,4 +1,5 @@
-# ci-restserver
-Check the recent version at https://github.com/chriskacerguis/codeigniter-restserver
+#Tugas Belajar REST-API
 
-My alternate version https://github.com/ardisaurus/old-rest-ci
+Belajar mengenai dasar-dasar REST-API didalam framework CodeIgniter.
+
+Nama : Alfian Rochmatul Irman NIM : E41181407 Golongan : D
