@@ -1,6 +1,4 @@
-###################
-Tugas Praktikum 2
-###################
+#Tugas Praktikum 2
 
 Belajar mengenai dasar-dasar MVC didalam framework CodeIgniter.
 
