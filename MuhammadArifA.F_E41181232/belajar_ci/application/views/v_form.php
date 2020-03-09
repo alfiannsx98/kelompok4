@@ -1,3 +1,4 @@
+<!-- Menampilkan form dengan validasi nya -->
 <!DOCTYPE html>
 <html>
 
