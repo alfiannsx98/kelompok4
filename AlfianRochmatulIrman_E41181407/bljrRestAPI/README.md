@@ -11,7 +11,8 @@ D
 
 # Konfigurasi
 
-`defined('BASEPATH') OR exit('No direct script access allowed');
+```
+defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
@@ -35,4 +36,5 @@ $db['default'] = array(
     'stricton' => FALSE,
     'failover' => array(),
     'save_queries' => TRUE
-);`
+);
+```
