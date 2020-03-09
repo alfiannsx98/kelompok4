@@ -11,6 +11,8 @@ D
 
 # Konfigurasi
 
+`Konfigurasi ini dilakukan didalam htdocs/(nama_folder)/application/database`
+
 ```
 defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
