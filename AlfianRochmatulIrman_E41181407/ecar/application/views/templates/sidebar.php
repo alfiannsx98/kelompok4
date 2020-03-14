@@ -1,6 +1,6 @@
 <!-- Query Siapkan menu based on Role_ID -->
 <?php
-    $role_id = $this->session->userdata('role_id');
+    $role_id = $this->session->userdata('id_role');
     $queryMenu = "SELECT `user_menu`.`id_menu`,`menu`
         FROM `user_menu` JOIN `user_access_menu`
         ON `user_menu`.`id_menu` = `user_access_menu`.`menu_id`
@@ -74,9 +74,22 @@
 <?php foreach ($subMenu as $sbm) : ?>
 <!-- Akhir Query SubMenu -->
 
-                <ul class="nav">
-                    <li>
-                        <a data-toggle="collapse" href="#<?= $m['menu']; ?>Examples">
+<?php endforeach; ?>
+            
+            
+            <ul class="nav">
+            <?php 
+            // if($title == $sbm['menu']) : 
+            ?>
+                <!-- <li class="active"> -->
+            <?php
+            // else : 
+            ?>
+                <li>
+            <?php 
+            // endif; 
+            ?>
+                        <a data-toggle="collapse" href="<?='#'. $m['menu'] . 'Examples'; ?>">
                             <i class="material-icons"><?= $sbm['icon_menu']; ?></i>
                             <p><?= $m['menu']; ?>
                                 <b class="caret"></b>
@@ -84,14 +97,20 @@
                         </a>
                         <div class="collapse" id="<?= $sbm['menu']; ?>Examples">
                             <ul class="nav">
+                                <?php foreach ($subMenu as $sbmm) : ?>
                                 <li>
-                                <a class="nav-link pb-0" href="<?= $sbm['url']; ?>"><?= $sbm['title']; ?></a>
+                                    <a href="<?= base_url($sbmm['url']); ?>"><?= $sbmm['title']; ?></a>
                                 </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </li>
                 </ul>
                 <?php endforeach; ?>
-                <?php endforeach; ?>
+                <ul class="nav">
+                    <li>
+                        <a href="<?= base_url('auth/logout'); ?>" class="btn-danger"><i class="material-icons">power_settings_new</i><p>logout</p></a>
+                    </li>
+                </ul>
             </div>
         </div>
