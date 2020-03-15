@@ -1,85 +1,68 @@
-
-            <div class="content">
+<div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="green">
-                                    <i class="material-icons">language</i>
+                                <div class="card-header card-header-icon" data-background-color="rose">
+                                    <i class="material-icons">perm_identity</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">Dashboard</h4>
-                                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="material-icons">weekend</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Bookings</p>
-                                    <h3 class="card-title">184</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="#pablo">Get More Space...</a>
-                                    </div>
+                                    <h4 class="card-title">Your Profile -
+                                        <small class="category">Here is your bio</small>
+                                    </h4>
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label"><?= $user['nama']; ?></label>
+                                                    <input type="text" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label"><?= $user['email']; ?></label>
+                                                    <input type="email" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label"><?= $user['about']; ?></label>
+                                                    <input type="text" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Joined Date </label>  <i class="label label-success"><?= date('d F Y', $user['date_created']);?></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-rose pull-right">Update Profile</button>
+                                        <div class="clearfix"></div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="rose">
-                                    <i class="material-icons">equalizer</i>
+                        <div class="col-md-4">
+                            <div class="card card-profile">
+                                <div class="card-avatar">
+                                    <a href="#pablo">
+                                        <img class="img" src="<?= base_url() . 'assets/img/profile/' . $user['image']; ?>" />
+                                    </a>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category">Website Visits</p>
-                                    <h3 class="card-title">75.521</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Google Analytics
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">store</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Revenue</p>
-                                    <h3 class="card-title">$34,245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="fa fa-twitter"></i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">update</i> Just Updated
-                                    </div>
+                                    <!-- <h6 class="category text-gray">CEO / Co-Founder</h6> -->
+                                    <h4 class="card-title"><?= $user['nama']; ?></h4>
+                                    <p class="description">
+                                        <?= $user['about']; ?>
+                                    </p>
+                                    <i class="label label-<?php if($user['role_id'] == 1){echo "rose";}else{echo "info";}  ?>"><?php if($user['role_id'] == 1){echo "Administrator";}else{echo "Member";}  ?></i>  <i class="label label-success"><?= date('d F Y', $user['date_created']);?></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-</div>
-            
