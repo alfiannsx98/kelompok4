@@ -6,7 +6,7 @@ function is_logged_in()
     if (!$ci->session->userdata('email')) {
         redirect('auth');
     } else {
-        $role_id = $ci->session->userdata('id_role');
+        $role_id = $ci->session->userdata('role_id');
         $menu = $ci->uri->segment(1);
 
         $queryMenu = $ci->db->get_where('user_menu', ['menu' => $menu])->row_array();

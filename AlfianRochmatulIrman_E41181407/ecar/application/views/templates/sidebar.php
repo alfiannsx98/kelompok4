@@ -1,6 +1,6 @@
 <!-- Query Siapkan menu based on Role_ID -->
 <?php
-    $role_id = $this->session->userdata('id_role');
+    $role_id = $this->session->userdata('role_id');
     $queryMenu = "SELECT `user_menu`.`id_menu`,`menu`
         FROM `user_menu` JOIN `user_access_menu`
         ON `user_menu`.`id_menu` = `user_access_menu`.`menu_id`
