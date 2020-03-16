@@ -71,31 +71,19 @@
         // $icon_menu1 = "SELECT `icon_menu` FROM `user_menu` WHERE `menu_id` = $menuId";
         // $icon_menu = $this->db->query($icon_menu1)->result_array();
 ?>
-<?php foreach ($subMenu as $sbm) : ?>
+<?php foreach ($subMenu as $m) : ?>
 <!-- Akhir Query SubMenu -->
 
 <?php endforeach; ?>
-            
-            
             <ul class="nav">
-            <?php 
-            // if($title == $sbm['menu']) : 
-            ?>
-                <!-- <li class="active"> -->
-            <?php
-            // else : 
-            ?>
                 <li>
-            <?php 
-            // endif; 
-            ?>
                         <a data-toggle="collapse" href="<?='#'. $m['menu'] . 'Examples'; ?>">
-                            <i class="material-icons"><?= $sbm['icon_menu']; ?></i>
+                            <i class="material-icons"><?= $m['icon_menu']; ?></i>
                             <p><?= $m['menu']; ?>
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="<?= $sbm['menu']; ?>Examples">
+                        <div class="collapse" id="<?= $m['menu']; ?>Examples" aria-expanded="false">
                             <ul class="nav">
                                 <?php foreach ($subMenu as $sbmm) : ?>
                                 <li>
