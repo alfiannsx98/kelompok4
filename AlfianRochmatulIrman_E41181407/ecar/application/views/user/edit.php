@@ -15,13 +15,13 @@
                                             <div class="col-md-8">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><?= $user['nama']; ?></label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><?= $user['email']; ?></label>
-                                                    <input type="email" class="form-control" disabled>
+                                                    <input type="email" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -29,7 +29,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label"><?= $user['about']; ?></label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -46,23 +46,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card card-profile">
-                                <div class="card-avatar">
-                                    <a href="#pablo">
-                                        <img class="img" src="<?= base_url() . 'assets/img/profile/' . $user['image']; ?>" />
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <!-- <h6 class="category text-gray">CEO / Co-Founder</h6> -->
-                                    <h4 class="card-title"><?= $user['nama']; ?></h4>
-                                    <p class="description">
-                                        <?= $user['about']; ?>
-                                    </p>
-                                    <i class="label label-<?php if($user['role_id'] == 1){echo "rose";}else{echo "info";}  ?>"><?php if($user['role_id'] == 1){echo "Administrator";}else{echo "Member";}  ?></i>  <i class="label label-success"><?= date('d F Y', $user['date_created']);?></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="col-md-4 col-sm-4">
+                                            <legend>Regular Image</legend>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail">
+                                                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" alt="...">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                <div>
+                                                    <span class="btn btn-rose btn-round btn-file">
+                                                        <span class="fileinput-new">Select image</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="file" name="..." />
+                                                    </span>
+                                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
                 </div>
             </div>
