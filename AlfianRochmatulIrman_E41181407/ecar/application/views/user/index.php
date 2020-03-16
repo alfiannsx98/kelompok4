@@ -10,6 +10,7 @@
                                     <h4 class="card-title">Your Profile -
                                         <small class="category">Here is your bio</small>
                                     </h4>
+                                    <?= $this->session->flashdata('message'); ?>
                                     <form>
                                         <div class="row">
                                             <div class="col-md-8">
@@ -40,7 +41,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="<?= base_url() . 'user/edit' ?>" class="btn btn-info pull-right">Update Profile</a>
+                                            <a href="<?= base_url() . 'user/edit_password' ?>" class="btn btn-danger pull-right">Update Password</a>
+                                            <a href="<?= base_url() . 'user/edit' ?>" class="btn btn-info pull-right">Update Profile</a>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>

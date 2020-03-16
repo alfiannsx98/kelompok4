@@ -17,7 +17,8 @@
                         <a class="navbar-brand" href="#"> <?= $title; ?> </a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right"> 
+                        <label for="" class="navbar-brand"><?= $user['email']; ?></label>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
@@ -28,13 +29,13 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">Your Profile</a>
+                                        <a href="<?= base_url('user'); ?>">Your Profile</a>
                                     </li>
                                     <li>
-                                        <a href="#">Change Password</a>
+                                        <a href="<?= base_url('user/edit_password'); ?>">Change Password</a>
                                     </li>
                                     <li>
-                                        <a href="#">Edit Profile</a>
+                                        <a href="<?= base_url('user/edit'); ?>">Edit Profile</a>
                                     </li>
                                     <li>
                                         <a href="<?= base_url('auth/logout'); ?>">Logout</a>
@@ -43,16 +44,6 @@
                             </li>
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group form-search is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
                     </div>
                 </div>
             </nav>
