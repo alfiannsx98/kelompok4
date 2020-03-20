@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('model_admin');
     }
 
     public function index()
@@ -86,5 +87,11 @@ class Admin extends CI_Controller
             $this->db->delete('user_access_menu', $data);
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akses Diubah!</div>');
+    }
+    public function hapus_role()
+    {
+        $id = $this->input->post('id_role');
+        $this->model_admin->hapus_role($id);
+        redirect('admin/role');
     }
 }
