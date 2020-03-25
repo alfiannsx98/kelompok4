@@ -1,51 +1,61 @@
-<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-        <div class="col-lg-6">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
+</div>
+    </nav>
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page login-page" filter-color="black" data-image="<?= base_url(); ?>assets/img/login1.jpg">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+            <div class="content">
+                <div class="container">
                     <div class="row">
-                        <div class="col-lg">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                </div>
-
-                                <?= $this->session->flashdata('message'); ?>
-
-                                <form class="user" method="post" action="<?= base_url('index.php'); ?>">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Masukkan Alamat Email" value="<?= set_value('email'); ?>">
-                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                                <div class="card card-login card-hidden">
+                                    <div class="card-header text-center" data-background-color="purple">
+                                        <h4 class="card-title">Login</h4>
+                                        <div class="social-line">
+                                            <a href="http://www.facebook.com/ipnp2" class="btn btn-just-icon btn-simple">
+                                                <i class="fa fa-facebook-square"></i>
+                                            </a>
+                                            <a href="http://www.instagram.com/curlygeeks" class="btn btn-just-icon btn-simple">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Masukkan Password">
-                                        <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <?= $this->session->flashdata('message'); ?>
+                                    <p class="category text-center">
+                                        E-CAR Login Form
+                                    </p>
+                                    <form action="<?= base_url('auth'); ?>" method="post" class="user">
+                                    <div class="card-content">  
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">email</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Email address</label>
+                                                <input type="email" class="form-control" id="email" name="email" value="<?= set_value('email'); ?>">
+                                                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Password</label>
+                                                <input type="password" class="form-control" id="password" name="password" value="<?= set_value('password'); ?>">
+                                                <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <button href="#" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </button>
-                                </form>
-                                <br>
-                                <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth/lupapassword') ?>">Lupa Password?</a>
+                                    <div class="footer text-center">
+                                        <button class="btn btn-primary">Login</button>
+                                        <p class="category">Bermasalah dengan akun ? <a href="<?= base_url('auth/lupapassword'); ?>">Lupa Password</a> </p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="category">Tidak Punya Akun ? <a href="<?= base_url('auth/register'); ?>">Daftar Disini!</a> </p>
+                                    </div>
+                                    </form>
                                 </div>
-                                <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth/register') ?>">Belum punya Akun? Buat Sini!</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-
-    </div>
-
-</div>
