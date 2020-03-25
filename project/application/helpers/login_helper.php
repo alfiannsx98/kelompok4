@@ -7,7 +7,7 @@ function is_logged_in()
         redirect('auth');
     } else {
         $role_id = $ci->session->userdata('role_id');
-        $menu = $ci->uri->segment(1);
+        $menu = $ci->uri->segment(2);
 
         $queryMenu = $ci->db->get_where('user_menu', ['menu' => $menu])->row_array();
 
@@ -32,7 +32,7 @@ function check_access($role_id, $menu_id)
     $ci->db->where('role_id', $role_id);
     $ci->db->where('menu_id', $menu_id);
 
-    $result = $ci->db->get('user_access_menu');
+    $result = $ci->db->get('access_user');
 
     if ($result->num_rows() > 0) {
         return "checked='checked'";
