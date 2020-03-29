@@ -21,7 +21,7 @@
                                     </div>
                                     <?= $this->session->flashdata('message'); ?>
                                     <p class="category text-center">
-                                        E-CAR Login Form
+                                        Login Form
                                     </p>
                                     <form action="<?= base_url('auth'); ?>" method="post" class="user">
                                     <div class="card-content">  

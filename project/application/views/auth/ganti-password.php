@@ -13,7 +13,7 @@
                                     </div>
                                     <?= $this->session->flashdata('message'); ?>
                                     <p class="category text-center">
-                                        E-CAR Reset Password FORM
+                                        Reset Password FORM
                                     </p>
                                     <form class="user" method="post" action="<?= base_url('auth/gantipassword'); ?>">
                                     <div class="card-content">  

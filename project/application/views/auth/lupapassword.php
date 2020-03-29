@@ -13,7 +13,7 @@
                                     </div>
                                     <?= $this->session->flashdata('message'); ?>
                                     <p class="category text-center">
-                                        E-CAR Forget Password FORM
+                                        Forget Password FORM
                                     </p>
                                     <form class="user" method="post" action="<?= base_url('auth/lupapassword'); ?>">
                                     <div class="card-content">  
