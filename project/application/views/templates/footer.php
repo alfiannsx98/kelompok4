@@ -8,7 +8,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        <a class="align-center" href="http://instagram.com/curlygeeks">Dari Irman</a>, Dibuat dengan penuh cintah.
+                        <a class="align-center">SIM PKL POLIJE</a>
                     </p>
                 </div>
             </footer>
