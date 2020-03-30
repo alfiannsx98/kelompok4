@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2020 at 02:47 AM
+-- Generation Time: Mar 30, 2020 at 11:20 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `polije-pkl`
+-- Database: `polije_pkl`
 --
 
 -- --------------------------------------------------------
@@ -51,23 +51,16 @@ INSERT INTO `access_user` (`id_access_menu`, `role_id`, `menu_id`) VALUES
 --
 
 CREATE TABLE `admin_prodi` (
-  `NIP` varchar(20) NOT NULL,
-  `NAMA` varchar(50) NOT NULL,
-  `JK` varchar(10) NOT NULL,
-  `ALAMAT` varchar(100) NOT NULL,
-  `NOMOR_HP` varchar(15) NOT NULL,
-  `PRODI` varchar(30) NOT NULL,
-  `EMAIL` varchar(30) NOT NULL,
-  `PASSWORD` varchar(50) NOT NULL,
-  `id_role` int(11) NOT NULL
+  `ID_ADM` char(10) NOT NULL,
+  `NIP_ADM` varchar(20) DEFAULT NULL,
+  `NAMA_ADM` varchar(50) DEFAULT NULL,
+  `JK_ADM` varchar(10) DEFAULT NULL,
+  `ALAMAT_ADM` varchar(100) DEFAULT NULL,
+  `HP_ADM` varchar(20) DEFAULT NULL,
+  `PRODI_ADM` varchar(10) DEFAULT NULL,
+  `EMAIL_ADM` varchar(30) DEFAULT NULL,
+  `PASSWORD_ADM` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `admin_prodi`
---
-
-INSERT INTO `admin_prodi` (`NIP`, `NAMA`, `JK`, `ALAMAT`, `NOMOR_HP`, `PRODI`, `EMAIL`, `PASSWORD`, `id_role`) VALUES
-('', '', '', '', '', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -76,22 +69,15 @@ INSERT INTO `admin_prodi` (`NIP`, `NAMA`, `JK`, `ALAMAT`, `NOMOR_HP`, `PRODI`, `
 --
 
 CREATE TABLE `dosbing` (
-  `NIP` varchar(20) NOT NULL,
-  `NAMA_DOS` varchar(50) NOT NULL,
-  `JK_DOS` varchar(10) NOT NULL,
-  `ALAMAT_DOS` varchar(100) NOT NULL,
-  `NO_HP_DOS` varchar(15) NOT NULL,
-  `EMAIL_DOS` varchar(30) NOT NULL,
-  `PASSWORD_DOS` varchar(50) NOT NULL,
-  `id_role` int(11) NOT NULL
+  `ID_DS` char(10) NOT NULL,
+  `NIP_DS` varchar(20) DEFAULT NULL,
+  `NAMA_DS` varchar(50) DEFAULT NULL,
+  `JK_DS` varchar(10) DEFAULT NULL,
+  `ALAMAT_DS` varchar(100) DEFAULT NULL,
+  `HP_DS` varchar(20) DEFAULT NULL,
+  `EMAIL_DS` varchar(30) DEFAULT NULL,
+  `PASSWORD_DS` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `dosbing`
---
-
-INSERT INTO `dosbing` (`NIP`, `NAMA_DOS`, `JK_DOS`, `ALAMAT_DOS`, `NO_HP_DOS`, `EMAIL_DOS`, `PASSWORD_DOS`, `id_role`) VALUES
-('', '', '', '', '', '', '', 2);
 
 -- --------------------------------------------------------
 
@@ -100,8 +86,9 @@ INSERT INTO `dosbing` (`NIP`, `NAMA_DOS`, `JK_DOS`, `ALAMAT_DOS`, `NO_HP_DOS`, `
 --
 
 CREATE TABLE `kelompok` (
-  `NIM` varchar(20) NOT NULL,
-  `NAMA` varchar(50) NOT NULL
+  `ID_KLP` char(10) NOT NULL,
+  `NIM_KLP` varchar(20) DEFAULT NULL,
+  `NAMA_KLP` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -111,24 +98,32 @@ CREATE TABLE `kelompok` (
 --
 
 CREATE TABLE `mahasiswa` (
-  `NIM` varchar(10) NOT NULL,
-  `NAMA` varchar(50) NOT NULL,
-  `JK` varchar(10) NOT NULL,
-  `PRODI` varchar(10) NOT NULL,
-  `SMT` varchar(2) NOT NULL,
-  `ALAMAT` varchar(100) NOT NULL,
-  `NOMOR_HP` varchar(15) NOT NULL,
-  `EMAIL` varchar(30) NOT NULL,
-  `PASSWORD` varchar(50) NOT NULL,
-  `id_role` int(11) NOT NULL
+  `ID_M` char(10) NOT NULL,
+  `NIM` varchar(20) DEFAULT NULL,
+  `NAMA_M` varchar(50) DEFAULT NULL,
+  `JK_M` varchar(10) DEFAULT NULL,
+  `PRODI_M` varchar(10) DEFAULT NULL,
+  `SMT` char(5) DEFAULT NULL,
+  `ALAMAT_M` varchar(100) DEFAULT NULL,
+  `HP_M` varchar(20) DEFAULT NULL,
+  `EMAIL_M` varchar(30) DEFAULT NULL,
+  `PASSWORD_M` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `mahasiswa`
+-- Table structure for table `pendaftaran`
 --
 
-INSERT INTO `mahasiswa` (`NIM`, `NAMA`, `JK`, `PRODI`, `SMT`, `ALAMAT`, `NOMOR_HP`, `EMAIL`, `PASSWORD`, `id_role`) VALUES
-('', '', '', '', '', '', '', '', '', 2);
+CREATE TABLE `pendaftaran` (
+  `ID_PND` char(10) NOT NULL,
+  `ID_PR` char(10) NOT NULL,
+  `ID_ADM` char(10) NOT NULL,
+  `ID_M` char(10) NOT NULL,
+  `ID_DS` char(10) NOT NULL,
+  `WAKTU` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -137,21 +132,13 @@ INSERT INTO `mahasiswa` (`NIM`, `NAMA`, `JK`, `PRODI`, `SMT`, `ALAMAT`, `NOMOR_H
 --
 
 CREATE TABLE `perusahaan` (
-  `ID` varchar(10) NOT NULL,
-  `NAMA` varchar(100) NOT NULL,
-  `ALAMAT` varchar(200) NOT NULL,
-  `NOMOR_HP` varchar(15) NOT NULL,
-  `EMAIL` varchar(30) NOT NULL,
-  `REKOMENDASI` varchar(10) NOT NULL,
-  `LOKASI_MAP` varchar(50) NOT NULL
+  `ID_PR` char(10) NOT NULL,
+  `NAMA_PR` varchar(50) DEFAULT NULL,
+  `ALAMAT_PR` varchar(100) DEFAULT NULL,
+  `HP_PR` varchar(20) DEFAULT NULL,
+  `EMAIL_PR` varchar(30) DEFAULT NULL,
+  `RATING` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `perusahaan`
---
-
-INSERT INTO `perusahaan` (`ID`, `NAMA`, `ALAMAT`, `NOMOR_HP`, `EMAIL`, `REKOMENDASI`, `LOKASI_MAP`) VALUES
-('pr001', 'Dinas Komunikasi, Informatika dan Persandian', 'Jl. PB. Sudirman no. 1, Patokan, Kec Situbondo- Situbondo', '', '', '', '0');
 
 -- --------------------------------------------------------
 
@@ -267,25 +254,41 @@ ALTER TABLE `access_user`
 -- Indexes for table `admin_prodi`
 --
 ALTER TABLE `admin_prodi`
-  ADD PRIMARY KEY (`NIP`);
+  ADD PRIMARY KEY (`ID_ADM`);
 
 --
 -- Indexes for table `dosbing`
 --
 ALTER TABLE `dosbing`
-  ADD PRIMARY KEY (`NIP`);
+  ADD PRIMARY KEY (`ID_DS`);
+
+--
+-- Indexes for table `kelompok`
+--
+ALTER TABLE `kelompok`
+  ADD PRIMARY KEY (`ID_KLP`);
 
 --
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`NIM`);
+  ADD PRIMARY KEY (`ID_M`);
+
+--
+-- Indexes for table `pendaftaran`
+--
+ALTER TABLE `pendaftaran`
+  ADD PRIMARY KEY (`ID_PND`),
+  ADD KEY `FK_RELATIONSHIP_1` (`ID_PR`),
+  ADD KEY `FK_RELATIONSHIP_2` (`ID_ADM`),
+  ADD KEY `FK_RELATIONSHIP_3` (`ID_M`),
+  ADD KEY `FK_RELATIONSHIP_4` (`ID_DS`);
 
 --
 -- Indexes for table `perusahaan`
 --
 ALTER TABLE `perusahaan`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID_PR`);
 
 --
 -- Indexes for table `role_user`
@@ -344,6 +347,19 @@ ALTER TABLE `submenu_user`
 --
 ALTER TABLE `token_user`
   MODIFY `id_token` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `pendaftaran`
+--
+ALTER TABLE `pendaftaran`
+  ADD CONSTRAINT `FK_RELATIONSHIP_1` FOREIGN KEY (`ID_PR`) REFERENCES `perusahaan` (`ID_PR`),
+  ADD CONSTRAINT `FK_RELATIONSHIP_2` FOREIGN KEY (`ID_ADM`) REFERENCES `admin_prodi` (`ID_ADM`),
+  ADD CONSTRAINT `FK_RELATIONSHIP_3` FOREIGN KEY (`ID_M`) REFERENCES `mahasiswa` (`ID_M`),
+  ADD CONSTRAINT `FK_RELATIONSHIP_4` FOREIGN KEY (`ID_DS`) REFERENCES `dosbing` (`ID_DS`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
