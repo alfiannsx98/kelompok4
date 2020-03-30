@@ -1,3 +1,6 @@
+
+            <!-- Footer -->
+
             <footer class="footer">
                 <div class="container">
                     <p class="copyright text-center">
@@ -12,6 +15,8 @@
         </div>
     </div>
 </body>
+</body>
+<!--   Core JS Files   -->
 <script src="<?= base_url(); ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -54,73 +59,16 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="<?= base_url(); ?>assets/js/demo.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#datatables').DataTable({
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
+    $().ready(function() {
+        demo.checkFullPageBackgroundImage();
 
-        });
-
-
-        var table = $('#datatables').DataTable();
-
-        // Edit record
-        table.on('click', '.edit', function() {
-            $tr = $(this).closest('tr');
-
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        });
-
-        // Delete a record
-        table.on('click', '.remove', function(e) {
-            $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-
-        //Like record
-        table.on('click', '.like', function() {
-            alert('You clicked on Like button');
-        });
-
-        $('.card .material-datatables label').addClass('form-group');
-    });
-</script>
-
-<script>
-    $('.custom-file-input').on('change', function() {
-        let fileName = $(this).val().split('\\').pop();
-        $(this).next('.custom-file-label').addClass("selected").html(fileName);
-    });
-
-
-    $('.form-check-input').on('click', function() {
-        const menuId = $(this).data('menu');
-        const roleId = $(this).data('role');
-
-        $.ajax({
-            url: "<?= base_url('admin/changeaccess'); ?>",
-            type: 'post',
-            data: {
-                menuId: menuId,
-                roleId: roleId
-            },
-            success: function() {
-                document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
-            }
-        });
+        setTimeout(function() {
+            // after 1000 ms we add the class animated to the login/register card
+            $('.card').removeClass('card-hidden');
+        }, 700)
     });
 </script>
 
 
-<!-- Mirrored from demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 21:32:16 GMT -->
+<!-- Mirrored from demos.creative-tim.com/material-dashboard-pro/examples/pages/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 21:32:19 GMT -->
 </html>
