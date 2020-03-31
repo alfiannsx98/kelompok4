@@ -20,6 +20,23 @@
                     SIM PKL-JTI
                 </a>
             </div>
+
+            <!-- Query Menu -->
+
+            <?php
+            $role_id = $this->session->userdata('role_id');
+            $queryMenu = "SELECT `user_menu`.`id_menu`, `menu`, `icon` 
+                            FROM `user_menu` JOIN `access_user`
+                            ON `user_menu`.`id_menu` = `access_user`.`menu_id`
+                            WHERE `access_user`.`role_id` = $role_id
+                            ORDER BY `access_user`.`menu_id` ASC 
+            ";
+
+            $menu = $this->db->query($queryMenu)->result_array();
+            ?>
+
+            <!-- Akhir Query Menu -->
+
             <div class="logo logo-mini">
                 <a href="#" class="simple-text">
                     Ct
@@ -28,11 +45,11 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="<?= base_url(); ?>assets/img/faces/avatar.jpg" />
+                        <img src="<?= base_url(); ?>assets/img/image_user/<?= $user['image']; ?>" />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            Tania Andrew
+                            <?= $user['nama']; ?>
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample">
@@ -51,40 +68,50 @@
                     </div>
                 </div>
                 <ul class="nav">
+
+                    <!-- Looping Menu -->
+                    <?php
+                        foreach($menu as $m) :
+                    ?>
+
+                    <!-- Looping Sub-Menu -->
+                    <?php
+                    $menuId = $m['id_menu'];
+                    $querySubMenu = "SELECT *
+                                        FROM `submenu_user` JOIN `user_menu`
+                                        ON `submenu_user`.`menu_id` = `user_menu`.`id_menu`
+                                        WHERE `submenu_user`.`menu_id` = $menuId
+                                        AND `submenu_user`.`is_active` = 1
+                    ";
+                    $submenu = $this->db->query($querySubMenu)->result_array();
+                    ?>
                     <li>
-                        <a data-toggle="collapse" href="#componentsExamples">
-                            <i class="material-icons">apps</i>
-                            <p>Components
+                        <a data-toggle="collapse" href="#<?= $m['menu']; ?>Examples">
+                            <i class="material-icons"><?= $m['icon']; ?></i>
+                            <p><?= $m['menu']; ?>
                                 <b class="caret"></b>
                             </p>
+                            
                         </a>
-                        <div class="collapse" id="componentsExamples">
+                        <div class="collapse" id="<?= $m['menu']; ?>Examples">
                             <ul class="nav">
+                                <?php foreach($submenu as $sm):  ?>
                                 <li>
-                                    <a href="components/buttons.html">Buttons</a>
+                                    <a href="<?= base_url() . $sm['url']; ?>"><?= $sm['title']; ?></a>
                                 </li>
-                                <li>
-                                    <a href="components/grid.html">Grid System</a>
-                                </li>
-                                <li>
-                                    <a href="components/panels.html">Panels</a>
-                                </li>
-                                <li>
-                                    <a href="components/sweet-alert.html">Sweet Alert</a>
-                                </li>
-                                <li>
-                                    <a href="components/notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="components/icons.html">Icons</a>
-                                </li>
-                                <li>
-                                    <a href="components/typography.html">Typography</a>
-                                </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <?php
+                        endforeach;
+                    ?>
+                </ul>
+            </div>
+</div>
+
+
+<!-- <li>
                         <a data-toggle="collapse" href="#formsExamples">
                             <i class="material-icons">content_paste</i>
                             <p>Forms
@@ -128,7 +155,4 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
-                </ul>
-            </div>
-</div>
+                    </li> -->
