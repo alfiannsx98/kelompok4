@@ -1,3 +1,4 @@
+<!-- Menampilkan view download -->
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +10,7 @@
     <h1>Membuat download file dengan codeigniter | MalasNgoding.com</h1>
 
     <br />
-
+    <!-- tombol download memanggil controller download dengan method lakukan_download -->
     <a href="<?php echo base_url() . 'index.php/download/lakukan_download' ?>">Download file</a>
 </body>
 

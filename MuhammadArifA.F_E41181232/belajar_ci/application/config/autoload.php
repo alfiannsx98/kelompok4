@@ -58,6 +58,8 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
+
+// memasukkan libarary array database agar bisa konek dengan database
 $autoload['libraries'] = array('database');
 
 /*
@@ -90,6 +92,9 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 // $autoload['helper'] = array('url');
+
+// memamsukkan helper sesuai kasus atau kebutuhan
+// untuk tugas praktikum dengan memasukkan html, url , dan download 
 $autoload['helper'] = array('html', 'url', 'download');
 
 /*

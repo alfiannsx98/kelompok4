@@ -23,6 +23,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+
+// memasukkan base url dan untuk awalan project load 
 $config['base_url'] = 'http://localhost/belajar_ci/';
 
 /*
@@ -35,6 +37,8 @@ $config['base_url'] = 'http://localhost/belajar_ci/';
 | variable so that it is blank.
 |
 */
+
+// bisa menambahkan atau tidak index dan mengganti htaccess jadi bisa tanpa index
 $config['index_page'] = 'index.php';
 
 /*
