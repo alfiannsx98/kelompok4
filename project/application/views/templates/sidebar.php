@@ -101,7 +101,11 @@
                             </p>
                             
                         </a>
-                        <div class="collapse" id="<?= $m['menu']; ?>Examples">
+                        <?php if($m['menu'] == $url) : ?>
+                            <div class="collapse in" id="<?= $m['menu']; ?>Examples">
+                        <?php else : ?>
+                            <div class="collapse" id="<?= $m['menu']; ?>Examples">
+                        <?php endif; ?>
                             <ul class="nav">
                                 <?php foreach($submenu as $sm):  ?>
                                 <li>
