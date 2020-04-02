@@ -7,7 +7,7 @@ class Menu extends CI_Controller
     {
         parent::__construct();
         $this->load->model('model_menu');
-        // is_logged_in();
+        is_logged_in();
     }
     public function index()
     {
@@ -23,7 +23,7 @@ class Menu extends CI_Controller
 
         if($this->form_validation->run() == false){
             $this->load->view('templates/header', $data);
-            $this->load->view('tempaltes/sidebar', $data);
+            $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('menu/index', $data);
             $this->load->view('templates/footer');
@@ -82,6 +82,22 @@ class Menu extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
             redirect('menu/submenu');
         };
+    }
+    public function edit_submenu()
+    {
+        $id = $this->input->post('id_submenu');
+        $menu_id = $this->input->post('menu_id');
+        $title = $this->input->post('title');
+        $url = $this->input->post('url');
+        $is_active = $this->input->post('is_active');
+        $this->model_menu->edit_submenu($id,  $menu_id, $title, $url, $is_active);
+        redirect('menu/submenu');
+    }
+    public function hapus_submenu()
+    {
+        $id = $this->input->post('id_menu');
+        $this->model_menu->hapus_submenu($id);
+        redirect('menu/submenu');
     }
 }
 
