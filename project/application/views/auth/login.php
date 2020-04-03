@@ -41,7 +41,7 @@
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Password</label>
-                                                <input type="password" class="form-control" id="password" name="password" value="<?= set_value('password'); ?>">
+                                                <input type="password" class="form-control" id="password" name="password">
                                                 <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                         </div>

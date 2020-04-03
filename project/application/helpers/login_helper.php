@@ -7,14 +7,13 @@ function is_logged_in()
         redirect('auth');
     } else {
         $role_id = $ci->session->userdata('role_id');
-        $menu = $ci->uri->segment(2);
+        $menu = $ci->uri->segment(1);
 
         $queryMenu = $ci->db->get_where('user_menu', ['menu' => $menu])->row_array();
 
         $menu_id = $queryMenu['id_menu'];
 
         $userAccess = $ci->db->get_where('access_user', [
-
             'role_id' => $role_id,
             'menu_id' => $menu_id
         ]);
@@ -24,6 +23,7 @@ function is_logged_in()
         }
     }
 }
+
 
 function check_access($role_id, $menu_id)
 {
