@@ -8,7 +8,7 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">Table <?= $title; ?>  </h4> 
+                                    <h4 class="card-title">Table <?= $title; ?>  </h4>  <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data<i class="fa fa-plus"></i></button>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
@@ -104,7 +104,7 @@ foreach ($role as $i) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Edit role</h3>
             </div>
-            <form action="<?= base_url() . 'index.php/role/edit_role'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'admin/edit_role'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group" hidden>
                         <label class="control-label col-xs-3">ID role</label>

@@ -88,6 +88,13 @@ class Admin extends CI_Controller
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akses Diubah!</div>');
     }
+    public function edit_role()
+    {
+        $id = $this->input->post('id');
+        $role = $this->input->post('role');
+        $this->model_admin->edit_role($id, $role);
+        redirect('admin/role');
+    }
     public function hapus_role()
     {
         $id = $this->input->post('id_role');
