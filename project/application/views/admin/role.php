@@ -37,12 +37,12 @@
                                                     <td><?= $i; ?></td>
                                                     <td><?= $m['role']; ?></td>
                                                     <td class="text-right">
-                                                        <a class="btn btn-simple btn-success btn-icon input" href="<?= base_url('admin/roleaccess/') . $m['id_role']; ?>"><i class="material-icons">input</i></a>
-                                                        <a class="btn btn-simple btn-info btn-icon" data-toggle="modal" data-target="#modal_edit<?= $id; ?>"><i class="material-icons">create</i></a>
-                                                        <?php if($m['id_role'] == '1' || $m['id_role'] == '2') : ?>
-                                                            <a class="btn btn-simple btn-secondary btn-icon" disabled><i class="material-icons">remove_circle</i></a>
+                                                        <a href="<?= base_url('admin/roleaccess/') . $m['id_role']; ?>"><span class="label label-success">Akses Role</span></a>
+                                                        <a href="#" data-toggle="modal" data-target="#modal_edit<?= $id; ?>"><span class="label label-info">Edit Role</span></a>
+                                                        <?php if($m['id_role'] == '1' || $m['id_role'] == '2' || $m['id_role'] == '3' || $m['id_role'] == '4') : ?>
+                                                            <button class="btn btn-default btn-xs btn-round" disabled>Hapus Role</button>
                                                         <?php else :?>
-                                                            <a class="btn btn-simple btn-info btn-icon" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>"><i class="material-icons">remove_circle</i></a>
+                                                            <a href="#" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>"><<span class="label label-danger">Hapus Role</span></a>
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>
