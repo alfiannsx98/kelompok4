@@ -11,20 +11,18 @@ class Auth extends CI_Controller
     }
     public function index()
     {
-        if ($this->session->userdata('email'))
-        {
+        if ($this->session->userdata('email')) {
             redirect('user');
         }
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
-        if($this->form_validation->run() == false)
-        {
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Login Page';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/login');
             $this->load->view('templates/auth_footer');
-        }else{
+        } else {
 
             // Jika validasi berhasil dilakukan
             $this->_login();
@@ -67,10 +65,73 @@ class Auth extends CI_Controller
         }
     }
 
+    public function register()
+    {
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
+
+        $query = $this->db->query("SELECT * FROM user");
+        // Membuat id_user : gabungan dari date dan field 
+        $tabel = $query->num_rows();
+        $date = date('dm', time());
+        $id_user = "ID-U" . $tabel . $date;
+        // Validasi form set required(harus terisi atau not null), 
+        // is unique artinya tidak boleh sama, dan
+        // min_length adalah minimum pengisian sebagai contoh sandi minimal pengisian 8 digit.
+        // matches artinya menyamakan, dibuat untuk mencocokan data dari dua value yang berbeda.  
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+            'is_unique' => 'Email telah terdaftar di database!'
+        ]);
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
+            'matches' => 'Password Tidak Sama!',
+            'min_length' => 'Password Terlalu Pendek!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Halaman Register';
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/register');
+            $this->load->view('templates/auth_footer');
+        } else {
+            // Jika berhasil insert array...
+            $email = $this->input->post('email', true);
+            $data = [
+                'id_user' => $id_user,
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'email' => htmlspecialchars($email),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'role_id' => 2,
+                'is_active' => 0,
+                'date_created' => time()
+            ];
+            // Membuat token dengan angka random
+            // Disertai dengan batas waktu kadaluarsa
+            $token = base64_encode(random_bytes(32));
+            $token_user = [
+                'email' => $email,
+                'token' => $token,
+                'date_created' => time()
+            ];
+
+            // insert token ke database
+            $this->db->insert('user', $data);
+            $this->db->insert('token_user', $token_user);
+
+            $this->_sendEmail($token, 'verify');
+
+            // Pesan berhasil insert
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat anda berhasil registrasi, Cek email anda untuk aktivasi!!</div>');
+            redirect('auth/index');
+        }
+    }
 
     private function _sendEmail($token, $type)
     {
-        //"Click Alamat ini untuk verify akun anda  : <a href='" . base_url() . "auth/verify?email=" . $this->input->post('email') . "&token=" . $token . "'>Aktifkan!</a>"
+        // Config Setting 
         $config = [
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -81,6 +142,7 @@ class Auth extends CI_Controller
             'charset' => 'utf-8',
             'newline' => "\r\n"
         ];
+        // Jika pesan nya = verifikasi
         $emailAkun = $this->input->post('email');
         $pesanEmail = "
                                 <html>
@@ -96,6 +158,7 @@ class Auth extends CI_Controller
                                 </body>
                                 </html>
         ";
+        // Jika pesan nya = Lupa
         $ResetPassword = "
                                 <html>
                                 <head>
@@ -111,7 +174,7 @@ class Auth extends CI_Controller
                                 </html>
         ";
         $this->load->library('email', $config);
-        $this->email->from('alfianrochmatul77@gmail.com', 'Verifikasi Email (LUPA PASSWORD MAKK!)!!');
+        $this->email->from('arlopaz.uye121299@gmail.com', 'Verifikasi Email');
         $this->email->to($this->input->post('email'));
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
@@ -263,5 +326,3 @@ class Auth extends CI_Controller
         $this->load->view('auth/blocked');
     }
 }
-
-?>
