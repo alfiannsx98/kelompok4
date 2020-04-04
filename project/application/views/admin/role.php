@@ -39,7 +39,7 @@
                                                     <td><?= $m['role']; ?></td>
                                                     <td class="text-right">
                                                         <a href="<?= base_url('admin/roleaccess/') . $m['id_role']; ?>"><span class="label label-success">Akses Role</span></a>
-                                                        <a href="#" data-toggle="modal" data-target="#modal_edit<?= $id; ?>"><span class="label label-info">Edit Role</span></a>
+                                                        <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Role</button>
                                                         <?php if($m['id_role'] == '1' || $m['id_role'] == '2' || $m['id_role'] == '3' || $m['id_role'] == '4') : ?>
                                                             <button class="btn btn-default btn-xs btn-round" disabled>Hapus Role</button>
                                                         <?php else :?>

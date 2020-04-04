@@ -98,7 +98,7 @@ class Admin extends CI_Controller
             $id = $this->input->post('id');
             $role = $this->input->post('role');
             $this->model_admin->edit_role($id, $role);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
             redirect('admin/role');
         }
     }
@@ -106,7 +106,7 @@ class Admin extends CI_Controller
     {
         $id = $this->input->post('id_role');
         $this->model_admin->hapus_role($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('admin/role');
     }
 }
