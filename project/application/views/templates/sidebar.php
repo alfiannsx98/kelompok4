@@ -85,7 +85,15 @@
                     ";
                     $submenu = $this->db->query($querySubMenu)->result_array();
                     ?>
-                    <li>
+                    <?php
+                        $ci = get_instance();
+                        $url = $this->uri->segment(1);
+                        if($m['menu'] == $url) : 
+                    ?>
+                            <li class="active">
+                        <?php else : ?>
+                            <li>    
+                    <?php endif; ?>
                         <a data-toggle="collapse" href="#<?= $m['menu']; ?>Examples">
                             <i class="material-icons"><?= $m['icon']; ?></i>
                             <p><?= $m['menu']; ?>
@@ -93,7 +101,11 @@
                             </p>
                             
                         </a>
-                        <div class="collapse" id="<?= $m['menu']; ?>Examples">
+                        <?php if($m['menu'] == $url) : ?>
+                            <div class="collapse in" id="<?= $m['menu']; ?>Examples">
+                        <?php else : ?>
+                            <div class="collapse" id="<?= $m['menu']; ?>Examples">
+                        <?php endif; ?>
                             <ul class="nav">
                                 <?php foreach($submenu as $sm):  ?>
                                 <li>

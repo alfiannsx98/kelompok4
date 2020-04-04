@@ -6,7 +6,7 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // is_logged_in();
+        is_logged_in();
         $this->load->model('model_admin');
     }
 
@@ -15,7 +15,7 @@ class User extends CI_Controller
         $data['title'] = 'User';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
-            $this->session->userdata('email')    
+            $this->session->userdata('email')
         ])->row_array();
 
         $this->load->view('templates/header', $data);
