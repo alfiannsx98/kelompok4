@@ -10,6 +10,7 @@
                                     <h4 class="card-title">Edit Your Profile -
                                         <small class="category">Here is your bio</small>
                                     </h4>
+                                    <?= $this->session->flashdata('message'); ?>
                                     <?= form_open_multipart('user/edit'); ?>
                                         <div class="row">
                                             <div class="col-md-8">

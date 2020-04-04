@@ -9,6 +9,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title">Table <?= $title; ?>  </h4>  <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data<i class="fa fa-plus"></i></button>
+                                    <?= $this->session->flashdata('message'); ?>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
@@ -42,7 +43,7 @@
                                                         <?php if($m['id_role'] == '1' || $m['id_role'] == '2' || $m['id_role'] == '3' || $m['id_role'] == '4') : ?>
                                                             <button class="btn btn-default btn-xs btn-round" disabled>Hapus Role</button>
                                                         <?php else :?>
-                                                            <a href="#" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>"><<span class="label label-danger">Hapus Role</span></a>
+                                                            <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Role</button>
                                                         <?php endif; ?>
                                                     </td>
                                                 </tr>
