@@ -45,7 +45,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="<?= base_url(); ?>assets/img/image_user/<?= $user['image']; ?>" />
+                        <img src="<?= base_url(); ?>assets/img/profile/<?= $user['image']; ?>" />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
