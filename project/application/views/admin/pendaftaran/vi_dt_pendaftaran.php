@@ -214,49 +214,121 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="rose">
-                                    <i class="material-icons">assignment</i>
-                                </div>
-                                <h4 class="card-title">Simple Table</h4>
-                                <div class="card-content">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">No.</th>
-                                                    <th> Tempat PKL </th>
-                                                    <th> Dosen </th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <?php foreach($pendaftaran as $pnd){ ?>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center"><?php echo $pnd->ID_PND; ?></td>
-                                                    <td><?php echo $pnd->NAMA_PR; ?></td>
-                                                    <td><?php echo $pnd->NAMA_DS; ?></td>
-                                                    <td class="td-actions text-right">
-                                                    <?php echo anchor('admin/pendaftaran/vi_detail/'.$pnd->ID_PND,'<button type="button" rel="tooltip" class="btn btn-info btn-simple">
-                                                            <i class="material-icons">person</i>
-                                                        </button>'); ?>
-                                                        
-                                                        <button type="button" rel="tooltip" class="btn btn-success btn-simple">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" class="btn btn-danger btn-simple">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <?php } ?>
-                                        </table>
+                                <form method="get" action="#" class="form-horizontal">
+                                    <div class="card-header card-header-text" data-background-color="rose">
+                                        <h4 class="card-title">Form Elements</h4>
                                     </div>
-                                </div>
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <label class="col-sm-2 label-on-left">Tempat PKL</label>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating is-empty">
+                                                    <input type="text" class="form-control" value="add" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-2 label-on-left">Alamat</label>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating is-empty">
+                                                    <input type="text" class="form-control" value="add" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating is-empty">
+                                                    <input type="text" class="form-control" value="ad" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="card-content">
+                                                <div class="table-responsive">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">akf</th>
+                                                                <th class="text-left">ksfk</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-center">kjvh</td>
+                                                                <td class="text-left">kasjfh</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row">
+                                            <label class="col-sm-2 label-on-left">Disabled</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-group label-floating is-empty">
+                                                    <label class="control-label"></label>
+                                                    <input type="text" placeholder="Disabled input here..." disabled="" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-2 label-on-left">Static control</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-group">
+                                                    <p class="form-control-static">hello@creative-tim.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-2 label-on-left">Checkboxes and radios</label>
+                                            <div class="col-sm-10 checkbox-radios">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes"> First Checkbox
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes"> Second Checkbox
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios" checked="true"> First Radio
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios"> Second Radio
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-2 label-on-left">Inline checkboxes</label>
+                                            <div class="col-sm-10">
+                                                <div class="checkbox checkbox-inline">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes">a
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-inline">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes">b
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-inline">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes">c
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        
-                        
                     </div>
                 </div>
             </div>
