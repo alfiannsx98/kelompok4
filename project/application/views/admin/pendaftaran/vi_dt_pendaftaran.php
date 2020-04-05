@@ -207,6 +207,7 @@
                 </ul>
             </div>
         </div>
+        <!-- main panel -->
         <div class="main-panel">
             <?php $this->load->view("templates/navbar.php");?>
             <div class="content">
@@ -243,26 +244,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="card-content">
-                                                <div class="table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-center">akf</th>
-                                                                <th class="text-left">ksfk</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="text-center">kjvh</td>
-                                                                <td class="text-left">kasjfh</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         <!-- <div class="row">
                                             <label class="col-sm-2 label-on-left">Disabled</label>
                                             <div class="col-sm-10">
@@ -329,6 +311,48 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>                    
+                                                <th class="text-center">No.</th>
+                                                <th> Tempat PKL </th>
+                                                <th> Dosen </th>
+                                                <th class="text-right">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <?php foreach($pendaftaran_klp as $klp) { ?>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center"><?php echo $klp->ID_PND; ?></td>
+                                                <td><?php echo $klp->NAMA_M; ?></td>
+                                                <td>safasfsaf</td>
+                                                <td class="td-actions text-right">
+                                                <?php echo anchor('pendaftaran/tampil_detail/',
+                                                '<button type="button" rel="tooltip" class="btn btn-info btn-simple">
+                                                    <i class="material-icons">person</i>
+                                                </button>'); ?>
+                                                
+                                                <button type="button" rel="tooltip" class="btn btn-success btn-simple">
+                                                <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" class="btn btn-danger btn-simple">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <?php } ?>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>
