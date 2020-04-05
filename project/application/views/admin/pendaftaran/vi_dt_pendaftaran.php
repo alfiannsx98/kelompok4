@@ -221,10 +221,11 @@
                                     </div>
                                     <div class="card-content">
                                         <div class="row">
+                                        <?php foreach($pendaftaran as $pnd) { ?>
                                             <label class="col-sm-2 label-on-left">Tempat PKL</label>
                                             <div class="col-md-5">
                                                 <div class="form-group label-floating is-empty">
-                                                    <input type="text" class="form-control" value="add" disabled>
+                                                    <input type="text" class="form-control" value="<?= $pnd->NAMA_PR; ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +233,7 @@
                                             <label class="col-sm-2 label-on-left">Alamat</label>
                                             <div class="col-md-5">
                                                 <div class="form-group label-floating is-empty">
-                                                    <input type="text" class="form-control" value="add" disabled>
+                                                    <input type="text" class="form-control" value="<?= $pnd->ALAMAT_PR; ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,10 +241,11 @@
                                             <label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
                                             <div class="col-md-5">
                                                 <div class="form-group label-floating is-empty">
-                                                    <input type="text" class="form-control" value="ad" disabled>
+                                                    <input type="text" class="form-control" value="<?= $pnd->NAMA_DS; ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                         
                                         <!-- <div class="row">
                                             <label class="col-sm-2 label-on-left">Disabled</label>
@@ -326,7 +328,7 @@
                                                 <th class="text-right">Actions</th>
                                             </tr>
                                         </thead>
-                                        <?php foreach($pendaftaran_klp as $klp) { ?>
+                                        <?php foreach($pendaftaran as $klp) { ?>
                                         <tbody>
                                             <tr>
                                                 <td class="text-center"><?php echo $klp->ID_PND; ?></td>
