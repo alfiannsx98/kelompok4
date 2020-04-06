@@ -90,15 +90,23 @@ class Admin extends CI_Controller
     }
     public function edit_role()
     {
-        $id = $this->input->post('id');
-        $role = $this->input->post('role');
-        $this->model_admin->edit_role($id, $role);
-        redirect('admin/role');
+        $this->form_validation->set_rules('role', 'Role', 'required');
+
+        if ($this->form_validation->run() == false) {
+            redirect('admin/role');
+        } else {
+            $id = $this->input->post('id');
+            $role = $this->input->post('role');
+            $this->model_admin->edit_role($id, $role);
+            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
+            redirect('admin/role');
+        }
     }
     public function hapus_role()
     {
         $id = $this->input->post('id_role');
         $this->model_admin->hapus_role($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('admin/role');
     }
 }

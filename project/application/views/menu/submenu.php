@@ -47,8 +47,8 @@
                                                     <td><?= $m['title']; ?></td>
                                                     <td><?= $m['url']; ?></td>
                                                     <td class="text-right">
-                                                        <a class="btn btn-simple btn-info btn-icon" data-toggle="modal" data-target="#modal_edit<?= $id_user_sub_menu; ?>"><i class="material-icons">create</i></a>
-                                                        <a class="btn btn-simple btn-danger btn-icon" data-toggle="modal" data-target="#modal_hapus<?= $id_user_sub_menu; ?>"><i class="material-icons">remove_circle</i></a>
+                                                        <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id_user_sub_menu; ?>">Edit Submenu</button>
+                                                        <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id_user_sub_menu; ?>">Hapus Submenu</button>
                                                     </td>
                                                 </tr>
                                                 <?php $i++; ?>

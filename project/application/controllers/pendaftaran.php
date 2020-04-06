@@ -10,15 +10,17 @@ class Pendaftaran extends CI_Controller
 
     public function index()
     {
-        $data['pendaftaran'] = $this->m_pendaftaran->tampil_data()->result();
-		$this->load->view('admin/pendaftaran/vi_pendaftaran',$data);
+        $data['pendaftaran'] = $this->m_pendaftaran->tampil_pnd()->result();
+		$this->load->view('admin/pendaftaran/vi_pendaftaran', $data);
     }
 
-    public function tampil_detail()
-    // ($ID_PND)
+    public function tampil_detail($ID_PND)
     {
-        // $data["pendaftaran_pkl"] = $this->m_pendaftaran->detail_pnd($ID_PND, 'pendaftaran_pkl')->result();
-        $this->load->view("admin/pendaftaran/vi_dt_pendaftaran"); 
+        $data['pendaftaran'] = $this->m_pendaftaran->tampil_dt_pnd($ID_PND, 'pendaftaran')->result();
+        $this->load->view('admin/pendaftaran/vi_dt_pendaftaran', $data); 
+        
+        // $data1["pendaftaran"] = $this->m_pendaftaran->tampil_dt_klp($ID_PND, 'pendaftaran')->result();
+        // $this->load->view('admin/pendaftaran/vi_dt_pendaftaran', $data1);
     }
 
 }

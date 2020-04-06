@@ -9,6 +9,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title">Table <?= $title; ?></h4> <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data<i class="fa fa-plus"></i></button>
+                                    <?= $this->session->flashdata('message'); ?>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
@@ -18,6 +19,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Menu</th>
+                                                    <th>Icon</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -25,6 +27,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Menu</th>
+                                                    <th>Icon</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
@@ -36,9 +39,14 @@
                                                 <tr>
                                                     <td><?= $i; ?></td>
                                                     <td><?= $m['menu']; ?></td>
+                                                    <td><?= $m['icon']; ?></td>
                                                     <td class="text-right">
-                                                        <a class="btn btn-simple btn-info btn-icon" data-toggle="modal" data-target="#modal_edit<?= $id; ?>"><i class="material-icons">create</i></a>
-                                                        <a class="btn btn-simple btn-danger btn-icon" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>"><i class="material-icons">remove_circle</i></a>
+                                                    <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Menu</button>
+                                                    <?php if($m['id_menu'] == '1' || $m['id_menu'] == '2' || $m['id_menu'] == '3') : ?>
+                                                        <button class="btn btn-secondary btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>" disabled>Hapus Menu</button>
+                                                    <?php else : ?>
+                                                        <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Menu</button>
+                                                    <?php endif ?>
                                                     </td>
                                                 </tr>
                                                 <?php $i++; ?>
