@@ -4,7 +4,7 @@
                         <!--      Wizard container        -->
                         <div class="wizard-container">
                             <div class="card wizard-card" data-color="rose" id="wizardProfile">
-                                <form action="<?= base_url('auth/regmhs') ?>" method="POST" enctype="multipart/form-data">
+                                <form action="<?= base_url('auth/register') ?>" method="POST" enctype="multipart/form-data">
                                     <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                                     <div class="wizard-header">
                                         <h3 class="wizard-title">
