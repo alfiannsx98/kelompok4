@@ -17,7 +17,6 @@ class Pendaftaran extends CI_Controller
     public function tampil_detail($ID_PND)
     {
         $data['pendaftaran'] = $this->m_pendaftaran->tampil_dt_pnd($ID_PND, 'pendaftaran')->result();
-         
         
         $data["pendaftaran_klp"] = $this->m_pendaftaran->tampil_dt_klp($ID_PND, 'pendaftaran_klp')->result();
         $this->load->view('pendaftaran/vi_dt_pendaftaran', $data);
