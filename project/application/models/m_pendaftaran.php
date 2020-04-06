@@ -15,11 +15,6 @@ class M_pendaftaran extends CI_Model{
                                         AND pendaftaran.ID_DS = dosbing.ID_DS
                                         AND pendaftaran.ID_PND =  '$ID_PND'");
                         return $data;
-                $data1 = $this->db->query("SELECT pendaftaran_klp.ID_PND, pendaftaran_klp.ID_M, mahasiswa.NAMA_M
-                                        FROM pendaftaran_klp, mahasiswa
-                                        WHERE pendaftaran_klp.ID_M = mahasiswa.ID_M
-                                        AND pendaftaran_klp.ID_PND = '$ID_PND'");
-                        return $data1;
                 }
 
         function tampil_dt_klp($ID_PND){
