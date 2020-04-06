@@ -1,3 +1,7 @@
+</div>
+    </nav>
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page wizard-page" filter-color="black" data-image="<?= base_url(); ?>assets/img/login1.jpg">
             <div class="content">
                 <div class="container-fluid">
                     <div class="col-sm-8 col-sm-offset-2">
