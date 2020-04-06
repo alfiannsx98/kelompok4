@@ -229,10 +229,11 @@
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
+                                            <?php $nomor=1;?>
                                             <?php foreach($pendaftaran as $pnd){ ?>
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-center"><?php echo $pnd->ID_PND; ?></td>
+                                                    <td class="text-center"><?= $nomor++; ?></td>
                                                     <td><?php echo $pnd->NAMA_PR; ?></td>
                                                     <td><?php echo $pnd->NAMA_DS; ?></td>
                                                     <td class="td-actions text-right">
