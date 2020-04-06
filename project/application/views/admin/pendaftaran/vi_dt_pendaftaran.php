@@ -227,6 +227,7 @@
                                                 <div class="form-group label-floating is-empty">
                                                     <input type="text" class="form-control" value="<?= $pnd->NAMA_PR; ?>" disabled>
                                                 </div>
+                                                <input type="hidden" value="<?= $pnd->ID_PR; ?>">
                                             </div>
                                         </div>
                                         <div class="row">

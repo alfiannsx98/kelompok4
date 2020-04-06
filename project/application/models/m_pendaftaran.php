@@ -9,7 +9,7 @@ class M_pendaftaran extends CI_Model{
         }
 
         function tampil_dt_pnd($ID_PND){
-                $data=$this->db->query("SELECT pendaftaran.ID_PND, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
+                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
                                         FROM pendaftaran, perusahaan, dosbing
                                         WHERE pendaftaran.ID_PR = perusahaan.ID_PR 
                                         AND pendaftaran.ID_DS = dosbing.ID_DS
