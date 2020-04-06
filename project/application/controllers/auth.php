@@ -129,6 +129,156 @@ class Auth extends CI_Controller
         }
     }
 
+    public function regmhs()
+    {
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
+        
+        $query = $this->db->query("SELECT * FROM user");
+        $query = $this->db->query("SELECT * FROM mahasiswa");
+        // Membuat id_user : gabungan dari date dan field 
+        $tabel = $query->num_rows();
+        $date = date('dm', time());
+        $id_u = "ID-U" . $tabel . $date;
+        $id_m = "ID-M" . $tabel . $date;
+        $prodi = $this->input->post('prodi');
+        $jk = $this->input->post('jk');
+
+        /**
+         * codingan untuk upload gambar
+         */
+        function upload(){
+            $profil = $_FILES['image'];
+            
+            if($profil == ''){
+                $profil = 'default.jpg';
+            }else{
+                $config['upload_path'] = './upload/mahasiswa';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+    
+                $this->load->library('upload',$config);
+                if(!$this->upload->do_upload('image')){
+                    $this->form_validation->set_rules('image', 'Nama', 'allowed_types', [
+                        'allowed_types' => 'format gambar tidak didukung'
+                    ]); 
+                }else{
+                    $profil=$this->upload->data('file_name');
+                }
+            }
+        }
+        
+        
+        /**
+         * codingan untuk jenis kelamin
+         */
+        // if($jk == 'Laki-laki'){
+        //     $jk = 'Laki-laki';
+        // }else if($jk == 'Perempuan'){
+        //     $jk == 'Perempuan';
+        // }
+
+        /**
+         * codingan untuk pemilihan prodi
+         */
+        if($prodi == 'D3-Manajemen Informatika'){
+            $prodi = 'D3-Manajemen Informatika';
+        }else if($prodi == 'D3-Teknik Komputer'){
+            $prodi == 'D3-Teknik Komputer';
+        }else if($prodi = 'D4-Teknik Informatika'){
+            $prodi = 'D4-Teknik Informatika';
+        }
+        // Validasi form set required(harus terisi atau not null), 
+        // is unique artinya tidak boleh sama, dan
+        // min_length adalah minimum pengisian sebagai contoh sandi minimal pengisian 8 digit.
+        // matches artinya menyamakan, dibuat untuk mencocokan data dari dua value yang berbeda.    
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+            'required' => 'nama harus diisi'
+        ]);
+        $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
+            'required' => 'Semester harus diisi'
+        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+            'required' => 'Alamat harus diisi'
+        ]);
+        $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.NIM]|min_length[9]|max_length[9]', [
+            'required' => 'NIM harus diisi',
+            'is_unique' => 'NIM sudah terdaftar',
+            'min_length' => 'NIM terlalu pendek',
+            'max_length' => 'NIM terlalu panjang'
+        ]);
+        $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]',[
+            'required' => 'No HP harus diisi',
+            'min_length' => 'No HP terlalu pendek',
+            'max_length' => 'No HP terlalu panjang'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+            'is_unique' => 'Email telah terdaftar di database!'
+        ]);
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
+            'required' => 'Password harus diisi',
+            'matches' => 'Password Tidak Sama!',
+            'min_length' => 'Password Terlalu Pendek!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]', [
+            'matches' => 'Password Tidak Sama!'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Register Mahasiswa';
+            $this->load->view('templates/header_reg', $data);
+            $this->load->view('auth/regmhs');
+            $this->load->view('templates/footer');
+            $this->load->view('templates/js_reg');
+        } else {
+            // Jika berhasil insert array...
+            $email = $this->input->post('email', true);
+
+            $data = [
+                'id_user' => $id_u,
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'email' => htmlspecialchars($email),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'role_id' => 2,
+                'is_active' => 0,
+                'date_created' => time()
+            ];
+
+            $data1 = [
+                'ID_M' => $id_m,
+                'NIM' => htmlspecialchars($this->input->post('nim', true)),
+                'NAMA_M' => htmlspecialchars($this->input->post('nama', true)),
+                'JK_M' => $jk,
+                'PRODI_M' => $prodi,
+                'SMT' => htmlspecialchars($this->input->post('semester', true)),
+                'ALAMAT_M' => htmlspecialchars($this->input->post('alamat', true)),
+                'HP_M' => htmlspecialchars($this->input->post('nohp', true)),
+                'EMAIL_M' => htmlspecialchars($email),
+                'PASSWORD_M' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT)
+            ];
+            // Membuat token dengan angka random
+            // Disertai dengan batas waktu kadaluarsa
+            $token = base64_encode(random_bytes(32));
+            $token_user = [
+                'email' => $email,
+                'token' => $token,
+                'date_created' => time()
+            ];
+
+            // insert token ke database
+            $this->db->insert('user', $data);
+            $this->db->insert('mahasiswa', $data1);
+            $this->db->insert('token_user', $token_user);
+
+            $this->_sendEmail($token, 'verify');
+
+            // Pesan berhasil insert
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat anda berhasil registrasi, Cek email anda untuk aktivasi!!</div>');
+            redirect('auth/index');
+        }
+    }
+
     private function _sendEmail($token, $type)
     {
         // Config Setting 
