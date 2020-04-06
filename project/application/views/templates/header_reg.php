@@ -46,3 +46,7 @@
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/css/google-roboto-300-700.css" rel="stylesheet" />
 </head>
+
+<body>
+    <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+        <div class="container">

@@ -234,25 +234,25 @@ class Auth extends CI_Controller
         /**
          * codingan untuk upload gambar
          */
-        function upload(){
-            $profil = $_FILES['image'];
+        // function upload(){
+        //     $profil = $_FILES['image'];
             
-            if($profil == ''){
-                $profil = 'default.jpg';
-            }else{
-                $config['upload_path'] = './upload/mahasiswa';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        //     if($profil == ''){
+        //         $profil = 'default.jpg';
+        //     }else{
+        //         $config['upload_path'] = './upload/mahasiswa';
+        //         $config['allowed_types'] = 'jpg|jpeg|png|gif';
     
-                $this->load->library('upload',$config);
-                if(!$this->upload->do_upload('image')){
-                    $this->form_validation->set_rules('image', 'Nama', 'allowed_types', [
-                        'allowed_types' => 'format gambar tidak didukung'
-                    ]); 
-                }else{
-                    $profil=$this->upload->data('file_name');
-                }
-            }
-        }
+        //         $this->load->library('upload',$config);
+        //         if(!$this->upload->do_upload('image')){
+        //             $this->form_validation->set_rules('image', 'Nama', 'allowed_types', [
+        //                 'allowed_types' => 'format gambar tidak didukung'
+        //             ]); 
+        //         }else{
+        //             $profil=$this->upload->data('file_name');
+        //         }
+        //     }
+        // }
         
         
         /**
@@ -314,8 +314,7 @@ class Auth extends CI_Controller
             $data['title'] = 'Register Mahasiswa';
             $this->load->view('templates/header_reg', $data);
             $this->load->view('auth/regmhs');
-            $this->load->view('templates/footer');
-            $this->load->view('templates/js_reg');
+            $this->load->view('templates/footer_reg');
         } else {
             // Jika berhasil insert array...
             $email = $this->input->post('email', true);
