@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2020 at 11:20 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.6
+-- Generation Time: Apr 06, 2020 at 11:08 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `access_user` (
   `id_access_menu` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `menu_id` varchar(32) NOT NULL
+  `menu_id` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,10 +39,17 @@ CREATE TABLE `access_user` (
 --
 
 INSERT INTO `access_user` (`id_access_menu`, `role_id`, `menu_id`) VALUES
-(1, 1, 'M1'),
-(2, 1, 'M2'),
-(3, 1, 'M3'),
-(4, 2, 'M2');
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(7, 2, 3),
+(8, 2, 2),
+(9, 3, 2),
+(10, 4, 2),
+(16, 1, 6),
+(17, 1, 7),
+(18, 1, 8),
+(22, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -102,13 +109,20 @@ CREATE TABLE `mahasiswa` (
   `NIM` varchar(20) DEFAULT NULL,
   `NAMA_M` varchar(50) DEFAULT NULL,
   `JK_M` varchar(10) DEFAULT NULL,
-  `PRODI_M` varchar(10) DEFAULT NULL,
+  `PRODI_M` varchar(30) DEFAULT NULL,
   `SMT` char(5) DEFAULT NULL,
   `ALAMAT_M` varchar(100) DEFAULT NULL,
   `HP_M` varchar(20) DEFAULT NULL,
   `EMAIL_M` varchar(30) DEFAULT NULL,
   `PASSWORD_M` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`ID_M`, `NIM`, `NAMA_M`, `JK_M`, `PRODI_M`, `SMT`, `ALAMAT_M`, `HP_M`, `EMAIL_M`, `PASSWORD_M`) VALUES
+('ID-M00604', 'E41232323', 'Alfian Rochmatul Irman', 'Laki-laki', 'D3-Teknik ', '5', 'ok di jember', '081252223124', 'garmayunanto@gmail.com', '$2y$10$AWm5ghuf9yu1eEfrw0Pbf.c/7iuFmLe4HikSGvjPOse');
 
 -- --------------------------------------------------------
 
@@ -143,34 +157,14 @@ CREATE TABLE `perusahaan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_user`
---
-
-CREATE TABLE `role_user` (
-  `id_role` int(11) NOT NULL,
-  `role` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `role_user`
---
-
-INSERT INTO `role_user` (`id_role`, `role`) VALUES
-(1, 'admin'),
-(2, 'user');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `submenu_user`
 --
 
 CREATE TABLE `submenu_user` (
   `id_submenu` int(11) NOT NULL,
-  `menu_id` varchar(32) NOT NULL,
-  `title` varchar(64) NOT NULL,
-  `url` varchar(64) NOT NULL,
-  `icon` varchar(64) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `url` varchar(128) NOT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -178,9 +172,17 @@ CREATE TABLE `submenu_user` (
 -- Dumping data for table `submenu_user`
 --
 
-INSERT INTO `submenu_user` (`id_submenu`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
-(1, 'M1', 'asd', 'ads', 'asd', 1),
-(2, 'M1', 'asdsad', 'asddas', 'asdsad', 1);
+INSERT INTO `submenu_user` (`id_submenu`, `menu_id`, `title`, `url`, `is_active`) VALUES
+(2, 1, 'Dashboard', 'admin', 1),
+(3, 2, 'My Profile', 'user', 1),
+(4, 2, 'Edit Profile', 'user/edit', 1),
+(5, 3, 'Management Menu\r\n', 'menu', 1),
+(6, 3, 'Sub Menu Management\r\n', 'menu/submenu', 1),
+(7, 1, 'Role', 'admin/role', 1),
+(8, 2, 'Edit Password', 'user/edit_password', 1),
+(9, 4, 'Car Data', 'transaksi/mobil', 1),
+(10, 0, 'Data Mobil', 'cms', 1),
+(18, 10, 'Privacy and Policy', 'pengaman/privacy_policy', 1);
 
 -- --------------------------------------------------------
 
@@ -195,6 +197,15 @@ CREATE TABLE `token_user` (
   `date_created` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `token_user`
+--
+
+INSERT INTO `token_user` (`id_token`, `email`, `token`, `date_created`) VALUES
+(2, 'garmayunanto@gmail.com', 'MTSf+G8KXloij9IZO3/3XTZ9sitk2FPtT66WIfG/arw=', 1586163599),
+(3, '1asd@gasd.com', 'EiASNHAw2QOsfJtL0aOUeofH4ivmk7FqjJyA5+eIcuU=', 1586163866),
+(4, 'garmayunanto@gmail.com', 'FM7qIeYgU48ruMrjjiKuqIhjXy3dl1aqrZV5FCIg0M8=', 1586164022);
+
 -- --------------------------------------------------------
 
 --
@@ -207,18 +218,20 @@ CREATE TABLE `user` (
   `email` varchar(48) NOT NULL,
   `image` varchar(48) NOT NULL,
   `password` varchar(64) NOT NULL,
+  `about` varchar(64) NOT NULL,
   `role_id` int(11) NOT NULL,
   `is_active` int(11) NOT NULL,
-  `date_created` int(15) NOT NULL
+  `date_created` int(15) NOT NULL,
+  `change_pass` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nama`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-('ID-U11302', 'Alfian Rochmatul Irman', 'alfianrochmatul77@gmail.com', 'default.jpg', '$2y$10$gfudft15mCxaxhvkzrsrZeqM27pkzlb.EArC8JTAtDK6vtsT1PqH6', 1, 1, 1583394165),
-('ID-U11344', 'Rohmat', 'alfianrochmatul77a@gmail.com', 'default.jpg', '$2y$10$gfudft15mCxaxhvkzrsrZeqM27pkzlb.EArC8JTAtDK6vtsT1PqH6', 2, 1, 1583394165);
+INSERT INTO `user` (`id_user`, `nama`, `email`, `image`, `password`, `about`, `role_id`, `is_active`, `date_created`, `change_pass`) VALUES
+('ID-U00604', 'Alfian Rochmatul Irman', 'garmayunanto@gmail.com', 'default.jpg', '$2y$10$Q6ZW5aOg1YahAYU8K7aOiO8e61Nn.HWu7Y0jmA7mcQQJv8LNmNwji', '', 2, 0, 1586164022, 0),
+('ID-U11302', 'Alfian Rochmatul Irman', 'alfianrochmatul77@gmail.com', 'IMG-20190925-WA0001.jpg', '$2y$10$f/jV1xprbFrAD36d2MeEl.hQJa.zP9beT.OFuCxB9jY1brlu1E7jO', 'Aku harus semangat!', 1, 1, 1583394165, 1586009053);
 
 -- --------------------------------------------------------
 
@@ -227,18 +240,43 @@ INSERT INTO `user` (`id_user`, `nama`, `email`, `image`, `password`, `role_id`, 
 --
 
 CREATE TABLE `user_menu` (
-  `id_menu` varchar(32) NOT NULL,
-  `menu` varchar(32) NOT NULL
+  `id_menu` int(11) NOT NULL,
+  `menu` varchar(32) NOT NULL,
+  `icon` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_menu`
 --
 
-INSERT INTO `user_menu` (`id_menu`, `menu`) VALUES
-('M1', 'Dashboard'),
-('M2', 'User'),
-('M3', 'Menu');
+INSERT INTO `user_menu` (`id_menu`, `menu`, `icon`) VALUES
+(1, 'admin', 'dashboard'),
+(2, 'user', 'contacts'),
+(3, 'menu', 'menu'),
+(6, 'dosen', 'supervisor_account'),
+(7, 'perusahaan', 'domain'),
+(8, 'pendaftaran', 'work_outline');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `id_role` int(11) NOT NULL,
+  `role` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`id_role`, `role`) VALUES
+(1, 'admin'),
+(2, 'mahasiswa'),
+(3, 'Dosen'),
+(4, 'Dosen Pengampu PKL');
 
 --
 -- Indexes for dumped tables
@@ -291,12 +329,6 @@ ALTER TABLE `perusahaan`
   ADD PRIMARY KEY (`ID_PR`);
 
 --
--- Indexes for table `role_user`
---
-ALTER TABLE `role_user`
-  ADD PRIMARY KEY (`id_role`);
-
---
 -- Indexes for table `submenu_user`
 --
 ALTER TABLE `submenu_user`
@@ -321,6 +353,12 @@ ALTER TABLE `user_menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
+-- Indexes for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id_role`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -328,25 +366,31 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `access_user`
 --
 ALTER TABLE `access_user`
-  MODIFY `id_access_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `role_user`
---
-ALTER TABLE `role_user`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_access_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `submenu_user`
 --
 ALTER TABLE `submenu_user`
-  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `token_user`
 --
 ALTER TABLE `token_user`
-  MODIFY `id_token` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_token` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user_menu`
+--
+ALTER TABLE `user_menu`
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

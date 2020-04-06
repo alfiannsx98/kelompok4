@@ -6,12 +6,28 @@ class Pendaftaran extends CI_Controller
 		parent::__construct();		
 		$this->load->model('m_pendaftaran');
         $this->load->helper('url');
+        is_logged_in();
+        $this->load->model('model_admin');
 	}
 
     public function index()
     {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+
         $data['pendaftaran'] = $this->m_pendaftaran->tampil_pnd()->result();
-		$this->load->view('pendaftaran/vi_pendaftaran', $data);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_pendaftaran', $data);
+        $this->load->view('templates/footer');
+
+        
+		// $this->load->view('pendaftaran/vi_pendaftaran', $data);
     }
 
     public function tampil_detail($ID_PND)
