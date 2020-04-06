@@ -50,7 +50,6 @@ class Perusahaan extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('perusahaan/v_perusahaan', $data);
             $this->load->view('templates/footer');
-            $this->load->view('templates/js_reg');
         } else {
             $data = [
                 'ID_PR' => $id_p,
@@ -69,7 +68,7 @@ class Perusahaan extends CI_Controller
     public function hapus_perusahaan(){
         $id = $this->input->post('id_pr');
         $this->m_perusahaan->hapus_pr($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Data Berhasil Dihapus</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('Perusahaan');
     }
 
