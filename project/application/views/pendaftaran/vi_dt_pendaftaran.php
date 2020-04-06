@@ -215,7 +215,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <form method="get" action="#" class="form-horizontal">
+                            <form method="get" action="#" class="form-horizontal">
                                     <div class="card-header card-header-text" data-background-color="rose">
                                         <h4 class="card-title">Form Elements</h4>
                                     </div>
@@ -227,6 +227,7 @@
                                                 <div class="form-group label-floating is-empty">
                                                     <input type="text" class="form-control" value="<?= $pnd->NAMA_PR; ?>" disabled>
                                                 </div>
+                                                <input type="hidden" value="<?= $pnd->ID_PR; ?>">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -323,17 +324,17 @@
                                         <thead>
                                             <tr>                    
                                                 <th class="text-center">No.</th>
-                                                <th> Tempat PKL </th>
-                                                <th> Dosen </th>
+                                                <th> Nama Mahasiswa </th>
                                                 <th class="text-right">Actions</th>
                                             </tr>
                                         </thead>
-                                        <?php foreach($pendaftaran as $klp) { ?>
+                                        <?php $nomor = 1; ?>
+                                        <?php foreach($pendaftaran_klp as $klp) { ?>
                                         <tbody>
                                             <tr>
-                                                <td class="text-center"><?php echo $klp->ID_PND; ?></td>
+                                                
+                                                <td class="text-center"><?= $nomor++; ?></td>
                                                 <td><?php echo $klp->NAMA_M; ?></td>
-                                                <td>safasfsaf</td>
                                                 <td class="td-actions text-right">
                                                 <?php echo anchor('pendaftaran/tampil_detail/',
                                                 '<button type="button" rel="tooltip" class="btn btn-info btn-simple">
