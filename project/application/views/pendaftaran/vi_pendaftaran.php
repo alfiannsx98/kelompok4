@@ -1,17 +1,4 @@
-<!doctype html>
-<html lang="en">
-
-
-<!-- Mirrored from demos.creative-tim.com/material-dashboard-pro/examples/tables/extended.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 21:33:58 GMT -->
-<head>
-    <?php $this->load->view("templates/header.php"); ?>
-</head>
-
-<body>
-        <?php $this->load->view("templates/sidebar.php"); ?>
-        <div class="main-panel">
-            <?php $this->load->view("templates/navbar.php");?>
-            <div class="content">
+<div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -58,9 +45,10 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
                     </div>
                 </div>
             </div>
-            <?php $this->load->view("templates/footer.php"); ?>
+        <!-- </div> -->
+    <!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
