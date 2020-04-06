@@ -9,7 +9,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title">Table <?= $title; ?></h4> <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data<i class="fa fa-plus"></i></button>
-                                    <!-- $this->session->flashdata('message'); -->
+                                    <?= $this->session->flashdata('message'); ?>
                                     <div class="toolbar">
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
@@ -18,6 +18,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
+                                                    <th>ID</th>
                                                     <th>Nama Perusahaan</th>
                                                     <th>Alamat Perusahaan</th>
                                                     <th>No Telefon</th>
@@ -29,6 +30,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <th>#</th>
+                                                    <th>ID</th>
                                                     <th>Nama Perusahaan</th>
                                                     <th>Alamat Perusahaan</th>
                                                     <th>No Telefon</th>
@@ -49,6 +51,7 @@
                                             ?>
                                                 <tr>
                                                     <td><?= $i; ?></td>
+                                                    <td><?= $id; ?></td>
                                                     <td><?= $nama; ?></td>
                                                     <td><?= $alamat; ?></td>
                                                     <td><?= $hp; ?></td>
@@ -88,26 +91,40 @@
                 <h5 class="modal-title" id="newroleModal">Create New Data</h5>
                 </button>   
             </div>
-            <form action="<?= base_url('menu/submenu'); ?>" method="post">
+            <form action="<?= base_url('Perusahaan'); ?>" method="post">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Nama Perusahaan</label>
+                    <div class="form-group label-floating">
+                        <label for="">Nama Perusahaan
+                            <small>(required)</small>
+                        </label>
                         <input type="text" class="form-control" name="nama" placeholder="nama perusahaan">
+                        <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
-                        <label for="">Alamat Perusahaan</label>
+                    <div class="form-group label-floating">
+                        <label for="">Alamat Perusahaan
+                            <small>(required)</small>
+                        </label>
                         <input type="text" name="alamat" placeholder="alamat perusahaan" class="form-control">
+                        <?= form_error('alamat', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
-                        <label for="">No Telefon</label>
+                    <div class="form-group label-floating">
+                        <label for="">No Telefon
+                            <small>(required)</small>
+                        </label>
                         <input type="text" name="nohp" placeholder="masukkan no telefon" class="form-control">
+                        <?= form_error('nohp', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
-                        <label for="">Email Perusahaan</label>
-                        <input type="text" name="email" placeholder="masukkan email" class="form-control">
+                    <div class="form-group label-floating">
+                        <label for="">Email Perusahaan
+                            <small>(required)</small>
+                        </label>
+                        <input type="email" name="email" placeholder="masukkan email" class="form-control">
+                        <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
-                        <label for="">Rating</label>
+                    <div class="form-group label-floating">
+                        <label for="">Rating
+                            <small>(required)</small>
+                        </label>
                         <select class="form-control" name="rating" id="rating">
                             <option value="Bintang 1">Bintang 1</option>
                             <option value="Bintang 2">Bintang 2</option>
@@ -115,6 +132,7 @@
                             <option value="Bintang 4">Bintang 4</option>
                             <option value="Bintang 5">Bintang 5</option>
                         </select>
+                        <?= form_error('rating', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -128,10 +146,13 @@
 
 
 <?php
-foreach ($subMenu as $i) :
-    $id = $i['id_submenu'];
-    $title = $i['title'];
-    $url = $i['url'];
+foreach ($pt as $i) :
+    $id = $i['ID_PR'];
+    $nama = $i['NAMA_PR'];
+    $alamat = $i['ALAMAT_PR'];
+    $nohp = $i['HP_PR'];
+    $email = $i['EMAIL_PR'];
+    $rating = $i['RATING'];
     ?>
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -140,25 +161,47 @@ foreach ($subMenu as $i) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Edit role</h3>
             </div>
-            <form action="<?= base_url('menu/edit_submenu'); ?>" method="post">
+            <form action="<?= base_url('Perusahaan/edit_perusahaan'); ?>" method="post">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <input type="hidden" name="id_submenu" id="id_submenu" value="<?= $id; ?>">
-                        <label for="">Pilih Menu</label>
-                        <select class="form-control" name="menu_id" id="menu_id">
-                            <?php foreach($menu as $m) : ?>
-                            <option value="<?= $m['id_menu']; ?>"><?= $m['menu']; ?></option>
-                            <?php endforeach; ?>
+                    <div class="form-group label-floating">
+                        <input type="hidden" name="id_pr" id="id_pr" value="<?= $id; ?>">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="">Nama Perusahaan
+                            <small>(required)</small>
+                        </label>
+                        <input type="text" class="form-control" name="nama" value="<?= $nama; ?>" placeholder="nama perusahaan">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="">Alamat Perusahaan
+                            <small>(required)</small>
+                        </label>
+                        <input type="text" class="form-control" name="alamat" value="<?= $alamat; ?>" placeholder="alamat perusahaan">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="">No Telefon
+                            <small>(required)</small>
+                        </label>
+                        <input type="text" class="form-control" name="nohp" value="<?= $nohp; ?>" placeholder="no telefon">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="">Email Perusahaan
+                            <small>(required)</small>
+                        </label>
+                        <input type="text" class="form-control" name="email" value="<?= $email; ?>" placeholder="email perusahaan">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="">Rating
+                            <small>(required)</small>
+                        </label>
+                        <select class="form-control" name="rating" id="rating">
+                            <option value="<?= $rating; ?>"><?= $rating; ?></option>
+                            <option value="Bintang 1">Bintang 1</option>
+                            <option value="Bintang 2">Bintang 2</option>
+                            <option value="Bintang 3">Bintang 3</option>
+                            <option value="Bintang 4">Bintang 4</option>
+                            <option value="Bintang 5">Bintang 5</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Isikan Title Submenunya</label>
-                        <input type="text" class="form-control" name="title" value="<?= $title; ?>" placeholder="masukkan title">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Isikan URL Submenunya</label>
-                        <input type="text" name="url" placeholder="masukkan url" value="<?= $url; ?>" class="form-control">
-                        <input type="hidden" value="1" name="is_active">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -177,12 +220,12 @@ foreach ($subMenu as $i) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Hapus Menu</h3>
             </div>
-            <form action="<?= base_url() . 'menu/hapus_submenu'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'Perusahaan/hapus_perusahaan'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $title; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="id_menu" value="<?= $id; ?>">
+                    <input type="hidden" name="id_pr" value="<?= $id; ?>">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>
@@ -190,5 +233,4 @@ foreach ($subMenu as $i) :
         </div>
     </div>
 </div>
-
 <?php endforeach; ?>
