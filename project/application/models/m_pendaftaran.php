@@ -24,4 +24,10 @@ class M_pendaftaran extends CI_Model{
                                         AND pendaftaran_klp.ID_PND = '$ID_PND'");
                         return $data;
         }
+
+        function selectMaxID(){
+                $query = $this->db->query("SELECT MAX(ID_PND) as ID_PND from pendaftaran");
+                $hasil = $query->row();
+                return $hasil->ID_PND;       
+        }
 }

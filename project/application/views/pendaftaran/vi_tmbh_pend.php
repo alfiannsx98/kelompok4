@@ -1,28 +1,28 @@
+<?php echo "PND".sprintf("%0s", $ID_PND); ?>
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="card">
-					<form method="get" action="#" class="form-horizontal">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="get" action="#" class="form-horizontal">
 						<div class="card-header card-header-text" data-background-color="rose">
-							<h4 class="card-title">Form Elements</h4>
+							<h4 class="card-title">Form Pendaftaran PKL</h4>
 						</div>
 						<div class="card-content">
 							<div class="row">
-								<?php foreach($pendaftaran as $pnd) { ?>
 								<label class="col-sm-2 label-on-left">Tempat PKL</label>
 								<div class="col-md-5">
 									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value="<?= $pnd->NAMA_PR; ?>" disabled>
+										<input type="text" class="form-control" value="" disabled>
 									</div>
-									<input type="hidden" value="<?= $pnd->ID_PR; ?>">
+									<input type="hidden" value="">
 								</div>
 							</div>
 							<div class="row">
 								<label class="col-sm-2 label-on-left">Alamat</label>
 								<div class="col-md-5">
 									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value="<?= $pnd->ALAMAT_PR; ?>"
+										<input type="text" class="form-control" value=""
 											disabled>
 									</div>
 								</div>
@@ -31,11 +31,10 @@
 								<label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
 								<div class="col-md-5">
 									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value="<?= $pnd->NAMA_DS; ?>" disabled>
+										<input type="text" class="form-control" value="" disabled>
 									</div>
 								</div>
 							</div>
-							<?php } ?>
 
 							<!-- <div class="row">
                                             <label class="col-sm-2 label-on-left">Disabled</label>
@@ -101,50 +100,8 @@
                                         </div> -->
 						</div>
 					</form>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-content">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th class="text-center">No.</th>
-										<th> Nama Mahasiswa </th>
-										<th class="text-right">Actions</th>
-									</tr>
-								</thead>
-								<?php $nomor = 1; ?>
-								<?php foreach($pendaftaran_klp as $klp) { ?>
-								<tbody>
-									<tr>
-
-										<td class="text-center"><?= $nomor++; ?></td>
-										<td><?php echo $klp->NAMA_M; ?></td>
-										<td class="td-actions text-right">
-											<?php echo anchor('pendaftaran/tampil_detail/',
-                                                '<button type="button" rel="tooltip" class="btn btn-info btn-simple">
-                                                    <i class="material-icons">person</i>
-                                                </button>'); ?>
-
-											<button type="button" rel="tooltip" class="btn btn-success btn-simple">
-												<i class="material-icons">edit</i>
-											</button>
-											<button type="button" rel="tooltip" class="btn btn-danger btn-simple">
-												<i class="material-icons">close</i>
-											</button>
-										</td>
-									</tr>
-								</tbody>
-								<?php } ?>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+                </div>
+            </div>
 		</div>
 	</div>
 </div>
