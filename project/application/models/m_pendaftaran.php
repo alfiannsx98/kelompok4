@@ -30,4 +30,14 @@ class M_pendaftaran extends CI_Model{
                 $hasil = $query->row();
                 return $hasil->ID_PND;       
         }
+
+        function namaDS(){
+                $data = $this->db->query("SELECT ID_DS, NAMA_DS FROM dosbing");
+                return $data;
+        }
+
+        function namaPR(){
+                $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
+                return $data;
+        }
 }

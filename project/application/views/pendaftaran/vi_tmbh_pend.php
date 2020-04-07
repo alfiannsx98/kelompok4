@@ -1,30 +1,41 @@
-<?php echo "PND".sprintf("%0s", $ID_PND); ?>
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <form method="get" action="#" class="form-horizontal">
+			<div class="col-md-12">
+				<div class="card">
+					<form method="post" action="" class="form-horizontal">
 						<div class="card-header card-header-text" data-background-color="rose">
 							<h4 class="card-title">Form Pendaftaran PKL</h4>
 						</div>
 						<div class="card-content">
+							<input type="text" readonly value="<?php echo "PND".sprintf("%0s", $ID_PND); ?>">
 							<div class="row">
 								<label class="col-sm-2 label-on-left">Tempat PKL</label>
 								<div class="col-md-5">
 									<div class="form-group label-floating is-empty">
+										<select name="ID_PR" id="ID_PR">
+											<option value="">Pilih Tempat PKL</option>
+											<?php foreach($perusahaan as $pr){
+                                            echo '<option type="text" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR.'</option>';
+                                            }?>
+										</select>
 										<input type="text" class="form-control" value="" disabled>
 									</div>
-									<input type="hidden" value="">
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-2 label-on-left">Alamat</label>
+								<label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
 								<div class="col-md-5">
 									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value=""
-											disabled>
+										<select name="ID_DS" id="ID_DS">
+											<option value="">Pilih Dosen Pembimbing</option>
+											<?php foreach($dosbing as $ds){
+                                            echo '<option type="text" value="'.$ds->ID_DS.'">'.$ds->NAMA_DS.'</option>';
+                                        }?>
+										</select>
+										<input type="text" class="form-control" value="" disabled>
 									</div>
+									<input type="hidden" value="">
 								</div>
 							</div>
 							<div class="row">
@@ -100,8 +111,8 @@
                                         </div> -->
 						</div>
 					</form>
-                </div>
-            </div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
