@@ -6,6 +6,7 @@ class Dosen extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->library('form_validation');
         $this->load->model('model_dosen');
         is_logged_in();
     }
@@ -53,17 +54,94 @@ class Dosen extends CI_Controller
                 'nama' => $this->input->post('NAMA_ADM'),
                 'email' => $this->input->post('EMAIL_ADM'),
                 'image' => "default.jpg",
-                'password' => $this->input->post('PASSWORD_ADM'),
+                'password' => password_hash($this->input->post('PASSWORD_ADM'), PASSWORD_DEFAULT),
                 'about' => "#",
                 'role_id' => 12,
                 'is_active' => 0,
                 'date_created' => time(),
                 'change_pass' => 0
             ];
+            $email = $this->input->post('EMAIL_ADM', true);
+
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token,
+                'date_created' => time()
+            ];
+
+            $this->db->insert('token_user', $user_token);
+
+            $this->_sendEmail($token, 'verify');
+
             $this->db->insert('user', $dataUser);
             $this->db->insert('admin_prodi', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
             redirect('dosen/admin_prodi');
+        }
+    }
+    private function _sendEmail($token, $type)
+    {
+        // Config Setting 
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'emailpass49@gmail.com',
+            'smtp_pass' => 'IndowebsteR9',
+            'smtp_port' => 587,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
+        // Jika pesan nya = verifikasi
+        $emailAkun = $this->input->post('EMAIL_ADM');
+        $pesanEmail = "
+                                <html>
+                                <head>
+                                    <title>Kode Verifikasi</title>
+                                </head>
+                                <body>
+                                    <h2>Terimakasih telah Mendaftarkan akun anda</h2>
+                                    <p>Akun Anda</p>
+                                    <p>Email : " . $emailAkun . "</p>
+                                    <p>Tolong Klik Link Dibawah ini untuk aktivasi akun!</p>
+                                    <h4><a href='" . base_url() . "auth/verify_akun_admin?email=" . $emailAkun . "&token=" . urlencode($token) . "'>Aktivasi!</a></h4>
+                                </body>
+                                </html>
+        ";
+        // Jika pesan nya = Lupa
+        $ResetPassword = "
+                                <html>
+                                <head>
+                                    <title>Kode Reset Password</title>
+                                </head>
+                                <body>
+                                    <h2>Silahkan Klik Link Dibawah Ini!!</h2>
+                                    <p>Akun Anda</p>
+                                    <p>Email : " . $emailAkun . "</p>
+                                    <p>Tolong Klik Link Dibawah ini untuk Reset Password!</p>
+                                    <h4><a href='" . base_url() . "auth/resetpassword?email=" . $emailAkun . "&token=" . urlencode($token) . "'>Reset Password!!</a></h4>
+                                </body>
+                                </html>
+        ";
+        $this->load->library('email', $config);
+        $this->email->from('emailpass49@gmail.com', 'Verifikasi Email');
+        $this->email->to($this->input->post('EMAIL_ADM'));
+        if ($type == 'verify') {
+            $this->email->subject('Account Verification');
+            $this->email->message($pesanEmail);
+            $this->email->set_mailtype('html');
+        } else if ($type == 'Lupa') {
+            $this->email->subject('Reset Password');
+            $this->email->message($ResetPassword);
+            $this->email->set_mailtype('html');
+        }
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
         }
     }
     public function edit_admin_prodi()

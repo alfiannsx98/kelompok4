@@ -547,6 +547,42 @@ class Auth extends CI_Controller
             redirect('auth');
         }
     }
+    public function verify_akun_admin()
+    {
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
+
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+        if ($user) {
+            $user_token = $this->db->get_where('token_user', ['token' => $token])->row_array();
+            if ($user_token) {
+                if (time() - $user_token['date_created'] < (60 * 60 * 72)) {
+                    $this->db->set('is_active', 1);
+                    $this->db->where('email', $email);
+                    $this->db->update('user');
+                    // $this->db->delete('user_token', ['email' => $email]);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' User Telah di Aktivasi!!Silahkan Masukkan data Password Anda</div>');
+                    redirect("auth/resetpassword?email=" . $email . "&token=" . urlencode($token));
+                } else {
+                    $this->db->delete('user', ['email' => $email]);
+
+                    $this->db->delete('user_token', ['email' => $email]);
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Token Kadaluarsa!</div>');
+                    redirect('auth');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Token Salah</div>');
+                redirect('auth');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Aktivasi Gagal</div>');
+            redirect('auth');
+        }
+    }
+
+
 
     public function logout()
     {
