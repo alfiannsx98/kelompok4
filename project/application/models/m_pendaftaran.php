@@ -31,13 +31,12 @@ class M_pendaftaran extends CI_Model{
                 return $hasil->ID_PND;       
         }
 
-        function namaDS(){
-                $data = $this->db->query("SELECT ID_DS, NAMA_DS FROM dosbing");
+        function nama(){
+                $data = $this->db->query("SELECT ID_DS, NAMA_DS, ID_PR, NAMA_PR FROM perusahaan, dosbing");
                 return $data;
         }
 
-        function namaPR(){
-                $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
-                return $data;
+        function tmbh_pnd($data, $table){
+                $this->db->insert($table, $data);
         }
 }
