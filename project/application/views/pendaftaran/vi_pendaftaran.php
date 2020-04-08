@@ -15,6 +15,7 @@
 										<th class="text-center">No.</th>
 										<th> Tempat PKL </th>
 										<th> Dosen </th>
+										<th> Status </th>
 										<th class="text-right">Actions</th>
 									</tr>
 								</thead>
@@ -25,6 +26,7 @@
 										<td class="text-center"><?= $nomor++; ?></td>
 										<td><?php echo $pnd->NAMA_PR; ?></td>
 										<td><?php echo $pnd->NAMA_DS; ?></td>
+										<td>Terima surat pengajuan</td>
 										<td class="td-actions text-right">
 											<?php echo anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,'<button type="button" rel="tooltip" class="btn btn-info btn-simple">
                                                             <i class="material-icons">person</i>

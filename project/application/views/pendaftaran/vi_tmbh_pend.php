@@ -48,46 +48,45 @@
 								</div>
 								<button class="btn btn-fill btn-rose">Tambah</button>
 							</div>
-							
-							<button type="submit" class="btn btn-fill btn-rose">Submit</button>
+
+
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-								<div class="col-md-12">
-									<div class="card">
-										<div class="card-header card-header-icon" data-background-color="rose">
-											<i class="material-icons">assignment</i>
-										</div>
-										<h4 class="card-title">Simple Table</h4>
-										<div class="card-content">
-											<div class="table-responsive">
-												<table class="table">
-													<thead>
-														<tr>
-															<th class="text-center">No.</th>
-															<th> Tempat PKL </th>
-															<th> Dosen </th>
-															<th class="text-right">Actions</th>
-														</tr>
-													</thead>
-													<!-- php $nomor=1;?> -->
-													<!-- php foreach($pendaftaran as $pnd){ ?> -->
-													<tbody>
-														<tr>
-															<!-- <td class="text-center">= $nomor++; ?></td> -->
-															<!-- <td>php echo $pnd->NAMA_PR; ?></td> -->
-															<!-- <td>php echo $pnd->NAMA_DS; ?></td> -->
-														</tr>
-													</tbody>
-													<!-- php } ?> -->
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-content">
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center">No.</th>
+										<th> NIM </th>
+										<th> Nama </th>
+										<th class="text-right">Actions</th>
+									</tr>
+								</thead>
+								<!-- php $nomor=1;?> -->
+								<!-- php foreach($pendaftaran as $pnd){ ?> -->
+								<tbody>
+									<tr>
+										<td class="text-center">E41181335</td>
+										<td>Mohammad Ainun Ardiansyah</td>
+										<!-- <td class="text-center">= $nomor++; ?></td> -->
+										<!-- <td>php echo $pnd->NAMA_PR; ?></td> -->
+										<!-- <td>php echo $pnd->NAMA_DS; ?></td> -->
+									</tr>
+								</tbody>
+								<!-- php } ?> -->
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+							<button type="submit" class="btn btn-fill btn-rose">Submit</button>
 	</div>
 </div>
