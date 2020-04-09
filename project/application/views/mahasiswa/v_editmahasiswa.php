@@ -13,7 +13,7 @@
             <div class="col-lg-10">
             <?php 
             foreach ($mahasiswa as $tb ) { ?>
-                <form action="<?php echo base_url() . 'C_mahasiswa/update'; ?>" method="post">
+                <form action="<?php echo base_url() . 'mahasiswa/update'; ?>" method="post">
                     
                     <div class="form-group">
                         <label for="NIM"> NIM: </label>

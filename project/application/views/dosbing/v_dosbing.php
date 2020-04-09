@@ -2,7 +2,7 @@
 
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Data Kedatangan <a class="btn btn-primary" href="<?= base_url() . 'C_dosbing/tambah'; ?>">
+<h1 class="h3 mb-2 text-gray-800">Data Kedatangan <a class="btn btn-primary" href="<?= base_url() . 'dosbing/tambah'; ?>">
 <i class=""></i>TAMBAH +</a></h1>
 
 <!-- DataTales Example -->
@@ -40,8 +40,8 @@
             <td><?=$tb->PASSWORD_DS?></td>
             
             <td>
-              <a class="btn btn-primary" href="<?php echo base_url().'C_dosbing/edit/'. $tb->ID_DS; ?>"><i class="">EDIT</i></a>
-              <a class="btn btn-danger" href="<?php echo base_url().'C_dosbing/hapus/'. $tb->ID_DS; ?>"><i class="">HAPUS</i></a>
+              <a class="btn btn-primary" href="<?php echo base_url().'dosbing/edit/'. $tb->ID_DS; ?>"><i class="">EDIT</i></a>
+              <a class="btn btn-danger" href="<?php echo base_url().'dosbing/hapus/'. $tb->ID_DS; ?>"><i class="">HAPUS</i></a>
             </td>
           </tr>
         <?php } ?>

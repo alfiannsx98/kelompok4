@@ -11,7 +11,7 @@
                 <!-- Disini tempat membuat Edit Profil nya! -->
             </div>
             <div class="col-lg-10">
-                <form action="<?php echo base_url() . 'C_mahasiswa/tambah_mahasiswa' ?>" method="post">
+                <form action="<?php echo base_url() . 'mahasiswa/tambah_mahasiswa' ?>" method="post">
                     <div class="form-group">
                         <label for="ID_M"> ID NIM: </label>
                         <input type="text" class="form-control form-control-user" id="ID_M" name="ID_M" placeholder="Masukan ID MAHASISWA" title="Isikan data dengan benar" required>
