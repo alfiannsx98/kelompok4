@@ -11,7 +11,7 @@
                 <!-- Disini tempat membuat Edit Profil nya! -->
             </div>
             <div class="col-lg-10">
-                <form action="<?php echo base_url() . 'C_dosbing/tambah_dosbing' ?>" method="post">
+                <form action="<?php echo base_url() . 'dosbing/tambah_dosbing' ?>" method="post">
                     <div class="form-group">
                         <label for="ID_DS"> ID Dosen: </label>
                         <input type="text" class="form-control form-control-user" id="ID_DS" name="ID_DS" placeholder="Masukan ID DOSEN" title="Isikan data dengan benar" required">
