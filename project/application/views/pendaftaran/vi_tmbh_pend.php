@@ -12,28 +12,26 @@
 								value="<?php echo "pnd".sprintf("%0s", $ID_PND); ?>">
 							<div class="row">
 								<label class="col-sm-2 label-on-left">Tempat PKL</label>
-								<div class="col-md-5">
-									<div class="form-group label-floating is-empty">
-										<select name="ID_PR" id="ID_PR">
-											<option value="">Pilih Tempat PKL</option>
-											<?php foreach($dosbing as $ds){
-                                            echo '<option type="text" value="'.$ds->ID_PR.'">'.$ds->NAMA_PR.'</option>';
+								<div class="col-lg-5 col-md-6 col-sm-3">
+									<select class="selectpicker" data-style="btn btn-primary btn-round"
+										title="Single Select" data-size="7">
+										<option disabled selected>Pilih Tempat PKL</option>
+										<?php foreach($dosbing as $ds){
+                                            echo '<option type="text" value="'.$ds->ID_PR.'">'.$ds->NAMA_PR;
                                             }?>
-										</select>
-									</div>
+									</select>
 								</div>
 							</div>
 							<div class="row">
 								<label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
-								<div class="col-md-5">
-									<div class="form-group label-floating is-empty">
-										<select name="ID_DS" id="ID_DS">
-											<option value="">Pilih Dosen Pembimbing</option>
-											<?php foreach($dosbing as $ds){
-                                            echo '<option type="text" value="'.$ds->ID_DS.'">'.$ds->NAMA_DS.'</option>';
-                                        }?>
-										</select>
-									</div>
+								<div class="col-lg-5 col-md-6 col-sm-3">
+									<select class="selectpicker" data-style="btn btn-primary btn-round"
+										title="Single Select" data-size="7">
+										<option disabled selected>Pilih Dosen Pembimbing</option>
+										<?php foreach($dosbing as $ds){
+                                            echo '<option type="text" value="'.$ds->ID_DS.'">'.$ds->NAMA_DS;
+                                            }?>
+									</select>
 								</div>
 							</div>
 							<div class="row">
@@ -87,6 +85,6 @@
 				</div>
 			</div>
 		</div>
-							<button type="submit" class="btn btn-fill btn-rose">Submit</button>
+		<button type="submit" class="btn btn-fill btn-rose">Submit</button>
 	</div>
 </div>
