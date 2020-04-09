@@ -8,7 +8,8 @@
                         <!--      Wizard container        -->
                         <div class="wizard-container">
                             <div class="card wizard-card" data-color="rose" id="wizardProfile">
-                                <form action="<?= base_url('auth/register') ?>" method="POST" enctype="multipart/form-data">
+                                <?php echo form_open_multipart('auth/regmhs'); ?>
+                                <!-- <form action="<?= base_url('auth/regmhs') ?>" method="POST" enctype="multipart/form-data"> -->
                                     <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                                     <div class="wizard-header">
                                         <h3 class="wizard-title">
@@ -37,10 +38,11 @@
                                                     <div class="picture-container">
                                                         <div class="picture">
                                                             <img src="<?php echo base_url(); ?>assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-                                                            <input type="file" id="wizard-picture" name="image">
-                                                            <?= form_error('image', '<small class="text-danger col-md">', '</small>'); ?>
+                                                            <input type="file" id="wizard-picture" name="foto">
+                                                            <?= form_error('foto', '<small class="text-danger col-md">', '</small>'); ?>
                                                         </div>
                                                         <h6>Pilih Foto</h6>
+                                                        <small class="text-success col-md">format gambar harus jpg/jpeg/png/gif</small>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -213,7 +215,8 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
-                                </form>
+                                <!-- </form> -->
+                                <?php echo form_close(); ?>
                             </div>
                         </div>
                         <!-- wizard container -->

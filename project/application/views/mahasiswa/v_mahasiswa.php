@@ -28,6 +28,7 @@
                                                     <th>Alamat</th>
                                                     <th>No HP</th>
                                                     <th>Email</th>
+                                                    <th>Status Akun</th>
                                                     <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -43,6 +44,7 @@
                                                     <th>Alamat</th>
                                                     <th>No HP</th>
                                                     <th>Email</th>
+                                                    <th>Status Akun</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
@@ -58,6 +60,7 @@
                                                 $alamat = $m['ALAMAT_M'];
                                                 $nohp = $m['HP_M'];
                                                 $email = $m['EMAIL_M'];
+                                                $aktif = $m['is_active'];
                                             ?>
                                                 <tr>
                                                     <td><?= $i; ?></td>
@@ -70,6 +73,13 @@
                                                     <td><?= $alamat; ?></td>
                                                     <td><?= $nohp; ?></td>
                                                     <td><?= $email; ?></td>
+                                                    <td>
+                                                        <?php if($aktif == 0) : ?>
+                                                            <span class="btn btn-danger btn-xs btn-round">Belum Aktif</span>
+                                                        <?php else : ?>
+                                                            <span class="btn btn-success btn-xs btn-round">Aktif</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                     <td class="text-right">
                                                         <a class="btn btn-simple btn-info btn-icon" data-toggle="modal" data-target="#modal_edit<?= $id; ?>"><i class="material-icons">info</i></a>
                                                         <a class="btn btn-simple btn-danger btn-icon" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>"><i class="material-icons">remove_circle</i></a>
@@ -108,6 +118,8 @@ foreach ($mhs as $m) :
     $alamat = $m['ALAMAT_M'];
     $nohp = $m['HP_M'];
     $email = $m['EMAIL_M'];
+    $aktif = $m['is_active'];
+    $foto = $m['image'];
 ?>
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -121,37 +133,70 @@ foreach ($mhs as $m) :
                     <div class="form-group label-floating">
                         <input type="hidden" name="id_mhs" id="id_mhs" value="<?= $id; ?>">
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">NIM</label>
-                        <input type="text" class="form-control" name="nim" value="<?= $nim; ?>" placeholder="" readonly>
+                    <div class="picture text-center">
+                        <?php if($foto == 'default.jpg'):?>
+                            <img src="<?php echo base_url(); ?>image/mahasiswa/default.jpg" class="" id="wizardPicturePreview" title="" />
+                        <?php else:?>
+                            <img src="<?php echo base_url(); ?>image/mahasiswa/<?php echo $foto; ?>" class="picture-src" id="wizardPicturePreview" title="" />
+                        <?php endif;?>        
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Nama Mahasiswa</label>
-                        <input type="text" class="form-control" name="nama" value="<?= $nama; ?>" placeholder="" readonly>
+                    <div class="form-group text-center">
+                        <label for=""><h3>Status Akun</h3></label>
+                        <div>
+                            <?php if($aktif == 0) : ?>
+                                <span class="btn btn-danger btn-s btn-round">Belum Aktif</span>
+                            <?php else : ?>
+                                <span class="btn btn-success btn-s btn-round">Aktif</span>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Jenis Kelamin</label>
-                        <input type="text" class="form-control" name="jk" value="<?= $jk; ?>" placeholder="" readonly>
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                            <label for="">Nama Mahasiswa</label>
+                            <input type="text" class="form-control" name="nama" value="<?= $nama; ?>" placeholder="" readonly>
+                        </div>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Programstudi</label>
-                        <input type="text" class="form-control" name="prodi" value="<?= $prodi; ?>" placeholder="" readonly>
+                    <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                            <label for="">NIM</label>
+                            <input type="text" class="form-control" name="nim" value="<?= $nim; ?>" placeholder="" readonly>
+                        </div>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Semester</label>
-                        <input type="text" class="form-control" name="semester" value="<?= $semester; ?>" placeholder="" readonly>
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                            <label for="">Jenis Kelamin</label>
+                            <input type="text" class="form-control" name="jk" value="<?= $jk; ?>" placeholder="" readonly>
+                        </div>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Alamat</label>
-                        <input type="text" class="form-control" name="alamat" value="<?= $alamat; ?>" placeholder="" readonly>
+                    <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                            <label for="">Programstudi</label>
+                            <input type="text" class="form-control" name="prodi" value="<?= $prodi; ?>" placeholder="" readonly>
+                        </div>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">No HP</label>
-                        <input type="text" class="form-control" name="nohp" value="<?= $nohp; ?>" placeholder="" readonly>
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                            <label for="">Semester</label>
+                            <input type="text" class="form-control" name="semester" value="<?= $semester; ?>" placeholder="" readonly>
+                        </div>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Email</label>
-                        <input type="text" class="form-control" name="email" value="<?= $email; ?>" placeholder="" readonly>
+                    <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                            <label for="">Alamat</label>
+                            <input type="text" class="form-control" name="alamat" value="<?= $alamat; ?>" placeholder="" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                            <label for="">No HP</label>
+                            <input type="text" class="form-control" name="nohp" value="<?= $nohp; ?>" placeholder="" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                            <label for="">Email</label>
+                            <input type="text" class="form-control" name="email" value="<?= $email; ?>" placeholder="" readonly>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

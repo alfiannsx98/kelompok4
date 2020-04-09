@@ -4,7 +4,7 @@ class M_mahasiswa extends CI_Model
 {
   public function getMahasiswa()
   {
-      $query = "SELECT * FROM mahasiswa";
+      $query = "SELECT * FROM mahasiswa LEFT JOIN user ON mahasiswa.EMAIL_M=user.email";
       return $this->db->query($query)->result_array();
   }
   
