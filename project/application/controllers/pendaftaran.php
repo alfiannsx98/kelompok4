@@ -48,13 +48,41 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function tambah_data(){
+    public function tambah_data() {
         $dariDB = $this->m_pendaftaran->selectMaxID();
         $nourut = substr($dariDB, 3);
         $kodeBarangSekarang = $nourut + 1;
         $data = array('ID_PND' => $kodeBarangSekarang);
-        $this->load->view('pendaftaran/vi_tmbh_pend', $data);
+
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+    
         
+        $data['dosbing'] = $this->m_pendaftaran->nama()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_tmbh_pend', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function pr_tmbh_pnd(){
+        $ID_PND = $this->input->post('ID_PND');
+        $ID_PR = $this->input->post('ID_PR');
+        $ID_DS = $this->input->post('ID_DS');
+
+        $data = array(
+            'ID_PND' => $ID_PND,
+            'ID_PR' => $ID_PR,
+            'ID_DS' => $ID_DS
+        );
+
+        $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
+        redirect('pendaftaran/tambah_data');
     }
 
 }
