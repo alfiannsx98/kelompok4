@@ -11,27 +11,25 @@
 							<div class="row">
 								<?php foreach($pendaftaran as $pnd) { ?>
 								<label class="col-sm-2 label-on-left">Tempat PKL</label>
-								<div class="col-md-5">
-									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value="<?= $pnd->NAMA_PR; ?>" disabled>
+								<div class="col-sm-10">
+									<div class="form-group">
+										<p class="form-control-static"><?= $pnd->NAMA_PR; ?></p>
 									</div>
-									<input type="hidden" value="<?= $pnd->ID_PR; ?>">
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-2 label-on-left">Alamat</label>
-								<div class="col-md-5">
-									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value="<?= $pnd->ALAMAT_PR; ?>"
-											disabled>
+								<label class="col-sm-2 label-on-left"> Alamat </label>
+								<div class="col-sm-10">
+									<div class="form-group">
+										<p class="form-control-static"><?= $pnd->ALAMAT_PR; ?></p>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
-								<div class="col-md-5">
-									<div class="form-group label-floating is-empty">
-										<input type="text" class="form-control" value="<?= $pnd->NAMA_DS; ?>" disabled>
+								<div class="col-sm-10">
+									<div class="form-group">
+										<p class="form-control-static"><?= $pnd->NAMA_DS; ?></p>
 									</div>
 								</div>
 							</div>
