@@ -141,26 +141,28 @@ class Auth extends CI_Controller
             /**
              * codingan untuk upload foto
              */
-            if($foto='')
-            {
-
-            }
-            else
-            {
-                $config['upload_path']   = '.assets/img/profile';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            if($foto)
+            {   
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '2048';
+                $config['upload_path'] = './assets/image/profile/';
 
                 $this->load->library('upload',$config);
-                if(!$this->upload->do_upload('foto'))
-                {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal mengupload foto, silahkan cek format gambar</div>');
-                    redirect('auth/register');    
-                }
-                else
-                {
-                    $foto = $this->upload->data('file_name');
-                }
+                if($foto == '') {
+                    $foto = 'default.jpg';
+                } else {
+                    if(!$this->upload->do_upload('foto'))
+                    {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal Upload Foto!!</div>');
+                        redirect('auth/register');               
+                    }
+                    else
+                    {
+                        $foto = $this->upload->data('file_name');
+                    }   
+                }         
             }
+            
 
             $data = [
                 'id_user' => $id_u,
