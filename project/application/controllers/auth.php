@@ -72,10 +72,10 @@ class Auth extends CI_Controller
         //     redirect('user');
         // }
         
-        $query = $this->db->query("SELECT * FROM user");
+        $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
         // Membuat id_user : gabungan dari date dan field 
-        $tabel = $query->num_rows();
+        $tabel = $query1->num_rows();
         $date = date('dm', time());
         $id_u = "ID-U" . $tabel . $date;
         $id_m = "ID-M" . $tabel . $date;
@@ -163,6 +163,7 @@ class Auth extends CI_Controller
 
             $data = [
                 'id_user' => $id_u,
+                'identity' => htmlspecialchars($this->input->post('nim', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' => htmlspecialchars($email),
                 'image' => $foto,

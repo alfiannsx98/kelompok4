@@ -1,6 +1,11 @@
 <?php
 class model_dosen extends CI_Model
 {
+    function getprodi()
+    {
+        $query = $this->db->query("SELECT * FROM prodi");
+        return $query;
+    }
 
     function edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin, $email_admin, $password_admin)
     {
