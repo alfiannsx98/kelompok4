@@ -8,6 +8,8 @@ class Admin extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('model_admin');
+        $this->load->model('m_dashboard');
+        $this->load->model('m_data');
     }
 
     public function index()
@@ -15,8 +17,15 @@ class Admin extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
-            $this->session->userdata('email')    
+            $this->session->userdata('email')
         ])->row_array();
+        $data['jml_aktif'] = $this->m_dashboard->select_by_user();
+        $data['jml_dosen'] = $this->m_dashboard->total_dosen();
+        $data['jml_admin'] = $this->m_dashboard->total_admin();
+        $data['jml_perusahaan'] = $this->m_dashboard->total_perusahaan();
+
+        $data['aktif'] = $this->m_data->tampil_data()->result();
+
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -24,6 +33,7 @@ class Admin extends CI_Controller
         $this->load->view('admin/index', $data);
         $this->load->view('templates/footer');
     }
+
     public function role()
     {
         $data['title'] = 'Role';

@@ -1,75 +1,126 @@
 <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="green">
-                                    <i class="material-icons">language</i>
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="card-title">Dashboard</h4>
-                                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="material-icons">weekend</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Bookings</p>
-                                    <h3 class="card-title">184</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="#pablo">Get More Space...</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="alert alert-primary text-center text-bold" role="alert">
+                Selamat Datang <?= $user['email']; ?>, Anda login sebagai
+                <?php if ($user['role_id'] == 1) {
+                    echo '<b>Admin</b>';
+                }
+
+                ?>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="green">
+                        <i class="material-icons">language</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Dashboard</h4>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="orange">
+                                        <i class="material-icons">person</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Lecturer</p>
+                                        <h3 class="card-title"><?= $jml_dosen; ?></h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons">info</i>
+                                            <a href="<?= base_url('dosbing') ?>" class="text-secondary">More Info</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="rose">
-                                    <i class="material-icons">equalizer</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Website Visits</p>
-                                    <h3 class="card-title">75.521</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Google Analytics
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="rose">
+                                        <i class="material-icons">group</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Active User</p>
+                                        <h3 class="card-title"><?php echo $jml_aktif; ?></h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons">info</i>
+                                            <a href="#" class="text-secondary" data-toggle="modal" data-target="#exampleModal">More Info</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">store</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Revenue</p>
-                                    <h3 class="card-title">$34,245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="green">
+                                        <i class="material-icons">domain</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Company</p>
+                                        <h3 class="card-title"><?= $jml_perusahaan; ?></h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons">info</i>
+                                            <a href="#" class="text-secondary">More Info</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="fa fa-twitter"></i>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="blue">
+                                        <i class="material-icons">local_library</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Admin</p>
+                                        <h3 class="card-title"><?= $jml_admin; ?></h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons">info</i>
+                                            <a href="<?= base_url('dosen/admin_prodi') ?>" class="text-secondary">More Info</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-content">
-                                    <p class="category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="card">
+                                        <div class="card-header card-header-icon" data-background-color="blue">
+                                            <i class="material-icons">bar_chart</i>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4 class="card-title">Grafik User Pendaftar
+                                                <small><?= date('Y'); ?></small>
+                                            </h4>
+                                        </div>
+                                        <div id="colouredBarsChart" class="ct-chart">
+                                            <canvas id="dataMhs" style="height:250px"></canvas>
+                                        </div>
+                                        <div class="card-footer">
+                                            <h6>KET:</h6>
+                                            <i class="fa fa-circle text-info"></i> Data tersebut merupakan data pendaftar dari setiap bulan pada tahun <?= date('Y'); ?>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">update</i> Just Updated
+                                <div class="col-md-5">
+                                    <div class="card">
+                                        <div class="card-header card-header-icon" data-background-color="red">
+                                            <i class="material-icons">pie_chart</i>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4 class="card-title">Grafik Mahasiswa per Prodi
+                                                <small><?= date('Y'); ?></small></h4>
+                                        </div>
+                                        <div id="chartPreferences" class="ct-chart">
+                                            <canvas id="dataPrd" style="height:250px"></canvas>
+                                        </div>
+                                        <div class="card-footer">
+                                            <h6>KET:</h6>
+                                            <i class="fa fa-circle text-info"></i> Data tersebut adalah grafik data prodi pada tahun <?= date('Y'); ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +130,146 @@
             </div>
         </div>
     </div>
-</div>
-</div>
 
-            
+
+    <!-- Modal Info User -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Data USer Aktif</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
+
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Data Kedatangan</h1>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tabel Data DOSEN</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID USER</th>
+                                                <th>NAMA USER</th>
+                                                <th>EMAIL</th>
+                                                <th>PASSWORD</th>
+                                                <th>IMAGE</th>
+                                                <th>ABOUT</th>
+                                                <th>ROLE</th>
+                                                <th>TGL_BUAT</th>
+                                                <th>KET</th>
+                                                <th>CHANGE</th>
+                                                <th>OPSI</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            foreach ($aktif as $tb) { ?>
+                                                <tr>
+
+                                                    <td><?= $tb->id_user ?></td>
+                                                    <td><?= $tb->nama ?></td>
+                                                    <td><?= $tb->email ?></td>
+                                                    <td><?= $tb->password ?></td>
+                                                    <td><?= $tb->image ?></td>
+                                                    <td><?= $tb->about ?></td>
+                                                    <td><?= $tb->role_id ?></td>
+                                                    <td><?= $tb->date_created ?></td>
+                                                    <td><?= $tb->is_active ?></td>
+                                                    <td><?= $tb->change_pass ?></td>
+
+                                                    <td>
+                                                        <a class="btn btn-primary" href="<?php echo base_url() . 'dosbing/edit/' . $tb->ID_DS; ?>"><i class="">EDIT</i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script type="text/javascript">
+        var ctx = document.getElementById('dataMhs').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                datasets: [{
+                    label: 'Data Pendaftar per Bulan',
+                    backgroundColor: [
+                        'rgba(255, 99, 132,0.6)',
+                        'rgba(54, 162, 235,0.6)',
+                        'rgba(75, 192, 192,0.6)',
+                        'rgba(153, 102, 255,0.6)',
+                        'rgba(255, 206, 86,0.6)',
+                        'rgba(230, 196, 16,0.6)',
+                        'rgba(18, 252, 90,0.6)',
+                        'rgba(60, 54, 72,0.6)',
+                        'rgba(255, 99, 132,0.6)',
+                        'rgba(54, 162, 235,0.6)',
+                        'rgba(75, 192, 192,0.6)',
+                        'rgba(153, 102, 255,0.6)'
+                    ],
+                    borderColor: 'rgb(255, 99, 132)',
+                    hoverBorderWidth: '3',
+                    hoverBorderColor: '#000',
+                    data: [0, 10, 5, 2, 20, 30, 45, 20, 35, 12, 5, 0]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+
+        var ctx = document.getElementById('dataPrd').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'doughnut',
+
+            // The data for our dataset
+            data: {
+                labels: ['TKK', 'MIF', 'TIF'],
+                datasets: [{
+                    label: 'Data MHS Prodi',
+                    backgroundColor: [
+                        'rgba(60, 54, 72,0.6)',
+                        'rgba(230, 196, 16,0.6)',
+                        'rgba(54, 162, 235,0.6)'
+                    ],
+                    borderColor: 'rgb(255, 99, 132)',
+                    hoverBorderWidth: '3',
+                    hoverBorderColor: '#000',
+                    data: [5, 7, 25]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+    </script>
