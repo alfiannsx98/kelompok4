@@ -1,6 +1,14 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+            <div class="alert alert-primary text-center text-bold" role="alert">
+                Selamat Datang <?= $user['email']; ?>, Anda login sebagai
+                <?php if ($user['role_id'] == 1) {
+                    echo '<b>Admin</b>';
+                }
+
+                ?>
+            </div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="green">
@@ -21,7 +29,7 @@
                                     <div class="card-footer">
                                         <div class="stats">
                                             <i class="material-icons">info</i>
-                                            <a href="<?= base_url('admin/role') ?>" class="text-secondary">More Info</a>
+                                            <a href="<?= base_url('dosbing') ?>" class="text-secondary">More Info</a>
                                         </div>
                                     </div>
                                 </div>
@@ -38,7 +46,7 @@
                                     <div class="card-footer">
                                         <div class="stats">
                                             <i class="material-icons">info</i>
-                                            <a href="#" class="text-secondary">More Info</a>
+                                            <a href="#" class="text-secondary" data-toggle="modal" data-target="#exampleModal">More Info</a>
                                         </div>
                                     </div>
                                 </div>
@@ -72,24 +80,46 @@
                                     <div class="card-footer">
                                         <div class="stats">
                                             <i class="material-icons">info</i>
-                                            <a href="#" class="text-secondary">More Info</a>
+                                            <a href="<?= base_url('dosen/admin_prodi') ?>" class="text-secondary">More Info</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-7">
                                     <div class="card">
                                         <div class="card-header card-header-icon" data-background-color="blue">
                                             <i class="material-icons">bar_chart</i>
                                         </div>
                                         <div class="card-content">
-                                            <h4 class="card-title">Grafik Pendaftar
+                                            <h4 class="card-title">Grafik User Pendaftar
                                                 <small><?= date('Y'); ?></small>
                                             </h4>
                                         </div>
                                         <div id="colouredBarsChart" class="ct-chart">
                                             <canvas id="dataMhs" style="height:250px"></canvas>
+                                        </div>
+                                        <div class="card-footer">
+                                            <h6>KET:</h6>
+                                            <i class="fa fa-circle text-info"></i> Data tersebut merupakan data pendaftar dari setiap bulan pada tahun <?= date('Y'); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card">
+                                        <div class="card-header card-header-icon" data-background-color="red">
+                                            <i class="material-icons">pie_chart</i>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4 class="card-title">Grafik Mahasiswa per Prodi
+                                                <small><?= date('Y'); ?></small></h4>
+                                        </div>
+                                        <div id="chartPreferences" class="ct-chart">
+                                            <canvas id="dataPrd" style="height:250px"></canvas>
+                                        </div>
+                                        <div class="card-footer">
+                                            <h6>KET:</h6>
+                                            <i class="fa fa-circle text-info"></i> Data tersebut adalah grafik data prodi pada tahun <?= date('Y'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -101,77 +131,145 @@
         </div>
     </div>
 
-    <script src="<?= base_url(); ?>assets/js/chart.js"></script>
 
-    <script>
-        $(function() {
-            //get the bar chart canvas
-            var cData = JSON.parse(`<?php echo $chart_data; ?>`);
-            var ctx = $("#dataMhs");
+    <!-- Modal Info User -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Data USer Aktif</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
 
-            //bar chart data
-            var data = {
-                labels: cData.label,
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Data Kedatangan</h1>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tabel Data DOSEN</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID USER</th>
+                                                <th>NAMA USER</th>
+                                                <th>EMAIL</th>
+                                                <th>PASSWORD</th>
+                                                <th>IMAGE</th>
+                                                <th>ABOUT</th>
+                                                <th>ROLE</th>
+                                                <th>TGL_BUAT</th>
+                                                <th>KET</th>
+                                                <th>CHANGE</th>
+                                                <th>OPSI</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            foreach ($aktif as $tb) { ?>
+                                                <tr>
+
+                                                    <td><?= $tb->id_user ?></td>
+                                                    <td><?= $tb->nama ?></td>
+                                                    <td><?= $tb->email ?></td>
+                                                    <td><?= $tb->password ?></td>
+                                                    <td><?= $tb->image ?></td>
+                                                    <td><?= $tb->about ?></td>
+                                                    <td><?= $tb->role_id ?></td>
+                                                    <td><?= $tb->date_created ?></td>
+                                                    <td><?= $tb->is_active ?></td>
+                                                    <td><?= $tb->change_pass ?></td>
+
+                                                    <td>
+                                                        <a class="btn btn-primary" href="<?php echo base_url() . 'dosbing/edit/' . $tb->ID_DS; ?>"><i class="">EDIT</i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script type="text/javascript">
+        var ctx = document.getElementById('dataMhs').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 datasets: [{
-                    label: cData.label,
-                    data: cData.data,
+                    label: 'Data Pendaftar per Bulan',
                     backgroundColor: [
-                        "#DEB887",
-                        "#A9A9A9",
-                        "#DC143C",
-                        "#F4A460",
-                        "#2E8B57",
-                        "#1D7A46",
-                        "#CDA776",
-                        "#CDA776",
-                        "#989898",
-                        "#CB252B",
-                        "#E39371",
+                        'rgba(255, 99, 132,0.6)',
+                        'rgba(54, 162, 235,0.6)',
+                        'rgba(75, 192, 192,0.6)',
+                        'rgba(153, 102, 255,0.6)',
+                        'rgba(255, 206, 86,0.6)',
+                        'rgba(230, 196, 16,0.6)',
+                        'rgba(18, 252, 90,0.6)',
+                        'rgba(60, 54, 72,0.6)',
+                        'rgba(255, 99, 132,0.6)',
+                        'rgba(54, 162, 235,0.6)',
+                        'rgba(75, 192, 192,0.6)',
+                        'rgba(153, 102, 255,0.6)'
                     ],
-                    borderColor: [
-                        "#CDA776",
-                        "#989898",
-                        "#CB252B",
-                        "#E39371",
-                        "#1D7A46",
-                        "#F4A460",
-                        "#CDA776",
-                        "#DEB887",
-                        "#A9A9A9",
-                        "#DC143C",
-                        "#F4A460",
-                        "#2E8B57",
-                    ],
-                    borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                    borderColor: 'rgb(255, 99, 132)',
+                    hoverBorderWidth: '3',
+                    hoverBorderColor: '#000',
+                    data: [0, 10, 5, 2, 20, 30, 45, 20, 35, 12, 5, 0]
                 }]
-            };
+            },
 
-            //options
-            var options = {
-                responsive: true,
-                title: {
-                    display: true,
-                    position: "top",
-                    text: "Monthly Registered Users Count",
-                    fontSize: 18,
-                    fontColor: "#111"
-                },
-                legend: {
-                    display: true,
-                    position: "bottom",
-                    labels: {
-                        fontColor: "#333",
-                        fontSize: 16
-                    }
-                }
-            };
+            // Configuration options go here
+            options: {}
+        });
 
-            //create bar Chart class object
-            var chart1 = new Chart(ctx, {
-                type: "bar",
-                data: data,
-                options: options
-            });
+        var ctx = document.getElementById('dataPrd').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'doughnut',
 
+            // The data for our dataset
+            data: {
+                labels: ['TKK', 'MIF', 'TIF'],
+                datasets: [{
+                    label: 'Data MHS Prodi',
+                    backgroundColor: [
+                        'rgba(60, 54, 72,0.6)',
+                        'rgba(230, 196, 16,0.6)',
+                        'rgba(54, 162, 235,0.6)'
+                    ],
+                    borderColor: 'rgb(255, 99, 132)',
+                    hoverBorderWidth: '3',
+                    hoverBorderColor: '#000',
+                    data: [5, 7, 25]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
         });
     </script>

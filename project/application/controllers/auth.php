@@ -68,9 +68,9 @@ class Auth extends CI_Controller
 
     public function register()
     {
-        // if ($this->session->userdata('email')) {
-        //     redirect('user');
-        // }
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
         
         $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
@@ -81,31 +81,26 @@ class Auth extends CI_Controller
         $id_m = "ID-M" . $tabel . $date;
         $prodi = $this->input->post('prodi');
         $jk = $this->input->post('jk');
-        // $foto = $_FILES['foto'];
-        // /**
-        //  * codingan untuk upload foto
-        //  */
-        // if($foto='')
-        // {
+        // $upload_image = $_FILES['foto'];
 
-        // }
-        // else
-        // {
-        //     $config['upload_path']   = '.assets/image/mahasiswa';
-        //     $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            // if ($upload_image) {
+            //     $config['allowed_types'] = 'gif|jpg|png';
+            //     $config['max_size'] = '2048';
+            //     $config['upload_path'] = './assets/img/profile/';
 
-        //     $this->load->library('upload',$config);
-        //     if(!$this->upload->do_upload('foto'))
-        //     {
-        //         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal mengupload foto, silahkan cek format gambar</div>');
-        //         redirect('auth/regmhs');    
-        //     }
-        //     else
-        //     {
-        //         $foto = $this->upload->data('file_name');
-        //     }
-        // }
+            //     $this->load->library('upload', $config);
 
+            //     if ($this->upload->do_upload('image')) {
+            //         $old_image = $data['user']['image'];
+            //         if ($old_image != 'default.jpg') {
+            //             unlink(FCPATH . 'assets/img/profile/' . $old_image);
+            //         }
+            //         $new_image = $this->upload->data('file_name');
+            //         $this->db->set('image', $new_image);
+            //     } else {
+            //         echo $this->upload->display_errors();
+            //     }
+            // }
         /**
          * codingan untuk pemilihan prodi
          */
@@ -166,7 +161,7 @@ class Auth extends CI_Controller
                 'identity' => htmlspecialchars($this->input->post('nim', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' => htmlspecialchars($email),
-                'image' => $foto,
+                'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
                 'is_active' => 0,   
