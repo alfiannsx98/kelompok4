@@ -54,7 +54,7 @@
                             <legend>Avatar</legend>
                                 <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail" style="height: 300px;">
-                                        <img src="<?= base_url(); ?>assets/img/profile/<?= $user['image']; ?>" alt="image">
+                                        <img src="<?= base_url(); ?>assets/image/profile/<?= $user['image']; ?>" alt="image">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail" style="height: 300px;"></div>
                                     <div>

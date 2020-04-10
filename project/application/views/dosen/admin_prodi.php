@@ -1,8 +1,17 @@
 <!-- Begin Page Content -->
-<?php 
+<?php
+foreach ($admin_prodi as $i) :
+    $id = $i['ID_ADM'];
+    $nip = $i['NIP_ADM'];
+    $nama_adm = $i['NAMA_ADM'];
+    $jk_adm = $i['JK_ADM'];
+    $alamat_adm = $i['ALAMAT_ADM'];
+    $hp_adm = $i['HP_ADM'];
+    $prodi_adm = $i['PRODI_ADM'];
+    
     $query_user = "SELECT * FROM user WHERE identity = $nip"; 
     $data_user = $this->db->query($query_user)->result_array();
-?>
+    ?>
 <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -58,9 +67,16 @@
                                                     <td><?= $m['ALAMAT_ADM']; ?></td>
                                                     <td><?= $m['HP_ADM']; ?></td>
                                                     <td><?= $m['PRODI_ADM']; ?></td>
+                                                    <?php foreach($data_user as $dtusr): ?>
+                                                        <?php if($dtusr['is_active'] == 1): ?>
+                                                            <td><span class="label label-success">Active</span></td>
+                                                        <?php else : ?>
+                                                            <td><span class="label label-danger">Disabled</span></td>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
                                                     <td class="text-right">
-                                                    <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Akun</button>
-                                                    <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Akun</button>
+                                                        <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Akun</button>
+                                                        <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Akun</button>
                                                     </td>
                                                 </tr>
                                                 <?php $i++; ?>
@@ -70,9 +86,6 @@
                                     </div>
                                 </div>
                                 <!-- end content-->
-                            </div>
-                            <!--  end card  -->
-                        </div>
                         <!-- end col-md-12 -->
                     <!-- end row -->
 <!-- Pembataas -->
@@ -145,16 +158,6 @@
 </div>
 
 <!--MODAL EDIT role!-->
-<?php
-foreach ($admin_prodi as $i) :
-    $id = $i['ID_ADM'];
-    $nip = $i['NIP_ADM'];
-    $nama_adm = $i['NAMA_ADM'];
-    $jk_adm = $i['JK_ADM'];
-    $alamat_adm = $i['ALAMAT_ADM'];
-    $hp_adm = $i['HP_ADM'];
-    $prodi_adm = $i['PRODI_ADM'];
-    ?>
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
