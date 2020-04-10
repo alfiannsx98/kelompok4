@@ -174,7 +174,7 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group" hidden>
                         <label class="control-label col-xs-3">ID menu</label>
                         <div class="col-xs-8">
-                            <input name="ID_ADM" id="NIP_ADM" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID menu" hidden>
+                            <input name="ID_ADM" id="ID_ADM" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID Admin" hidden>
                         </div>
                     </div>
                     <div class="form-group">
@@ -193,7 +193,7 @@ foreach ($admin_prodi as $i) :
                         <label for="JK_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
                         <div class="col-xs-8">
                             <select name="JK_ADM" id="JK_ADM" class="form-control">
-                                <option value="<?= $jk_adm; ?>" selected disabled><?= $jk_adm; ?></option>
+                                <option value="<?= $jk_adm; ?>" selected hidden><?= $jk_adm; ?></option>
                                 <option value="Laki-Laki">Laki-Laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
@@ -215,7 +215,7 @@ foreach ($admin_prodi as $i) :
                         <label for="PRODI_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
                         <div class="col-xs-8">
                             <select name="PRODI_ADM" id="PRODI_ADM" class="form-control">
-                                <option value="<?= $prodi_adm; ?>" selected disabled><?= $prodi_adm; ?></option>
+                                <option value="<?= $prodi_adm; ?>" selected hidden><?= $prodi_adm; ?></option>
                                 <?php foreach($prodi as $pr): ?>
                                     <option value="<?= $pr['nama_pr'] ?>"><?= $pr['nama_pr'] ?></option>
                                 <?php endforeach; ?>
@@ -228,7 +228,7 @@ foreach ($admin_prodi as $i) :
                         <label for="is_active" class="control-label col-xs-3">Status User</label>
                         <div class="col-xs-8">
                             <select name="is_active" id="is_active" class="form-control">
-                                <option value="#" disabled selected>
+                                <option value="#" hidden selected>
                                     <?php if($dt['is_active'] == 1) : ?>
                                         Aktif
                                     <?php else : ?>

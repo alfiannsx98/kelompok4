@@ -157,7 +157,7 @@ class Dosen extends CI_Controller
         $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
-        $this->form_validation->set_rules('EMAIL_ADM', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
 
         if($this->form_validation->run() == false){
             redirect('dosen/admin_prodi');
