@@ -60,8 +60,8 @@ class Pendaftaran extends CI_Controller
             $this->session->userdata('email')    
         ])->row_array();
     
-        
-        $data['dosbing'] = $this->m_pendaftaran->nama()->result();
+        $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
+        $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

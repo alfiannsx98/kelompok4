@@ -8,29 +8,30 @@
 							<h4 class="card-title">Form Pendaftaran PKL</h4>
 						</div>
 						<div class="card-content">
-							<input type="hidden" name="ID_PND" id="ID_PND"
+							<input type="text" name="ID_PND" id="ID_PND"
 								value="<?php echo "pnd".sprintf("%0s", $ID_PND); ?>">
 							<div class="row">
-								<label class="col-sm-2 label-on-left">Tempat PKL</label>
+								<label class="col-sm-2 label-on-left" for="ID_PR" >Tempat PKL</label>
+								<input type="text" name="ID_PR">
+								<input type="text" name="ID_DS">
 								<div class="col-lg-5 col-md-6 col-sm-3">
-									<select class="selectpicker" data-style="btn btn-primary btn-round"
-										title="Single Select" data-size="7">
-										<option disabled selected>Pilih Tempat PKL</option>
-										<?php foreach($dosbing as $ds){
-                                            echo '<option type="text" value="'.$ds->ID_PR.'">'.$ds->NAMA_PR;
-                                            }?>
+									<select>
+										<option selected>Pilih Tempat PKL</option>
+										<?php foreach($comboPR as $pr){?>
+                                        <option type="text" name="ID_PR" value="<?= $pr->ID_PR; ?>'"><?=$pr->NAMA_PR;?></option>
+										<?php }?>                                        
 									</select>
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
+								<label class="col-sm-2 label-on-left" for="ID_DS">Dosen Pembimbing</label>
 								<div class="col-lg-5 col-md-6 col-sm-3">
 									<select class="selectpicker" data-style="btn btn-primary btn-round"
 										title="Single Select" data-size="7">
-										<option disabled selected>Pilih Dosen Pembimbing</option>
-										<?php foreach($dosbing as $ds){
-                                            echo '<option type="text" value="'.$ds->ID_DS.'">'.$ds->NAMA_DS;
-                                            }?>
+										<option selected>Pilih Dosen Pembimbing</option>
+										<?php foreach($comboDS as $ds){ ?>										
+                                    	<option type="text" name="ID_DS" value="<?= $ds->ID_DS; ?>"><?= $ds->NAMA_DS; ?></option>
+                                        <?php } ?>
 									</select>
 								</div>
 							</div>
@@ -44,10 +45,9 @@
 										<input type="text" class="form-control">
 									</div>
 								</div>
-								<button class="btn btn-fill btn-rose">Tambah</button>
+								<!-- <button class="btn btn-fill btn-rose">Tambah</button> -->
 							</div>
-
-
+							<button type="submit" class="btn btn-fill btn-rose">Submit</button>
 						</div>
 					</form>
 				</div>
@@ -85,6 +85,5 @@
 				</div>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-fill btn-rose">Submit</button>
 	</div>
 </div>

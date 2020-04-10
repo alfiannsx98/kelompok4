@@ -31,12 +31,23 @@ class M_pendaftaran extends CI_Model{
                 return $hasil->ID_PND;       
         }
 
-        function nama(){
-                $data = $this->db->query("SELECT ID_DS, NAMA_DS, ID_PR, NAMA_PR FROM perusahaan, dosbing");
+        function comboDS(){
+                $data = $this->db->query("SELECT ID_DS, NAMA_DS FROM dosbing");
+                return $data;
+        }
+
+        function comboPR(){
+                $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
                 return $data;
         }
 
         function tmbh_pnd($data, $table){
                 $this->db->insert($table, $data);
         }
+
+//         INSERT INTO pendaftaran_klp(ID_PND, ID_M) VALUES
+// (
+// 	("pnd1"),
+//     (SELECT ID_M FROM mahasiswa WHERE NIM="E41181338")
+// )
 }
