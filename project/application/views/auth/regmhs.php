@@ -34,6 +34,7 @@
                                         <div class="tab-pane" id="about">
                                             <div class="row">
                                                 <h4 class="info-text"> Pendaftaran </h4>
+                                                <?= $this->session->flashdata('message'); ?>
                                                 <div class="col-sm-4 col-sm-offset-1">
                                                     <div class="picture-container">
                                                         <div class="picture">
