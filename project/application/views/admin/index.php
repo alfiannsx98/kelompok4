@@ -133,14 +133,15 @@
 
 
     <!-- Modal Info User -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade jumbotron-fluid" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-info">
-                    <!-- <button type="button" class="text-right close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header">
+
+                    <h5 class="modal-title text-center">View Data</h5>
+                    <button type="button" class="text-right close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button> -->
-                    <h5 class="modal-title pb-10 text-center">View Data</h5>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -183,7 +184,7 @@
                                                     ?>
                                                             <tr>
                                                                 <td><?= $i; ?></td>
-                                                                <td style="width: 50px"><?= $id; ?></td>
+                                                                <td style="width: 200px"><?= $id; ?></td>
                                                                 <td><?= $a['nama']; ?></td>
                                                                 <td><?= $a['email']; ?></td>
                                                                 <td><?php
