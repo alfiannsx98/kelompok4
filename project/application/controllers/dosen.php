@@ -155,15 +155,12 @@ class Dosen extends CI_Controller
     {
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
         $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
-        $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
-        $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
         $this->form_validation->set_rules('EMAIL_ADM', 'Email', 'required');
-        $this->form_validation->set_rules('PASSWORD_ADM', 'Password', 'required');
 
         if($this->form_validation->run() == false){
-            redirect('menu');
+            redirect('dosen/admin_prodi');
         }else{
             $id = $this->input->post('ID_ADM');
             $nip = $this->input->post('NIP_ADM');
@@ -172,9 +169,11 @@ class Dosen extends CI_Controller
             $alamat_admin = $this->input->post('ALAMAT_ADM');
             $no_hp_admin = $this->input->post('HP_ADM');
             $prodi_admin = $this->input->post('PRODI_ADM');
-            $email_admin = $this->input->post('EMAIL_ADM');
-            $password_admin = $this->input->post('PASSWORD_ADM');
-            $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin, $email_admin, $password_admin);
+            $id_user = $this->input->post('id_user');
+            $is_active = $this->input->post('is_active');
+            $email_admin = $this->input->post('email');
+            $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin);
+            $this->model_dosen->edit_user_admin_prodi($id_user, $nip, $nama_adm, $is_active, $email_admin);
             $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
             redirect('dosen/admin_prodi');
         }
