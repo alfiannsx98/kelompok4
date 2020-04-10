@@ -15,6 +15,7 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
+        $data['title1'] = 'Data User Aktif';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')
@@ -23,8 +24,7 @@ class Admin extends CI_Controller
         $data['jml_dosen'] = $this->m_dashboard->total_dosen();
         $data['jml_admin'] = $this->m_dashboard->total_admin();
         $data['jml_perusahaan'] = $this->m_dashboard->total_perusahaan();
-
-        $data['aktif'] = $this->m_data->tampil_data()->result();
+        $data['aktif'] = $this->m_dashboard->select_by_role();
 
 
         $this->load->view('templates/header', $data);

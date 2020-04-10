@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_dashboard extends CI_Model
 {
-
 	public function select_by_user()
 	{
 		$sql = "SELECT * FROM user WHERE role_id=2 AND is_active=1";
@@ -11,6 +10,15 @@ class m_dashboard extends CI_Model
 		$data = $this->db->query($sql);
 
 		return $data->num_rows();
+	}
+
+	public function select_by_role()
+	{
+		$sql = "SELECT * FROM user WHERE role_id=2 AND is_active=1";
+
+		$data = $this->db->query($sql);
+
+		return $data->result_array();
 	}
 
 	public function total_dosen()

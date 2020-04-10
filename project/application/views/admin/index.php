@@ -136,140 +136,156 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Data USer Aktif</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header bg-info">
+                    <!-- <button type="button" class="text-right close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> -->
+                    <h5 class="modal-title pb-10 text-center">View Data</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="content">
-
-
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Data Kedatangan</h1>
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Tabel Data DOSEN</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>ID USER</th>
-                                                <th>NAMA USER</th>
-                                                <th>EMAIL</th>
-                                                <th>PASSWORD</th>
-                                                <th>IMAGE</th>
-                                                <th>ABOUT</th>
-                                                <th>ROLE</th>
-                                                <th>TGL_BUAT</th>
-                                                <th>KET</th>
-                                                <th>CHANGE</th>
-                                                <th>OPSI</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            foreach ($aktif as $tb) { ?>
-                                                <tr>
-
-                                                    <td><?= $tb->id_user ?></td>
-                                                    <td><?= $tb->nama ?></td>
-                                                    <td><?= $tb->email ?></td>
-                                                    <td><?= $tb->password ?></td>
-                                                    <td><?= $tb->image ?></td>
-                                                    <td><?= $tb->about ?></td>
-                                                    <td><?= $tb->role_id ?></td>
-                                                    <td><?= $tb->date_created ?></td>
-                                                    <td><?= $tb->is_active ?></td>
-                                                    <td><?= $tb->change_pass ?></td>
-
-                                                    <td>
-                                                        <a class="btn btn-primary" href="<?php echo base_url() . 'dosbing/edit/' . $tb->ID_DS; ?>"><i class="">EDIT</i></a>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header card-header-icon" data-background-color="purple">
+                                        <i class="material-icons">assignment</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4 class="card-title">Table <?= $title1; ?></h4>
+                                        <div class="toolbar">
+                                        </div>
+                                        <div class="material-datatables">
+                                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>ID USER</th>
+                                                        <th>NAMA</th>
+                                                        <th>EMAIL</th>
+                                                        <th>ROLE</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>ID USER</th>
+                                                        <th>NAMA</th>
+                                                        <th>EMAIL</th>
+                                                        <th>ROLE</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    <?php $i = 1; ?>
+                                                    <?php
+                                                    if (is_array($aktif)) {
+                                                        foreach ($aktif as $a) :
+                                                            $id = $a['id_user'];
+                                                    ?>
+                                                            <tr>
+                                                                <td><?= $i; ?></td>
+                                                                <td style="width: 50px"><?= $id; ?></td>
+                                                                <td><?= $a['nama']; ?></td>
+                                                                <td><?= $a['email']; ?></td>
+                                                                <td><?php
+                                                                    if ($a['role_id'] == 2) {
+                                                                        echo '<span class="badge badge-pill badge-success">Mahasiswa</span>';
+                                                                    } elseif ($a['role_id'] == 3) {
+                                                                        echo '<span class="badge badge-pill badge-info">Dosen</span>';
+                                                                    } elseif ($a['role_id'] == 4) {
+                                                                        echo '<span class="badge badge-pill badge-warning">Dosen Pengampu</span>';
+                                                                    } elseif ($a['role_id'] == 5) {
+                                                                        echo '<span class="badge badge-pill badge-danger">Admin Prodi</span>';
+                                                                    } else {
+                                                                        echo '<span class="badge badge-pill badge-primary">Admin</span>';
+                                                                    } ?></td>
+                                                            </tr>
+                                                            <?php $i++; ?>
+                                                        <?php endforeach; ?>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- end content-->
                                 </div>
+                                <!--  end card  -->
                             </div>
+                            <!-- end col-md-12 -->
                         </div>
-
+                        <!-- end row -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
+
     </div>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-    <script type="text/javascript">
-        var ctx = document.getElementById('dataMhs').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'bar',
+<script type="text/javascript">
+    var ctx = document.getElementById('dataMhs').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
 
-            // The data for our dataset
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                datasets: [{
-                    label: 'Data Pendaftar per Bulan',
-                    backgroundColor: [
-                        'rgba(255, 99, 132,0.6)',
-                        'rgba(54, 162, 235,0.6)',
-                        'rgba(75, 192, 192,0.6)',
-                        'rgba(153, 102, 255,0.6)',
-                        'rgba(255, 206, 86,0.6)',
-                        'rgba(230, 196, 16,0.6)',
-                        'rgba(18, 252, 90,0.6)',
-                        'rgba(60, 54, 72,0.6)',
-                        'rgba(255, 99, 132,0.6)',
-                        'rgba(54, 162, 235,0.6)',
-                        'rgba(75, 192, 192,0.6)',
-                        'rgba(153, 102, 255,0.6)'
-                    ],
-                    borderColor: 'rgb(255, 99, 132)',
-                    hoverBorderWidth: '3',
-                    hoverBorderColor: '#000',
-                    data: [0, 10, 5, 2, 20, 30, 45, 20, 35, 12, 5, 0]
-                }]
-            },
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+                label: 'Data Pendaftar per Bulan',
+                backgroundColor: [
+                    'rgba(255, 99, 132,0.6)',
+                    'rgba(54, 162, 235,0.6)',
+                    'rgba(75, 192, 192,0.6)',
+                    'rgba(153, 102, 255,0.6)',
+                    'rgba(255, 206, 86,0.6)',
+                    'rgba(230, 196, 16,0.6)',
+                    'rgba(18, 252, 90,0.6)',
+                    'rgba(60, 54, 72,0.6)',
+                    'rgba(255, 99, 132,0.6)',
+                    'rgba(54, 162, 235,0.6)',
+                    'rgba(75, 192, 192,0.6)',
+                    'rgba(153, 102, 255,0.6)'
+                ],
+                borderColor: 'rgb(255, 99, 132)',
+                hoverBorderWidth: '3',
+                hoverBorderColor: '#000',
+                data: [0, 10, 5, 2, 20, 30, 45, 20, 35, 12, 5, 0]
+            }]
+        },
 
-            // Configuration options go here
-            options: {}
-        });
+        // Configuration options go here
+        options: {}
+    });
 
-        var ctx = document.getElementById('dataPrd').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'doughnut',
+    var ctx = document.getElementById('dataPrd').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'doughnut',
 
-            // The data for our dataset
-            data: {
-                labels: ['TKK', 'MIF', 'TIF'],
-                datasets: [{
-                    label: 'Data MHS Prodi',
-                    backgroundColor: [
-                        'rgba(60, 54, 72,0.6)',
-                        'rgba(230, 196, 16,0.6)',
-                        'rgba(54, 162, 235,0.6)'
-                    ],
-                    borderColor: 'rgb(255, 99, 132)',
-                    hoverBorderWidth: '3',
-                    hoverBorderColor: '#000',
-                    data: [5, 7, 25]
-                }]
-            },
+        // The data for our dataset
+        data: {
+            labels: ['TKK', 'MIF', 'TIF'],
+            datasets: [{
+                label: 'Data MHS Prodi',
+                backgroundColor: [
+                    'rgba(60, 54, 72,0.6)',
+                    'rgba(230, 196, 16,0.6)',
+                    'rgba(54, 162, 235,0.6)'
+                ],
+                borderColor: 'rgb(255, 99, 132)',
+                hoverBorderWidth: '3',
+                hoverBorderColor: '#000',
+                data: [5, 7, 25]
+            }]
+        },
 
-            // Configuration options go here
-            options: {}
-        });
-    </script>
+        // Configuration options go here
+        options: {}
+    });
+</script>
