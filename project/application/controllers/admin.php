@@ -9,6 +9,7 @@ class Admin extends CI_Controller
         is_logged_in();
         $this->load->model('model_admin');
         $this->load->model('m_dashboard');
+        $this->load->model('m_data');
     }
 
     public function index()
@@ -22,6 +23,8 @@ class Admin extends CI_Controller
         $data['jml_dosen'] = $this->m_dashboard->total_dosen();
         $data['jml_admin'] = $this->m_dashboard->total_admin();
         $data['jml_perusahaan'] = $this->m_dashboard->total_perusahaan();
+
+        $data['aktif'] = $this->m_data->tampil_data()->result();
 
 
         $this->load->view('templates/header', $data);
