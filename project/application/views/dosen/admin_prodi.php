@@ -86,9 +86,14 @@ foreach ($admin_prodi as $i) :
                                     </div>
                                 </div>
                                 <!-- end content-->
+                            </div>
+                            <!--  end card  -->
+                        </div>
                         <!-- end col-md-12 -->
+                    </div>
                     <!-- end row -->
-<!-- Pembataas -->
+                </div>
+            </div>
 
 
 <!-- Akhir Pembatas -->
@@ -157,7 +162,6 @@ foreach ($admin_prodi as $i) :
     </div>
 </div>
 
-<!--MODAL EDIT role!-->
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -170,19 +174,19 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group" hidden>
                         <label class="control-label col-xs-3">ID menu</label>
                         <div class="col-xs-8">
-                            <input name="ID_ADM" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID menu" hidden>
+                            <input name="ID_ADM" id="NIP_ADM" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID menu" hidden>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="NIP_ADM" class="control-label col-xs-3">NIP Admin Prodi</label>
                         <div class="col-xs-8">
-                            <input type="text" name="NIP_ADM" value="<?= $nip; ?>" placeholder="NIP Admin Prodi" class="form-control">
+                            <input type="text" name="NIP_ADM" id="NIP_ADM" value="<?= $nip; ?>" placeholder="NIP Admin Prodi" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="NAMA_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
                         <div class="col-xs-8">
-                            <input type="text" name="NAMA_ADM" value="<?= $nama_adm; ?>" placeholder="Nama Admin Prodi" class="form-control">
+                            <input type="text" name="NAMA_ADM" id="NAMA_ADM" value="<?= $nama_adm; ?>" placeholder="Nama Admin Prodi" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -198,13 +202,13 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group">
                         <label for="ALAMAT_ADM" class="control-label col-xs-3">Alamat Admin Prodi</label>
                         <div class="col-xs-8">
-                            <input type="text" name="ALAMAT_ADM" value="<?= $alamat_adm ?>" placeholder="Alamat Admin Prodi" class="form-control">
+                            <input type="text" name="ALAMAT_ADM" id="ALAMAT_ADM" value="<?= $alamat_adm ?>" placeholder="Alamat Admin Prodi" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="HP_ADM" class="control-label col-xs-3">Nomor HP Admin Prodi</label>
                         <div class="col-xs-8">
-                            <input type="number" name="HP_ADM" value="<?= $hp_adm ?>" placeholder="No HP Admin Prodi" class="form-control">
+                            <input type="number" name="HP_ADM" id="HP_ADM" value="<?= $hp_adm ?>" placeholder="No HP Admin Prodi" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -218,27 +222,28 @@ foreach ($admin_prodi as $i) :
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="HP_ADM" class="control-label col-xs-3">Nomor HP Admin Prodi</label>
-                        <div class="col-xs-8">
-                            <input type="number" name="HP_ADM" value="<?= $hp_adm ?>" placeholder="No HP Admin Prodi" class="form-control">
-                        </div>
-                    </div>
                     <?php foreach($data_user as $dt): ?>
+                    <input type="text" name="id_user" id="id_user" value="<?= $dt['id_user']; ?>" hidden>
                     <div class="form-group">
                         <label for="is_active" class="control-label col-xs-3">Status User</label>
                         <div class="col-xs-8">
                             <select name="is_active" id="is_active" class="form-control">
                                 <option value="#" disabled selected>
                                     <?php if($dt['is_active'] == 1) : ?>
-                                        <?= "Aktif"; ?>
+                                        Aktif
                                     <?php else : ?>
-                                        <?= "Belum Aktif" ?>
+                                        Belum Aktif
                                     <?php  endif; ?>
                                 </option>
                                 <option value="1">Aktif</option>
                                 <option value="0">Nonaktif</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label col-xs-3">Email Admin Prodi</label>
+                        <div class="col-xs-8">
+                            <input type="email" name="email" id="email" value="<?= $dt['email']; ?>" placeholder="Email Admin Prodi" class="form-control">
                         </div>
                     </div>
                     <?php endforeach; ?>
