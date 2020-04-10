@@ -12,6 +12,11 @@ class Dosen extends CI_Controller
     }
     public function admin_prodi()
     {
+        $query1 = $this->db->query("SELECT * FROM user");
+        $tabel = $query1->num_rows();
+        $date = date('dm', time());
+        $id_usr = "ID-U" . $tabel . $date;
+
         $data['title'] = 'Admin Program Studi';
         $data['user'] = $this->db->get_where('user', [
             'email' => 
@@ -19,6 +24,7 @@ class Dosen extends CI_Controller
         ])->row_array();
 
         $data['admin_prodi'] = $this->db->get('admin_prodi')->result_array();
+        $data['prodi'] = $this->db->get('prodi')->result_array();
 
         $query = $this->db->query("SELECT * FROM admin_prodi"); 
         $tabel = $query->num_rows();
@@ -50,7 +56,8 @@ class Dosen extends CI_Controller
                 'PRODI_ADM' => $this->input->post('PRODI_ADM')
             ];
             $dataUser = [
-                'id_user' => $this->input->post('NIP_ADM'),
+                'id_user' => $id_usr,
+                'identity' => $this->input->post('NIP_ADM'),
                 'nama' => $this->input->post('NAMA_ADM'),
                 'email' => $this->input->post('EMAIL_ADM'),
                 'image' => "default.jpg",

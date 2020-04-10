@@ -52,7 +52,7 @@
                             <div class="card card-profile">
                                 <div class="card-avatar">
                                     <a href="#pablo">
-                                        <img class="img" src="<?= base_url() . 'assets/img/profile/' . $user['image']; ?>" />
+                                        <img class="img" src="<?= base_url() . 'assets/image/profile/' . $user['image']; ?>" />
                                     </a>
                                 </div>
                                 <div class="card-content">
