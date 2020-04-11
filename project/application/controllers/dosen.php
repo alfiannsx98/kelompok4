@@ -37,7 +37,6 @@ class Dosen extends CI_Controller
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
         $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
         $this->form_validation->set_rules('EMAIL_ADM', 'Email', 'required');
-        $this->form_validation->set_rules('PASSWORD_ADM', 'Password', 'required');
 
         if($this->form_validation->run() == false){
             $this->load->view('templates/header', $data);
@@ -61,7 +60,7 @@ class Dosen extends CI_Controller
                 'nama' => $this->input->post('NAMA_ADM'),
                 'email' => $this->input->post('EMAIL_ADM'),
                 'image' => "default.jpg",
-                'password' => password_hash($this->input->post('PASSWORD_ADM'), PASSWORD_DEFAULT),
+                'password' => "polijesip" . time(),
                 'about' => "#",
                 'role_id' => 12,
                 'is_active' => 0,

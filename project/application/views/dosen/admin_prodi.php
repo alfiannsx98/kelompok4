@@ -1,17 +1,4 @@
 <!-- Begin Page Content -->
-<?php
-foreach ($admin_prodi as $i) :
-    $id = $i['ID_ADM'];
-    $nip = $i['NIP_ADM'];
-    $nama_adm = $i['NAMA_ADM'];
-    $jk_adm = $i['JK_ADM'];
-    $alamat_adm = $i['ALAMAT_ADM'];
-    $hp_adm = $i['HP_ADM'];
-    $prodi_adm = $i['PRODI_ADM'];
-    
-    $query_user = "SELECT * FROM user WHERE identity = $nip"; 
-    $data_user = $this->db->query($query_user)->result_array();
-    ?>
 <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -56,18 +43,22 @@ foreach ($admin_prodi as $i) :
                                             </tfoot>
                                             <tbody>
                                             <?php $i = 1; ?>
-                                            <?php foreach ($admin_prodi as $m) :
-                                                $id = $m['ID_ADM'];
+                                            <?php foreach ($admin_prodi as $mi) :
+                                                $id_mi = $mi['ID_ADM'];
+                                                $nip_mi = $mi['NIP_ADM'];
+
+                                                $qwery = "SELECT * FROM user WHERE identity = $nip_mi"; 
+                                                $dtu = $this->db->query($qwery)->result_array();
                                             ?>
                                                 <tr>
                                                     <td><?= $i; ?></td>
-                                                    <td><?= $m['NIP_ADM']; ?></td>
-                                                    <td><?= $m['NAMA_ADM']; ?></td>
-                                                    <td><?= $m['JK_ADM']; ?></td>
-                                                    <td><?= $m['ALAMAT_ADM']; ?></td>
-                                                    <td><?= $m['HP_ADM']; ?></td>
-                                                    <td><?= $m['PRODI_ADM']; ?></td>
-                                                    <?php foreach($data_user as $dtusr): ?>
+                                                    <td><?= $mi['NIP_ADM']; ?></td>
+                                                    <td><?= $mi['NAMA_ADM']; ?></td>
+                                                    <td><?= $mi['JK_ADM']; ?></td>
+                                                    <td><?= $mi['ALAMAT_ADM']; ?></td>
+                                                    <td><?= $mi['HP_ADM']; ?></td>
+                                                    <td><?= $mi['PRODI_ADM']; ?></td>
+                                                    <?php foreach($dtu as $dtusr): ?>
                                                         <?php if($dtusr['is_active'] == 1): ?>
                                                             <td><span class="label label-success">Active</span></td>
                                                         <?php else : ?>
@@ -75,8 +66,8 @@ foreach ($admin_prodi as $i) :
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
                                                     <td class="text-right">
-                                                        <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Akun</button>
-                                                        <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Akun</button>
+                                                        <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id_mi; ?>">Edit Akun</button>
+                                                        <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id_mi; ?>">Hapus Akun</button>
                                                     </td>
                                                 </tr>
                                                 <?php $i++; ?>
@@ -99,6 +90,19 @@ foreach ($admin_prodi as $i) :
 <!-- Akhir Pembatas -->
 
 <!--MODAL DIALOG UNTUK CREATE DATA!-->
+<?php
+foreach ($admin_prodi as $i) :
+    $id = $i['ID_ADM'];
+    $nip = $i['NIP_ADM'];
+    $nama_adm = $i['NAMA_ADM'];
+    $jk_adm = $i['JK_ADM'];
+    $alamat_adm = $i['ALAMAT_ADM'];
+    $hp_adm = $i['HP_ADM'];
+    $prodi_adm = $i['PRODI_ADM'];
+    
+    $query_user = "SELECT * FROM user WHERE identity = $nip"; 
+    $data_user = $this->db->query($query_user)->result_array();
+    ?>
 <div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -111,14 +115,15 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group">
                         <label for="">NIP Admin</label>
                         <input type="text" class="form-control" id="NIP_ADM" name="NIP_ADM" placeholder="Masukkan NIP Admin">
+                        <?= form_error('NIP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label for="">Nama Admin</label>
                         <input type="text" class="form-control" id="NAMA_ADM" name="NAMA_ADM" placeholder="Masukkan Nama Admin">
+                        <?= form_error('NAMA_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <div class="form-group">
-                        <label for="">Pilih Jenis Kelamin</label>
                         <div class="form-group">
+                        <label for="">Pilih Jenis Kelamin</label>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="JK_ADM" value="Laki-Laki"> Laki-Laki
@@ -133,14 +138,16 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group">
                         <label for="">Alamat Admin</label>
                         <input type="text" name="ALAMAT_ADM" class="form-control" placeholder="Alamat Admin">
+                        <?= form_error('ALAMAT_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label for="">Nomor HP Admin</label>
                         <input type="number" class="form-control" id="HP_ADM" name="HP_ADM" placeholder="Masukkan Nomor HP">
+                        <?= form_error('HP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <label for="PRODI_ADM">Nama Admin Prodi</label>
-                        <select name="PRODI_ADM" id="PRODI_ADM" class="form-control">
+                        <select name="PRODI_ADM" id="PRODI_ADM" class="form-control" required>
                                 <option value="" selected disabled>Silahkan pilih Program Studi</option>
                                 <?php foreach($prodi as $pr): ?>
                                 <option value="<?= $pr['nama_pr'] ?>"><?= $pr['nama_pr'] ?></option>
@@ -148,10 +155,10 @@ foreach ($admin_prodi as $i) :
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Email Admin</label>
+                        <label for="EMAIL_ADM">Email Admin</label>
                         <input type="email" class="form-control" id="EMAIL_ADM" name="EMAIL_ADM" placeholder="Masukkan Email">
+                        <?= form_error('EMAIL_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <input type="hidden" name="PASSWORD_ADM" id="PASSWORD_ADM" value="polijesip<?= time(); ?>">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
