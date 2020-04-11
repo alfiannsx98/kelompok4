@@ -30,13 +30,18 @@ class Dosen extends CI_Controller
         $tabel = $query->num_rows();
         $id_u = "ADM" . $tabel . ($tabel+1) . date('s', time()) ;
 
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+            'is_unique' => 'Email Ini telah Terdaftar!'
+        ]);
+        $this->form_validation->set_rules('NAMA_ADM', 'Nama_Admin', 'required|trim|is_unique[admin_prodi.NAMA_ADM]', [
+            'is_unique' => 'Nama Akun Ini telah Terdaftar!'
+        ]);
+
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
-        $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
         $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
         $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
-        $this->form_validation->set_rules('EMAIL_ADM', 'Email', 'required');
 
         if($this->form_validation->run() == false){
             $this->load->view('templates/header', $data);
@@ -45,20 +50,22 @@ class Dosen extends CI_Controller
             $this->load->view('dosen/admin_prodi', $data);
             $this->load->view('templates/footer');
         }else{
+            $email = $this->input->post('email', true);
+            $nama_adm = $this->input->post('NAMA_ADM', true);
             $data = [
                 'ID_ADM' => $id_u,
-                'NIP_ADM' => $this->input->post('NIP_ADM'),
-                'NAMA_ADM' => $this->input->post('NAMA_ADM'),
+                'NIP_ADM' => htmlspecialchars($this->input->post('NIP_ADM')),
+                'NAMA_ADM' => htmlspecialchars($nama_adm),
                 'JK_ADM' => $this->input->post('JK_ADM'),
-                'ALAMAT_ADM' => $this->input->post('ALAMAT_ADM'),
-                'HP_ADM' => $this->input->post('HP_ADM'),
+                'ALAMAT_ADM' => htmlspecialchars($this->input->post('ALAMAT_ADM')),
+                'HP_ADM' => htmlspecialchars($this->input->post('HP_ADM')),
                 'PRODI_ADM' => $this->input->post('PRODI_ADM')
             ];
             $dataUser = [
                 'id_user' => $id_usr,
                 'identity' => $this->input->post('NIP_ADM'),
                 'nama' => $this->input->post('NAMA_ADM'),
-                'email' => $this->input->post('EMAIL_ADM'),
+                'email' => $email,
                 'image' => "default.jpg",
                 'password' => "polijesip" . time(),
                 'about' => "#",
@@ -67,8 +74,6 @@ class Dosen extends CI_Controller
                 'date_created' => time(),
                 'change_pass' => 0
             ];
-            $email = $this->input->post('EMAIL_ADM', true);
-
             $token = base64_encode(random_bytes(32));
             $user_token = [
                 'email' => $email,
@@ -154,8 +159,10 @@ class Dosen extends CI_Controller
     {
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
         $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
+        $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
+        $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
         if($this->form_validation->run() == false){

@@ -156,8 +156,8 @@ foreach ($admin_prodi as $i) :
                     </div>
                     <div class="form-group">
                         <label for="EMAIL_ADM">Email Admin</label>
-                        <input type="email" class="form-control" id="EMAIL_ADM" name="EMAIL_ADM" placeholder="Masukkan Email">
-                        <?= form_error('EMAIL_ADM', '<small class="text-danger col-md">', '</small>'); ?>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email">
+                        <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -187,13 +187,16 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group">
                         <label for="NIP_ADM" class="control-label col-xs-3">NIP Admin Prodi</label>
                         <div class="col-xs-8">
-                            <input type="text" name="NIP_ADM" id="NIP_ADM" value="<?= $nip; ?>" placeholder="NIP Admin Prodi" class="form-control">
+                            <input type="text"value="<?= $nip; ?>" placeholder="NIP Admin Prodi" class="form-control" readonly disabled>
+                            <input type="hidden" name="NIP_ADM" id="NIP_ADM" value="<?= $nip; ?>">
+                            <?= form_error('NIP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="NAMA_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
                         <div class="col-xs-8">
                             <input type="text" name="NAMA_ADM" id="NAMA_ADM" value="<?= $nama_adm; ?>" placeholder="Nama Admin Prodi" class="form-control">
+                            <?= form_error('NAMA_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group">
@@ -210,12 +213,14 @@ foreach ($admin_prodi as $i) :
                         <label for="ALAMAT_ADM" class="control-label col-xs-3">Alamat Admin Prodi</label>
                         <div class="col-xs-8">
                             <input type="text" name="ALAMAT_ADM" id="ALAMAT_ADM" value="<?= $alamat_adm ?>" placeholder="Alamat Admin Prodi" class="form-control">
+                            <?= form_error('ALAMAT_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="HP_ADM" class="control-label col-xs-3">Nomor HP Admin Prodi</label>
                         <div class="col-xs-8">
                             <input type="number" name="HP_ADM" id="HP_ADM" value="<?= $hp_adm ?>" placeholder="No HP Admin Prodi" class="form-control">
+                            <?= form_error('HP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group">
@@ -235,12 +240,14 @@ foreach ($admin_prodi as $i) :
                         <label for="is_active" class="control-label col-xs-3">Status User</label>
                         <div class="col-xs-8">
                             <select name="is_active" id="is_active" class="form-control">
-                                <option value="#" hidden selected>
-                                    <?php if($dt['is_active'] == 1) : ?>
-                                        Aktif
-                                    <?php else : ?>
-                                        Belum Aktif
-                                    <?php  endif; ?>
+                                <option value="<?= $jk_adm; ?>"hidden selected></option>
+                                <option value="<?= $jk_adm; ?>" selected disabled>
+                                    <?php if($dt['is_active'] == 1){
+                                        echo "Aktif";
+                                    } else{
+                                        echo "Nonaktif";
+                                    }
+                                    ?>
                                 </option>
                                 <option value="1">Aktif</option>
                                 <option value="0">Nonaktif</option>
@@ -251,6 +258,7 @@ foreach ($admin_prodi as $i) :
                         <label for="email" class="control-label col-xs-3">Email Admin Prodi</label>
                         <div class="col-xs-8">
                             <input type="email" name="email" id="email" value="<?= $dt['email']; ?>" placeholder="Email Admin Prodi" class="form-control">
+                            <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                     </div>
                     <?php endforeach; ?>
