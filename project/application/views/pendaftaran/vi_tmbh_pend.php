@@ -1,16 +1,3 @@
-<script>
-	$(document).ready(function () {
-
-		$("#tambah").click(function () {
-			var nilai = $("#NIM").val();
-			var baris_baru = "<tr><td>" + nilai + "</td></tr>";
-			$("#data_table").append(baris_baru);
-		})
-
-	});
-
-</script>
-
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -53,22 +40,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="row">
-					<label>Masukkan NIM</label>
-					<input type="text" id="NIM">
-					<button id="tambah">Tambah</button>
-					<table class="table" id="data_table">
-						<tr>
-							<th>NIM</th>
-						</tr>
-						<tr>
-							<td>e411</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
+		<label>Masukkan NIM</label>
+		<input type="text" id="NIM" name="NIM">
+		<button id="tambah" name="tambah">Tambah</button>
+		<table id="tabel" name="tabel">
+			<tr>
+				<th>NIM</th>
+			</tr>
+			<tr>
+				<td>e411</td>
+			</tr>
+		</table>
 	</div>
 </div>
+<script>
+	$(document).ready(function () {
+
+		$("#tambah").click(function () {
+			var nilai = $("#NIM").val();
+			var baris_baru = "<tr><td>" + nilai + "</td></tr>";
+			$("#tabel").append(baris_baru);
+		})
+
+	});
+
+</script>
