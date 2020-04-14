@@ -1,3 +1,16 @@
+<script>
+	$(document).ready(function () {
+
+		$("#tambah").click(function () {
+			var nilai = $("#NIM").val();
+			var baris_baru = "<tr><td>" + nilai + "</td></tr>";
+			$("#data_table").append(baris_baru);
+		})
+
+	});
+
+</script>
+
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -42,61 +55,20 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card">
-					<div class="card-content">
-						<div class="row">
-							<label class="col-sm-2 label-on-left">NO</label>
-							<div class="col-md-5">
-								<div class="form-group">
-									<input type="text" class="form-control" readonly>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<label class="col-sm-2 label-on-left">Masukkan NIM</label>
-							<div class="col-md-5">
-								<div class="form-group label-floating is-empty">
-									<input type="text" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="table-responsive">
-							<table class="table" action="<?= base_url().'pendaftaran/halu';?>" id="data_table">
-								<thead>
-									<tr>
-										<th class="text-center">No.</th>
-										<th> NIM </th>
-										<th> Nama </th>
-										<th class="text-right">Actions</th>
-									</tr>
-								</thead>
-								<!-- php $nomor=1;?> -->
-								<!-- php foreach($pendaftaran as $pnd){ ?> -->
-								<tbody>
-									<tr>
-										<td class="text-center"></td>
-										<td></td>
-										<!-- <td class="text-center">= $nomor++; ?></td> -->
-										<!-- <td>php echo $pnd->NAMA_PR; ?></td> -->
-										<!-- <td>php echo $pnd->NAMA_DS; ?></td> -->
-									</tr>
-								</tbody>
-								<!-- php } ?> -->
-							</table>
-						</div>
-						<button class="btn btn-fill btn-rose">Tambah</button>
-					</div>
+				<div class="row">
+					<label>Masukkan NIM</label>
+					<input type="text" id="NIM">
+					<button id="tambah">Tambah</button>
+					<table class="table" id="data_table">
+						<tr>
+							<th>NIM</th>
+						</tr>
+						<tr>
+							<td>e411</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-$(function(){
-	var set_number = function(){
-		var table_len = $('#data_table tbody tr').length+1;
-		$(#NO).val();
-	}
-});
-</script>
