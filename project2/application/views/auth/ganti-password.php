@@ -1,9 +1,9 @@
 <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="<?= base_url(); ?>"><b>JTI - </b>PKL</a>
 </div>
 <div class="card">
     <div class="card-body login-card-body">
-        <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+        <p class="login-box-msg">Reset Password Form</p>
         <?= $this->session->flashdata('message'); ?>
         <form class="user" method="post" action="<?= base_url('auth/gantipassword'); ?>">
         <div class="form-group">
@@ -38,6 +38,9 @@
 
         <p class="mt-3 mb-1">
             <a href="<?= base_url('auth'); ?>">Login</a>
+        </p>
+        <p class="mb-0">
+            <a href="<?= base_url('auth/register'); ?>" class="text-center">Register a new membership</a>
         </p>
     </div>
     <!-- /.login-card-body -->
