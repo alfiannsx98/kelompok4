@@ -40,6 +40,7 @@
                 foreach ($menu as $m) :
             ?>
             <!-- Looping Sub-Menu -->
+            
             <?php
                 $menuId = $m['id_menu'];
                 $querySubMenu = "SELECT *
@@ -56,10 +57,11 @@
                 if ($m['menu'] == $url) :
             ?>
             <li class="nav-item has-treeview menu-open">    
+                <a href="#" class="nav-link active">
             <?php else: ?>
             <li class="nav-item has-treeview">
-            <?php endif; ?>
                 <a href="#" class="nav-link">
+            <?php endif; ?>
                     <i class="nav-icon fas <?= $m['icon']; ?>"></i>
                     <p>
                         <?= $m['menu']; ?><i class="right fas fa-angle-left"></i>
@@ -88,7 +90,6 @@
             <?php endforeach; ?>
                 <li class="nav-item">
                     <a href="<?= base_url('auth/logout'); ?>" class="nav-link btn btn-danger">
-                        <i class="far fa-circle nav-icon"></i>
                         <p>Logout</p>
                     </a>
                 </li>
