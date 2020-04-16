@@ -22,14 +22,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-            <img src="<?= base_url(); ?>assets/dist/img/user/<?= $user['image']; ?>" class="brand-image img-circle elevation-3" alt="User Image">
-            </div>
-            <div class="info">
-            <a href="<?= base_url(); ?>" class="d-block"><?= $user['nama']; ?></a>
-            </div>
-        </div>
+        
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -88,11 +81,6 @@
                 <?php endforeach; ?>
             </li>   
             <?php endforeach; ?>
-                <li class="nav-item">
-                    <a href="<?= base_url('auth/logout'); ?>" class="nav-link btn btn-danger">
-                        <p>Logout</p>
-                    </a>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
