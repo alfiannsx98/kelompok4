@@ -5,6 +5,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Dashboard</h1>
+                    <small>Tampilan awal halaman</small>
                 </div><!-- /.col -->
                 <!-- <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -38,7 +39,7 @@
                             <p>Lecturer</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -53,7 +54,7 @@
                             <p>Company</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="fas fa-building"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -68,7 +69,7 @@
                             <p>Active User</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="fas fa-user-plus"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -83,7 +84,7 @@
                             <p>Admin</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="fas fa-book-reader"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -95,72 +96,43 @@
             <!-- Main content -->
             <div class="row">
                 <!-- Left col -->
-                <section class="col-lg-6 connectedSortable">
-                    <!-- Custom tabs (Charts with tabs)-->
+                <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                Grafik User Pendaftar
-                            </h3>
-                            <!-- <div class="card-tools">
-                                    <ul class="nav nav-pills ml-auto">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content p-0">
-                                <!-- Morris chart - Sales -->
-                                <div class="chart tab-pane active" id="dataMhs" style="position: relative; height: 300px;">
-                                    <canvas id="dataMhs" height="300" style="height: 300px;"></canvas>
-                                </div>
-                                <!-- <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                                        <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                    </div> -->
-                            </div>
-                        </div><!-- /.card-body -->
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-chart-bar text-right bg-pink p-4"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title text-center m-4">Grafik User Pendaftar
+                                <small><?= date('Y'); ?></small>
+                            </h4>
+                        </div>
+                        <div id="colouredBarsChart" class="ct-chart">
+                            <canvas id="dataMhs" style="height:250px"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h6>KET:</h6>
+                            <i class="fa fa-circle text-info"></i> Data tersebut merupakan data pendaftar dari setiap bulan pada tahun <?= date('Y'); ?>
+                        </div>
                     </div>
-                    <!-- /.card -->
-                </section>
-                <section class="col-lg-6 connectedSortable">
-                    <!-- Custom tabs (Charts with tabs)-->
+                </div>
+                <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                Grafik Prodi
-                            </h3>
-                            <!-- <div class="card-tools">
-                                    <ul class="nav nav-pills ml-auto">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content p-0">
-                                <!-- Morris chart - Sales -->
-                                <!-- <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
-                                        <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                    </div> -->
-                                <div class="chart tab-pane" id="dataPrd" style="position: relative; height: 300px;">
-                                    <canvas id="dataPrd" height="300" style="height: 300px;"></canvas>
-                                </div>
-                            </div>
-                        </div><!-- /.card-body -->
+                        <div class="card-header card-header-icon" data-background-color="red">
+                            <i class="fas fa-chart-pie bg-warning p-4"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title text-center m-4">Grafik Mahasiswa per Prodi
+                                <small><?= date('Y'); ?></small></h4>
+                        </div>
+                        <div id="chartPreferences" class="ct-chart">
+                            <canvas id="dataPrd" style="height:250px"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h6>KET:</h6>
+                            <i class="fa fa-circle text-info"></i> Data tersebut adalah grafik data prodi pada tahun <?= date('Y'); ?>
+                        </div>
                     </div>
-                    <!-- /.card -->
-                </section>
+                </div>
             </div>
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
