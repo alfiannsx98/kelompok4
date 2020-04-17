@@ -18,6 +18,15 @@
 <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/js/material.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#p1').click(function(){
+            $("h4").slideUp();
+        });
+    });
+</script>
+
 <!-- Forms Validations Plugin -->
 <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->

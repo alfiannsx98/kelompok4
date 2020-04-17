@@ -33,8 +33,8 @@
                                     <div class="tab-content">
                                         <div class="tab-pane" id="about">
                                             <div class="row">
-                                                <h4 class="info-text"> Pendaftaran </h4>
                                                 <?= $this->session->flashdata('message'); ?>
+                                                <h4 class="info-text"> Pendaftaran </h4>
                                                 <div class="col-sm-4 col-sm-offset-1">
                                                     <div class="picture-container">
                                                         <div class="picture">
@@ -55,7 +55,7 @@
                                                             <label class="control-label">NIM
                                                                 <small>(required)</small>
                                                             </label>
-                                                            <input name="nim" type="text" class="form-control" value="<?= set_value('nim'); ?>">
+                                                            <input name="nim" type="text" class="form-control" value="<?= set_value('nim') ?>">
                                                             <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
                                                         </div>
                                                     </div>
@@ -122,7 +122,7 @@
                                                 <div class="col-lg-10 col-lg-offset-1">
                                                     <div class="col-sm-4">
                                                         <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="prodi" id="p1" value="D3-Manajemen Informatika" value="<?= set_value('prodi'); ?>">
+                                                            <input type="radio" name="prodi" id="p1" value="D3-Manajemen Informatika" value="<?= set_radio('prodi'); ?>">
                                                             <div class="pictures">
                                                                 <img src="<?php echo base_url(); ?>assets/img/mif.png" class="icon" id="wizardPicturePreview" title="" />
                                                             </div>
@@ -131,7 +131,7 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="prodi" id="p2" value="D3-Teknik Komputer" value="<?= set_value('prodi'); ?>">
+                                                            <input type="radio" name="prodi" id="p2" value="D3-Teknik Komputer" value="<?= set_radio('prodi'); ?>">
                                                             <div class="pictures">
                                                                 <img src="<?php echo base_url(); ?>assets/img/tkk.png" class="icon" id="wizardPicturePreview" title="" />
                                                             </div>
@@ -140,7 +140,7 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="prodi" id="p3" value="D4-Teknik Informatika" value="<?= set_value('prodi'); ?>">
+                                                            <input type="radio" name="prodi" id="p3" value="D4-Teknik Informatika" value="<?= set_radio('prodi'); ?>">
                                                             <div class="pictures">
                                                                 <img src="<?php echo base_url(); ?>assets/img/tif.png" class="icon" id="wizardPicturePreview" title="" />
                                                             </div>
@@ -152,14 +152,13 @@
                                                             <label class="control-label">Semester
                                                                 <small>(required)</small>
                                                             </label>
-                                                            <select name="semester" class="form-control">
+                                                            <select name="semester" id="semester" class="form-control">
                                                                 <option disabled="" selected=""></option>
-                                                                <option value="4"> 4 </option>
-                                                                <option value="5"> 5 </option>
-                                                                <option value="6"> 6 </option>
-                                                                <option value="7"> 7 </option>
-                                                                <option value="8"> 8 </option>
-                                                                <option value="">...</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
                                                             </select>
                                                             <?= form_error('semester', '<small class="text-danger col-md">', '</small>'); ?>
                                                         </div>

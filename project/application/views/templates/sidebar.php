@@ -43,7 +43,7 @@
 
     <div class="logo logo-mini">
         <a href="#" class="simple-text">
-            Ct
+            PK
         </a>
     </div>
     <div class="sidebar-wrapper">

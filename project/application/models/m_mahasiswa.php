@@ -7,6 +7,12 @@ class M_mahasiswa extends CI_Model
       $query = "SELECT * FROM mahasiswa LEFT JOIN user ON mahasiswa.EMAIL_M=user.email";
       return $this->db->query($query)->result_array();
   }
+
+  public function getNim($nim)
+  {
+    $query = "SELECT NIM FROM mahasiswa WHERE NIM='$nim'";
+    return $this->db->query($query)->result_array();
+  }
   
   function hapus_mhs($email)
     {
