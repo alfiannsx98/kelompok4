@@ -1,93 +1,104 @@
-<!-- Begin Page Content -->
-<div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="purple">
-                                    <i class="material-icons">assignment</i>
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="card-title">Table <?= $title; ?></h4> <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data<i class="fa fa-plus"></i></button>
-                                    <?= $this->session->flashdata('message'); ?>
-                                    <div class="toolbar">
-                                        <!--        Here you can write extra buttons/actions for the toolbar              -->
-                                    </div>
-                                    <div class="material-datatables">
-                                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>NIP Admin</th>
-                                                    <th>Nama Admin</th>
-                                                    <th>Jenis Kelamin</th>
-                                                    <th>Alamat</th>
-                                                    <th>No HP</th>
-                                                    <th>Prodi Admin</th>
-                                                    <th>Status</th>
-                                                    <th class="disabled-sorting text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>NIP Admin</th>
-                                                    <th>Nama Admin</th>
-                                                    <th>Jenis Kelamin</th>
-                                                    <th>Alamat</th>
-                                                    <th>No HP</th>
-                                                    <th>Prodi Admin</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                            <?php $i = 1; ?>
-                                            <?php foreach ($admin_prodi as $mi) :
-                                                $id_mi = $mi['ID_ADM'];
-                                                $nip_mi = $mi['NIP_ADM'];
-
-                                                $qwery = "SELECT * FROM user WHERE identity = $nip_mi"; 
-                                                $dtu = $this->db->query($qwery)->result_array();
-                                            ?>
-                                                <tr>
-                                                    <td><?= $i; ?></td>
-                                                    <td><?= $mi['NIP_ADM']; ?></td>
-                                                    <td><?= $mi['NAMA_ADM']; ?></td>
-                                                    <td><?= $mi['JK_ADM']; ?></td>
-                                                    <td><?= $mi['ALAMAT_ADM']; ?></td>
-                                                    <td><?= $mi['HP_ADM']; ?></td>
-                                                    <td><?= $mi['PRODI_ADM']; ?></td>
-                                                    <?php foreach($dtu as $dtusr): ?>
-                                                        <?php if($dtusr['is_active'] == 1): ?>
-                                                            <td><span class="label label-success">Active</span></td>
-                                                        <?php else : ?>
-                                                            <td><span class="label label-danger">Disabled</span></td>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                    <td class="text-right">
-                                                        <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id_mi; ?>">Edit Akun</button>
-                                                        <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id_mi; ?>">Hapus Akun</button>
-                                                    </td>
-                                                </tr>
-                                                <?php $i++; ?>
-                                            <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- end content-->
-                            </div>
-                            <!--  end card  -->
-                        </div>
-                        <!-- end col-md-12 -->
-                    </div>
-                    <!-- end row -->
-                </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><?= $title; ?></h1>
             </div>
+            <!-- <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+            </div> -->
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card"> 
+                <div class="card-header"> 
+                    <h3 class="card-title"><?= $title ?> Table <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button></h3> 
+                </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <?= $this->session->flashdata('message'); ?>
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NIP Admin</th>
+                            <th>Nama Admin</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Alamat</th>
+                            <th>No HP</th>
+                            <th>Prodi Admin</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($admin_prodi as $mi) :
+                        $id_mi = $mi['ID_ADM'];
+                        $nip_mi = $mi['NIP_ADM'];
 
-<!-- Akhir Pembatas -->
+                        $qwery = "SELECT * FROM user WHERE identity = $nip_mi"; 
+                        $dtu = $this->db->query($qwery)->result_array();
+                    ?>
+                        <tr>
+                            <td><?= $i; ?></td>
+                            <td><?= $mi['NIP_ADM']; ?></td>
+                            <td><?= $mi['NAMA_ADM']; ?></td>
+                            <td><?= $mi['JK_ADM']; ?></td>
+                            <td><?= $mi['ALAMAT_ADM']; ?></td>
+                            <td><?= $mi['HP_ADM']; ?></td>
+                            <td><?= $mi['PRODI_ADM']; ?></td>
+                            <?php foreach($dtu as $dtusr): ?>
+                                <?php if($dtusr['is_active'] == 1): ?>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                <?php else : ?>
+                                    <td><span class="badge badge-danger">Disabled</span></td>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <td class="text-right">
+                                <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id_mi; ?>">Edit Akun</button>
+                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id_mi; ?>">Hapus Akun</button>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>NIP Admin</th>
+                            <th>Nama Admin</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Alamat</th>
+                            <th>No HP</th>
+                            <th>Prodi Admin</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+</div>
 
 <!--MODAL DIALOG UNTUK CREATE DATA!-->
 <?php
@@ -104,7 +115,7 @@ foreach ($admin_prodi as $i) :
     $data_user = $this->db->query($query_user)->result_array();
     ?>
 <div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newroleModal">Create New Data</h5>
@@ -171,7 +182,7 @@ foreach ($admin_prodi as $i) :
 
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Edit Admin Prodi</h3>
