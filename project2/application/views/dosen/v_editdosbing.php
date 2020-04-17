@@ -13,7 +13,7 @@
             <div class="col-lg-10">
             <?php 
             foreach ($dosbing as $tb ) { ?>
-                <form action="<?php echo base_url() . 'dosbing/update'; ?>" method="post">
+                <form action="<?php echo base_url() . 'dosen/update'; ?>" method="post">
                     
                 <div class="form-group">
                     <label for="NIP_DS"> NIP Dosen: </label>
