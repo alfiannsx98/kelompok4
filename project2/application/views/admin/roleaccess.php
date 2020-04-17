@@ -1,68 +1,79 @@
-<!-- Begin Page Content -->
-
-<!-- Begin Page Content -->
-<div class="content">
-<div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="purple">
-                                    <i class="material-icons">assignment</i>
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="card-title">Table <?= $title; ?></h4>
-                                    <?= $this->session->flashdata('message'); ?>
-                                    <div class="toolbar">
-                                        <!--        Here you can write extra buttons/actions for the toolbar              -->
-                                    </div>
-                                    <div class="material-datatables">
-                                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Role</th>
-                                                    <th class="disabled-sorting text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Role</th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                            
-                                            <?php $i = 1; ?>
-                                            <?php 
-                                                foreach ($menu as $m) :
-                                            ?>
-                                                <tr>
-                                                    <td><?= $i; ?></td>
-                                                    <td><?= $m['menu']; ?></td>
-                                                    <td class="text-right">
-                                                        <div class="form-footer text-right">
-                                                            <div class="checkbox pull-right">
-                                                                <label>
-                                                                    <input type="checkbox" class="form-check-input" <?= check_access($role['id_role'], $m['id_menu']); ?> data-role="<?= $role['id_role']; ?>" data-menu="<?= $m['id_menu']; ?>">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <?php $i++; ?>
-                                            <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- end content-->
-                            </div>
-                            <!--  end card  -->
-                        </div>
-                        <!-- end col-md-12 -->
-                    </div>
-                    <!-- end row -->
-                </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><?= $title; ?></h1>
             </div>
-<!-- End of Main Content -->
+            <!-- <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+            </div> -->
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card"> 
+                <div class="card-header"> 
+                    <h3 class="card-title"><?= $title ?> Table </h3> 
+                </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <?= $this->session->flashdata('message'); ?>
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>
+                    <?php 
+                        foreach ($menu as $m) :
+                    ?>
+                        <tr>
+                            <td><?= $i; ?></td>
+                            <td><?= $m['menu']; ?></td>
+                            <td class="text-right">
+                                <div class="form-footer text-right">
+                                    <div class="checkbox pull-right">
+                                        <label>
+                                            <input type="checkbox" class="form-check-input" <?= check_access($role['id_role'], $m['id_menu']); ?> data-role="<?= $role['id_role']; ?>" data-menu="<?= $m['id_menu']; ?>">
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
