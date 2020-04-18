@@ -34,7 +34,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Your Password</label>
-                                        <input type="password" class="form-control" name="passwordSkrg" id="passwordSkrg">
+                                        <input type="password" class="form-control" name="passwordSkrg" id="passwordSkrg" placeholder="Masukkan Password Lama">
                                         <?= form_error('passwordSkrg', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Your New Password</label>
-                                        <input type="password" class="form-control" name="passwordBaru1" id="passwordBaru1">
+                                        <input type="password" class="form-control" name="passwordBaru1" id="passwordBaru1" placeholder="Masukkan Password Baru">
                                         <?= form_error('passwordBaru1', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Repeat Your New Password</label>
-                                        <input type="password" class="form-control" name="passwordBaru2" id="passwordBaru2">
+                                        <input type="password" class="form-control" name="passwordBaru2" id="passwordBaru2" placeholder="Ulangi Password Baru">
                                         <?= form_error('passwordBaru2', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
