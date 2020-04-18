@@ -22,12 +22,12 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header card-header-icon" data-background-color="blue">
-                            <i class="far fa-edit bg-primary p-4"></i>
-                        </div>
-                        <div class="card-content">
-                            <h4 class="card-title">Edit Your Profile -
+                            <i class="fas fa-user float-left bg-warning p-4"></i>
+                            <h4 class="card-title pt-4 float-right">Edit Your Profile -
                                 <small class="category">Here is your bio</small>
                             </h4>
+                        </div>
+                        <div class="card-content p-4">
                             <?= $this->session->flashdata('message'); ?>
                             <?= form_open_multipart('user/edit'); ?>
                             <div class="row">
@@ -59,29 +59,30 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Joined Date </label> <i class="label label-success"><?= date('d F Y', $user['date_created']); ?></i>
+                                        <label>Joined Date </label> <i class="badge badge-success"><?= date('d F Y', $user['date_created']); ?></i>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success pull-right">Update Profile</button>
-                            <div class="clearfix"></div>
+                            <div class="clearfix p-4 text-right">
+                                <button type="submit" class="btn btn-success">Update Profile</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-4">
-                    <legend>Avatar</legend>
-                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                    <legend class="pl-4">Avatar</legend>
+                    <div class="fileinput fileinput-new text-center mr-5" data-provides="fileinput">
                         <div class="fileinput-new thumbnail">
                             <img src="<?= base_url(); ?>assets/dist/img/user/<?= $user['image']; ?>" alt="image" width="200px">
                         </div>
                         <div class="fileinput-preview fileinput-exists thumbnail"></div>
                         <div>
-                            <span class="btn btn-round btn-rose btn-file">
+                            <span class="btn btn-warning btn-round btn-file mt-4">
                                 <span class="fileinput-new">Add Photo</span>
                                 <span class="fileinput-exists">Change</span>
                                 <input type="file" name="image" id="image" /></span>
                             <br />
-                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists mt-4" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                         </div>
                     </div>
                 </div>
