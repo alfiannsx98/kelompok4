@@ -1,230 +1,236 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                    <small>Tampilan awal halaman</small>
+                </div><!-- /.col -->
+                <!-- <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v1</li>
+                    </ol>
+                </div>/.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div class="alert alert-success m-3 text-center text-bold" role="alert">
+        Selamat Datang <?= $user['email']; ?>, Anda login sebagai
+        <?php if ($user['role_id'] == 1) {
+            echo '<b>Admin</b>';
+        }
 
+        ?>
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3><?= $jml_dosen; ?></h3>
 
-<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="alert alert-primary text-center text-bold" role="alert">
-                Selamat Datang <?= $user['email']; ?>, Anda login sebagai
-                <?php if ($user['role_id'] == 1) {
-                    echo '<b>Admin</b>';
-                }
-
-                ?>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-icon" data-background-color="green">
-                        <i class="material-icons">language</i>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="card-title">Dashboard</h4>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="card card-stats">
-                                    <div class="card-header" data-background-color="orange">
-                                        <i class="material-icons">person</i>
-                                    </div>
-                                    <div class="card-content">
-                                        <p class="category">Lecturer</p>
-                                        <h3 class="card-title"><?= $jml_dosen; ?></h3>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">info</i>
-                                            <a href="<?= base_url('dosbing') ?>" class="text-secondary">More Info</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="card card-stats">
-                                    <div class="card-header" data-background-color="rose">
-                                        <i class="material-icons">group</i>
-                                    </div>
-                                    <div class="card-content">
-                                        <p class="category">Active User</p>
-                                        <h3 class="card-title"><?php echo $jml_aktif; ?></h3>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">info</i>
-                                            <a href="#" class="text-secondary" data-toggle="modal" data-target="#exampleModal">More Info</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="card card-stats">
-                                    <div class="card-header" data-background-color="green">
-                                        <i class="material-icons">domain</i>
-                                    </div>
-                                    <div class="card-content">
-                                        <p class="category">Company</p>
-                                        <h3 class="card-title"><?= $jml_perusahaan; ?></h3>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">info</i>
-                                            <a href="#" class="text-secondary">More Info</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="card card-stats">
-                                    <div class="card-header" data-background-color="blue">
-                                        <i class="material-icons">local_library</i>
-                                    </div>
-                                    <div class="card-content">
-                                        <p class="category">Admin</p>
-                                        <h3 class="card-title"><?= $jml_admin; ?></h3>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats">
-                                            <i class="material-icons">info</i>
-                                            <a href="<?= base_url('dosen/admin_prodi') ?>" class="text-secondary">More Info</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="card">
-                                        <div class="card-header card-header-icon" data-background-color="blue">
-                                            <i class="material-icons">bar_chart</i>
-                                        </div>
-                                        <div class="card-content">
-                                            <h4 class="card-title">Grafik User Pendaftar
-                                                <small><?= date('Y'); ?></small>
-                                            </h4>
-                                        </div>
-                                        <div id="colouredBarsChart" class="ct-chart">
-                                            <canvas id="dataMhs" style="height:250px"></canvas>
-                                        </div>
-                                        <div class="card-footer">
-                                            <h6>KET:</h6>
-                                            <i class="fa fa-circle text-info"></i> Data tersebut merupakan data pendaftar dari setiap bulan pada tahun <?= date('Y'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="card">
-                                        <div class="card-header card-header-icon" data-background-color="red">
-                                            <i class="material-icons">pie_chart</i>
-                                        </div>
-                                        <div class="card-content">
-                                            <h4 class="card-title">Grafik Mahasiswa per Prodi
-                                                <small><?= date('Y'); ?></small></h4>
-                                        </div>
-                                        <div id="chartPreferences" class="ct-chart">
-                                            <canvas id="dataPrd" style="height:250px"></canvas>
-                                        </div>
-                                        <div class="card-footer">
-                                            <h6>KET:</h6>
-                                            <i class="fa fa-circle text-info"></i> Data tersebut adalah grafik data prodi pada tahun <?= date('Y'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <p>Lecturer</p>
                         </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3><?= $jml_perusahaan; ?></h3>
+
+                            <p>Company</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3><?= $jml_aktif; ?></h3>
+
+                            <p>Active User</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3><?= $jml_admin; ?></h3>
+
+                            <p>Admin</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <!-- Main content -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-chart-bar text-right bg-pink p-4"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title text-center m-4">Grafik User Pendaftar
+                                <small><?= date('Y'); ?></small>
+                            </h4>
+                        </div>
+                        <div id="colouredBarsChart" class="ct-chart">
+                            <canvas id="dataMhs" style="height:250px"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h6>KET:</h6>
+                            <i class="fa fa-circle text-info"></i> Data tersebut merupakan data pendaftar dari setiap bulan pada tahun <?= date('Y'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="red">
+                            <i class="fas fa-chart-pie bg-warning p-4"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title text-center m-4">Grafik Mahasiswa per Prodi
+                                <small><?= date('Y'); ?></small></h4>
+                        </div>
+                        <div id="chartPreferences" class="ct-chart">
+                            <canvas id="dataPrd" style="height:250px"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h6>KET:</h6>
+                            <i class="fa fa-circle text-info"></i> Data tersebut adalah grafik data prodi pada tahun <?= date('Y'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- Modal Info User -->
+<div class="modal fade jumbotron-fluid" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title text-center">View Data</h5>
+                <button type="button" class="text-right close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header card-header-icon" data-background-color="purple">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="card-title">Table <?= $title1; ?></h4>
+                                    <div class="toolbar">
+                                    </div>
+                                    <div class="material-datatables">
+                                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID USER</th>
+                                                    <th>NAMA</th>
+                                                    <th>EMAIL</th>
+                                                    <th>ROLE</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID USER</th>
+                                                    <th>NAMA</th>
+                                                    <th>EMAIL</th>
+                                                    <th>ROLE</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                <?php
+                                                if (is_array($aktif)) {
+                                                    foreach ($aktif as $a) :
+                                                        $id = $a['id_user'];
+                                                ?>
+                                                        <tr>
+                                                            <td><?= $i; ?></td>
+                                                            <td style="width: 200px"><?= $id; ?></td>
+                                                            <td><?= $a['nama']; ?></td>
+                                                            <td><?= $a['email']; ?></td>
+                                                            <td><?php
+                                                                if ($a['role_id'] == 2) {
+                                                                    echo '<span class="badge badge-pill badge-success">Mahasiswa</span>';
+                                                                } elseif ($a['role_id'] == 3) {
+                                                                    echo '<span class="badge badge-pill badge-info">Dosen</span>';
+                                                                } elseif ($a['role_id'] == 4) {
+                                                                    echo '<span class="badge badge-pill badge-warning">Dosen Pengampu</span>';
+                                                                } elseif ($a['role_id'] == 5) {
+                                                                    echo '<span class="badge badge-pill badge-danger">Admin Prodi</span>';
+                                                                } else {
+                                                                    echo '<span class="badge badge-pill badge-primary">Admin</span>';
+                                                                } ?></td>
+                                                        </tr>
+                                                        <?php $i++; ?>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- end content-->
+                            </div>
+                            <!--  end card  -->
+                        </div>
+                        <!-- end col-md-12 -->
+                    </div>
+                    <!-- end row -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <!-- Modal Info User -->
-    <div class="modal fade jumbotron-fluid" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <h5 class="modal-title text-center">View Data</h5>
-                    <button type="button" class="text-right close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header card-header-icon" data-background-color="purple">
-                                        <i class="material-icons">assignment</i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h4 class="card-title">Table <?= $title1; ?></h4>
-                                        <div class="toolbar">
-                                        </div>
-                                        <div class="material-datatables">
-                                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>ID USER</th>
-                                                        <th>NAMA</th>
-                                                        <th>EMAIL</th>
-                                                        <th>ROLE</th>
-                                                    </tr>
-                                                </thead>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>ID USER</th>
-                                                        <th>NAMA</th>
-                                                        <th>EMAIL</th>
-                                                        <th>ROLE</th>
-                                                    </tr>
-                                                </tfoot>
-                                                <tbody>
-                                                    <?php $i = 1; ?>
-                                                    <?php
-                                                    if (is_array($aktif)) {
-                                                        foreach ($aktif as $a) :
-                                                            $id = $a['id_user'];
-                                                    ?>
-                                                            <tr>
-                                                                <td><?= $i; ?></td>
-                                                                <td style="width: 200px"><?= $id; ?></td>
-                                                                <td><?= $a['nama']; ?></td>
-                                                                <td><?= $a['email']; ?></td>
-                                                                <td><?php
-                                                                    if ($a['role_id'] == 2) {
-                                                                        echo '<span class="badge badge-pill badge-success">Mahasiswa</span>';
-                                                                    } elseif ($a['role_id'] == 3) {
-                                                                        echo '<span class="badge badge-pill badge-info">Dosen</span>';
-                                                                    } elseif ($a['role_id'] == 4) {
-                                                                        echo '<span class="badge badge-pill badge-warning">Dosen Pengampu</span>';
-                                                                    } elseif ($a['role_id'] == 5) {
-                                                                        echo '<span class="badge badge-pill badge-danger">Admin Prodi</span>';
-                                                                    } else {
-                                                                        echo '<span class="badge badge-pill badge-primary">Admin</span>';
-                                                                    } ?></td>
-                                                            </tr>
-                                                            <?php $i++; ?>
-                                                        <?php endforeach; ?>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!-- end content-->
-                                </div>
-                                <!--  end card  -->
-                            </div>
-                            <!-- end col-md-12 -->
-                        </div>
-                        <!-- end row -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
