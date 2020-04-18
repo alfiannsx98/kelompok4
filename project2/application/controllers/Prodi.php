@@ -16,7 +16,7 @@ class Prodi extends CI_Controller
         // Membuat id_user : gabungan dari date dan field 
         $tabel = $query->num_rows();
         $date = date('dm', time());
-        $id_pr = "ID-P" . $tabel . $date;
+        $id_pr = "ID-R" . $tabel . $date;
 
         $data['title'] = 'Program Studi';
         $data['user'] = $this->db->get_where('user', [
@@ -38,8 +38,8 @@ class Prodi extends CI_Controller
             $this->load->view('templates/footer');
         }else{
             $data = [
-                'id_prd' => $id_pr,
-                'nama_prd' => $this->input->post('prodi')
+                'id_pr' => $id_pr,
+                'nama_pr' => $this->input->post('prodi')
             ];
             $this->db->insert('prodi', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');

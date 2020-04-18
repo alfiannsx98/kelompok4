@@ -40,8 +40,8 @@
                             <tbody>
                                 <?php $i = 1; ?>
                                 <?php foreach ($prodi as $pr) :
-                                    $id = $pr['id_prd'];
-                                    $nama = $pr['nama_prd'];
+                                    $id = $pr['id_pr'];
+                                    $nama = $pr['nama_pr'];
                                 ?>
                                     <tr>
                                         <td><?= $i; ?></td>
@@ -105,8 +105,8 @@
 
 <!--MODAL DIALOG UNTUK EDIT DATA!-->
 <?php foreach ($prodi as $pr) :
-    $id = $pr['id_prd'];
-    $nama = $pr['nama_prd'];
+    $id = $pr['id_pr'];
+    $nama = $pr['nama_pr'];
 ?>
 
     <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
