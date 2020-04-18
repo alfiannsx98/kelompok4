@@ -27,7 +27,7 @@
                                 <small class="category">Here is your bio</small>
                             </h4>
                         </div>
-                        <div class="card-content p-4">
+                        <div class="card-content p-4 card-primary card-outline">
                             <?= $this->session->flashdata('message'); ?>
                             <?= form_open_multipart('user/edit'); ?>
                             <div class="row">
