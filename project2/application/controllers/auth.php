@@ -71,52 +71,60 @@ class Auth extends CI_Controller
         if ($this->session->userdata('email')) {
             redirect('user');
         }
-        
+
         $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
         // Membuat id_user : gabungan dari date dan field 
         $tabel = $query1->num_rows();
         $date = date('dm', time());
-        $id_u = "ID-U" . $tabel . $date;
+        $id_u = "ID-U" . $tabel . $date;        
         $id_m = "ID-M" . $tabel . $date;
-        $prodi = $this->input->post('prodi');
-        $jk = $this->input->post('jk');
-        
-        
+        // $prodi = $this->input->post('prodi');
+        // $jk = $this->input->post('jk');
+
+        /**
+         * codingan untuk mengecek apakah nim sudah terdaftar di tabel mahasiswa
+         */
+        $nim =  htmlspecialchars($this->input->post('nim', true));
+        $sql = $this->db->query("SELECT NIM FROM mahasiswa WHERE NIM='$nim'");
+        $result = $sql->result_array();
+
         /**
          * codingan untuk pemilihan prodi
          */
-        if($prodi == 'D3-Manajemen Informatika'){
-            $prodi = 'D3-Manajemen Informatika';
-        }else if($prodi == 'D3-Teknik Komputer'){
-            $prodi == 'D3-Teknik Komputer';
-        }else if($prodi = 'D4-Teknik Informatika'){
-            $prodi = 'D4-Teknik Informatika';
-        }
+        // if ($prodi == 'D3-Manajemen Informatika') {
+        //     $prodi = 'D3-Manajemen Informatika';
+        // } else if ($prodi == 'D3-Teknik Komputer') {
+        //     $prodi == 'D3-Teknik Komputer';
+        // } else if ($prodi = 'D4-Teknik Informatika') {
+        //     $prodi = 'D4-Teknik Informatika';
+        // }
         // Validasi form set required(harus terisi atau not null), 
         // is unique artinya tidak boleh sama, dan
         // min_length adalah minimum pengisian sebagai contoh sandi minimal pengisian 8 digit.
         // matches artinya menyamakan, dibuat untuk mencocokan data dari dua value yang berbeda.    
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
-            'required' => 'nama harus diisi'
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim|alpha', [
+            'required' => 'nama harus diisi',
+            'alpha' => 'kolom ini hanya bisa diisi huruf'
         ]);
-        $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
-            'required' => 'Semester harus diisi'
-        ]);
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
-            'required' => 'Alamat harus diisi'
-        ]);
-        $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.NIM]|min_length[9]|max_length[9]', [
+        // $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
+        //     'required' => 'Semester harus diisi'
+        // ]);
+        // $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+        //     'required' => 'Alamat harus diisi'
+        // ]);
+        $this->form_validation->set_rules('nim', 'NIM', 'required|trim|min_length[9]|max_length[9]|alpha_numeric', [
             'required' => 'NIM harus diisi',
-            'is_unique' => 'NIM sudah terdaftar',
             'min_length' => 'NIM terlalu pendek',
-            'max_length' => 'NIM terlalu panjang'
+            'max_length' => 'NIM terlalu panjang',
+            'alpha_numeric' => 'Kolom ini hanya bisa diisi huruf dan angka'
         ]);
-        $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]',[
-            'required' => 'No HP harus diisi',
-            'min_length' => 'No HP terlalu pendek',
-            'max_length' => 'No HP terlalu panjang'
-        ]);
+        // $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]|is_natural', [
+        //     'required' => 'No HP harus diisi',
+        //     'min_length' => 'No HP terlalu pendek',
+        //     'max_length' => 'No HP terlalu panjang',
+        //     'is_natural' => 'Kolom ini hanya bisa diisi angka'
+        // ]);
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'Email telah terdaftar di database!'
         ]);
@@ -131,63 +139,57 @@ class Auth extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Mahasiswa';
-            $this->load->view('templates/header_reg', $data);
+            $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/regmhs');
-            $this->load->view('templates/footer_reg');
+            $this->load->view('templates/auth_footer');
         } else {
             // Jika berhasil insert array...
             $email = $this->input->post('email', true);
-            $foto = $_FILES['foto'];
+
             /**
              * codingan untuk upload foto
              */
-            if($foto)
-            {   
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = '2048';
-                $config['upload_path'] = './assets/image/profile/';
+            // $foto = $_FILES['foto'];
+            // if ($foto) {
+            //     $config['allowed_types'] = 'gif|jpg|jpeg|png';
+            //     $config['max_size'] = '2048';
+            //     $config['upload_path'] = './assets/image/profile/';
 
-                $this->load->library('upload',$config);
-                if($foto == '') {
-                    $foto = 'default.jpg';
-                } else {
-                    if(!$this->upload->do_upload('foto'))
-                    {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal Upload Foto!!</div>');
-                        redirect('auth/register');               
-                    }
-                    else
-                    {
-                        $foto = $this->upload->data('file_name');
-                    }   
-                }         
-            }
-            
+            //     $this->load->library('upload', $config);
+            //     if ($foto == '') {
+            //         $foto = 'default.jpg';
+            //     } else {
+            //         if (!$this->upload->do_upload('foto')) {
+            //             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal Upload Foto!!</div>');
+            //             redirect('auth/register');
+            //         } else {
+            //             $foto = $this->upload->data('file_name');
+            //         }
+            //     }
+            // }
 
             $data = [
                 'id_user' => $id_u,
                 'identity' => htmlspecialchars($this->input->post('nim', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' => htmlspecialchars($email),
-                'image' => $foto,
+                'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
-                'is_active' => 0,   
+                'is_active' => 0,
                 'date_created' => time()
             ];
 
-            $data1 = [
-                'ID_M' => $id_m,
-                'NIM' => htmlspecialchars($this->input->post('nim', true)),
-                'NAMA_M' => htmlspecialchars($this->input->post('nama', true)),
-                'JK_M' => $jk,
-                'PRODI_M' => $prodi,
-                'SMT' => htmlspecialchars($this->input->post('semester', true)),
-                'ALAMAT_M' => htmlspecialchars($this->input->post('alamat', true)),
-                'HP_M' => htmlspecialchars($this->input->post('nohp', true)),
-                'EMAIL_M' => htmlspecialchars($email),
-                'PASSWORD_M' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT)
-            ];
+            /**
+             * kodingan untuk mengupdate data mahasiswa berdasarkan nim
+             */
+            $nma = htmlspecialchars($this->input->post('nama', true));
+            // $smt = htmlspecialchars($this->input->post('semester', true));
+            // $alm = htmlspecialchars($this->input->post('alamat', true));
+            // $hp = htmlspecialchars($this->input->post('nohp', true));
+            $mail = htmlspecialchars($email);
+            $pass = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+            
             // Membuat token dengan angka random
             // Disertai dengan batas waktu kadaluarsa
             $token = base64_encode(random_bytes(32));
@@ -197,16 +199,26 @@ class Auth extends CI_Controller
                 'date_created' => time()
             ];
 
-            // insert token ke database
-            $this->db->insert('user', $data);
-            $this->db->insert('mahasiswa', $data1);
-            $this->db->insert('token_user', $token_user);
+            if($result == true)
+            {
+                // insert token ke database
+                $this->db->insert('user', $data);
+                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nma', EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
+                $this->db->insert('token_user', $token_user);
 
-            $this->_sendEmail($token, 'verify');
+                $this->_sendEmail($token, 'verify');
 
-            // Pesan berhasil insert
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat anda berhasil registrasi, Cek email anda untuk aktivasi!!</div>');
-            redirect('auth/index');
+                // Pesan berhasil insert
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat anda berhasil registrasi, Cek email anda untuk aktivasi!!</div>');
+                redirect('auth/index');
+            }
+            else
+            {
+                // Pesan nim tidak terdaftar
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">NIM belum terdaftar, silahkan hubungi admin prodi</div>');
+                redirect('auth/register');
+            }
+            
         }
     }
 
