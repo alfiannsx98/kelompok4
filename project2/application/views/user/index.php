@@ -19,6 +19,59 @@
     <section class="content justify-content-center">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-md-8">
+                    <!-- About Me Box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-user float-left bg-warning p-4"></i>
+                            <h4 class="card-title pt-4 float-right">Your Profile -
+                                <small class="category">Here is your bio</small>
+                            </h4>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body card-primary card-outline">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-book mr-1"></i> Name</label>
+                                        <label class="form-control" name="about" id="about"><?= $user['nama']; ?></label>
+                                        <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                                <input type="email" class="" value="<?= $user['email']; ?>" name="email" id="email" hidden>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="far fa-envelope mr-1"></i> Email</label>
+                                        <label type="email" class="form-control" value=""><?= $user['email']; ?></label>
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-pencil-alt mr-1"></i> About</label>
+                                        <label class="form-control" name="about" id="about"><?= $user['about']; ?></label>
+                                        <?= form_error('about', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label><i class="far fa-calendar-alt mr-1"></i> Joined Date </label> <i class="badge badge-success"><?= date('d F Y', $user['date_created']); ?></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="clearfix p-4 text-right">
+                                <a href="<?= base_url() . 'user/edit_password' ?>" class="btn btn-danger">Update Password</a>
+                                <a href="<?= base_url() . 'user/edit' ?>" class="btn btn-info">Update Profile</a>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <!-- Profile Image -->
                     <div class="card card-primary card-outline">
@@ -55,53 +108,6 @@
                             <!-- /.card-body -->
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-8">
-                    <!-- About Me Box -->
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-user float-left bg-warning p-4"></i>
-                            <h4 class="card-title pt-4 float-right">Your Profile -
-                                <small class="category">Here is your bio</small>
-                            </h4>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body card-primary card-outline">
-                            <br>
-                            <strong><i class="fas fa-book mr-1"></i> Your Name</strong>
-                            <?= $this->session->flashdata('message'); ?>
-                            <p class="text-muted">
-                                <?= $user['nama']; ?>
-                            </p>
-
-                            <hr>
-
-                            <strong><i class="far fa-envelope mr-1"></i> Your Email</strong>
-
-                            <p class="text-muted"><?= $user['email']; ?></p>
-
-                            <hr>
-
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Description</strong>
-
-                            <p class="text-muted">
-                                <?= $user['about']; ?>
-                            </p>
-
-                            <hr>
-
-                            <strong><i class="far fa-calendar-alt mr-1"></i> Joined Date</strong>
-
-                            <p class="text-muted"><?= date('d F Y', $user['change_pass']); ?></p>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="clearfix p-4 text-right">
-                            <a href="<?= base_url() . 'user/edit_password' ?>" class="btn btn-danger">Update Password</a>
-                            <a href="<?= base_url() . 'user/edit' ?>" class="btn btn-info">Update Profile</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
                 </div>
             </div>
         </div>
