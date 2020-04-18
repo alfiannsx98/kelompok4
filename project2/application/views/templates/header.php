@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +18,9 @@
     <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/dist/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/dist/img/favicon-16x16.png" sizes="16x16" />
     <!-- JQVMap -->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
@@ -30,5 +34,6 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
+
 <body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-closed sidebar-collapse">
-<div class="wrapper">
+    <div class="wrapper">
