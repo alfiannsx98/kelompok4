@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="clearfix text-right p-4">
-                                <button type="submit" class="btn btn-success">Update Profile</button>
+                                <button type="submit" class="btn btn-success">Update Password</button>
                             </div>
                         </div>
                     </div>

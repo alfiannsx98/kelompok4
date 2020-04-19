@@ -77,7 +77,7 @@ class User extends CI_Controller
             $this->db->set('about', $about);
             $this->db->where('email', $email);
             $this->db->update('user');
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
+            $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Selamat Data telah diperbarui</div>');
             redirect('user');
         }
     }
@@ -103,11 +103,11 @@ class User extends CI_Controller
             $passwordSkrg = $this->input->post('passwordSkrg');
             $passwordBaru = $this->input->post('passwordBaru1');
             if (!password_verify($passwordSkrg, $data['user']['password'])) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Lama Salah</div>');
+                $this->session->set_flashdata('message', '<div class="text-center alert alert-danger" role="alert"><i class="far fa-window-close"></i> Password Lama Salah</div>');
                 redirect('user/edit_password');
             } else {
                 if ($passwordSkrg == $passwordBaru) {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Tidak Boleh Sama!</div>');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-danger" role="alert"><i class="far fa-window-close"></i> Password Tidak Boleh Sama!</div>');
                     redirect('user/edit_password');
                 } else {
                     //Sudah OKE!
@@ -119,7 +119,7 @@ class User extends CI_Controller
                     $this->db->set('change_pass', $date_pass);
                     $this->db->where('email', $this->session->userdata('email'));
                     $this->db->update('user');
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Telah Berhasil Diganti</div>');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
                     redirect('user');
                 }
             }

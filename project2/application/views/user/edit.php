@@ -70,23 +70,6 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-4">
-                    <!-- <legend class="pl-4">Avatar</legend>
-                    <div class="fileinput fileinput-new text-center mr-5" data-provides="fileinput">
-                        <div class="fileinput-new thumbnail">
-                            <img src="<? //= base_url(); 
-                                        ?>assets/dist/img/user/<? //= $user['image']; 
-                                                                ?>" alt="image" width="200px">
-                        </div>
-                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
-                        <div>
-                            <span class="btn btn-warning btn-round btn-file mt-4">
-                                <span class="fileinput-new">Add Photo</span>
-                                <span class="fileinput-exists">Change</span>
-                                <input type="file" name="image" id="image" /></span>
-                            <br />
-                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists mt-4" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                        </div>
-                    </div> -->
                     <div class="form-group">
                         <div class="form-group text-center" style="position: relative;">
                             <span class="img-div">
@@ -99,6 +82,7 @@
                                 </div>
                             </span>
                             <input type="file" name="image" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
+                            <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label>Profile Image</label>
                             <div>
                                 <label class="sm-0"><small>Mohon unggah file image (maximal 2 MB).</label>
