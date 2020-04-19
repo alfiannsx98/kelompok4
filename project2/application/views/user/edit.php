@@ -70,10 +70,12 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-4">
-                    <legend class="pl-4">Avatar</legend>
+                    <!-- <legend class="pl-4">Avatar</legend>
                     <div class="fileinput fileinput-new text-center mr-5" data-provides="fileinput">
                         <div class="fileinput-new thumbnail">
-                            <img src="<?= base_url(); ?>assets/dist/img/user/<?= $user['image']; ?>" alt="image" width="200px">
+                            <img src="<? //= base_url(); 
+                                        ?>assets/dist/img/user/<? //= $user['image']; 
+                                                                ?>" alt="image" width="200px">
                         </div>
                         <div class="fileinput-preview fileinput-exists thumbnail"></div>
                         <div>
@@ -84,6 +86,24 @@
                             <br />
                             <a href="#pablo" class="btn btn-danger btn-round fileinput-exists mt-4" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                         </div>
+                    </div> -->
+                    <div class="form-group">
+                        <div class="form-group text-center" style="position: relative;">
+                            <span class="img-div">
+                                <div class="text-center img-placeholder" onClick="triggerClick()">
+                                    <h4>Upload Image</h4>
+                                    <label class="sm-0"><small>(Klik gambar untuk mengganti)</label>
+                                </div>
+                                <div>
+                                    <img src="<?= base_url(); ?>assets/dist/img/user/<?= $user['image']; ?>" onClick="triggerClick()" id="profileDisplay" width="200px">
+                                </div>
+                            </span>
+                            <input type="file" name="image" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
+                            <label>Profile Image</label>
+                            <div>
+                                <label class="sm-0"><small>Mohon unggah file image (maximal 2 MB).</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 </form>
@@ -91,3 +111,5 @@
         </div>
     </div>
 </div>
+
+<script src="<?= base_url(); ?>assets/dist/js/display.js"></script>

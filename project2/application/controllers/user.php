@@ -26,8 +26,8 @@ class User extends CI_Controller
     }
     function alpha_dash_space($str)
     {
-        return ( ! preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
-    } 
+        return (!preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
+    }
     public function edit()
     {
         $data['title'] = 'Edit Profile';
@@ -57,14 +57,14 @@ class User extends CI_Controller
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size'] = '2048';
-                $config['upload_path'] = './assets/image/profile/';
+                $config['upload_path'] = './assets/dist/img/user/';
 
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
                     $old_image = $data['user']['image'];
                     if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/image/profile/' . $old_image);
+                        unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
                     }
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('image', $new_image);
