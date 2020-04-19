@@ -10,61 +10,68 @@
 
       <form action="<?php echo base_url('auth/register')?>" method="post">
         <label for="">NIM</label>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="nim" placeholder="masukkan nim">
-            <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
+          <div class="input-group">
+            <input type="text" class="form-control" name="nim" placeholder="masukkan nim" value="<?= set_value('nim'); ?>">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
               </div>
             </div>
           </div>
+          <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
+          <br>
         <label for="">Nama Lengkap</label>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" name="nama" placeholder="masukkan nama lengkap">
-          <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
+        <div class="input-group">
+          <input type="text" class="form-control" name="nama" placeholder="masukkan nama lengkap" value="<?= set_value('nama'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
+        <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
+        <br>
         <label for="">Email</label>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" placeholder="masukkan email">
-          <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
+        <div class="input-group">
+          <input type="email" class="form-control" name="email" placeholder="masukkan email" value="<?= set_value('email'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+        <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
+        <br>
         <label for="">Password</label>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password1" placeholder="masukkan password">
-          <?= form_error('password1', '<small class="text-danger col-md">', '</small>'); ?>
+        <div class="input-group">
+          <input type="password" class="form-control" name="password1" placeholder="masukkan password" value="<?= set_value('password1'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        <?= form_error('password1', '<small class="text-danger col-md">', '</small>'); ?>
+        <br>
         <label for="">Ulangi Password</label>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password2" placeholder="ketik ulang password">
-          <?= form_error('password2', '<small class="text-danger col-md">', '</small>'); ?>
+        <div class="input-group">
+          <input type="password" class="form-control" name="password2" placeholder="ketik ulang password" value="<?= set_value('password2'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
-        </div class="form-group">
-          <div class="input-group mb-3">
+        </div>
+        <?= form_error('password2', '<small class="text-danger col-md">', '</small>'); ?>
+        <br>
+        <div class="form-group mb-3">
+          <div class="input-group">
             <button type="submit" class="btn btn-primary btn-block">Register</button>
           </div>
           <p class="mb-1">
             <a href="<?php echo base_url('auth/index')?>" class="text-center">Sudah punya akun?</a>
           </p>
+        </div>
           <!-- /.col -->
         </div>
       </form>
