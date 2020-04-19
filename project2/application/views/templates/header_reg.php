@@ -28,6 +28,9 @@
     <meta name="twitter:description" content="Material Dashboard PRO is a Premium Material Bootstrap Admin with a fresh, new design inspired by Google's Material Design.">
     <meta name="twitter:creator" content="@creativetim">
     <meta name="twitter:image" content="../../../../s3.amazonaws.com/creativetim_bucket/products/51/opt_mdp_thumbnail.jpg">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/dist/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/dist/img/favicon-16x16.png" sizes="16x16" />
     <!-- Open Graph data -->
     <meta property="fb:app_id" content="655968634437471">
     <meta property="og:title" content="Material Dashboard PRO by Creative Tim | Premium Bootstrap Admin Template" />
