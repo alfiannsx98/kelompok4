@@ -126,14 +126,16 @@ class Auth extends CI_Controller
         //     'is_natural' => 'Kolom ini hanya bisa diisi angka'
         // ]);
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+            'required' => 'Email harus diisi',
             'is_unique' => 'Email telah terdaftar di database!'
         ]);
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
             'required' => 'Password harus diisi',
-            'matches' => 'Password Tidak Sama!',
+            'matches' => '',
             'min_length' => 'Password Terlalu Pendek!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]', [
+            'required' => 'Password harus diisi',
             'matches' => 'Password Tidak Sama!'
         ]);
 
