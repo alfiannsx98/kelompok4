@@ -30,9 +30,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body card-primary card-outline">
-                            <div class="message p-4">
-                                <?= $this->session->flashdata('message'); ?>
-                            </div>
+                            <?= $this->session->flashdata('message'); ?>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
