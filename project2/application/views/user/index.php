@@ -30,7 +30,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body card-primary card-outline">
-                        <?= $this->session->flashdata('message'); ?>
+                            <div class="message p-4">
+                                <?= $this->session->flashdata('message'); ?>
+                            </div>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
@@ -134,7 +136,7 @@
                             </ul>
 
                             <div class="text-center"><?php if ($user['is_active'] == 1) {
-                                                            echo "<i class='badge badge-success'>Activation</i>";
+                                                            echo "<i class='badge badge-success'>Activated</i>";
                                                         }  ?></a>
 
                             </div>

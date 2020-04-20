@@ -30,8 +30,8 @@ class User extends CI_Controller
     }
     function alpha_dash_space($str)
     {
-        return ( ! preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
-    } 
+        return (!preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
+    }
     public function edit()
     {
         $data['title'] = 'Edit Profile';
@@ -88,14 +88,14 @@ class User extends CI_Controller
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|jpeg|png';
                 $config['max_size'] = '2048';
-                $config['upload_path'] = './assets/image/profile/';
+                $config['upload_path'] = './assets/dist/img/user/';
 
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
                     $old_image = $data['user']['image'];
                     if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/image/profile/' . $old_image);
+                        unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
                     }
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('image', $new_image);
@@ -104,19 +104,9 @@ class User extends CI_Controller
                 }
             }
 
-            // $this->db->set('nama', $nama);
-            // $this->db->set('nim', $nama);
-            // $this->db->set('jk', $nama);
-            // $this->db->set('prodi', $nama);
-            // $this->db->set('semester', $nama);
-            // $this->db->set('alamat', $nama);
-            // $this->db->set('hp', $nama);
-            // $this->db->set('about', $about);
-            // $this->db->where('email', $email);
-            // $this->db->update('user');
             $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE email='$email'");
             $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', PRODI_M='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE EMAIL_M='$email'");
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
+            $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
             redirect('user');
         }
     }
@@ -142,11 +132,11 @@ class User extends CI_Controller
             $passwordSkrg = $this->input->post('passwordSkrg');
             $passwordBaru = $this->input->post('passwordBaru1');
             if (!password_verify($passwordSkrg, $data['user']['password'])) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Lama Salah</div>');
+                $this->session->set_flashdata('message', '<div class="text-center alert alert-danger" role="alert"><i class="far fa-window-close"></i> Password Lama Salah</div>');
                 redirect('user/edit_password');
             } else {
                 if ($passwordSkrg == $passwordBaru) {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Tidak Boleh Sama!</div>');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-danger" role="alert"><i class="far fa-window-close"></i> Password Tidak Boleh Sama!</div>');
                     redirect('user/edit_password');
                 } else {
                     //Sudah OKE!
@@ -158,7 +148,7 @@ class User extends CI_Controller
                     $this->db->set('change_pass', $date_pass);
                     $this->db->where('email', $this->session->userdata('email'));
                     $this->db->update('user');
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Telah Berhasil Diganti</div>');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
                     redirect('user');
                 }
             }
