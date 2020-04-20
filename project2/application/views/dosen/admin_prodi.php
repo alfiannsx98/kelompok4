@@ -133,7 +133,7 @@ foreach ($admin_prodi as $i) :
                         <input type="text" class="form-control" id="NAMA_ADM" name="NAMA_ADM" placeholder="Masukkan Nama Admin">
                         <?= form_error('NAMA_ADM', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                        <div class="form-group">
+                    <div class="form-group">
                         <label for="">Pilih Jenis Kelamin</label>
                         <div class="radio">
                             <label>
