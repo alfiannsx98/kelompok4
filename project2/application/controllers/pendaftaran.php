@@ -84,5 +84,19 @@ class Pendaftaran extends CI_Controller
         $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
         redirect('pendaftaran/tambah_data');
     }
+    public function coba()
+    {
+        $data['title'] = 'Coba';
+        $data['mahasiswa'] = $this->db->get('mahasiswa')->result_array();
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('pendaftaran/coba', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
