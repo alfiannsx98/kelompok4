@@ -1,0 +1,37 @@
+pendaftaran pkl ada 2 mekanisme
+1. sbg mahasiswa itu bisa mendaftarkan mandiri tempat baru (PKL) memasukkan data baru ke form, kota,nama perusahaan, bergerak di bidang apa, alamat, lokasi dan cp. bisa diajukan scr mandiri (PENGAJUAN)
+2. Mekanisme mengajukan tempat yang sudah ada bisa diajukan untuk mendaftarkan, misal ada yg pkl di DOT malang, jadi tinggal pilih saja dengan mekanisme yang tersedia 
+3. superadmin ada superadmin bu vani,admin/operator (admin prodi, bu putri?, dan bu maya)
+4. Ada jenis user yang hanya bisa melihat rekap (sekjur dan kajur)
+5. buat dahulu algoritma/flowchartnya dgn pemisalan atau alur yang bisa ditentukan
+6. android bisa digunakan untuk (logbook untuk pak angga, feedback / memberi rating, 
+logbook itu semisal hari selasa PKL di sana, dia kesana otomatis mengisi tanggal bisa mengisi aktivitas / tugas apa, contoh dibuatkan 1 landing page. ditulis disitu, dikasih judul kegiatan, atau apa gitu berdasarkan NIM, contoh : Dikerjakan 25% dulu ahari ini, nanit bisa dilihat oleh pembimbing PKL)
+, atau bisa dilihat lagi logbook dari kating yang sudah pernah PKL, logbook bisa diexport kepdf juga.)
+
+
+milih tempat PKL baru milih anggota, biasanya malang, atau sby bebas.
+setelah milih tempat lanjut ke milih anggota, bisa sesuai dengan pedmoan PKL
+
+dikirimkan pedoman PKL ke pak angga.
+
+dari DIDIN : 
+
+1. pertama input nama setelah itu input nama anggota yg muncul dgn parameter NIM, dgn tabel yang tersedia.
+2. kata bu vani untuk menambahkan perusahaan itu admin prodi* dengan persetujuan koordinator PKL dan admin prodi
+3. setelah pendaftaran bagaimana caranya supaya statusnya bisa terdaftar ketika sudah terdaftar.
+
+jawab no 3 : dibuatkan status tabel dgn status jika terdaftar maka true, dll.
+
+4. ide dari didin, nanti dari form admin ada tampilan dari dosen pembimbing, dgn status macam macam, nanti akan muncul dgn apakah sudah mendaftar atau belum.
+jawab no 4 : nanti mainnya di relasi tabel, nanti ada tabel mahasiswa sendiri, ada tabel user sendiri, ada tabel admin. di mahasiswa ada bernilai boolean sbg ketua atau tidak. kalau sbg ketua maka dia bisa jd sbg ketua. bisa dicari lagi untuk itu. namun ada atribut lain yg sudah diterima pkl atau tidak,kalau status diterima maka false/true tergantung kondisional
+jika sudah diterima maka bisa membagi sistemnya dosen pembimbingnya siapa saja ketika semua mahasiswa diterima.
+
+5. dari form pendaftaran mengecek sudah daftar / belum
+
+
+kesimpulan : mingdep kita diskusi lagi perihal alurnya.
+desain sistem maka akan ada pembenaran pd sistemnya.
+
+fokus pada erd dan flowchart.
+
+lalu minggu ini juga bisa vidcall untuk proses lebih lanjut.
