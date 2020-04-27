@@ -177,7 +177,7 @@ class Auth extends CI_Controller
                 'email' => htmlspecialchars($email),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 2,
+                'role_id' => 3,
                 'is_active' => 0,
                 'date_created' => time()
             ];
@@ -205,7 +205,7 @@ class Auth extends CI_Controller
             {
                 // insert token ke database
                 $this->db->insert('user', $data);
-                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nma', EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
+                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nma', JK_M='-', PRODI_M='-', SMT='-', ALAMAT_M='-', HP_M='-', EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
                 $this->db->insert('token_user', $token_user);
 
                 $this->_sendEmail($token, 'verify');

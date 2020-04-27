@@ -30,10 +30,11 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body card-primary card-outline">
+                            <?= $this->session->flashdata('message'); ?>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
-                                        <label class="control-label"><i class="fas fa-book mr-1"></i> Name</label>
+                                        <label class="control-label"><i class="fas fa-user mr-1"></i> Name</label>
                                         <label class="form-control" name="about" id="about"><?= $user['nama']; ?></label>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
@@ -43,6 +44,54 @@
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="far fa-envelope mr-1"></i> Email</label>
                                         <label type="email" class="form-control" value=""><?= $user['email']; ?></label>
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-id-badge mr-1"></i> NIM</label>
+                                        <label class="form-control" name="about" id="about"><?= $user['identity']; ?></label>
+                                        <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-male mr-1"></i><i class="fas fa-female mr-1"></i> Jenis Kelamin</label>
+                                        <label type="email" class="form-control" value=""><?= $user['JK_M']; ?></label>
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-user-graduate mr-1"></i> Program Studi</label>
+                                        <label class="form-control" name="about" id="about"><?= $user['PRODI_M']; ?></label>
+                                        <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-graduation-cap mr-1"></i> Semester</label>
+                                        <label type="email" class="form-control" value=""><?= $user['SMT']; ?></label>
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i> Alamat</label>
+                                        <label class="form-control" name="about" id="about"><?= $user['identity']; ?></label>
+                                        <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label"><i class="fas fa-phone mr-1"></i> No HP</label>
+                                        <label type="email" class="form-control" value=""><?= $user['JK_M']; ?></label>
                                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -101,7 +150,7 @@
                             </ul>
 
                             <div class="text-center"><?php if ($user['is_active'] == 1) {
-                                                            echo "<i class='badge badge-success'>Activation</i>";
+                                                            echo "<i class='badge badge-success'>Activated</i>";
                                                         }  ?></a>
 
                             </div>

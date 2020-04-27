@@ -12,8 +12,12 @@ class User extends CI_Controller
 
     public function index()
     {
+        // $data['user'] = $this->db->select('user.*, mahasiswa.*');
+        // $data['user'] = $this->db->from('user');
+        // $data['user'] = $this->db->join('mahasiswa', 'mahasiswa.NIM=user.identity');
+        // $data['user'] = $this->db->get();
         $data['title'] = 'My Profile';
-        $data['user'] = $this->db->get_where('user', [
+        $data['user'] = $this->db->query("SELECT * FROM user JOIN mahasiswa ON mahasiswa.NIM=user.identity", [
             'email' =>
             $this->session->userdata('email')
         ])->row_array();
@@ -26,18 +30,40 @@ class User extends CI_Controller
     }
     function alpha_dash_space($str)
     {
-        return ( ! preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
-    } 
+        return (!preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
+    }
     public function edit()
     {
         $data['title'] = 'Edit Profile';
-        $data['user'] = $this->db->get_where('user', [
+        $data['prodi'] = $this->db->get('prodi')->result_array();
+        $data['user'] = $this->db->query("SELECT * FROM user JOIN mahasiswa ON mahasiswa.NIM=user.identity", [
             'email' =>
             $this->session->userdata('email')
         ])->row_array();
 
-        $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space');
-        $this->form_validation->set_rules('about', 'About', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space',[
+            'required' => 'nama harus diisi'
+        ]);
+        $this->form_validation->set_rules('jk', 'Jk', 'required|trim',[
+            'required' => 'pilih jenis kelamin salah satu' 
+        ]);
+        $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+            'required' => 'silahkan pilih prodi anda'
+        ]);
+        $this->form_validation->set_rules('semester', 'Semester', 'required|trim',[
+            'required' => 'silahkan pilih semester anda'
+        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim',[
+            'required' => 'masukkan alamat anda'
+        ]);
+        $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]',[
+            'required' => 'masukkan no hp anda',
+            'min_length' => 'nomor telfon terlalu pendek',
+            'max_length' => 'nomor telfon terlalu panjang'
+        ]);
+        $this->form_validation->set_rules('about', 'About', 'required|trim',[
+            'required' => 'masukkan bio anda'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -48,6 +74,11 @@ class User extends CI_Controller
         } else {
             $nama = $this->input->post('nama');
             $email = $this->input->post('email');
+            $jk = $this->input->post('jk');
+            $prodi = $this->input->post('prodi');
+            $semester = $this->input->post('semester');
+            $alamat = $this->input->post('alamat');
+            $hp = $this->input->post('hp');
             $about = $this->input->post('about');
 
             //cek jika ada gambar
@@ -55,16 +86,16 @@ class User extends CI_Controller
             $upload_image = $_FILES['image'];
 
             if ($upload_image) {
-                $config['allowed_types'] = 'gif|jpg|png';
+                $config['allowed_types'] = 'gif|jpg|jpeg|png';
                 $config['max_size'] = '2048';
-                $config['upload_path'] = './assets/image/profile/';
+                $config['upload_path'] = './assets/dist/img/user/';
 
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
                     $old_image = $data['user']['image'];
                     if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/image/profile/' . $old_image);
+                        unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
                     }
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('image', $new_image);
@@ -73,11 +104,9 @@ class User extends CI_Controller
                 }
             }
 
-            $this->db->set('nama', $nama);
-            $this->db->set('about', $about);
-            $this->db->where('email', $email);
-            $this->db->update('user');
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
+            $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE email='$email'");
+            $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', PRODI_M='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE EMAIL_M='$email'");
+            $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
             redirect('user');
         }
     }
@@ -103,11 +132,11 @@ class User extends CI_Controller
             $passwordSkrg = $this->input->post('passwordSkrg');
             $passwordBaru = $this->input->post('passwordBaru1');
             if (!password_verify($passwordSkrg, $data['user']['password'])) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Lama Salah</div>');
+                $this->session->set_flashdata('message', '<div class="text-center alert alert-danger" role="alert"><i class="far fa-window-close"></i> Password Lama Salah</div>');
                 redirect('user/edit_password');
             } else {
                 if ($passwordSkrg == $passwordBaru) {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Tidak Boleh Sama!</div>');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-danger" role="alert"><i class="far fa-window-close"></i> Password Tidak Boleh Sama!</div>');
                     redirect('user/edit_password');
                 } else {
                     //Sudah OKE!
@@ -119,7 +148,7 @@ class User extends CI_Controller
                     $this->db->set('change_pass', $date_pass);
                     $this->db->where('email', $this->session->userdata('email'));
                     $this->db->update('user');
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Telah Berhasil Diganti</div>');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
                     redirect('user');
                 }
             }
