@@ -78,14 +78,16 @@
         function fetch_data()
         {
             $.ajax({
-                url:"<?= base_url(); ?>test_api/action",
+                url:"<?= base_url(); ?>action",
                 method:"POST",
                 data:{data_action:'fetch_all'},
                 success:function(data)
                 {
                     $('tbody').html(data);
                 }
-            })
+            });
         }
+
+        fetch_data();
     })
 </script>
