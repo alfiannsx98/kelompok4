@@ -89,42 +89,12 @@ class Auth extends CI_Controller
         $sql = $this->db->query("SELECT NIM FROM mahasiswa WHERE NIM='$nim'");
         $result = $sql->result_array();
 
-        /**
-         * codingan untuk pemilihan prodi
-         */
-        // if ($prodi == 'D3-Manajemen Informatika') {
-        //     $prodi = 'D3-Manajemen Informatika';
-        // } else if ($prodi == 'D3-Teknik Komputer') {
-        //     $prodi == 'D3-Teknik Komputer';
-        // } else if ($prodi = 'D4-Teknik Informatika') {
-        //     $prodi = 'D4-Teknik Informatika';
-        // }
-        // Validasi form set required(harus terisi atau not null), 
-        // is unique artinya tidak boleh sama, dan
-        // min_length adalah minimum pengisian sebagai contoh sandi minimal pengisian 8 digit.
-        // matches artinya menyamakan, dibuat untuk mencocokan data dari dua value yang berbeda.    
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim|alpha', [
-            'required' => 'nama harus diisi',
-            'alpha' => 'kolom ini hanya bisa diisi huruf'
-        ]);
-        // $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
-        //     'required' => 'Semester harus diisi'
-        // ]);
-        // $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
-        //     'required' => 'Alamat harus diisi'
-        // ]);
         $this->form_validation->set_rules('nim', 'NIM', 'required|trim|min_length[9]|max_length[9]|alpha_numeric', [
             'required' => 'NIM harus diisi',
             'min_length' => 'NIM terlalu pendek',
             'max_length' => 'NIM terlalu panjang',
             'alpha_numeric' => 'Kolom ini hanya bisa diisi huruf dan angka'
         ]);
-        // $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]|is_natural', [
-        //     'required' => 'No HP harus diisi',
-        //     'min_length' => 'No HP terlalu pendek',
-        //     'max_length' => 'No HP terlalu panjang',
-        //     'is_natural' => 'Kolom ini hanya bisa diisi angka'
-        // ]);
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'required' => 'Email harus diisi',
             'is_unique' => 'Email telah terdaftar di database!'
@@ -173,11 +143,10 @@ class Auth extends CI_Controller
             $data = [
                 'id_user' => $id_u,
                 'identity' => htmlspecialchars($this->input->post('nim', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' => htmlspecialchars($email),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 3,
+                'role_id' => 2,
                 'is_active' => 0,
                 'date_created' => time()
             ];
@@ -185,10 +154,6 @@ class Auth extends CI_Controller
             /**
              * kodingan untuk mengupdate data mahasiswa berdasarkan nim
              */
-            $nma = htmlspecialchars($this->input->post('nama', true));
-            // $smt = htmlspecialchars($this->input->post('semester', true));
-            // $alm = htmlspecialchars($this->input->post('alamat', true));
-            // $hp = htmlspecialchars($this->input->post('nohp', true));
             $mail = htmlspecialchars($email);
             $pass = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
             
@@ -205,7 +170,7 @@ class Auth extends CI_Controller
             {
                 // insert token ke database
                 $this->db->insert('user', $data);
-                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nma', JK_M='-', PRODI_M='-', SMT='-', ALAMAT_M='-', HP_M='-', EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
+                $this->db->query("UPDATE mahasiswa SET EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
                 $this->db->insert('token_user', $token_user);
 
                 $this->_sendEmail($token, 'verify');

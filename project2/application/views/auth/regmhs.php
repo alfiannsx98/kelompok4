@@ -20,17 +20,6 @@
           </div>
           <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
           <br>
-        <label for="">Nama Lengkap</label>
-        <div class="input-group">
-          <input type="text" class="form-control" name="nama" placeholder="masukkan nama lengkap" value="<?= set_value('nama'); ?>">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
-        <br>
         <label for="">Email</label>
         <div class="input-group">
           <input type="email" class="form-control" name="email" placeholder="masukkan email" value="<?= set_value('email'); ?>">
