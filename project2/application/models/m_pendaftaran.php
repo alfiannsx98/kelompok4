@@ -2,9 +2,12 @@
 
 class M_pendaftaran extends CI_Model{
 	function tampil_pnd(){
-        $data=$this->db->query("SELECT pendaftaran.ID_PND, perusahaan.NAMA_PR, dosbing.NAMA_DS 
-                                FROM pendaftaran, perusahaan, dosbing
-                                WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS");
+        $data=$this->db->query("SELECT pendaftaran.ID_PND, perusahaan.NAMA_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M 
+                                FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp
+                                WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
+                                AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
+                                AND mahasiswa.ST_KETUA = 0
+                                ORDER BY pendaftaran.ID_PND ASC");
 		return $data;
         }
 

@@ -17,14 +17,11 @@
 		</div><!-- /.container-fluid -->
 	</section>
 
-
 	<section class="content">
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-
-
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -33,7 +30,7 @@
 									<th>Tempat PKL</th>
 									<th>Dosen Pembimbing</th>
 									<th>Status</th>
-									<th>Actions</th>
+									<th class="text-right">Actions</th>
 								</tr>
 							</thead>
 							<?php $nmr=1;?>
@@ -41,12 +38,15 @@
 							<tbody>
 								<tr>
 									<td class="text-center"><?= $nmr++; ?></td>
-									<td>nama Ketua</td>
+									<td><?= $pnd->NAMA_M; ?></td>
 									<td><?php echo $pnd->NAMA_PR; ?></td>
 									<td><?php echo $pnd->NAMA_DS; ?></td>
 									<td>status</td>
-									<td></td>
-									<td class="text-right"></td>
+									<td class="text-right">
+										<button class="btn btn-info btn-sm">detail</button>
+										<button class="btn btn-success btn-sm">ubah</button>
+										<button class="btn btn-danger btn-sm">hapus</button>
+									</td>
 								</tr>
 							</tbody>
 							<?php } ?>
@@ -57,7 +57,7 @@
 									<th>Tempat PKL</th>
 									<th>Dosen Pembimbing</th>
 									<th>Status</th>
-									<th>Actions</th>
+									<th class="text-right">Actions</th>
 								</tr>
 							</tfoot>
 						</table>
