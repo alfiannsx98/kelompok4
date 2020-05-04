@@ -90,7 +90,7 @@
         });
     });
 </script>
-<script>
+<!-- <script>
     $(document).ready(function(){
       
       var count = 0;
@@ -193,7 +193,7 @@
       });
       
     });
-</script>
+</script> -->
 <script>
       $(function () {
     //Initialize Select2 Elements
