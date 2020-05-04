@@ -21,7 +21,7 @@ class M_pendaftaran extends CI_Model{
                 }
 
         function tampil_dt_klp($ID_PND){
-                $data = $this->db->query("SELECT pendaftaran_klp.ID_PND, pendaftaran_klp.ID_M, mahasiswa.NAMA_M
+                $data = $this->db->query("SELECT pendaftaran_klp.ID_PND, pendaftaran_klp.ID_M, mahasiswa.NIM, mahasiswa.NAMA_M
                                         FROM pendaftaran_klp, mahasiswa
                                         WHERE pendaftaran_klp.ID_M = mahasiswa.ID_M
                                         AND pendaftaran_klp.ID_PND = '$ID_PND'");

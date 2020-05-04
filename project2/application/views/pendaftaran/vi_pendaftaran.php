@@ -43,7 +43,8 @@
 									<td><?php echo $pnd->NAMA_DS; ?></td>
 									<td>status</td>
 									<td class="text-right">
-										<button class="btn btn-info btn-sm">detail</button>
+									<?php echo anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,
+									'<button type="button" class="btn btn-info btn-sm">detail</button>'); ?>
 										<button class="btn btn-success btn-sm">ubah</button>
 										<button class="btn btn-danger btn-sm">hapus</button>
 									</td>
