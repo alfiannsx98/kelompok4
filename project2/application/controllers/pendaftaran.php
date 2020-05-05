@@ -62,6 +62,7 @@ class Pendaftaran extends CI_Controller
     
         $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
+        $data['mahasiswa'] = $this->db->get('mahasiswa')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
