@@ -37,11 +37,11 @@ class Dosen extends CI_Controller
             'is_unique' => 'Nama Akun Ini telah Terdaftar!'
         ]);
 
+        $this->form_validation->set_rules('ID_PRODI', 'Prodi', 'required');
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
         $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
-        $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
 
         if($this->form_validation->run() == false){
             $this->load->view('templates/header', $data);
@@ -54,12 +54,12 @@ class Dosen extends CI_Controller
             $nama_adm = $this->input->post('NAMA_ADM', true);
             $data = [
                 'ID_ADM' => $id_u,
+                'ID_PRODI' => htmlspecialchars($this->input->post('ID_PRODI')),
                 'NIP_ADM' => htmlspecialchars($this->input->post('NIP_ADM')),
                 'NAMA_ADM' => htmlspecialchars($nama_adm),
                 'JK_ADM' => $this->input->post('JK_ADM'),
                 'ALAMAT_ADM' => htmlspecialchars($this->input->post('ALAMAT_ADM')),
-                'HP_ADM' => htmlspecialchars($this->input->post('HP_ADM')),
-                'PRODI_ADM' => $this->input->post('PRODI_ADM')
+                'HP_ADM' => htmlspecialchars($this->input->post('HP_ADM'))
             ];
             $dataUser = [
                 'id_user' => $id_usr,
