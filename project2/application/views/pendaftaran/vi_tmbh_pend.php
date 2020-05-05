@@ -71,20 +71,23 @@
 						<div class="row">
 							<label class="col-sm-2 label-on-left">Masukkan NIM</label>
 							<div class="col-sm-2">
-								<select name="" id="" class="form-control select2"
+								<input type="text" class="form-control" name="NIM" id="NIM" placeholder="NIM">
+								<!-- <select name="" id="" class="form-control select2"
 									data-style="btn btn-primary btn-round">
 									<option value="" selected disabled>NIM</option>
-									<?php foreach($mahasiswa as $mhs) : ?>
+									<?php foreach($mahasiswa as $mhs) { ?>
 									<option value="<?= $mhs['ID_M']; ?>">
-										<?= $mhs['NIM']; ?></option><?php endforeach; ?>
-								</select>
+										<?= $mhs['NIM']; ?>
+									</option>
+									<?php } ?>
+								</select> -->
 							</div>
 							<div class="form-group">
-								<button type="submit" name="simpan" class="btn btn-primary add">Tambah</button>
+								<button type="submit" name="tambah" id="tambah" class="btn btn-primary add">Tambah</button>
 							</div>
 						</div>
 						<div class="row">
-							<table id="example1" class="table table-bordered table-striped">
+							<table id="tabel" name="tabel" class="table table-bordered table-striped">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -96,13 +99,13 @@
 								<?php $i = 1; ?>
 								<tbody>
 									<tr>
-										<td><?= $i++; ?></td>
+										<!-- <td></td>
 										<td></td>
 										<td></td>
 										<td class="text-right">
 											<button class="btn btn-info btn-xs btn-danger"
 												data-target="#modal_edit">Hapus</button>
-										</td>
+										</td> -->
 									</tr>
 								</tbody>
 								<tfoot>
@@ -134,6 +137,19 @@
 			var table_len = $('#data_table tbody tr').length + 1;
 			$(#NO).val();
 		}
+	});
+
+</script>
+
+<script>
+	$(document).ready(function () {
+
+		$("#tambah").click(function () {
+			var nilai = $("#NIM").val();
+			var baris_baru = "<tr><td>" + nilai + "</td></tr>";
+			$("#tabel").append(baris_baru);
+		})
+
 	});
 
 </script>

@@ -43,14 +43,45 @@
 		<label>Masukkan NIM</label>
 		<input type="text" id="NIM" name="NIM">
 		<button id="tambah" name="tambah">Tambah</button>
-		<table id="tabel" name="tabel">
+		<table id="tabel" name="tabel" tableborder="1">
+			<?php $i=1; ?>
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>NIM</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+		</table>
+
+		<table id="tableID">
+			<thead>
 			<tr>
+				<th>NO</th>
 				<th>NIM</th>
 			</tr>
-			<tr>
-				<td>e411</td>
-			</tr>
+			</thead>
+			<tbody>
+				<tr></tr>
+			</tbody>
 		</table>
+		<script>
+			$("#tableID").find('tbody')
+    .append($('<tr>')
+        .append($('<td>')
+            .append($('<img>')
+                .attr('src', 'img.png')
+                .text('Image cell')
+            )
+        )
+    );
+
+		</script>
+
 	</div>
 </div>
 <script>
@@ -58,7 +89,7 @@
 
 		$("#tambah").click(function () {
 			var nilai = $("#NIM").val();
-			var baris_baru = "<tr><td>" + nilai + "</td></tr>";
+			var baris_baru = "<tr><td><td>" + nilai + "</td></td></tr>";
 			$("#tabel").append(baris_baru);
 		})
 

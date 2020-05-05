@@ -90,7 +90,7 @@
         });
     });
 </script>
-<!-- <script>
+<script>
     $(document).ready(function(){
       
       var count = 0;
@@ -100,10 +100,11 @@
         var html = '';
         
         html += '<tr>';
-        html += '<td><select name="nim_mahasiswa[]" class="form-control select2 nim_mahasiswa" data-sub_category_id="'+count+'"><option value="">Select Mahasiswa</option><?php foreach($mahasiswa as $mhs) : ?><option value="<?= $mhs['ID_M']; ?>"><?= $mhs['NAMA_M']; ?></option><?php endforeach; ?></select></td>';
+        html += '<td>'+count+'</td>';
+        // html += '<td><select name="nim_mahasiswa[]" class="form-control select2 nim_mahasiswa" data-sub_category_id="'+count+'"><option value="">Select Mahasiswa</option><?php foreach($mahasiswa as $mhs) : ?><option value="<?= $mhs['ID_M']; ?>"><?= $mhs['NAMA_M']; ?></option><?php endforeach; ?></select></td>';
         html += '<td><input type="text" name="item_name[]" class="form-control item_name" /></td>';
         html += '<td><select name="item_sub_category[]" class="form-control item_sub_category" id="item_sub_category'+count+'"><option value="">Select Sub Category</option></select></td>';
-        html += '<td><button type="button" name="remove" class="btn btn-danger btn-xs remove"><span class="fas fa-minus"></span></button></td>';
+        // html += '<td><button type="button" name="remove" class="btn btn-danger btn-xs remove"><span class="fas fa-minus"></span></button></td>';
         $('tbody').append(html);
       });
 
@@ -193,7 +194,7 @@
       });
       
     });
-</script> -->
+</script>
 <script>
       $(function () {
     //Initialize Select2 Elements
