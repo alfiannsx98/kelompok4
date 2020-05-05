@@ -90,7 +90,27 @@
         });
     });
 </script>
+<!-- punya didin -->
 <script>
+	$(document).ready(function () {
+
+		var count = 0;
+
+		$(document).on('click', '.add', function () {
+			count++;
+			var html = '';
+
+			html += '<tr>';
+			html += '<td>' + count + '</td>';
+			var nilai = $("#NIM").val();
+			html += '<td>' + nilai + '</td>';
+			$('tbody').append(html);
+		});
+	});
+
+</script>
+<!-- punya irman -->
+<!-- <script>
     $(document).ready(function(){
       
       var count = 0;
@@ -194,7 +214,7 @@
       });
       
     });
-</script>
+</script> -->
 <script>
       $(function () {
     //Initialize Select2 Elements

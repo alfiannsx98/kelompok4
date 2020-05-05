@@ -58,41 +58,37 @@
 				</tr>
 		</table>
 
-		<table id="tableID">
-			<thead>
-			<tr>
-				<th>NO</th>
-				<th>NIM</th>
-			</tr>
-			</thead>
-			<tbody>
-				<tr></tr>
-			</tbody>
-		</table>
-		<script>
-			$("#tableID").find('tbody')
-    .append($('<tr>')
-        .append($('<td>')
-            .append($('<img>')
-                .attr('src', 'img.png')
-                .text('Image cell')
-            )
-        )
-    );
-
-		</script>
-
 	</div>
 </div>
 <script>
 	$(document).ready(function () {
 
+		var i = 0;
 		$("#tambah").click(function () {
+			i++;
 			var nilai = $("#NIM").val();
 			var baris_baru = "<tr><td><td>" + nilai + "</td></td></tr>";
 			$("#tabel").append(baris_baru);
 		})
 
+	});
+
+</script>
+<script>
+	$(document).ready(function () {
+
+		var count = 0;
+
+		$(document).on('click', '.add', function () {
+			count++;
+			var html = '';
+
+			html += '<tr>';
+			html += '<td>' + count + '</td>';
+			var nilai = $("#NIM").val();
+			html += '<td>' + nilai + '</td>';
+			$('tbody').append(html);
+		});
 	});
 
 </script>

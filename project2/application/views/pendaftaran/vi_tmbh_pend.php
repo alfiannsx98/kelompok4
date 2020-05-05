@@ -99,10 +99,11 @@
 								<?php $i = 1; ?>
 								<tbody>
 									<tr>
-										<!-- <td></td>
 										<td></td>
 										<td></td>
-										<td class="text-right">
+										<td></td>
+										<td></td>
+										<!-- <td class="text-right">
 											<button class="btn btn-info btn-xs btn-danger"
 												data-target="#modal_edit">Hapus</button>
 										</td> -->
