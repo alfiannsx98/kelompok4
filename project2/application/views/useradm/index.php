@@ -49,6 +49,7 @@
                                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
+                                <input type="email" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-id-badge mr-1"></i> Identitas</label>

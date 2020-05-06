@@ -49,6 +49,7 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <input type="email" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-id-badge mr-1"></i> NIM</label>
@@ -68,7 +69,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user-graduate mr-1"></i> Program Studi</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['PRODI_M']; ?></label>
+                                        <label class="form-control" name="prodi" id="prodi"><?= $user['NM_PRODI']; ?></label>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>

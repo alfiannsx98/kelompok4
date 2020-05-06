@@ -48,12 +48,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <input type="email" class="" value="<?= $user['NIP_ADM']; ?>" name="nip" id="nip" hidden>
+                                <input type="text" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="far fa-id-badge mr-1"></i> NIP</label>
                                         <label type="text" class="form-control"><?= $user['identity']; ?></label>
-                                        <?= form_error('nim', '<small class="text-danger pl-3">', '</small>'); ?>
+                                        <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -79,11 +79,11 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="prodi"><i class="fas fa-user-graduate mr-1"></i>Admin Program Studi</label>
-                                        <select name="prodi" id="prodi" class="form-control" required>
-                                            <option value="" selected disabled>Silahkan pilih Admin Program Studi</option>
+                                        <select name="prodi" id="prodi" class="form-control">
+                                            <option value="" selected disabled>Admin Program Studi</option>
                                             <option value="<?= $user['PRODI_M']; ?>" selected><?= $user['PRODI_ADM']; ?></option>
                                             <?php foreach($prodi as $pr): ?>
-                                            <option value="<?= $pr['nama_pr'] ?>"><?= $pr['nama_pr'] ?></option>
+                                            <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>

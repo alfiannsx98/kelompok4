@@ -13,12 +13,13 @@ class User extends CI_Controller
     public function index()
     {
         $mail = $this->session->userdata('email');
+        $identity = $this->session->userdata('identity');
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
         LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
         WHERE user.email ='$mail'")->row_array();
-        // query tabel user dgn parameter identity (berdasarkan level, if levelnya 2 maka )
-        // $user = $data['user'];
+        $d['user'] = $this->db->query("SELECT * FROM admin_prodi LEFT JOIN prodi ON prodi.ID_PRODI=admin_prodi.ID_PRODI 
+        LEFT JOIN user ON user.indentity=admin_prodi.NIP_ADM WHERE user.email='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -33,7 +34,7 @@ class User extends CI_Controller
         }
         elseif($user['role_id'] == 12)
         {
-            $this->load->view('useradmprodi/index', $data);
+            $this->load->view('useradmprodi/index', $d);
         }
         $this->load->view('templates/footer');
     }
@@ -41,130 +42,183 @@ class User extends CI_Controller
     {
         return (!preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;
     }
+
+    /**
+     * INI FUNGSI UNTUK EDIT ADMIN
+     */
     public function edit()
     {
         $mail = $this->session->userdata('email');
-        $data['title'] = 'Edit Profile';
-        $data['prodi'] = $this->db->get('prodi')->result_array();
-        $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
-        LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
-        WHERE user.email ='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
+        if($user['role_id'] == 1)
+        {
+            $data['title'] = 'Edit Profile';
+            $data['prodi'] = $this->db->get('prodi')->result_array();
+            $data['user'] = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
 
-        $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space', [
-            'required' => 'nama harus diisi'
-        ]);
-        $this->form_validation->set_rules('jk', 'Jk', 'required|trim', [
-            'required' => 'pilih jenis kelamin salah satu'
-        ]);
-        $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
-            'required' => 'silahkan pilih prodi anda'
-        ]);
-        $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
-            'required' => 'silahkan pilih semester anda'
-        ]);
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
-            'required' => 'masukkan alamat anda'
-        ]);
-        $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]', [
-            'required' => 'masukkan no hp anda',
-            'min_length' => 'nomor telfon terlalu pendek',
-            'max_length' => 'nomor telfon terlalu panjang'
-        ]);
-        $this->form_validation->set_rules('about', 'About', 'required|trim', [
-            'required' => 'masukkan bio anda'
-        ]);
+            $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space', [
+                'required' => 'nama harus diisi'
+            ]);
+            $this->form_validation->set_rules('about', 'About', 'required|trim', [
+                'required' => 'masukkan bio anda'
+            ]);
 
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            if($user['role_id'] == 1)
-            {
-                $this->load->view('useradm/edit', $data);    
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('useradm/edit', $data);
+                $this->load->view('templates/footer');
             }
-            elseif($user['role_id'] == 2)
+            else
             {
+                $nama = $this->input->post('nama');
+                $about = $this->input->post('about');
+                $email = $this->input->post('email');
+                //cek jika ada gambar
+                $upload_image = $_FILES['image'];
+
+                if ($upload_image) {
+                    $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                    $config['max_size'] = '2048';
+                    $config['upload_path'] = './assets/dist/img/user/';
+
+                    $this->load->library('upload', $config);
+
+                    if ($this->upload->do_upload('image')) {
+                        $old_image = $data['user']['image'];
+                        if ($old_image != 'default.jpg') {
+                            unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
+                        }
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        echo $this->upload->display_errors();
+                    }
+                }
+
+                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE email='$email'");
+                $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
+                redirect('user');
+            }
+        }
+        elseif($user['role_id'] == 2)
+        {
+            $mail = $this->session->userdata('email');
+            $data['title'] = 'Edit Profile';
+            $data['prodi'] = $this->db->get('prodi')->result_array();
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity WHERE 
+            user.email='$mail'")->row_array();
+
+            $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space', [
+                'required' => 'nama harus diisi'
+            ]);
+            $this->form_validation->set_rules('jk', 'Jk', 'required|trim', [
+                'required' => 'pilih jenis kelamin'
+            ]);
+            $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+                'required' => 'pilih prodi anda'
+            ]);
+            $this->form_validation->set_rules('smt', 'Smt', 'required|trim', [
+                'required' => 'pilih semester anda'
+            ]);
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+                'required' => 'masukkan alamat anda'
+            ]);
+            $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]', [
+                'required' => 'masukkan no hp anda',
+                'min_length' => 'masukkan no hp dengan benar',
+                'max_length' => 'masukkan no hp dengan benar'
+            ]);
+            $this->form_validation->set_rules('about', 'About', 'required|trim', [
+                'required' => 'masukkan bio anda'
+            ]);
+
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
                 $this->load->view('usermhs/edit', $data);
+                $this->load->view('templates/footer');
             }
-            elseif($user['role_id'] == 12)
+            else
             {
+                $nama = $this->input->post('nama');
+                $email = $this->input->post('email');
+                $nim = $this->input->post('identity');
+                $jk = $this->input->post('jk');
+                $prodi = $this->input->post('prodi');
+                $semester = $this->input->post('smt');
+                $alamat = $this->input->post('alamat');
+                $hp = $this->input->post('hp');
+                $about = $this->input->post('about');
+
+                //cek jika ada gambar
+
+                $upload_image = $_FILES['image'];
+
+                if ($upload_image) {
+                    $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                    $config['max_size'] = '2048';
+                    $config['upload_path'] = './assets/dist/img/user/';
+
+                    $this->load->library('upload', $config);
+
+                    if ($this->upload->do_upload('image')) {
+                        $old_image = $data['user']['image'];
+                        if ($old_image != 'default.jpg') {
+                            unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
+                        }
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        echo $this->upload->display_errors();
+                    }
+                }
+
+                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE identity='$nim'");
+                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', ID_PRODI='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE NIM='$nim'");
+                $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
+                redirect('user');
+            }
+        }
+        elseif($user['role_id'])
+        {
+            $mail = $this->session->userdata('email');
+            $data['title'] = 'Edit Profile';
+            $data['prodi'] = $this->db->get('prodi')->result_array();
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity WHERE 
+            user.email='$mail'")->row_array();
+
+            $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
+                'required' => 'nama harus diisi'
+            ]);
+            $this->form_validation->set_rules('jk', 'Jk', 'required|trim', [
+                'required' => 'pilih jenis kelamin'
+            ]);
+            $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+                'required' => 'pilih bagian admin prodi'
+            ]);
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+                'required' => 'masukkan alamat anda'
+            ]);
+            $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]', [
+                'required' => 'masukkan no hp anda',
+                'min_length' => 'masukkan no hp dengan benar',
+                'max_length' => 'masukkan no hp dengan benar'
+            ]);
+            $this->form_validation->set_rules('about', 'About', 'required|trim', [
+                'required' => 'masukkan bio anda'
+            ]);
+
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
                 $this->load->view('useradmprodi/edit', $data);
+                $this->load->view('templates/footer');
             }
-            $this->load->view('templates/footer');
-        } else {
-
-            if($user['role_id'] == 1)
-            {
-                $nama = $this->input->post('nama');
-                $about = $this->input->post('about');
-                $email = $this->input->post('email');
-                //cek jika ada gambar
-                $upload_image = $_FILES['image'];
-
-                if ($upload_image) {
-                    $config['allowed_types'] = 'gif|jpg|jpeg|png';
-                    $config['max_size'] = '2048';
-                    $config['upload_path'] = './assets/dist/img/user/';
-
-                    $this->load->library('upload', $config);
-
-                    if ($this->upload->do_upload('image')) {
-                        $old_image = $data['user']['image'];
-                        if ($old_image != 'default.jpg') {
-                            unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
-                        }
-                        $new_image = $this->upload->data('file_name');
-                        $this->db->set('image', $new_image);
-                    } else {
-                        echo $this->upload->display_errors();
-                    }
-                }
-
-                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE email='$email'");
-                $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
-            }
-            elseif($user['role_id'] == 2)
-            {
-                $nama = $this->input->post('nama');
-                $email = $this->input->post('email');
-                $jk = $this->input->post('jk');
-                $prodi = $this->input->post('prodi');
-                $semester = $this->input->post('semester');
-                $alamat = $this->input->post('alamat');
-                $hp = $this->input->post('hp');
-                $about = $this->input->post('about');
-
-                //cek jika ada gambar
-
-                $upload_image = $_FILES['image'];
-
-                if ($upload_image) {
-                    $config['allowed_types'] = 'gif|jpg|jpeg|png';
-                    $config['max_size'] = '2048';
-                    $config['upload_path'] = './assets/dist/img/user/';
-
-                    $this->load->library('upload', $config);
-
-                    if ($this->upload->do_upload('image')) {
-                        $old_image = $data['user']['image'];
-                        if ($old_image != 'default.jpg') {
-                            unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
-                        }
-                        $new_image = $this->upload->data('file_name');
-                        $this->db->set('image', $new_image);
-                    } else {
-                        echo $this->upload->display_errors();
-                    }
-                }
-
-                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE email='$email'");
-                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', PRODI_M='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE EMAIL_M='$email'");
-                $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
-            }
-            elseif($user['role_id'] == 12)
+            else
             {
                 $nama = $this->input->post('nama');
                 $email = $this->input->post('email');
@@ -173,7 +227,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('nip');
+                $nip = $this->input->post('identity');
 
                 //cek jika ada gambar
 
@@ -199,12 +253,14 @@ class User extends CI_Controller
                 }
 
                 $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE identity='$nip'");
-                $this->db->query("UPDATE admin_prodi SET NAMA_ADM='$nama', JK_ADM='$jk', ALAMAT_ADM='$alamat', HP_ADM='$hp', PRODI_ADM='$prodi' WHERE NIP_ADM='$nip'");
+                $this->db->query("UPDATE admin_prodi SET NAMA_ADM='$nama', JK_ADM='$jk', ALAMAT_ADM='$alamat', HP_ADM='$hp', ID_PRODI='$prodi' WHERE NIP_ADM='$nip'");
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
         }
+        
     }
+
     public function edit_password()
     {
         $mail = $this->session->userdata('email');

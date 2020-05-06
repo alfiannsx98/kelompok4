@@ -151,9 +151,6 @@ class Auth extends CI_Controller
                 'date_created' => time()
             ];
 
-            /**
-             * kodingan untuk mengupdate data mahasiswa berdasarkan nim
-             */
             $mail = htmlspecialchars($email);
             $pass = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
             
@@ -169,8 +166,10 @@ class Auth extends CI_Controller
             if($result == true)
             {
                 // insert token ke database
+                /**
+                * kodingan untuk menginsert data user berdasarkan nim
+                */
                 $this->db->insert('user', $data);
-                $this->db->query("UPDATE mahasiswa SET EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
                 $this->db->insert('token_user', $token_user);
 
                 $this->_sendEmail($token, 'verify');

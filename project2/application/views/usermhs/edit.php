@@ -34,7 +34,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user mr-1"></i> Name</label>
-                                        <input type="text" class="form-control" value="<?= $user['nama']; ?>" name="nama" id="nama" <?= set_value('nama')?>>
+                                        <input type="text" class="form-control" value="<?= $user['nama']; ?>" name="nama" id="nama" <?= set_value('nama') ?>>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -48,10 +48,11 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <input type="text" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="far fa-id-badge mr-1"></i> NIM</label>
-                                        <label type="text" class="form-control"><?= $user['NIM']; ?></label>
+                                        <label type="text" class="form-control"><?= $user['identity']; ?></label>
                                         <?= form_error('nim', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -77,12 +78,12 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="prodi"><i class="fas fa-user-graduate mr-1"></i> Program Studi</label>
-                                        <select name="prodi" id="prodi" class="form-control" required>
-                                            <option value="" selected disabled>Silahkan pilih Program Studi</option>
-                                            <option value="<?= $user['PRODI_M']; ?>" selected><?= $user['PRODI_M']; ?></option>
+                                        <label for="prodi"><i class="fas fa-user-graduate mr-1"></i>Program Studi</label>
+                                        <select name="prodi" id="prodi" class="form-control">
+                                            <option value="" selected disabled>Silahkan Pilih Program Studi</option>
+                                            <option value="<?= $user['ID_PRODI']; ?>" selected><?= $user['NM_PRODI']; ?></option>
                                             <?php foreach($prodi as $pr): ?>
-                                            <option value="<?= $pr['nama_pr'] ?>"><?= $pr['nama_pr'] ?></option>
+                                            <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -90,9 +91,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="semester"><i class="fas fa-graduation-cap mr-1"></i> Semester</label>
-                                        <select name="semester" id="semester" class="form-control" required>
-                                            <option value="" selected disabled>Silahkan pilih Semester anda</option>
+                                        <label for="smt"><i class="fas fa-graduation-cap mr-1"></i>Semester</label>
+                                        <select name="smt" id="smt" class="form-control">
+                                            <option value="" selected disabled>Silahkan Pilih Semester</option>
                                             <option value="<?= $user['SMT']; ?>" selected><?= $user['SMT']; ?></option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
@@ -100,14 +101,14 @@
                                             <option value="7">7</option>
                                             <option value="8">8</option>
                                         </select>
-                                        <?= form_error('semester', '<small class="text-danger pl-3">', '</small>'); ?>
+                                        <?= form_error('smt', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
-                                        <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i>  Alamat</label>
+                                        <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i> Alamat</label>
                                         <input type="text" class="form-control" value="<?= $user['ALAMAT_M']; ?>" name="alamat" id="alamat" <?= set_value('alamat')?>>
                                         <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
@@ -124,7 +125,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">About</label>
-                                        <input type="text" class="form-control" value="<?= $user['about']; ?>" name="about" id="about" <?= set_value('about')?>>
+                                        <input type="text" class="form-control" value="<?= $user['about']; ?>" name="about" id="about" <?= set_value('about') ?>>
                                         <?= form_error('about', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
