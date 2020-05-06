@@ -54,7 +54,7 @@
                         $id_mi = $mi['ID_ADM'];
                         $nip_mi = $mi['NIP_ADM'];
 
-                        $qwery = "SELECT * FROM user WHERE identity = $nip_mi"; 
+                        $qwery = "SELECT * FROM user WHERE identity = '$nip_mi'"; 
                         $dtu = $this->db->query($qwery)->result_array();
                         
                     ?>
@@ -118,8 +118,11 @@ foreach ($admin_prodi as $i) :
     $hp_adm = $i['HP_ADM'];
     $prodi_adm = $i['ID_PRODI'];
     
-    $query_user = "SELECT * FROM user WHERE identity = $nip"; 
+    $query_user = "SELECT * FROM user WHERE identity = '$nip'"; 
     $data_user = $this->db->query($query_user)->result_array();
+
+    $query_prodi = "SELECT * FROM prodi";
+    $prodi = $this->db->query($query_prodi)->result_array();
     ?>
 <div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -165,10 +168,10 @@ foreach ($admin_prodi as $i) :
                     </div>
                     <div class="form-group">
                         <label for="PRODI_ADM">Nama Admin Prodi</label>
-                        <select name="PRODI_ADM" id="PRODI_ADM" class="form-control" required>
+                        <select name="ID_PRODI" id="ID_PRODI" class="form-control" required>
                                 <option value="" selected disabled>Silahkan pilih Program Studi</option>
                                 <?php foreach($prodi as $pr): ?>
-                                <option value="<?= $pr['nama_pr'] ?>"><?= $pr['nama_pr'] ?></option>
+                                <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                 <?php endforeach; ?>
                         </select>
                     </div>
@@ -244,7 +247,7 @@ foreach ($admin_prodi as $i) :
                     <div class="form-group">
                         <label for="PRODI_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
                         <div class="col-xs-8">
-                            <select name="PRODI_ADM" id="PRODI_ADM" class="form-control">
+                            <select name="ID_PRODI" id="ID_PRODI" class="form-control">
                                 <option value="<?= $prodi_adm; ?>" selected hidden><?= $prodi_adm; ?></option>
                                 <option value="" selected disabled><?= $mi['NM_PRODI']; ?></option>
                                 <?php foreach($prodi as $pr): ?>
@@ -304,6 +307,7 @@ foreach ($admin_prodi as $i) :
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="ID_ADM" value="<?= $id; ?>">
+                    <input type="hidden" name="NIP_ADM" value="<?= $nip; ?>">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>

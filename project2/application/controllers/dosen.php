@@ -65,9 +65,9 @@ class Dosen extends CI_Controller
                 'id_user' => $id_usr,
                 'identity' => $this->input->post('NIP_ADM'),
                 'nama' => $this->input->post('NAMA_ADM'),
-                'email' => $email,
+                'email' => htmlspecialchars($email),
                 'image' => "default.jpg",
-                'password' => "polijesip" . time(),
+                'password' => password_hash("polijesip", PASSWORD_DEFAULT),
                 'about' => "#",
                 'role_id' => 12,
                 'is_active' => 0,
@@ -105,7 +105,7 @@ class Dosen extends CI_Controller
             'newline' => "\r\n"
         ];
         // Jika pesan nya = verifikasi
-        $emailAkun = $this->input->post('EMAIL_ADM');
+        $emailAkun = $this->input->post('email');
         $pesanEmail = "
                                 <html>
                                 <head>
@@ -137,7 +137,7 @@ class Dosen extends CI_Controller
         ";
         $this->load->library('email', $config);
         $this->email->from('emailpass49@gmail.com', 'Verifikasi Email');
-        $this->email->to($this->input->post('EMAIL_ADM'));
+        $this->email->to($this->input->post('email'));
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
             $this->email->message($pesanEmail);
@@ -162,7 +162,7 @@ class Dosen extends CI_Controller
         $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
-        $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
+        $this->form_validation->set_rules('ID_PRODI', 'Program Studi', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
         if($this->form_validation->run() == false){
@@ -174,7 +174,7 @@ class Dosen extends CI_Controller
             $jk_adm = $this->input->post('JK_ADM');
             $alamat_admin = $this->input->post('ALAMAT_ADM');
             $no_hp_admin = $this->input->post('HP_ADM');
-            $prodi_admin = $this->input->post('PRODI_ADM');
+            $prodi_admin = $this->input->post('ID_PRODI');
             $id_user = $this->input->post('id_user');
             $is_active = $this->input->post('is_active');
             $email_admin = $this->input->post('email');
@@ -187,6 +187,8 @@ class Dosen extends CI_Controller
     public function hapus_admin_prodi()
     {
         $id = $this->input->post('ID_ADM');
+        $nip = $this->input->post('NIP_ADM');
+        $this->model_dosen->hapus_user_adm_prodi($nip);
         $this->model_dosen->hapus_admin_prodi($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('dosen/admin_prodi');
