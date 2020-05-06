@@ -17,14 +17,11 @@
 		</div><!-- /.container-fluid -->
 	</section>
 
-
 	<section class="content">
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-
-
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -33,7 +30,7 @@
 									<th>Tempat PKL</th>
 									<th>Dosen Pembimbing</th>
 									<th>Status</th>
-									<th>Actions</th>
+									<th class="text-right">Actions</th>
 								</tr>
 							</thead>
 							<?php $nmr=1;?>
@@ -41,12 +38,18 @@
 							<tbody>
 								<tr>
 									<td class="text-center"><?= $nmr++; ?></td>
-									<td>nama Ketua</td>
+									<td><?= $pnd->NAMA_M; ?></td>
 									<td><?php echo $pnd->NAMA_PR; ?></td>
 									<td><?php echo $pnd->NAMA_DS; ?></td>
 									<td>status</td>
-									<td></td>
-									<td class="text-right"></td>
+									<td class="text-right">
+										<?php echo anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,
+									'<button type="button" class="btn btn-info btn-sm">detail</button>'); ?>
+										<button class="btn btn-success btn-sm">ubah</button>
+										<button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+											data-target="#myModal">hapus</button>
+
+									</td>
 								</tr>
 							</tbody>
 							<?php } ?>
@@ -57,10 +60,13 @@
 									<th>Tempat PKL</th>
 									<th>Dosen Pembimbing</th>
 									<th>Status</th>
-									<th>Actions</th>
+									<th class="text-right">Actions</th>
 								</tr>
 							</tfoot>
 						</table>
+
+
+
 					</div>
 					<!-- /.row -->
 				</div>
@@ -73,3 +79,19 @@
 </div>
 <!-- /.row -->
 </section>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Anda yakin ingin menghapus data?</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+				<button type="button" class="btn btn-primary">Ya</button>
+			</div>
+		</div>
+	</div>
+</div>

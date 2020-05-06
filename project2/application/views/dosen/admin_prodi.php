@@ -44,12 +44,19 @@
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($admin_prodi as $mi) :
+                    <?php
+                    $qry = "SELECT `admin_prodi`.*, `prodi`.`NM_PRODI`
+                    FROM `admin_prodi` JOIN `prodi`
+                    ON `admin_prodi`.`ID_PRODI` = `prodi`.`ID_PRODI`";
+                    $dtqry = $this->db->query($qry)->result_array();
+
+                        foreach ($dtqry as $mi) :
                         $id_mi = $mi['ID_ADM'];
                         $nip_mi = $mi['NIP_ADM'];
 
                         $qwery = "SELECT * FROM user WHERE identity = $nip_mi"; 
                         $dtu = $this->db->query($qwery)->result_array();
+                        
                     ?>
                         <tr>
                             <td><?= $i; ?></td>
@@ -58,7 +65,7 @@
                             <td><?= $mi['JK_ADM']; ?></td>
                             <td><?= $mi['ALAMAT_ADM']; ?></td>
                             <td><?= $mi['HP_ADM']; ?></td>
-                            <td><?= $mi['PRODI_ADM']; ?></td>
+                            <td><?= $mi['NM_PRODI']; ?></td>
                             <?php foreach($dtu as $dtusr): ?>
                                 <?php if($dtusr['is_active'] == 1): ?>
                                     <td><span class="badge badge-success">Active</span></td>
@@ -109,7 +116,7 @@ foreach ($admin_prodi as $i) :
     $jk_adm = $i['JK_ADM'];
     $alamat_adm = $i['ALAMAT_ADM'];
     $hp_adm = $i['HP_ADM'];
-    $prodi_adm = $i['PRODI_ADM'];
+    $prodi_adm = $i['ID_PRODI'];
     
     $query_user = "SELECT * FROM user WHERE identity = $nip"; 
     $data_user = $this->db->query($query_user)->result_array();
@@ -239,8 +246,9 @@ foreach ($admin_prodi as $i) :
                         <div class="col-xs-8">
                             <select name="PRODI_ADM" id="PRODI_ADM" class="form-control">
                                 <option value="<?= $prodi_adm; ?>" selected hidden><?= $prodi_adm; ?></option>
+                                <option value="" selected disabled><?= $mi['NM_PRODI']; ?></option>
                                 <?php foreach($prodi as $pr): ?>
-                                    <option value="<?= $pr['nama_pr'] ?>"><?= $pr['nama_pr'] ?></option>
+                                    <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
