@@ -18,8 +18,8 @@ class User extends CI_Controller
         $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
         LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
         WHERE user.email ='$mail'")->row_array();
-        $d['user'] = $this->db->query("SELECT * FROM admin_prodi LEFT JOIN prodi ON prodi.ID_PRODI=admin_prodi.ID_PRODI 
-        LEFT JOIN user ON user.indentity=admin_prodi.NIP_ADM WHERE user.email='$mail'")->row_array();
+        // $d['user'] = $this->db->query("SELECT * FROM admin_prodi LEFT JOIN prodi ON prodi.ID_PRODI=admin_prodi.ID_PRODI 
+        // LEFT JOIN user ON user.indentity=admin_prodi.NIP_ADM WHERE user.email='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -34,7 +34,7 @@ class User extends CI_Controller
         }
         elseif($user['role_id'] == 12)
         {
-            $this->load->view('useradmprodi/index', $d);
+            $this->load->view('useradmprodi/index', $data);
         }
         $this->load->view('templates/footer');
     }
