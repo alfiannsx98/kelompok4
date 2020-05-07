@@ -32,6 +32,14 @@ class User extends CI_Controller
         {
             $this->load->view('usermhs/index', $data);
         }
+        elseif($user['role_id'] == 3)
+        {
+            // $this->load->view('usermhs/index', $data);
+        }
+        elseif($user['role_id'] == 4)
+        {
+            // $this->load->view('usermhs/index', $data);
+        }
         elseif($user['role_id'] == 12)
         {
             $this->load->view('useradmprodi/index', $data);
@@ -97,7 +105,7 @@ class User extends CI_Controller
                     }
                 }
 
-                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE email='$email'");
+                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE email='$email'");
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
@@ -176,13 +184,21 @@ class User extends CI_Controller
                     }
                 }
 
-                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE identity='$nim'");
+                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nim'");
                 $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', ID_PRODI='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE NIM='$nim'");
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
         }
-        elseif($user['role_id'])
+        elseif($user['role_id'] == 3)
+        {
+
+        }
+        elseif($user['role_id'] == 4)
+        {
+
+        }
+        elseif($user['role_id'] == 12)
         {
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
@@ -252,7 +268,7 @@ class User extends CI_Controller
                     }
                 }
 
-                $this->db->query("UPDATE user SET nama='$nama', image='$upload_image', about='$about' WHERE identity='$nip'");
+                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nip'");
                 $this->db->query("UPDATE admin_prodi SET NAMA_ADM='$nama', JK_ADM='$jk', ALAMAT_ADM='$alamat', HP_ADM='$hp', ID_PRODI='$prodi' WHERE NIP_ADM='$nip'");
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
@@ -283,6 +299,14 @@ class User extends CI_Controller
             elseif($user['role_id'] == 2)
             {
                 $this->load->view('usermhs/edit_password', $data);
+            }
+            elseif($user['role_id'] == 3)
+            {
+                // $this->load->view('usermhs/edit_password', $data);
+            }
+            elseif($user['role_id'] == 4)
+            {
+                // $this->load->view('usermhs/edit_password', $data);
             }
             elseif($user['role_id'] == 12)
             {
@@ -319,6 +343,14 @@ class User extends CI_Controller
                         $this->db->query("UPDATE mahasiswa SET PASSWORD_M='$passwordHash' WHERE EMAIL_M='$mail'");
                         $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
                         redirect('user');
+                    }
+                    elseif($user['role_id'] == 3)
+                    {
+
+                    }
+                    elseif($user['role_id'] == 4)
+                    {
+                        
                     }
                     elseif($user['role_id'] == 12)
                     {
