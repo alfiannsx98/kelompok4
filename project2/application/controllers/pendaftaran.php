@@ -85,6 +85,11 @@ class Pendaftaran extends CI_Controller
         $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
         redirect('pendaftaran/tambah_data');
     }
+
+    public function c_cari(){
+        $this->load->view('pendaftaran/cari.php');
+    }
+
     public function coba()
     {
         $data['title'] = 'Coba';
