@@ -14,9 +14,9 @@ class M_perusahaan extends CI_Model
         return $hasil;
     }
 
-    function edit_pr($id, $nama, $alamat,  $nohp, $email, $rating)
+    function edit_pr($id, $nama, $alamat,  $nohp, $email, $rating, $gambar)
     {
-        $hasilSubmenu = $this->db->query("UPDATE perusahaan SET ID_PR='$id', NAMA_PR='$nama',  ALAMAT_PR='$alamat', HP_PR='$nohp', EMAIl_PR='$email', RATING='$rating' WHERE ID_PR='$id' ");
+        $hasilSubmenu = $this->db->query("UPDATE perusahaan SET ID_PR='$id', NAMA_PR='$nama',  ALAMAT_PR='$alamat', HP_PR='$nohp', EMAIl_PR='$email', RATING='$rating', gambar='$gambar' WHERE ID_PR='$id' ");
         return $hasilSubmenu;
     }
 }

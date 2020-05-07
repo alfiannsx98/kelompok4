@@ -57,7 +57,8 @@ class Perusahaan extends CI_Controller
                 'ALAMAT_PR' => $this->input->post('alamat'),
                 'HP_PR' => $this->input->post('nohp'),
                 'EMAIL_PR' => $this->input->post('email'),
-                'RATING' => $this->input->post('rating')
+                'RATING' => $this->input->post('rating'),
+                'gambar' => $this->input->post('gambar')
             ];
             $this->db->insert('perusahaan', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
@@ -68,8 +69,17 @@ class Perusahaan extends CI_Controller
     public function hapus_perusahaan(){
         $id = $this->input->post('id_pr');
         $this->m_perusahaan->hapus_pr($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
-        redirect('Perusahaan');
+        if($this->db->error() > 0)
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus</div>');
+            redirect('Perusahaan');
+        }
+        else
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Dihapus</div>');
+            redirect('Perusahaan');
+        }
+        
     }
 
     public function edit_perusahaan()
@@ -80,6 +90,7 @@ class Perusahaan extends CI_Controller
         $nohp = $this->input->post('nohp');
         $email = $this->input->post('email');
         $rating = $this->input->post('rating');
+        $gambar = $this->input->post('gambar');
         $this->m_perusahaan->edit_pr($id,  $nama, $alamat, $nohp, $email, $rating);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Diedit</div>');
         redirect('Perusahaan');

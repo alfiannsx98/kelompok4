@@ -143,6 +143,24 @@
                         </select>
                         <?= form_error('rating', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
+                    <div class="form-group text-center" style="position: relative;">
+                        <span class="img-div">
+                            <div class="text-center img-placeholder" onClick="triggerClick()">
+                                <h4>Unggah Gambar</h4>
+                                <label class="sm-0"><small>(Klik gambar mengisi gambar perusahaan)</label>
+                            </div>
+                            <div>
+                                <img src="<?= base_url(); ?>assets/dist/img/user/perusahaan.jpg ?>" onClick="triggerClick()" id="profileDisplay" width="200px">
+                            </div>
+                        </span>
+                        <input type="file" name="gambar" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;" required>
+                        <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <label>Profile Image</label>
+                        <div>
+                            <label class="sm-0">
+                            <small>Mohon unggah file image (maximal 2 MB).</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -162,6 +180,7 @@ foreach ($pt as $i) :
     $nohp = $i['HP_PR'];
     $email = $i['EMAIL_PR'];
     $rating = $i['RATING'];
+    $gambar = $i['gambar'];
 ?>
 
     <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -212,6 +231,8 @@ foreach ($pt as $i) :
                                 <option value="Bintang 5">Bintang 5</option>
                             </select>
                         </div>
+                        <div class="form-group label-floating">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -243,3 +264,5 @@ foreach ($pt as $i) :
         </div>
     </div>
 <?php endforeach; ?>
+
+<script src="<?= base_url(); ?>assets/dist/js/display.js"></script>
