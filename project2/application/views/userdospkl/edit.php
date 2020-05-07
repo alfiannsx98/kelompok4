@@ -34,7 +34,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user mr-1"></i> Name</label>
-                                        <input type="text" class="form-control" value="<?= $user['NAMA_ADM']; ?>" name="nama" id="nama" <?= set_value('nama')?>>
+                                        <input type="text" class="form-control" value="<?= $user['NAMA_DS']; ?>" name="nama" id="nama" <?= set_value('nama')?>>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -62,12 +62,12 @@
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?= set_radio('jk')?>>
+                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($user['JK_DS']=='Laki-laki') echo 'checked'?> <?= set_radio('jk')?>>
                                                 Laki-laki</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?= set_radio('jk')?>>
+                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($user['JK_DS']=='Perempuan') echo 'checked'?> <?= set_radio('jk')?>>
                                                 Perempuan</label>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="prodi"><i class="fas fa-user-graduate mr-1"></i>Admin Program Studi</label>
+                                        <label for="prodi"><i class="fas fa-user-graduate mr-1"></i>Dosen Program Studi</label>
                                         <select name="prodi" id="prodi" class="form-control">
                                             <option value="" selected disabled>Admin Program Studi</option>
                                             <option value="<?= $user['ID_PRODI']; ?>" selected><?= $user['ID_PRODI']; ?></option>
@@ -92,7 +92,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-phone mr-1"></i> No HP</label>
-                                        <input type="text" class="form-control" value="<?= $user['HP_ADM']; ?>" name="hp" id="hp" <?= set_value('hp')?>>
+                                        <input type="text" class="form-control" value="<?= $user['HP_DS']; ?>" name="hp" id="hp" <?= set_value('hp')?>>
                                         <?= form_error('hp', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i>  Alamat</label>
-                                        <input type="text" class="form-control" value="<?= $user['ALAMAT_ADM']; ?>" name="alamat" id="alamat" <?= set_value('alamat')?>>
+                                        <input type="text" class="form-control" value="<?= $user['ALAMAT_DS']; ?>" name="alamat" id="alamat" <?= set_value('alamat')?>>
                                         <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
