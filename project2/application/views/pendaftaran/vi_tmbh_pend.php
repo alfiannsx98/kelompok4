@@ -71,7 +71,7 @@
 						<div class="row">
 							<label class="col-sm-2 label-on-left">Masukkan NIM</label>
 							<div class="col-sm-2">
-								<input type="text" class="form-control" name="NIM" id="NIM" placeholder="NIM">
+								<input type="text" class="form-control" name="NIM" id="NIM" value="" placeholder="NIM">
 								<!-- <select name="" id="" class="form-control select2"
 									data-style="btn btn-primary btn-round">
 									<option value="" selected disabled>NIM</option>
@@ -96,7 +96,6 @@
 										<th>Actions</th>
 									</tr>
 								</thead>
-								<?php $i = 1; ?>
 								<tbody>
 									<tr>
 										<td></td>
@@ -131,26 +130,3 @@
 	</section>
 </div>
 <!-- /.row -->
-
-<script type="text/javascript">
-	$(function () {
-		var set_number = function () {
-			var table_len = $('#data_table tbody tr').length + 1;
-			$(#NO).val();
-		}
-	});
-
-</script>
-
-<script>
-	$(document).ready(function () {
-
-		$("#tambah").click(function () {
-			var nilai = $("#NIM").val();
-			var baris_baru = "<tr><td>" + nilai + "</td></tr>";
-			$("#tabel").append(baris_baru);
-		})
-
-	});
-
-</script>
