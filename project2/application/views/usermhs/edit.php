@@ -62,12 +62,12 @@
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?= set_radio('jk')?>>
+                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($user['JK_M']=='Laki-laki') echo 'checked'?> <?= set_radio('jk')?>>
                                                 Laki-laki</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?= set_radio('jk')?>>
+                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($user['JK_M']=='Perempuan') echo 'checked'?> <?= set_radio('jk')?>>
                                                 Perempuan</label>
                                             </div>
                                         </div>
@@ -94,12 +94,11 @@
                                         <label for="smt"><i class="fas fa-graduation-cap mr-1"></i>Semester</label>
                                         <select name="smt" id="smt" class="form-control">
                                             <option value="" selected disabled>Silahkan Pilih Semester</option>
-                                            <option value="<?= $user['SMT']; ?>" selected><?= $user['SMT']; ?></option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
+                                            <option value="4" <?php if($user['SMT']==4) echo 'selected'?>>4</option>
+                                            <option value="5" <?php if($user['SMT']==5) echo 'selected'?>>5</option>
+                                            <option value="6" <?php if($user['SMT']==6) echo 'selected'?>>6</option>
+                                            <option value="7" <?php if($user['SMT']==7) echo 'selected'?>>7</option>
+                                            <option value="8" <?php if($user['SMT']==8) echo 'selected'?>>8</option>
                                         </select>
                                         <?= form_error('smt', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>

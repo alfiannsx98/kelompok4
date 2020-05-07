@@ -62,12 +62,12 @@
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($user['JK_ADM']=='Laki-laki') echo 'checked'?> <?= set_radio('jk')?>>
+                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?= set_radio('jk')?>>
                                                 Laki-laki</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($user['JK_ADM']=='Perempuan') echo 'checked'?> <?= set_radio('jk')?>>
+                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?= set_radio('jk')?>>
                                                 Perempuan</label>
                                             </div>
                                         </div>
