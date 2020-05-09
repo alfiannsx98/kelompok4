@@ -10,8 +10,8 @@ class M_perusahaan extends CI_Model
   
   function hapus_pr($id)
     {
-        $hasil = $this->db->query("DELETE FROM perusahaan WHERE ID_PR='$id'");
-        return $hasil;
+        $this->db->where('ID_PR', $id);
+        $this->db->delete('perusahaan');
     }
 
     function edit_pr($id, $nama, $alamat,  $nohp, $email, $rating, $gambar)

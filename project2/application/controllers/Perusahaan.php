@@ -69,17 +69,16 @@ class Perusahaan extends CI_Controller
     public function hapus_perusahaan(){
         $id = $this->input->post('id_pr');
         $this->m_perusahaan->hapus_pr($id);
-        if($this->db->error() > 0)
+        $error = $this->db->error();
+        if($error['code'] != 0)
         {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus</div>');
             redirect('Perusahaan');
-        }
-        else
-        {
+            
+        }else{
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Dihapus</div>');
             redirect('Perusahaan');
         }
-        
     }
 
     public function edit_perusahaan()
