@@ -86,8 +86,10 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran/tambah_data');
     }
 
-    public function c_cari(){
-        $this->load->view('pendaftaran/cari.php');
+    public function tmbh_anggota(){
+        $NIM = $this->input->post('NIM');
+        $this->m_pendaftaran->m_tmbh_anggota($NIM, 'pendaftaran');
+        // redirect kemana?? :v
     }
 
     public function coba()

@@ -48,6 +48,11 @@ class M_pendaftaran extends CI_Model{
                 $this->db->insert($table, $data);
         }
 
+        function m_tmbh_anggota($NIM){
+                $data = $this->db->query("SELECT ID_M, NIM, NAMA_M FROM mahasiswa WHERE NIM = '$NIM'");
+                return $data;
+        }
+
 //         INSERT INTO pendaftaran_klp(ID_PND, ID_M) VALUES
 // (
 // 	("pnd1"),
