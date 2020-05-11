@@ -70,21 +70,14 @@
 					<div class="card-body">
 						<div class="row">
 							<label class="col-sm-2 label-on-left">Masukkan NIM</label>
+							<!-- <form method="post" class="form-group" action="<?= base_url().'pendaftaran/tmbh_anggota';?>"> -->
 							<div class="col-sm-2">
 								<input type="text" class="form-control" name="NIM" id="NIM" value="" placeholder="NIM">
-								<!-- <select name="" id="" class="form-control select2"
-									data-style="btn btn-primary btn-round">
-									<option value="" selected disabled>NIM</option>
-									<?php foreach($mahasiswa as $mhs) { ?>
-									<option value="<?= $mhs['ID_M']; ?>">
-										<?= $mhs['NIM']; ?>
-									</option>
-									<?php } ?>
-								</select> -->
 							</div>
 							<div class="form-group">
-								<button type="submit" name="tambah" id="tambah" class="btn btn-primary add">Tambah</button>
+								<button type="submit" name="tambah" class="btn btn-primary add">Tambah</button>
 							</div>
+							<!-- </form> -->
 						</div>
 						<div class="row">
 							<table id="tabel" name="tabel" class="table table-bordered table-striped">
