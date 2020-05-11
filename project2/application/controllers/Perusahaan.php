@@ -28,16 +28,16 @@ class Perusahaan extends CI_Controller
         $data['pt'] = $this->m_perusahaan->getPerusahaan();
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required', [
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
             'required' => 'masukkan nama perusahaan'
         ]);
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required', [
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
             'required' => 'masukkan alamat perusahaan'
         ]);
-        $this->form_validation->set_rules('nohp', 'Nohp', 'required', [
+        $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]', [
             'required' => 'masukkan nohp perusahaan'
         ]);
-        $this->form_validation->set_rules('email', 'Email', 'required|trim', [
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
             'required' => 'masukkan email perusahaan'
         ]);
 
@@ -112,16 +112,16 @@ class Perusahaan extends CI_Controller
             $this->input->post('id_pr')
         ])->row_array();
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required', [
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
             'required' => 'masukkan nama perusahaan'
         ]);
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required', [
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
             'required' => 'masukkan alamat perusahaan'
         ]);
-        $this->form_validation->set_rules('nohp', 'Nohp', 'required', [
+        $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]', [
             'required' => 'masukkan nohp perusahaan'
         ]);
-        $this->form_validation->set_rules('email', 'Email', 'required|trim', [
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
             'required' => 'masukkan email perusahaan'
         ]);
 
