@@ -37,6 +37,7 @@
                                     <th>Alamat Perusahaan</th>
                                     <th>No Telefon</th>
                                     <th>Email Perusahaan</th>
+                                    <th>Gambar</th>
                                     <th>Rating</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
@@ -50,6 +51,7 @@
                                     $hp = $p['HP_PR'];
                                     $email = $p['EMAIL_PR'];
                                     $rating = $p['RATING'];
+                                    $image = $p['gambar'];
                                 ?>
                                     <tr>
                                         <td><?= $i; ?></td>
@@ -58,6 +60,7 @@
                                         <td><?= $alamat; ?></td>
                                         <td><?= $hp; ?></td>
                                         <td><?= $email; ?></td>
+                                        <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/perusahaan/' . $image; ?>"></td>
                                         <td><?= $rating; ?></td>
                                         <td class="text-right">
                                             <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Data</button>
@@ -75,6 +78,7 @@
                                     <th>Alamat Perusahaan</th>
                                     <th>No Telefon</th>
                                     <th>Email Perusahaan</th>
+                                    <th>Gambar</th>
                                     <th>Rating</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -97,10 +101,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newroleModal">Create New Data</h5>
+                <h5 class="modal-title" id="newroleModal">Buat Data Perusahaan</h5>
                 </button>
             </div>
-            <form action="<?= base_url('Perusahaan'); ?>" method="post">
+            <?= form_open_multipart('Perusahaan'); ?>
                 <div class="modal-body">
                     <div class="form-group label-floating">
                         <label for="">Nama Perusahaan
@@ -117,7 +121,7 @@
                         <?= form_error('alamat', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                     <div class="form-group label-floating">
-                        <label for="">No Telefon
+                        <label for="">No Telpon
                             <small>(required)</small>
                         </label>
                         <input type="text" name="nohp" placeholder="masukkan no telefon" class="form-control">
@@ -130,19 +134,6 @@
                         <input type="email" name="email" placeholder="masukkan email" class="form-control">
                         <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
-                    <div class="form-group label-floating">
-                        <label for="">Rating
-                            <small>(required)</small>
-                        </label>
-                        <select class="form-control" name="rating" id="rating">
-                            <option value="Bintang 1">Bintang 1</option>
-                            <option value="Bintang 2">Bintang 2</option>
-                            <option value="Bintang 3">Bintang 3</option>
-                            <option value="Bintang 4">Bintang 4</option>
-                            <option value="Bintang 5">Bintang 5</option>
-                        </select>
-                        <?= form_error('rating', '<small class="text-danger col-md">', '</small>'); ?>
-                    </div>
                     <div class="form-group text-center" style="position: relative;">
                         <span class="img-div">
                             <div class="text-center img-placeholder" onClick="triggerClick()">
@@ -150,12 +141,12 @@
                                 <label class="sm-0"><small>(Klik gambar mengisi gambar perusahaan)</label>
                             </div>
                             <div>
-                                <img src="<?= base_url(); ?>assets/dist/img/user/perusahaan.jpg ?>" onClick="triggerClick()" id="profileDisplay" width="200px">
+                                <img src="<?= base_url(); ?>assets/dist/img/perusahaan/default.jpg ?>" onClick="triggerClick()" id="profileDisplay" width="200px">
                             </div>
                         </span>
                         <input type="file" name="gambar" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;" required>
-                        <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
-                        <label>Profile Image</label>
+                        <?= form_error('gambar', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <label>Gambar Perusahaan</label>
                         <div>
                             <label class="sm-0">
                             <small>Mohon unggah file image (maximal 2 MB).</label>
@@ -171,6 +162,7 @@
     </div>
 </div>
 
+
 <!--MODAL DIALOG UNTUK EDIT DATA!-->
 <?php
 foreach ($pt as $i) :
@@ -182,14 +174,13 @@ foreach ($pt as $i) :
     $rating = $i['RATING'];
     $gambar = $i['gambar'];
 ?>
-
     <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="myModalLabel">Edit role</h3>
+                    <h3 class="modal-title" id="myModalLabel">Edit Data Perusahaan</h3>
                 </div>
-                <form action="<?= base_url('Perusahaan/edit_perusahaan'); ?>" method="post">
+                <?= form_open_multipart('Perusahaan/edit_perusahaan'); ?>
                     <div class="modal-body">
                         <div class="form-group label-floating">
                             <input type="hidden" name="id_pr" id="id_pr" value="<?= $id; ?>">
@@ -199,18 +190,21 @@ foreach ($pt as $i) :
                                 <small>(required)</small>
                             </label>
                             <input type="text" class="form-control" name="nama" value="<?= $nama; ?>" placeholder="nama perusahaan">
+                            <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                         <div class="form-group label-floating">
                             <label for="">Alamat Perusahaan
                                 <small>(required)</small>
                             </label>
                             <input type="text" class="form-control" name="alamat" value="<?= $alamat; ?>" placeholder="alamat perusahaan">
+                            <?= form_error('alamat', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                         <div class="form-group label-floating">
                             <label for="">No Telefon
                                 <small>(required)</small>
                             </label>
                             <input type="text" class="form-control" name="nohp" value="<?= $nohp; ?>" placeholder="no telefon">
+                            <?= form_error('nohp', '<small class="text-danger col-md">', '</small>'); ?>
                         </div>
                         <div class="form-group label-floating">
                             <label for="">Email Perusahaan
@@ -218,25 +212,28 @@ foreach ($pt as $i) :
                             </label>
                             <input type="text" class="form-control" name="email" value="<?= $email; ?>" placeholder="email perusahaan">
                         </div>
-                        <div class="form-group label-floating">
-                            <label for="">Rating
-                                <small>(required)</small>
-                            </label>
-                            <select class="form-control" name="rating" id="rating">
-                                <option value="<?= $rating; ?>"><?= $rating; ?></option>
-                                <option value="Bintang 1">Bintang 1</option>
-                                <option value="Bintang 2">Bintang 2</option>
-                                <option value="Bintang 3">Bintang 3</option>
-                                <option value="Bintang 4">Bintang 4</option>
-                                <option value="Bintang 5">Bintang 5</option>
-                            </select>
+                        <div class="form-group text-center" style="position: relative;">
+                            <span class="img-div">
+                                <div class="text-center img-placeholder" onClick="triggerClick1()">
+                                    <h4>Unggah Gambar</h4>
+                                    <label class="sm-0"><small>(Klik gambar mengisi gambar perusahaan)</label>
+                                </div>
+                                <div>
+                                    <img src="<?= base_url(); ?>assets/dist/img/perusahaan/<?= $gambar; ?>" onClick="triggerClick1()" id="editDisplay" width="200px">
+                                </div>
+                            </span>
+                                <input type="file" name="gambar" onChange="displayImage1(this)" id="editImage" class="form-control" style="display: none;" required>
+                                <?= form_error('gambar', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label>Gambar Perusahaan</label>
+                            <div>
+                                <label class="sm-0">
+                                <small>Mohon unggah file image (maximal 2 MB).</label>
+                            </div>
                         </div>
-                        <div class="form-group label-floating">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-success">Simpan Data</button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-success">Simpan Data</button>
                     </div>
                 </form>
             </div>
@@ -252,7 +249,7 @@ foreach ($pt as $i) :
                 </div>
                 <form action="<?= base_url() . 'Perusahaan/hapus_perusahaan'; ?>" method="post" class="form-horizontal">
                     <div class="modal-body">
-                        <p>Apakah Anda yakin mau menghapus data ini? <b><?= $title; ?></b></p>
+                        <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama; ?></b></p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id_pr" value="<?= $id; ?>">
@@ -263,6 +260,7 @@ foreach ($pt as $i) :
             </div>
         </div>
     </div>
+
 <?php endforeach; ?>
 
 <script src="<?= base_url(); ?>assets/dist/js/display.js"></script>
