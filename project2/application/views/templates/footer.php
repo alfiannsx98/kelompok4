@@ -109,6 +109,8 @@
     			html += '<td>' + count + '</td>';
     			var nilai = $("#NIM").val();
     			html += '<td>' + nilai + '</td>';
+				// html +='isinya nama mhs';
+				//yg dibawah gak kpake
     			html +=
     				'<td><select name="nim_mahasiswa[]" class="form-control select2 nim_mahasiswa" data-sub_category_id="' +
     				count +
