@@ -28,12 +28,13 @@
 					<!-- /.card-header -->
 					<div class="card-body">
 						<div class="form-group">
-							<select name="" id="" class="form-control select2" style="width: 100%">
+						<input type="text" name="NIM">
+							<!-- <select name="NIM" id="" class="form-control select2" style="width: 100%">
 								<option value="" selected disabled>Pilih Mahasiswa</option>
 								<?php foreach($mahasiswa as $mhs) : ?>
-								<option value="<?= $mhs['ID_M']; ?>">
+								<option name="NIM" value="<?= $mhs['ID_M']; ?>">
 									<?= $mhs['NIM']; ?></option><?php endforeach; ?>
-							</select>
+							</select> -->
 						</div>
 						<div class="form-group">
 							<button type="submit" name="simpan" class="btn btn-success btn-xs add">Tambahkan</button>
@@ -49,7 +50,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php $i = 1; ?>
+							<td></td>
+							<td></td>
+							<td></td>
+								<!-- <?php $i = 1; ?>
 								<?php foreach ($mahasiswa as $m) :
                         $id = $m['ID_M'];
                     ?>
@@ -62,7 +66,7 @@
 									</td>
 								</tr>
 								<?php $i++; ?>
-								<?php endforeach; ?>
+								<?php endforeach; ?> -->
 							</tbody>
 							<tfoot>
 								<tr>
