@@ -184,8 +184,7 @@ class User extends CI_Controller
                     } else {
                         echo $this->upload->display_errors();
                     }
-                }
-
+                }   
                 $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nim'");
                 $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', ID_PRODI='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE NIM='$nim'");
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
