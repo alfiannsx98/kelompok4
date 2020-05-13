@@ -65,7 +65,10 @@
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
-    		});
+			});
+			$(document).ready(function(){
+    			$('#table1').DataTable()
+  			});
     	});
 
     </script>
@@ -93,143 +96,38 @@
     		});
     	});
 
-    </script>
+	</script>
+
 
     <!-- punya didin -->
     <script>
-    	$(document).ready(function () {
+		// Sek din tak cobae
+    	// $(document).ready(function () {
 
-    		var count = 0;
+    	// 	var count = 0;
 
-    		$(document).on('click', '.add', function () {
-    			count++;
-    			var html = '';
+    	// 	$(document).on('click', '.add1', function () {
+    	// 		count++;
+    	// 		var html = '';
 
-    			html += '<tr>';
-    			html += '<td>' + count + '</td>';
-    			var nilai = $("#NIM").val();
-    			html += '<td>' + nilai + '</td>';
-				// html +='isinya nama mhs';
-				//yg dibawah gak kpake
-    			html +=
-    				'<td><select name="nim_mahasiswa[]" class="form-control select2 nim_mahasiswa" data-sub_category_id="' +
-    				count +
-    				'"><option value="">Select Mahasiswa</option><?php foreach($mahasiswa as $mhs) : ?><option value="<?= $mhs['
-    			ID_M ']; ?>"><?= $mhs['
-    			NAMA_M ']; ?></option><?php endforeach; ?></select></td>';
-    			$('tbody').append(html);
-    		});
-    	});
+    	// 		html += '<tr>';
+    	// 		html += '<td>' + count + '</td>';
+    	// 		var nim = $("#val_nim").val();
+    	// 		var nama = $("#val_nama").val();
+    	// 		html += '<td>' + nim + '</td>';
+    	// 		html += '<td>' + nama + '</td>';
+    	// 		html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+		// 		$('tbody').append(html);
+    	// 	});
+		// 	$(document).on('click', '#hapus', function () {
+    	// 		$(this).closest('tr').remove();
+    	// 	});
+    	// });
+		// batas aman
 
+		
     </script>
 
-    <!-- punya irman -->
-    <!-- <script>
-    	$(document).ready(function () {
-
-    		var count = 0;
-
-    		$(document).on('click', '.add', function () {
-    			count++;
-    			var html = '';
-
-    			html += '<tr>';
-    			html += '<td>' + count + '</td>';
-          var nilai = $("#NIM").val();
-    			html += '<td>' + nilai + '</td>';
-          html +=
-    				'<td><select name="nim_mahasiswa[]" class="form-control select2 nim_mahasiswa" data-sub_category_id="' +
-    				count +
-    				'"><option value="">Select Mahasiswa</option><?php foreach($mahasiswa as $mhs) : ?><option value="<?= $mhs['
-    			ID_M ']; ?>"><?= $mhs['
-    			NAMA_M ']; ?></option><?php endforeach; ?></select></td>';
-    			// html += '<td><input type="text" name="item_name[]" class="form-control item_name" /></td>';
-    			// html += '<td><select name="item_sub_category[]" class="form-control item_sub_category" id="item_sub_category'+count+'"><option value="">Select Sub Category</option></select></td>';
-    			// html += '<td><button type="button" name="remove" class="btn btn-danger btn-xs remove"><span class="fas fa-minus"></span></button></td>';
-    			$('tbody').append(html);
-    		});
-
-    		$(document).on('click', '.remove', function () {
-    			$(this).closest('tr').remove();
-    		});
-
-    		$(document).on('change', '.nim_mahasiswa', function () {
-    			var category_id = $(this).val();
-    			var sub_category_id = $(this).data('sub_category_id');
-    			$.ajax({
-    				url: "fill_sub_category.php",
-    				method: "POST",
-    				data: {
-    					category_id: category_id
-    				},
-    				success: function (data) {
-    					var html = '<option value="">Select Sub Category</option>';
-    					html += data;
-    					$('#item_sub_category' + sub_category_id).html(html);
-    				}
-    			})
-    		});
-
-    		$('#insert_form').on('submit', function (event) {
-    			event.preventDefault();
-    			var error = '';
-    			$('.item_name').each(function () {
-    				var count = 1;
-    				if ($(this).val() == '') {
-    					error += '<p>Enter Item name at ' + count + ' Row</p>';
-    					return false;
-    				}
-    				count = count + 1;
-    			});
-
-    			$('.nim_mahasiswa').each(function () {
-    				var count = 1;
-
-    				if ($(this).val() == '') {
-    					error += '<p>Select Item Category at ' + count + ' row</p>';
-    					return false;
-    				}
-
-    				count = count + 1;
-
-    			});
-
-    			$('.item_sub_category').each(function () {
-
-    				var count = 1;
-
-    				if ($(this).val() == '') {
-    					error += '<p>Select Item Sub category ' + count + ' Row</p> ';
-    					return false;
-    				}
-
-    				count = count + 1;
-
-    			});
-
-    			var form_data = $(this).serialize();
-
-    			if (error == '') {
-    				$.ajax({
-    					url: "insert.php",
-    					method: "POST",
-    					data: form_data,
-    					success: function (data) {
-    						if (data == 'ok') {
-    							$('#item_table').find('tr:gt(0)').remove();
-    							$('#error').html('<div class="alert alert-success">Item Details Saved</div>');
-    						}
-    					}
-    				});
-    			} else {
-    				$('#error').html('<div class="alert alert-danger">' + error + '</div>');
-    			}
-
-    		});
-
-    	});
-
-    </script> -->
     <script>
     	$(function () {
     		//Initialize Select2 Elements
@@ -303,7 +201,23 @@
 
     	})
 
-    </script>
+	</script>
+	<script>
+		$(document).on('click', '#select', function(){
+			$('#nim').val($(this).data('nim'))
+			$('#nama').val($(this).data('nama'))
+		});
+		$(document).on('click', '#add_siswa', function(){
+			var nim = $('#nimm').val()
+			var nama = $('#nama').val()
+
+			$.ajax({
+				type:'POST',
+				url: '<?= base_url('pendaftaran/tmbh_anggota') ?>',
+				data: {}
+			})
+		});
+	</script>
     </body>
 
     </html>

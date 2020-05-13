@@ -51,8 +51,22 @@ class M_pendaftaran extends CI_Model{
         function m_tmbh_anggota($NIM){
                 $data = $this->db->query("SELECT ID_M, NIM, NAMA_M FROM mahasiswa WHERE NIM = '$NIM'");
                 return $data;
-        }
+        } 
+        function get_mhs()
+        {
+                $this->db->select('*, mahasiswa.NAMA_M AS nama, 
+                mahasiswa.ID_M AS id_mhs,pendaftaran.*');
+                $this->db->from('pendaftaran_klp');
+                $this->db->join('mahasiswa','pendaftaran_klp.ID_M = id_mhs');
+                $query = $this->db->get();
 
+                $afftectedRows = $this->db->affected_rows();
+                if ($afftectedRows == 1) {
+                        return $query;
+                }else{
+                        return FALSE;
+                }
+        }
 //         INSERT INTO pendaftaran_klp(ID_PND, ID_M) VALUES
 // (
 // 	("pnd1"),

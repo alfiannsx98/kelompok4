@@ -8,6 +8,7 @@ class Pendaftaran extends CI_Controller
         $this->load->helper('url');
         is_logged_in();
         $this->load->model('model_admin');
+        $this->load->model('search_model_pend');
 	}
 
     public function index()
@@ -19,6 +20,7 @@ class Pendaftaran extends CI_Controller
         ])->row_array();
 
         $data['pendaftaran'] = $this->m_pendaftaran->tampil_pnd()->result();
+        
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -49,6 +51,7 @@ class Pendaftaran extends CI_Controller
     }
 
     public function tambah_data() {
+        // method yang dibuat didin
         $dariDB = $this->m_pendaftaran->selectMaxID();
         $nourut = substr($dariDB, 3);
         $kodeBarangSekarang = $nourut + 1;
@@ -63,12 +66,33 @@ class Pendaftaran extends CI_Controller
         $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
         $data['mahasiswa'] = $this->db->get('mahasiswa')->result_array();
+        $mhs = $this->m_pendaftaran->get_mhs();
+        $data['mhs'] = $mhs;
+
+        // $this->load->view('templates/header', $data);
+        // $this->load->view('templates/sidebar', $data);
+        // $this->load->view('templates/topbar', $data);
+        // $this->load->view('pendaftaran/vi_tmbh_pend', $data);
+        // $this->load->view('templates/footer');
+        // akhir method yang dibuat didin
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('pendaftaran/vi_tmbh_pend', $data);
         $this->load->view('templates/footer');
+
+    }
+
+    public function data_mhs()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+        $data['mhs'] = $this->m_pendaftaran->get_mhs();
+        $this->load->view('pendaftaran/daftar_siswa', $data);
     }
 
     public function pr_tmbh_pnd(){
