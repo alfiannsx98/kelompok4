@@ -205,17 +205,28 @@
 	<script>
 		$(document).on('click', '#select', function(){
 			$('#nim').val($(this).data('nim'))
+			$('#nim1').val($(this).data('nim'))
 			$('#nama').val($(this).data('nama'))
+
+			$('#modal-item').modal('hide')
 		});
+
+		var count = 0;
+
 		$(document).on('click', '#add_siswa', function(){
-			var nim = $('#nimm').val()
+			var nim = $('#nim').val()
 			var nama = $('#nama').val()
 
-			$.ajax({
-				type:'POST',
-				url: '<?= base_url('pendaftaran/tmbh_anggota') ?>',
-				data: {}
-			})
+			
+			count++;
+			var html = '';
+
+			html += '<tr>';
+			html += '<td>' + count + '</td>';
+			html += '<td>' + nim + '</td>';
+			html += '<td>' + nama + '</td>';
+			html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+			$('tbody').append(html);
 		});
 	</script>
     </body>

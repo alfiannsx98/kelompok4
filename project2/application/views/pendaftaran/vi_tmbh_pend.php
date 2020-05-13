@@ -74,7 +74,7 @@
                             <td>
                                 <div class="form-group input-group">
                                     <input type="hidden" id="nim">
-                                    <input type="text" id="nim" class="form-control" autofocus readonly>
+                                    <input type="text" id="nim1" class="form-control" autofocus readonly>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
                                             <i class="fa fa-search"></i>
@@ -97,7 +97,7 @@
                             <td></td>
                             <td>
                                 <div>
-                                    <button type="button" id="add_siswa" class="btn btn-primary">
+                                    <button type="button" id="add_cart" class="btn btn-primary">
                                         <i class="fas fa-users"></i> Tambah Anggota
                                     </button>
                                 </div>
@@ -119,12 +119,8 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Barcode</th>
-									<th>Barang Produk</th>
-									<th>Harga</th>
-									<th>Qty</th>
-									<th width="10%">Diskon Barang</th>
-									<th width="10%">Total</th>
+									<th>NIM</th>
+									<th>Nama</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
