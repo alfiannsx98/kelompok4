@@ -214,20 +214,24 @@
 		var count = 0;
 
 		$(document).on('click', '#add_siswa', function(){
-			var nim = $('#nim').val()
-			var nama = $('#nama').val()
 
-			
+
 			count++;
 			var html = '';
 
 			html += '<tr>';
 			html += '<td>' + count + '</td>';
-			html += '<td>' + nim + '</td>';
-			html += '<td>' + nama + '</td>';
+			var nim = $('#nim').val()
+			var nama = $('#nama').val()
+			html += '<td>' + nim + '<input type="text" value="'+nim+'"></td></td>';
+			html += '<td>' + nama + '<input type="text" value="'+nama+'"></td>';
 			html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
-			$('tbody').append(html);
+			$('#tbody').append(html);
 		});
+		$(document).on('click', '#hapus', function () {
+				count--;
+				$(this).closest('tr').remove();
+    		});
 	</script>
     </body>
 

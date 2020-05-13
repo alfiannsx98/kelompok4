@@ -97,7 +97,7 @@
                             <td></td>
                             <td>
                                 <div>
-                                    <button type="button" id="add_cart" class="btn btn-primary">
+                                    <button type="button" id="add_siswa" class="btn btn-primary">
                                         <i class="fas fa-users"></i> Tambah Anggota
                                     </button>
                                 </div>
@@ -124,8 +124,9 @@
 									<th>Aksi</th>
 								</tr>
 							</thead>
-							<tbody id="cart_table">
-								<?php $this->view('pendaftaran/daftar_siswa'); ?>
+							<tbody id="tbody">
+								
+
 							</tbody>
 						</table>
 					</div>
