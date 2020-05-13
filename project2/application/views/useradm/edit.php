@@ -90,7 +90,7 @@
                                     <img src="<?= base_url(); ?>assets/dist/img/user/<?= $user['image']; ?>" onClick="triggerClick()" id="profileDisplay" width="200px">
                                 </div>
                             </span>
-                            <input type="file" name="image" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
+                            <input type="file" name="image" value="<?= $user['image']; ?>" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
                             <?= form_error('image', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label>Profile Image</label>
                             <div>

@@ -1,137 +1,191 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dosbing extends CI_Controller {
-
-    function __construct(){
-        parent::__construct();	
-            // ini adalah function untuk memuat model bernama m_data
-        $this->load->model('m_data');
-    }
-    //  method yang akan diakses saat controller ini diakses
-    function index(){
-    $data['title'] = 'Dashboard';
-    $data['user'] = $this->db->get_where('user', [
-        'email' =>
-        $this->session->userdata('email')    
-    ])->row_array();
-    // ini adalah variabel array $data yang memiliki index user, berguna untuk menyimpan data 
-    $data['dosbing'] = $this->m_data->tampil_data()->result();
-    // ini adalah baris kode yang berfungsi menampilkan v_tampil dan membawa data dari tabel user
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('dosbing/v_dosbing', $data);
-    $this->load->view('templates/footer');
+class Dosbing extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('m_dosbing');
+        // is_logged_in();
     }
 
-    function tambah(){
+    public function index()
+    {
 
-    $data['title'] = 'Dashboard';
-    $data['user'] = $this->db->get_where('user', [
-        'email' =>
-        $this->session->userdata('email')    
-    ])->row_array();
+        $query = $this->db->query("SELECT * FROM user");
+        $query1 = $this->db->query("SELECT * FROM dosbing");
+        $tabel = $query->num_rows();
+        $tabel1 = $query1->num_rows();
+        $date = date('dm', time());
+        $id_u = "ID-U" . $tabel . $date;
+        $id_ds = "ID-D" .$tabel1 .$date;
 
-    $data['dosbing'] = $this->m_data->tampil_data()->result();
+        $data['title'] = 'Data Dosen Pembimbing';
+        $data['user'] = $this->db->get_where('user', [
+            'email' => 
+            $this->session->userdata('email')
+        ])->row_array();
 
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar',$data);
-        $this->load->view('templates/topbar',$data);
-        $this->load->view('dosbing/v_inputdosbing',$data);
-        $this->load->view('templates/footer');
-    }
+        $data['ds'] = $this->m_dosbing->getDosbing();
+        $data['pr'] = $this->m_dosbing->getProdi();   
 
-    function tambah_dosbing(){
-    // ini adalah baris kode yang berfungsi merekam data yang diinput oleh pengguna
-        $ID_DS = $this->input->post('ID_DS');
-        $NIP_DS = $this->input->post('NIP_DS');
-        $NAMA_DS = $this->input->post('NAMA_DS');
-        $JK_DS = $this->input->post('JK_DS');
-        $ALAMAT_DS = $this->input->post('ALAMAT_DS');
-        $HP_DS= $this->input->post('HP_DS');
-        $EMAIL_DS = $this->input->post('EMAIL_DS');
-        $PASSWORD_DS = $this->input->post('PASSWORD_DS');
-        
-    // array yang berguna untuk mennjadikanva variabel diatas menjadi 1 variabel yang nantinya akan di sertakan dalam query insert
-        $data = array(
-            
-            'ID_DS' => $ID_DS,
-            'NIP_DS' => $NIP_DS,
-            'NAMA_DS' => $NAMA_DS,
-            'JK_DS' => $JK_DS,
-            'ALAMAT_DS' => $ALAMAT_DS,
-            'HP_DS' => $HP_DS,
-            'EMAIL_DS' => $EMAIL_DS,
-            'PASSWORD_DS' => $PASSWORD_DS,
-    );
-    // method yang berfungsi melakukan insert ke dalam database yang mengirim 2 parameter yaitu sebuah array data dan nama tabel yang dimaksud
-        $this->m_data->input_data($data,'dosbing');
-    // kode yang berfungsi mengarahkan pengguna ke link base_url()crud/index/ 
-    redirect('dosbing');
-    }
+        $this->form_validation->set_rules('nip', 'Nip', 'required|trim|min_length[18]|max_length[20]', [
+            'required' => 'masukkan nip dosen',
+            'min_length' => 'nip yang anda masukkan salah',
+            'max_length' => 'nip yang anda masukkan salah'
+        ]);
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+            'required' => 'masukkan nama dosen'
+        ]);
+        $this->form_validation->set_rules('jk', 'Jk', 'required|trim', [
+            'required' => 'pilih jenis kelamin'
+        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+            'required' => 'masukkan alamat dosen'
+        ]);
+        $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]', [
+            'required' => 'masukkan nohp dosen',
+            'min_length' => 'no hp yang dimasukkan salah',
+            'max_length' => 'no hp yang dimasukkan salah'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+            'required' => 'masukkan email dosen'
+        ]);
+        $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+            'required' => 'pilih program studi yang diampu'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password1]', [
+            'required' => 'Password harus diisi',
+            'matches' => '',
+            'min_length' => 'Password Terlalu Pendek!'
+        ]);
+        $this->form_validation->set_rules('password1', 'Password1', 'required|trim|matches[password]', [
+            'required' => 'Password harus diisi',
+            'matches' => 'Password Tidak Sama!'
+        ]);
 
-    function hapus($id){
-        // baaris kode ini berisi fungsi untuk menyimpan id user kedalam array $where pada index array bernama 'id'
-        $where = array('ID_DS' => $id);
-        // kode di bawah ini untuk menjalankan query hapus yang berasal dari method hapus_data() pada model m_data
-            $this->m_data->hapus_data($where,'dosbing');
-        // kode yang berfungsi mengarakan pengguna ke link base_url()crud/
-        redirect('dosbing');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('dosen/dosbing', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $nip = $this->input->post('nip');
+            $nama = $this->input->post('nama');
+            $jk = $this->input->post('jk');
+            $alamat = $this->input->post('alamat');
+            $hp = $this->input->post('hp');
+            $email = $this->input->post('email');
+            $password = $this->input->post('password');
+            $prodi = $this->input->post('prodi');
+
+            $sql = $this->db->query("SELECT dosbing.NIP_DS, user.email  FROM dosbing LEFT JOIN user ON 
+            user.identity=dosbing.NIP_DS WHERE NIP_DS='$nip'");
+            $result = $sql->result_array();
+
+            $data1 = [
+                'id_user' => $id_u,
+                'identity' => $nip,
+                'nama' => $nama,
+                'email' => $email,
+                'image' => 'default.jpg',
+                'password' => $password,
+                'about' => '',
+                'role_id' => 3,
+                'is_active' => 1,
+                'date_created' => $date,
+                'change_pass' => 0
+            ];
+
+            $data2 = [
+                'ID_DS' => $id_ds,
+                'ID_PRODI' => $prodi,
+                'NIP_DS' => $nip,
+                'NAMA_DS' => $nama,
+                'JK_DS' => $jk,
+                'ALAMAT_DS' => $alamat,
+                'HP_DS' => $hp
+            ];
+
+            if($result==true)
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">nip/email sudah terdaftar</div>');
+                redirect('Dosbing'); 
+            }
+            $this->db->insert('user', $data1);
+            $this->db->insert('dosbing', $data2);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
+            redirect('Dosbing');
         }
+    }
 
-    function edit($id){
+    public function hapus_dosbing(){
+        $nip = $this->input->post('nip');
+        $this->m_dosbing->hapus_dosbing($nip);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
+        redirect('Dosbing');
+    }
 
-        $data['title'] = 'Dashboard';
+    public function edit_dosbing()
+    {   
+        $data['title'] = 'Edit Perusahaan';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
-            $this->session->userdata('email')    
+            $this->session->userdata('email')
         ])->row_array();
-        // kode yang berfungsi untuk menyimpan id user ke dalam array $where pada index array benama id
-        $where = array('ID_DS' => $id);
-        // kode di bawah ini adalah kode yang mengambil data user berdasarkan id dan disimpan kedalam array $data dengan index bernama user
-        $data['dosbing'] = $this->m_data->edit_data($where,'dosbing')->result();
-        // kode ini memuat vie edit dan membawa data hasil query diatas
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar',$data);
-        $this->load->view('templates/topbar',$data);
-        $this->load->view('dosbing/v_editdosbing',$data);
-        $this->load->view('templates/footer');
-        
-    }
-    
-    // baris kode function update adalah method yang diajalankan ketika tombol submit pada form v_edit ditekan, method ini berfungsi untuk merekam data, memperbarui baris database yang dimaksud, lalu mengarahkan pengguna ke controller crud method index
-    function update(){
-        // keempat baris kode ini berfungsi untuk merekam data yang dikirim melalui method post
-        
-        $ID_DS = $this->input->post('ID_DS');
-        $NIP_DS = $this->input->post('NIP_DS');
-        $NAMA_DS = $this->input->post('NAMA_DS');
-        $JK_DS = $this->input->post('JK_DS');
-        $ALAMAT_DS = $this->input->post('ALAMAT_DS');
-        $HP_DS= $this->input->post('HP_DS');
-        $EMAIL_DS = $this->input->post('EMAIL_DS');
-        $PASSWORD_DS = $this->input->post('PASSWORD_DS');
-        
-            // brikut ini adalah array yang berguna untuk menjadikan variabel diatas menjadi 1 variabel yang nantinya akan disertakan ke dalam query update pada model
-                $data = array(
-                'NIP_DS' => $NIP_DS,
-                'NAMA_DS' => $NAMA_DS,
-                'JK_DS' => $JK_DS,
-                'ALAMAT_DS' => $ALAMAT_DS,
-                'HP_DS' => $HP_DS,
-                'EMAIL_DS' => $EMAIL_DS,
-                'PASSWORD_DS' => $PASSWORD_DS,
-            );
-        
-            // kode yang berfungsi menyimpan id user ke dalam array $where pada index array bernama id
-            $where = array(
-                'ID_DS' => $ID_DS
-            );
-        
-            // kode untuk melakukan query update dengan menjalankan method update_data() 
-            $this->m_data->update_data($where,$data,'dosbing');
-            // baris kode yang mengerahkan pengguna ke link base_url()crud/
-            redirect('dosbing');
+
+        $this->form_validation->set_rules('nip', 'Nip', 'required|trim|min_length[18]|max_length[20]', [
+            'required' => 'masukkan nip dosen',
+            'min_length' => 'nip yang anda masukkan salah',
+            'max_length' => 'nip yang anda masukkan salah'
+        ]);
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+            'required' => 'masukkan nama dosen'
+        ]);
+        $this->form_validation->set_rules('jk', 'Jk', 'required|trim', [
+            'required' => 'pilih jenis kelamin'
+        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+            'required' => 'masukkan alamat dosen'
+        ]);
+        $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]', [
+            'required' => 'masukkan nohp dosen',
+            'min_length' => 'no hp yang dimasukkan salah',
+            'max_length' => 'no hp yang dimasukkan salah'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+            'required' => 'masukkan email dosen'
+        ]);
+        $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+            'required' => 'pilih program studi yang diampu'
+        ]);
+
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('dosen/dosbing', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $nip = htmlspecialchars($this->input->post('nip'));
+            $nama = htmlspecialchars($this->input->post('nama'));
+            $jk = $this->input->post('jk');
+            $alamat = htmlspecialchars($this->input->post('alamat'));
+            $hp = htmlspecialchars($this->input->post('hp'));
+            $email = htmlspecialchars($this->input->post('email'));
+            $prodi = $this->input->post('prodi');
+            $id_u = htmlspecialchars($this->input->post('id_u'));
+            $id_ds = htmlspecialchars($this->input->post('id_ds'));
+
+            $this->db->query("UPDATE user SET identity='$nip', nama='$nama', email='$email' WHERE id_user='$id_u'");
+            $this->db->query("UPDATE dosbing SET ID_PRODI='$prodi' ,NIP_DS='$nip', NAMA_DS='$nama', JK_DS='$jk', 
+            ALAMAT_DS='$alamat', HP_DS='$hp' WHERE ID_DS='$id_ds'");
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Diperbarui</div>');
+            redirect('Dosbing');
         }
+    }
 }
