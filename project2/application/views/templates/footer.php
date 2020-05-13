@@ -214,19 +214,36 @@
 		var count = 0;
 
 		$(document).on('click', '#add_siswa', function(){
-
-
-			count++;
-			var html = '';
-
-			html += '<tr>';
-			html += '<td>' + count + '</td>';
 			var nim = $('#nim').val()
 			var nama = $('#nama').val()
-			html += '<td>' + nim + '<input type="text" value="'+nim+'"></td></td>';
-			html += '<td>' + nama + '<input type="text" value="'+nama+'"></td>';
-			html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
-			$('#tbody').append(html);
+			var nim_av = $('#nim_av').val()
+
+			if(nim == ''){
+				alert('Siswa Belum Dipilih')
+				$('#barcode').focus()
+				var nim = $('#nim').val('')
+			var nama = $('#nama').val('')
+			}else{
+				if(nim_av == nim){
+					alert('Siswa Telah Dipilih')
+					$('#barcode').focus()
+					var nim = $('#nim').val('')
+					var nama = $('#nama').val('')
+				}else{
+					count++;
+					var html = '';
+
+					html += '<tr>';
+					html += '<td>' + count + '</td>';
+					
+					html += '<td>' + nim + '<input type="hidden" id="nim_av" value="'+nim+'"></td></td>';
+					html += '<td>' + nama + '<input type="hidden" value="'+nama+'"></td>';
+					html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+					$('#tbody').append(html);
+					var nim = $('#nim1').val('')
+					var nama = $('#nama').val('')
+				}
+			}
 		});
 		$(document).on('click', '#hapus', function () {
 				count--;
