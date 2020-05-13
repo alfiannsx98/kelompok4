@@ -227,7 +227,7 @@
 				if(nim_av == nim){
 					alert('Siswa Telah Dipilih')
 					$('#barcode').focus()
-					var nim = $('#nim').val('')
+					var nim = $('#nim1').val('')
 					var nama = $('#nama').val('')
 				}else{
 					count++;
