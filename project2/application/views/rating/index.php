@@ -88,7 +88,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Rating</label>
-                        <input type="text" class="form-control" id="Rating" name="Rating" placeholder="Masukkan Rating">
+                        <input type="text" class="form-control" id="rating" name="rating" placeholder="Masukkan Rating">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -118,7 +118,7 @@ foreach ($rating as $r) :
                     <div class="form-group" hidden>
                         <label class="control-label col-xs-3">ID <?= $title; ?></label>
                         <div class="col-xs-8">
-                            <input name="id_rt" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID Rating" hidden>
+                            <input name="id_rating" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID Rating" hidden>
                         </div>
                     </div>
                     <div class="form-group">
@@ -149,7 +149,7 @@ foreach ($rating as $r) :
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nm_rating; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="id_menu" value="<?= $id; ?>">
+                    <input type="hidden" name="id_rating" value="<?= $id; ?>">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>

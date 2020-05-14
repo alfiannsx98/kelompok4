@@ -53,7 +53,6 @@ class rating extends CI_Controller
         $this->form_validation->set_rules('rating', 'Rating', 'required');
 
         $query = $this->db->select('rating');
-        $hitung = $query->num_rows();
 
         if($this->form_validation->run() == false)
         {
@@ -63,10 +62,11 @@ class rating extends CI_Controller
             $this->load->view('rating/index', $data);
             $this->load->view('templates/footer');
         }else{
-            $rating = ['rating' => $this->input->post('rating')];
+            $rating = $this->input->post('rating');
             $id = $this->input->post('id_rating');
             $this->db->where('ID_RT', $id);
             $this->db->update('rating', $rating);
+            redirect('rating');
         }
     }
 
