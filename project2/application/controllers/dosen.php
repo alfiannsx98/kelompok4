@@ -157,6 +157,12 @@ class Dosen extends CI_Controller
     }
     public function edit_admin_prodi()
     {
+        $data['title'] = 'Admin Program Studi';
+        $data['user'] = $this->db->get_where('user', [
+            'email' => 
+            $this->session->userdata('email')
+        ])->row_array();
+
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
         $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
         $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
@@ -166,6 +172,12 @@ class Dosen extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required');
 
         if($this->form_validation->run() == false){
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('dosen/admin_prodi', $data);
+            $this->load->view('templates/footer');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Diubah</div>');
             redirect('dosen/admin_prodi');
         }else{
             $id = $this->input->post('ID_ADM');
@@ -178,8 +190,8 @@ class Dosen extends CI_Controller
             $id_user = $this->input->post('id_user');
             $is_active = $this->input->post('is_active');
             $email_admin = $this->input->post('email');
-            $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin);
-            $this->model_dosen->edit_user_admin_prodi($id_user, $nip, $nama_adm, $is_active, $email_admin);
+            $a = $this->model_dosen->edit_admin_prodi($id, $prodi_admin, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin);
+            $b = $this->model_dosen->edit_user_admin_prodi($id_user, $nip, $nama_adm, $is_active, $email_admin);
             $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
             redirect('dosen/admin_prodi');
         }
