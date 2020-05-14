@@ -101,29 +101,27 @@
 
     <!-- punya didin -->
     <script>
-		// Sek din tak cobae
-    	// $(document).ready(function () {
+    	$(document).ready(function () {
 
-    	// 	var count = 0;
+    		var count = 0;
 
-    	// 	$(document).on('click', '.add1', function () {
-    	// 		count++;
-    	// 		var html = '';
+    		$(document).on('click', '.add1', function () {
+    			count++;
+    			var html = '';
 
-    	// 		html += '<tr>';
-    	// 		html += '<td>' + count + '</td>';
-    	// 		var nim = $("#val_nim").val();
-    	// 		var nama = $("#val_nama").val();
-    	// 		html += '<td>' + nim + '</td>';
-    	// 		html += '<td>' + nama + '</td>';
-    	// 		html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
-		// 		$('tbody').append(html);
-    	// 	});
-		// 	$(document).on('click', '#hapus', function () {
-    	// 		$(this).closest('tr').remove();
-    	// 	});
-    	// });
-		// batas aman
+    			html += '<tr>';
+    			html += '<td>' + count + '</td>';
+    			var nim = $("#val_nim").val();
+    			var nama = $("#val_nama").val();
+    			html += '<td>' + nim + '</td>';
+    			html += '<td>' + nama + '</td>';
+    			html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+				$('tbody').append(html);
+    		});
+			$(document).on('click', '#hapus', function () {
+    			$(this).closest('tr').remove();
+    		});
+    	});
 
 		
     </script>
@@ -202,7 +200,7 @@
     	})
 
 	</script>
-	<script>
+	<!-- <script>
 		$(document).on('click', '#select', function(){
 			$('#nim').val($(this).data('nim'))
 			$('#nim1').val($(this).data('nim'))
@@ -249,7 +247,7 @@
 				count--;
 				$(this).closest('tr').remove();
     		});
-	</script>
+	</script> -->
     </body>
 
     </html>

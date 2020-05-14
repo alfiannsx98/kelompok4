@@ -110,11 +110,11 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran/tambah_data');
     }
 
-    public function tmbh_anggota(){
-        $NIM = $this->input->post('NIM');
-        $this->m_pendaftaran->m_tmbh_anggota($NIM, 'pendaftaran');
-        // redirect kemana?? :v
-    }
+    // public function tmbh_anggota(){
+    //     $NIM = $this->input->post('NIM');
+    //     $this->m_pendaftaran->m_tmbh_anggota($NIM, 'pendaftaran');
+    //     // redirect kemana?? :v
+    // }
 
     public function coba()
     {
@@ -131,4 +131,5 @@ class Pendaftaran extends CI_Controller
         $this->load->view('pendaftaran/coba', $data);
         $this->load->view('templates/footer', $data);
     }
+
 }
