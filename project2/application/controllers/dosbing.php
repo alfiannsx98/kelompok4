@@ -57,6 +57,9 @@ class Dosbing extends CI_Controller
         $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
             'required' => 'pilih program studi yang diampu'
         ]);
+        $this->form_validation->set_rules('role', 'role', 'required|trim', [
+            'required' => 'pilih jabatan dosen'
+        ]);
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password1]', [
             'required' => 'Password harus diisi',
             'matches' => '',

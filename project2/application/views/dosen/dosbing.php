@@ -224,7 +224,7 @@
                                         <option value="<?= $j['id_role']; ?>"><?= $j['role']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <?= form_error('role', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                     </div>
@@ -356,7 +356,7 @@
                                         <option value="<?= $j['id_role']; ?>"><?= $j['role']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <?= form_error('role', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                     </div>
