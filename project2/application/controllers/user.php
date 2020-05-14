@@ -20,7 +20,9 @@ class User extends CI_Controller
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
         $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
-        LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+        LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity
+        LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI OR admin_prodi.ID_PRODI=prodi.ID_PRODI 
+        OR mahasiswa.ID_PRODI=prodi.ID_PRODI
         WHERE user.email ='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
         $this->load->view('templates/header', $data);
@@ -117,8 +119,8 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity WHERE 
-            user.email='$mail'")->row_array();
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
+            LEFT JOIN prodi ON mahasiswa.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space', [
                 'required' => 'nama harus diisi'
@@ -196,8 +198,8 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity WHERE 
-            user.email='$mail'")->row_array();
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+            LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
                 'required' => 'nama harus diisi'
@@ -272,8 +274,8 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity WHERE 
-            user.email='$mail'")->row_array();
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+            LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
             $pictures = $this->db->query("SELECT user.image FROM user WHERE email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
@@ -348,8 +350,8 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity WHERE 
-            user.email='$mail'")->row_array();
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity 
+            LEFT JOIN prodi ON admin_prodi.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
                 'required' => 'nama harus diisi'

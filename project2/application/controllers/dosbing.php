@@ -22,14 +22,15 @@ class Dosbing extends CI_Controller
         $id_u = "ID-U" . $tabel . $date;
         $id_ds = "ID-D" .$tabel1 .$date;
 
-        $data['title'] = 'Data Dosen Pembimbing';
+        $data['title'] = 'Dosen Pembimbing & Koordinator PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' => 
             $this->session->userdata('email')
         ])->row_array();
 
         $data['ds'] = $this->m_dosbing->getDosbing();
-        $data['pr'] = $this->m_dosbing->getProdi();   
+        $data['pr'] = $this->m_dosbing->getProdi();
+        $data['jb'] = $this->m_dosbing->getRole();   
 
         $this->form_validation->set_rules('nip', 'Nip', 'required|trim|min_length[18]|max_length[20]', [
             'required' => 'masukkan nip dosen',
@@ -79,8 +80,9 @@ class Dosbing extends CI_Controller
             $alamat = $this->input->post('alamat');
             $hp = $this->input->post('hp');
             $email = $this->input->post('email');
-            $password = $this->input->post('password');
+            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
             $prodi = $this->input->post('prodi');
+            $role = $this->input->post('role');
 
             $sql = $this->db->query("SELECT dosbing.NIP_DS, user.email  FROM dosbing LEFT JOIN user ON 
             user.identity=dosbing.NIP_DS WHERE NIP_DS='$nip'");
@@ -94,7 +96,7 @@ class Dosbing extends CI_Controller
                 'image' => 'default.jpg',
                 'password' => $password,
                 'about' => '',
-                'role_id' => 3,
+                'role_id' => $role,
                 'is_active' => 1,
                 'date_created' => $date,
                 'change_pass' => 0
@@ -131,7 +133,7 @@ class Dosbing extends CI_Controller
 
     public function edit_dosbing()
     {   
-        $data['title'] = 'Edit Perusahaan';
+        $data['title'] = 'Edit Data';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')
@@ -180,8 +182,9 @@ class Dosbing extends CI_Controller
             $prodi = $this->input->post('prodi');
             $id_u = htmlspecialchars($this->input->post('id_u'));
             $id_ds = htmlspecialchars($this->input->post('id_ds'));
+            $role = htmlspecialchars($this->input->post('role'));
 
-            $this->db->query("UPDATE user SET identity='$nip', nama='$nama', email='$email' WHERE id_user='$id_u'");
+            $this->db->query("UPDATE user SET identity='$nip', nama='$nama', email='$email', role_id='$role' WHERE id_user='$id_u'");
             $this->db->query("UPDATE dosbing SET ID_PRODI='$prodi' ,NIP_DS='$nip', NAMA_DS='$nama', JK_DS='$jk', 
             ALAMAT_DS='$alamat', HP_DS='$hp' WHERE ID_DS='$id_ds'");
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Diperbarui</div>');

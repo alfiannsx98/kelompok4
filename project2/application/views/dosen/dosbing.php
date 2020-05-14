@@ -23,7 +23,8 @@
         <div class="col-12">
             <div class="card"> 
                 <div class="card-header"> 
-                    <h3 class="card-title">Tabel <?= $title ?> <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button></h3> 
+                    <h3 class="card-title">Tabel <?= $title ?> 
+                    <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button></h3> 
                 </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -40,6 +41,7 @@
                         <th>No Telefon</th>
                         <th>Email Dosen</th>
                         <th>Dosen Program Studi</th>
+                        <th>Jabatan</th>
                         <th>Gambar</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
@@ -55,6 +57,7 @@
                         $hp = $d['HP_DS'];
                         $email =  $d['email'];
                         $prodi = $d['NM_PRODI'];
+                        $jabatan = $d['role'];
                         $img = $d['image'];
                     ?>
                         <tr>
@@ -67,6 +70,7 @@
                             <td><?= $hp; ?></td>
                             <td><?= $email; ?></td>
                             <td><?= $prodi; ?></td>
+                            <td><?= $jabatan; ?></td>
                             <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></td>
                             <td class="text-right">
                                 <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Data</button>
@@ -87,6 +91,7 @@
                         <th>No Telefon</th>
                         <th>Email Dosen</th>
                         <th>Dosen Program Studi</th>
+                        <th>Jabatan</th>
                         <th>Gambar</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
@@ -113,7 +118,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newroleModal">Create New Data</h5>
+                <h5 class="modal-title" id="newroleModal">Tambah Data</h5>
                 </button>   
             </div>
             <form action="Dosbing" method="POST">
@@ -198,13 +203,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">          
+                        <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Dosen Program Studi</label>
                                     <select name="prodi" id="prodi" class="form-control">
                                         <option value="" selected disabled>Dosen Program Studi</option>
                                         <?php foreach($pr as $p) : ?>
                                         <option value="<?= $p['ID_PRODI']; ?>"><?= $p['NM_PRODI']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">          
+                            <div class="form-group">
+                                <label for="prodi">Jabatan</label>
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="" selected disabled>Jabatan</option>
+                                        <?php foreach($jb as $j) : ?>
+                                        <option value="<?= $j['id_role']; ?>"><?= $j['role']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -233,13 +250,15 @@
     $email =  $d['email'];
     $id_pr=$d['ID_PRODI'];
     $prodi = $d['NM_PRODI'];
+    $id_r = $d['id_role'];
+    $role = $d['role'];
     $img = $d['image'];
 ?>
 <div class="modal fade" id="modal_edit<?= $id_ds; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Edit Data Perusahaan</h3>
+                <h3 class="modal-title" id="myModalLabel">Edit Data Dosen</h3>
             </div>
             <?= form_open_multipart('Dosbing/edit_dosbing'); ?>
                 <div class="modal-body">
@@ -314,7 +333,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">          
+                        <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Dosen Program Studi</label>
                                     <select name="prodi" id="prodi" class="form-control">
@@ -322,6 +341,19 @@
                                         <option value="<?= $id_pr; ?>" selected><?= $prodi; ?></option>
                                         <?php foreach($pr as $p) : ?>
                                         <option value="<?= $p['ID_PRODI']; ?>"><?= $p['NM_PRODI']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">          
+                            <div class="form-group">
+                                <label for="prodi">Jabatan</label>
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="" selected disabled>Jabatan</option>
+                                        <option value="<?= $id_r; ?>" selected><?= $role; ?></option>
+                                        <?php foreach($jb as $j) : ?>
+                                        <option value="<?= $j['id_role']; ?>"><?= $j['role']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
