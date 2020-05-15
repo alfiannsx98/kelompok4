@@ -99,7 +99,7 @@ class Perusahaan extends CI_Controller
         }else{
             $image = $data['pt']['gambar'];
             unlink(FCPATH . 'assets/dist/img/perusahaan/' . $image);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Dihapus</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
             redirect('Perusahaan');
         }
     }
@@ -147,7 +147,7 @@ class Perusahaan extends CI_Controller
         $this->db->set('gambar', $gambar);
         $this->db->where('ID_PR', $id);
         $this->db->update('perusahaan');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Diperbarui</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diperbarui</div>');
         redirect('perusahaan');
     }
 }
