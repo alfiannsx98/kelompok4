@@ -132,11 +132,10 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">Upload Gambar Perusahaan</label>
-                        <input type="file" name="gambar" class="form-control" required>
-                        <?= form_error('gambar', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="file" name="gambar" class="form-control">
                     </div>
                     <div class="form-group">
-                        <img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/perusahaan/' . $image; ?>">
+                        <img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/perusahaan/default.jpg'; ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -172,6 +171,7 @@ foreach ($pt as $i) :
                         <label class="control-label col-xs-3">ID menu</label>
                         <div class="col-xs-8">
                             <input name="id_pr" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID menu" hidden>
+                            <input name="gambar_lama" value="<?php echo $gambar; ?>" class="form-control" type="text" hidden>
                         </div>
                     </div>
                     <div class="form-group">
