@@ -100,31 +100,32 @@
 
 
     <!-- punya didin -->
-    <script>
+    <!-- <script>
     	$(document).ready(function () {
 
     		var count = 0;
 
-    		$(document).on('click', '.add1', function () {
+    		$(document).on('click', '.add', function () {
     			count++;
     			var html = '';
 
     			html += '<tr>';
+				// php += '$sql = "SELECT * FROM mahasiswa;"';
     			html += '<td>' + count + '</td>';
-    			var nim = $("#val_nim").val();
-    			var nama = $("#val_nama").val();
+    			// var nama = $("#val_nama").val();
+    			// html += '<td>' + nama + '</td>';
+    			var nim = $("#NIM").val();
     			html += '<td>' + nim + '</td>';
-    			html += '<td>' + nama + '</td>';
-    			html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+    			// html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
 				$('tbody').append(html);
     		});
-			$(document).on('click', '#hapus', function () {
-    			$(this).closest('tr').remove();
-    		});
+			// $(document).on('click', '#hapus', function () {
+    		// 	$(this).closest('tr').remove();
+    		// });
     	});
 
 		
-    </script>
+    </script> -->
 
     <script>
     	$(function () {
@@ -200,7 +201,7 @@
     	})
 
 	</script>
-	<!-- <script>
+	<script>
 		$(document).on('click', '#select', function(){
 			$('#nim').val($(this).data('nim'))
 			$('#nim1').val($(this).data('nim'))
@@ -247,7 +248,7 @@
 				count--;
 				$(this).closest('tr').remove();
     		});
-	</script> -->
+	</script>
     </body>
 
     </html>

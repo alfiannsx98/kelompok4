@@ -52,6 +52,7 @@ class M_pendaftaran extends CI_Model{
                 $data = $this->db->query("SELECT ID_M, NIM, NAMA_M FROM mahasiswa WHERE NIM = '$NIM'");
                 return $data;
         } 
+
         function get_mhs()
         {
                 $this->db->select('*, mahasiswa.NAMA_M AS nama, 
@@ -67,6 +68,8 @@ class M_pendaftaran extends CI_Model{
                         return FALSE;
                 }
         }
+
+        
 //         INSERT INTO pendaftaran_klp(ID_PND, ID_M) VALUES
 // (
 // 	("pnd1"),

@@ -95,41 +95,64 @@ class Pendaftaran extends CI_Controller
         $this->load->view('pendaftaran/daftar_siswa', $data);
     }
 
-    public function pr_tmbh_pnd(){
-        $ID_PND = $this->input->post('ID_PND');
-        $ID_PR = $this->input->post('ID_PR');
-        $ID_DS = $this->input->post('ID_DS');
-
-        $data = array(
-            'ID_PND' => $ID_PND,
-            'ID_PR' => $ID_PR,
-            'ID_DS' => $ID_DS
-        );
-
-        $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
-        redirect('pendaftaran/tambah_data');
-    }
-
-    // public function tmbh_anggota(){
-    //     $NIM = $this->input->post('NIM');
-    //     $this->m_pendaftaran->m_tmbh_anggota($NIM, 'pendaftaran');
-    //     // redirect kemana?? :v
-    // }
-
-    public function coba()
+    public function baru()
     {
-        $data['title'] = 'Coba';
-        $data['mahasiswa'] = $this->db->get('mahasiswa')->result_array();
+        // buat id pendaftaran
+        $dariDB = $this->m_pendaftaran->selectMaxID();
+        $nourut = substr($dariDB, 3);
+        $kodeBarangSekarang = $nourut + 1;
+        $data = array('ID_PND' => $kodeBarangSekarang);
+
+        // untuk data templates
+        $data['title'] = 'Baru';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
         ])->row_array();
 
+        // load untuk select option nama perusahaan n dosbing
+        $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
+        $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
+        
+        // view
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('pendaftaran/coba', $data);
+        $this->load->view('pendaftaran/new', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function pr_tmbh_pnd(){
+        $ID_PND = $this->input->post('ID_PND');
+        $ID_PR = $this->input->post('ID_PR');
+        $ID_DS = $this->input->post('ID_DS');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $waktu = "$bulan, "."$tahun";
+
+        $data = array(
+            'ID_PND' => $ID_PND,
+            'ID_PR' => $ID_PR,
+            'ID_DS' => $ID_DS,
+            'WAKTU' => $waktu
+        );
+
+        $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
+        redirect('pendaftaran/baru');
+    }
+
+//     public function UploadProposal(){
+//         $config['upload_path'] = './pendaftaran/proposal/';
+//         $config['allowed_types'] = 'pdf|doc|docx';
+//         $config['file_name'] = ??;
+//         $config['overwrite'] = true;
+//         $config['max_size'] = 2048; // 2 MB
+
+//         $this->load->library('upload', $config);
+
+//         if ($this->upload->do_upload('proposal')){
+//                 $error = array
+//         }
+// }
 
 }

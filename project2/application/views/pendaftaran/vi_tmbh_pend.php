@@ -63,7 +63,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-6">
+			<div class="col-6">
 				<div class="card">
 					<div class="card-body">
 						<table width="100%">
@@ -107,25 +107,23 @@
 						</table>
 					</div>
 				</div>
-			</div> -->
+			</div>
 		</div>
 	</section>
 
-	<section class="content">
+	<!-- <section class="content">
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<label class="col-sm-2 label-on-left">Masukkan NIM</label>
-							<!-- <form method="post" class="form-group" action="<?= base_url().'pendaftaran/tmbh_anggota';?>"> -->
-							<div class="col-sm-2">
-								<input type="text" class="form-control" name="NIM" id="NIM" value="" placeholder="NIM">
-							</div>
-							<div class="form-group">
-								<button type="submit" name="tambah" class="btn btn-primary add">Tambah</button>
-							</div>
-							<!-- </form> -->
+							<form>
+								
+									<input type="text" name="NIM" id="NIM" value=""	placeholder="NIM">
+									<button type="submit" name="tambah" class="btn btn-primary add">Tambah</button>
+								
+							</form>
 						</div>
 						<div class="row">
 							<table id="tabel" name="tabel" class="table table-bordered table-striped">
@@ -142,12 +140,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-										<td></td>
+										<td></td> -->
 										<!-- <td class="text-right">
 											<button class="btn btn-info btn-xs btn-danger"
 												data-target="#modal_edit">Hapus</button>
 										</td> -->
-									</tr>
+									<!-- </tr>
 								</tbody>
 								<tfoot>
 									<tr>
@@ -161,16 +159,12 @@
 						</div>
 
 					</div>
-					<!-- /.row -->
 				</div>
-				<!-- /.card-body -->
 			</div>
-			<!-- /.card -->
 		</div>
-		<!-- /.col -->
-	</section>
+	</section> -->
 
-	<!-- <section class="content">
+	<section class="content">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="box box-widget">
@@ -193,11 +187,11 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.col -->
-	</section> -->
+		
+	</section>
 
 	<!-- Modal List Mahasiswa -->
-	<!-- <div class="modal fade" id="modal-item">
+	<div class="modal fade" id="modal-item">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -234,6 +228,6 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </div>
 <!-- /.row -->
