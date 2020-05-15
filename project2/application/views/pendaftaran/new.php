@@ -23,9 +23,8 @@
 				<div class="card">
 					<div class="card-body">
 						<form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>">
-							<input type="text" name="ID_PND" id="ID_PND"
-								value="<?= "PND-".$user['identity']; ?>">
-								<!-- echo "PND".sprintf("%04s", $ID_PND); -->
+							<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$user['identity']; ?>">
+							<!-- echo "PND".sprintf("%04s", $ID_PND); -->
 							<br>
 							<label for="ID_PR">Tempat PKL</label>
 							<select name="ID_PR" id="ID_PR" title="Single Select" data-size="7">
@@ -63,12 +62,12 @@
 							</select>
 							<label for="tahun">Tahun :</label>
 							<select name="tahun">
-							<?php
-							$y = date('Y');
-							?>
+							<?php $y = date('Y'); ?>
 								<option name="tahun" selected="selected" value="<?= $y;?>"><?= $y;?></option>
 								<option name="tahun" value="<?= $y+1;?>"><?= $y+1; ?></option>
 							</select>
+							<label for="PROPOSAL">Upload Proposal</label>
+							<input type="file" id="PROPOSAL" name="PROPOSAL">
 							<button>Simpan</button>
 						</form>
 					</div>

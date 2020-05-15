@@ -6,6 +6,8 @@ class Pendaftaran extends CI_Controller
 		parent::__construct();		
 		$this->load->model('m_pendaftaran');
         $this->load->helper('url');
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('upload');
         is_logged_in();
         $this->load->model('model_admin');
         $this->load->model('search_model_pend');
@@ -130,29 +132,30 @@ class Pendaftaran extends CI_Controller
         $tahun = $this->input->post('tahun');
         $waktu = "$bulan, "."$tahun";
 
-        $data = array(
+        // untuk upload proposal
+        $config['upload_path'] = './assets/proposal/';
+        $config['allowed_types'] = 'pdf|doc|docx';
+        // ambil nama berkas dari input file
+        $config['file_name'] = url_title($this->input->post('PROPOSAL'));
+        $config['overwrite'] = true;
+        $config['max_size'] = 2048; // 2 MB
+
+        $this->upload->initialize($config); //meng set config yang sudah di atur
+        // if( !$this->upload->do_upload('PROPOSAL')) {
+        //     echo $this->upload->display_errors();
+        // }
+        // else{
+            $data = array(
             'ID_PND' => $ID_PND,
             'ID_PR' => $ID_PR,
             'ID_DS' => $ID_DS,
-            'WAKTU' => $waktu
+            'WAKTU' => $waktu,
+            'PROPOSAL'=> $this->upload->file_name
         );
-
+        
         $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
         redirect('pendaftaran/baru');
+        // }
     }
-
-//     public function UploadProposal(){
-//         $config['upload_path'] = './pendaftaran/proposal/';
-//         $config['allowed_types'] = 'pdf|doc|docx';
-//         $config['file_name'] = ??;
-//         $config['overwrite'] = true;
-//         $config['max_size'] = 2048; // 2 MB
-
-//         $this->load->library('upload', $config);
-
-//         if ($this->upload->do_upload('proposal')){
-//                 $error = array
-//         }
-// }
 
 }
