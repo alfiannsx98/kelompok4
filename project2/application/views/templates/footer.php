@@ -65,10 +65,10 @@
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
-			});
-			$(document).ready(function(){
+    		});
+    		$(document).ready(function () {
     			$('#table1').DataTable()
-  			});
+    		});
     	});
 
     </script>
@@ -96,7 +96,7 @@
     		});
     	});
 
-	</script>
+    </script>
 
 
     <!-- punya didin -->
@@ -110,23 +110,36 @@
     			var html = '';
 
     			html += '<tr>';
-				// php += '$sql = "SELECT * FROM mahasiswa;"';
     			html += '<td>' + count + '</td>';
-    			// var nama = $("#val_nama").val();
-    			// html += '<td>' + nama + '</td>';
     			var nim = $("#NIM").val();
     			html += '<td>' + nim + '</td>';
-    			// html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+    			html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
 				$('tbody').append(html);
     		});
-			// $(document).on('click', '#hapus', function () {
-    		// 	$(this).closest('tr').remove();
-    		// });
+			$(document).on('click', '#hapus', function () {
+    			$(this).closest('tr').remove();
+    		});
     	});
-
-		
     </script> -->
+    <!-- <script>
+		$(document).ready(function () {
 
+			var count = 0;
+			var i = 1;
+
+			$("#tambah").click(function () {
+				count++;
+				i++;
+				var nilai = $("#NIM").val();
+				var nmr = "<tr><td>" + count + "</td><td>" + i + "</td></tr>";
+				// var nama = ;
+				$("#tabel").append(nmr);
+				// $("#tabel").append(nama);
+			})
+
+		});
+
+	</script> -->
     <script>
     	$(function () {
     		//Initialize Select2 Elements
@@ -166,14 +179,16 @@
     					'Last 7 Days': [moment().subtract(6, 'days'), moment()],
     					'Last 30 Days': [moment().subtract(29, 'days'), moment()],
     					'This Month': [moment().startOf('month'), moment().endOf('month')],
-    					'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+    					'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+    						'month').endOf(
     						'month')]
     				},
     				startDate: moment().subtract(29, 'days'),
     				endDate: moment()
     			},
     			function (start, end) {
-    				$('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+    				$('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+    					'MMMM D, YYYY'))
     			}
     		)
 
@@ -200,8 +215,8 @@
 
     	})
 
-	</script>
-	<script>
+    </script>
+    <script>
 		$(document).on('click', '#select', function(){
 			$('#nim').val($(this).data('nim'))
 			$('#nim1').val($(this).data('nim'))

@@ -56,8 +56,40 @@
 								</div>
 								<br>
 								<div class="row">
+									<label class="col-sm-2">Waktu</label>
+									<label class="col-sm-2" for="bulan">Bulan :</label>
+									<select name="bulan" id="bulan" class="col-sm-2 form-control	"
+										data-style="btn btn-primary btn-round" required>
+										<option name="bulan" value="Januari">Januari</option>
+										<option name="bulan" value="Februari">Februari</option>
+										<option name="bulan" value="Maret">Maret</option>
+										<option name="bulan" value="April">April</option>
+										<option name="bulan" value="Mei">Mei</option>
+										<option name="bulan" value="Juni">Juni</option>
+										<option name="bulan" value="Juli">Juli</option>
+										<option name="bulan" value="Agustus">Agustus</option>
+										<option name="bulan" value="September">September</option>
+										<option name="bulan" value="Oktober">Oktober</option>
+										<option name="bulan" value="November">November</option>
+										<option name="bulan" value="Desember">Desember</option>
+									</select>
+									<label class="col-sm-2" for="tahun">Tahun :</label>
+									<select class="col-sm-2 form-control" name="tahun" required>
+										<?php $y = date('Y'); ?>
+										<option name="tahun" selected="selected" value="<?= $y;?>"><?= $y;?></option>
+										<option name="tahun" value="<?= $y+1;?>"><?= $y+1; ?></option>
+									</select>
+								</div>
+								<br>
+								<div class="row">
+									<label class="col-sm label-on-left" for="PROPOSAL">Upload Proposal</label>
+									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-sm-6 form-control" required>
+								</div>
+								<br>
+								<div class="row">
 									<button class="btn btn-success col-lg">Simpan Form</button>
 								</div>
+
 							</div>
 						</form>
 					</div>
@@ -141,11 +173,11 @@
 										<td></td>
 										<td></td>
 										<td></td> -->
-										<!-- <td class="text-right">
+	<!-- <td class="text-right">
 											<button class="btn btn-info btn-xs btn-danger"
 												data-target="#modal_edit">Hapus</button>
 										</td> -->
-									<!-- </tr>
+	<!-- </tr>
 								</tbody>
 								<tfoot>
 									<tr>
@@ -187,7 +219,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</section>
 
 	<!-- Modal List Mahasiswa -->

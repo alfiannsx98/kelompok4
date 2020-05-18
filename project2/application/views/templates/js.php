@@ -1,3 +1,4 @@
+<script src="<?= base_url(); ?>assets/dist/js/jquery-2.1.4.js"></script>
 <script src="<?= base_url(); ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>

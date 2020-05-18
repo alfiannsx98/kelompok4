@@ -141,10 +141,7 @@ class Pendaftaran extends CI_Controller
         $config['max_size'] = 2048; // 2 MB
 
         $this->upload->initialize($config); //meng set config yang sudah di atur
-        // if( !$this->upload->do_upload('PROPOSAL')) {
-        //     echo $this->upload->display_errors();
-        // }
-        // else{
+        // if( $this->upload->do_upload('PROPOSAL')) {
             $data = array(
             'ID_PND' => $ID_PND,
             'ID_PR' => $ID_PR,
@@ -152,9 +149,12 @@ class Pendaftaran extends CI_Controller
             'WAKTU' => $waktu,
             'PROPOSAL'=> $this->upload->file_name
         );
+            $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
+            redirect('pendaftaran/baru');   
+        // }
+        // else{
+        //     echo $this->upload->display_errors();
         
-        $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
-        redirect('pendaftaran/baru');
         // }
     }
 

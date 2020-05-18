@@ -44,9 +44,20 @@ class M_pendaftaran extends CI_Model{
                 return $data;
         }
 
+        // tambah data pendaftaran
         function tmbh_pnd($data, $table){
                 $this->db->insert($table, $data);
         }
+
+        // masukkan data yg sudah di daftarkan di tabel
+        // function tampil_pendaftaran($ID_PND){
+        //         $data = $this->db->query("SELECT perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.WAKTU, pendaftaran.BERKAS  
+        //                                 FROM pendaftaran, perusahaan, dosbing
+        //                                 WHERE pendaftaran.ID_PR = perusahaan.ID_PR 
+        //                                 AND pendaftaran.ID_DS = dosbing.ID_DS
+        //                                 AND pendaftaran.ID_PND =  '$ID_PND'");
+        //         return $data;
+        // }
 
         function m_tmbh_anggota($NIM){
                 $data = $this->db->query("SELECT ID_M, NIM, NAMA_M FROM mahasiswa WHERE NIM = '$NIM'");
