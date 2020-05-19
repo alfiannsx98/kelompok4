@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Form pendaftaran</h1>
+					<h1>Form pendaftaran PKL</h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,17 +25,22 @@
 						<form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
 							class="form-horizontal">
 							<div class="card-content">
-								<input type="hidden" name="ID_PND" id="ID_PND"
-									value="<?php echo "PND".sprintf("%04s", $ID_PND); ?>">
+							<?php $nim = $user['identity']; ?>
+							<input type="hidden" name="nim" id="nim" value="<?= $nim; ?>">
+								<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
 								<div class="row">
 									<label class="col-sm label-on-left" for="ID_PR">Tempat PKL</label>
 									<div class="col-lg col-md col-sm">
 										<select name="ID_PR" class="form-control" data-style="btn btn-primary btn-round"
 											title="Single Select" data-size="7">
 											<option selected disabled>Pilih Tempat PKL</option>
-											<?php foreach($comboPR as $pr){?>
-											<option type="text" name="ID_PR" value="<?= $pr->ID_PR; ?>">
-												<?=$pr->NAMA_PR;?>
+											<?php foreach($jumlah_pr as $pr){
+												if ($pr->JMLH_PR < 2 ){
+													echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; }
+												// } else {
+												// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
+												// }
+												?>
 												<?php }?>
 										</select>
 									</div>
@@ -60,18 +65,11 @@
 									<label class="col-sm-2" for="bulan">Bulan :</label>
 									<select name="bulan" id="bulan" class="col-sm-2 form-control	"
 										data-style="btn btn-primary btn-round" required>
-										<option name="bulan" value="Januari">Januari</option>
-										<option name="bulan" value="Februari">Februari</option>
-										<option name="bulan" value="Maret">Maret</option>
-										<option name="bulan" value="April">April</option>
-										<option name="bulan" value="Mei">Mei</option>
-										<option name="bulan" value="Juni">Juni</option>
-										<option name="bulan" value="Juli">Juli</option>
-										<option name="bulan" value="Agustus">Agustus</option>
-										<option name="bulan" value="September">September</option>
-										<option name="bulan" value="Oktober">Oktober</option>
-										<option name="bulan" value="November">November</option>
-										<option name="bulan" value="Desember">Desember</option>
+										<option selected disabled>Pilih Bulan</option>
+											<?php foreach($bulan as $bl){ ?>
+											<option type="text" name="bulan" value="<?= $bl->BL; ?>">
+												<?= $bl->BL; ?>
+												<?php } ?>
 									</select>
 									<label class="col-sm-2" for="tahun">Tahun :</label>
 									<select class="col-sm-2 form-control" name="tahun" required>
@@ -83,11 +81,12 @@
 								<br>
 								<div class="row">
 									<label class="col-sm label-on-left" for="PROPOSAL">Upload Proposal</label>
-									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-sm-6 form-control" required>
+									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-sm-6 form-control"
+										required>
 								</div>
 								<br>
 								<div class="row">
-									<button class="btn btn-success col-lg">Simpan Form</button>
+									<button class="btn btn-success col-lg">Simpan Form</button> 
 								</div>
 
 							</div>

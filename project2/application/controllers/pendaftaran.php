@@ -54,10 +54,10 @@ class Pendaftaran extends CI_Controller
 
     public function tambah_data() {
         // method yang dibuat didin
-        $dariDB = $this->m_pendaftaran->selectMaxID();
-        $nourut = substr($dariDB, 3);
-        $kodeBarangSekarang = $nourut + 1;
-        $data = array('ID_PND' => $kodeBarangSekarang);
+        // $dariDB = $this->m_pendaftaran->selectMaxID();
+        // $nourut = substr($dariDB, 3);
+        // $kodeBarangSekarang = $nourut + 1;
+        // $data = array('ID_PND' => $kodeBarangSekarang);
 
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', [
@@ -65,18 +65,13 @@ class Pendaftaran extends CI_Controller
             $this->session->userdata('email')    
         ])->row_array();
     
-        $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
+        // $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
+        $data['bulan'] = $this->m_pendaftaran->bulan()->result();
+        $data['jumlah_pr'] = $this->m_pendaftaran->jmlh_pr()->result();
         $data['mahasiswa'] = $this->db->get('mahasiswa')->result_array();
         $mhs = $this->m_pendaftaran->get_mhs();
         $data['mhs'] = $mhs;
-
-        // $this->load->view('templates/header', $data);
-        // $this->load->view('templates/sidebar', $data);
-        // $this->load->view('templates/topbar', $data);
-        // $this->load->view('pendaftaran/vi_tmbh_pend', $data);
-        // $this->load->view('templates/footer');
-        // akhir method yang dibuat didin
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -97,32 +92,32 @@ class Pendaftaran extends CI_Controller
         $this->load->view('pendaftaran/daftar_siswa', $data);
     }
 
-    public function baru()
-    {
-        // buat id pendaftaran
-        $dariDB = $this->m_pendaftaran->selectMaxID();
-        $nourut = substr($dariDB, 3);
-        $kodeBarangSekarang = $nourut + 1;
-        $data = array('ID_PND' => $kodeBarangSekarang);
+    // public function baru()
+    // {
+    //     // buat id pendaftaran
+    //     $dariDB = $this->m_pendaftaran->selectMaxID();
+    //     $nourut = substr($dariDB, 3);
+    //     $kodeBarangSekarang = $nourut + 1;
+    //     $data = array('ID_PND' => $kodeBarangSekarang);
 
-        // untuk data templates
-        $data['title'] = 'Baru';
-        $data['user'] = $this->db->get_where('user', [
-            'email' =>
-            $this->session->userdata('email')    
-        ])->row_array();
+    //     // untuk data templates
+    //     $data['title'] = 'Baru';
+    //     $data['user'] = $this->db->get_where('user', [
+    //         'email' =>
+    //         $this->session->userdata('email')    
+    //     ])->row_array();
 
-        // load untuk select option nama perusahaan n dosbing
-        $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
-        $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
+    //     // load untuk select option nama perusahaan n dosbing
+    //     $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
+    //     $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
         
-        // view
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('pendaftaran/new', $data);
-        $this->load->view('templates/footer', $data);
-    }
+    //     // view
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('pendaftaran/new', $data);
+    //     $this->load->view('templates/footer', $data);
+    // }
 
     public function pr_tmbh_pnd(){
         $ID_PND = $this->input->post('ID_PND');
@@ -150,12 +145,31 @@ class Pendaftaran extends CI_Controller
             'PROPOSAL'=> $this->upload->file_name
         );
             $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
-            redirect('pendaftaran/baru');   
+            redirect('pendaftaran/tampil_detail_pend');   
         // }
         // else{
         //     echo $this->upload->display_errors();
         
         // }
     }
+
+    public function tampil_detail_pend(){
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+        
+        $nim = $user['identity'];
+
+        $data['data_kelompok'] = $this->m_pendaftaran->data_kel()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_tmpl_pend', $data);
+        $this->load->view('templates/footer');
+    }
+
 
 }

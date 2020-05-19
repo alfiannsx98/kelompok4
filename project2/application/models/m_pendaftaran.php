@@ -44,25 +44,32 @@ class M_pendaftaran extends CI_Model{
                 return $data;
         }
 
+        function bulan(){
+                $data = $this->db->query("SELECT BL FROM bulan");
+                return $data;
+        }
+
+        function jmlh_pr(){
+                $data = $this->db->query("SELECT perusahaan.ID_PR, perusahaan.NAMA_PR, COUNT(perusahaan.ID_PR) AS JMLH_PR FROM perusahaan, pendaftaran 
+                WHERE perusahaan.ID_PR = pendaftaran.ID_PR
+                GROUP BY pendaftaran.ID_PR");
+                return $data;
+        }
+
         // tambah data pendaftaran
         function tmbh_pnd($data, $table){
                 $this->db->insert($table, $data);
         }
-
-        // masukkan data yg sudah di daftarkan di tabel
-        // function tampil_pendaftaran($ID_PND){
-        //         $data = $this->db->query("SELECT perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.WAKTU, pendaftaran.BERKAS  
-        //                                 FROM pendaftaran, perusahaan, dosbing
-        //                                 WHERE pendaftaran.ID_PR = perusahaan.ID_PR 
-        //                                 AND pendaftaran.ID_DS = dosbing.ID_DS
-        //                                 AND pendaftaran.ID_PND =  '$ID_PND'");
-        //         return $data;
-        // }
-
-        function m_tmbh_anggota($NIM){
-                $data = $this->db->query("SELECT ID_M, NIM, NAMA_M FROM mahasiswa WHERE NIM = '$NIM'");
-                return $data;
-        } 
+        
+        // tampil data Pendaftaran
+        function data_kel(){
+                $data = $this->db->query("SELECT perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL
+                FROM pendaftaran, perusahaan, dosbing, pendaftaran_klp, mahasiswa
+                WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
+                AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
+                AND mahasiswa.NIM = '".$user['identity']."'");
+        return $data;
+        }
 
         function get_mhs()
         {
@@ -79,11 +86,4 @@ class M_pendaftaran extends CI_Model{
                         return FALSE;
                 }
         }
-
-        
-//         INSERT INTO pendaftaran_klp(ID_PND, ID_M) VALUES
-// (
-// 	("pnd1"),
-//     (SELECT ID_M FROM mahasiswa WHERE NIM="E41181338")
-// )
 }
