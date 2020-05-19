@@ -50,7 +50,7 @@ class M_pendaftaran extends CI_Model{
         }
 
         function jmlh_pr(){
-                $data = $this->db->query("SELECT perusahaan.ID_PR, perusahaan.NAMA_PR, COUNT(perusahaan.ID_PR) AS JMLH_PR FROM perusahaan, pendaftaran 
+                $data = $this->db->query("SELECT perusahaan.ID_PR, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, COUNT(perusahaan.ID_PR) AS JMLH_PR FROM perusahaan, pendaftaran 
                 WHERE perusahaan.ID_PR = pendaftaran.ID_PR
                 GROUP BY pendaftaran.ID_PR");
                 return $data;

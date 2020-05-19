@@ -36,7 +36,11 @@
 											<option selected disabled>Pilih Tempat PKL</option>
 											<?php foreach($jumlah_pr as $pr){
 												if ($pr->JMLH_PR < 2 ){
-													echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; }
+													// echo '<div class="row" border:solid 3px black';
+													echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; 
+													echo  '<option type="text" name="ID_PR"  disabled> Alamat : '.$pr->ALAMAT_PR;
+													// echo "</div>";
+												}
 												// } else {
 												// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
 												// }
