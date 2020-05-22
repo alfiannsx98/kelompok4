@@ -54,7 +54,7 @@
                         $id_mi = $mi['ID_ADM'];
                         $nip_mi = $mi['NIP_ADM'];
 
-                        $qwery = "SELECT * FROM user WHERE identity = '$nip_mi'"; 
+                        $qwery = "SELECT * FROM user WHERE identity = '$id_mi'"; 
                         $dtu = $this->db->query($qwery)->result_array();
                         
                     ?>

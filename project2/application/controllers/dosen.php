@@ -63,7 +63,7 @@ class Dosen extends CI_Controller
             ];
             $dataUser = [
                 'id_user' => $id_usr,
-                'identity' => $this->input->post('NIP_ADM'),
+                'identity' => $id_u,
                 'nama' => $this->input->post('NAMA_ADM'),
                 'email' => htmlspecialchars($email),
                 'image' => "default.jpg",
