@@ -106,8 +106,79 @@
 </section>
 <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->
+
+
+<!-- Akhir Pembatas -->
 
 <!--MODAL DIALOG UNTUK CREATE DATA!-->
+<div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newroleModal">Create New Data</h5>
+                </button>   
+            </div>
+            <form action="<?= base_url('dosen/admin_prodi'); ?>" method="post">
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">NIP Admin</label>
+                            <input type="text" class="form-control" id="NIP_ADM" name="NIP_ADM" placeholder="Masukkan NIP Admin">
+                            <?= form_error('NIP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Admin</label>
+                            <input type="text" class="form-control" id="NAMA_ADM" name="NAMA_ADM" placeholder="Masukkan Nama Admin">
+                            <?= form_error('NAMA_ADM', '<small class="text-danger col-md">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Pilih Jenis Kelamin</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="JK_ADM" value="Laki-Laki"> Laki-Laki
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="JK_ADM" value="Perempuan"> Perempuan
+                                </label>                                    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Alamat Admin</label>
+                            <input type="text" name="ALAMAT_ADM" class="form-control" placeholder="Alamat Admin">
+                            <?= form_error('ALAMAT_ADM', '<small class="text-danger col-md">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nomor HP Admin</label>
+                            <input type="number" class="form-control" id="HP_ADM" name="HP_ADM" placeholder="Masukkan Nomor HP">
+                            <?= form_error('HP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="PRODI_ADM">Nama Admin Prodi</label>
+                            <select name="ID_PRODI" id="ID_PRODI" class="form-control" required>
+                                    <option value="" selected disabled>Silahkan pilih Program Studi</option>
+                                    <?php foreach($prodi as $pr): ?>
+                                    <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
+                                    <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="EMAIL_ADM">Email Admin</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email">
+                            <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success">Simpan Data</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php
 foreach ($admin_prodi as $i) :
     $id = $i['ID_ADM'];
@@ -124,72 +195,6 @@ foreach ($admin_prodi as $i) :
     $query_prodi = "SELECT * FROM prodi";
     $prodi = $this->db->query($query_prodi)->result_array();
     ?>
-<div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newroleModal">Create New Data</h5>
-                </button>   
-            </div>
-            <form action="<?= base_url('dosen/admin_prodi'); ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">NIP Admin</label>
-                        <input type="text" class="form-control" id="NIP_ADM" name="NIP_ADM" placeholder="Masukkan NIP Admin">
-                        <?= form_error('NIP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nama Admin</label>
-                        <input type="text" class="form-control" id="NAMA_ADM" name="NAMA_ADM" placeholder="Masukkan Nama Admin">
-                        <?= form_error('NAMA_ADM', '<small class="text-danger col-md">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Pilih Jenis Kelamin</label>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="JK_ADM" value="Laki-Laki"> Laki-Laki
-                            </label>
-                        </div>
-                        <div class="radio">                                                    
-                            <label>
-                                <input type="radio" name="JK_ADM" value="Perempuan"> Perempuan
-                            </label>                                    
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alamat Admin</label>
-                        <input type="text" name="ALAMAT_ADM" class="form-control" placeholder="Alamat Admin">
-                        <?= form_error('ALAMAT_ADM', '<small class="text-danger col-md">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nomor HP Admin</label>
-                        <input type="number" class="form-control" id="HP_ADM" name="HP_ADM" placeholder="Masukkan Nomor HP">
-                        <?= form_error('HP_ADM', '<small class="text-danger col-md">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="PRODI_ADM">Nama Admin Prodi</label>
-                        <select name="ID_PRODI" id="ID_PRODI" class="form-control" required>
-                                <option value="" selected disabled>Silahkan pilih Program Studi</option>
-                                <?php foreach($prodi as $pr): ?>
-                                <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
-                                <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="EMAIL_ADM">Email Admin</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email">
-                        <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-success">Simpan Data</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!-- Form Edit Admin Prodi -->
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

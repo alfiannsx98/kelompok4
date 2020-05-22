@@ -15,7 +15,7 @@ class Dosen extends CI_Controller
         $query1 = $this->db->query("SELECT * FROM user");
         $tabel = $query1->num_rows();
         $date = date('dm', time());
-        $id_usr = "ID-U" . $tabel . $date;
+        $id_usr = "ID-U" . ($tabel + 1) . $date;
 
         $data['title'] = 'Admin Program Studi';
         $data['user'] = $this->db->get_where('user', [
