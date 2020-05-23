@@ -1,148 +1,165 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Mahasiswa extends CI_Controller {
+class Mahasiswa extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('m_mahasiswa');
+        // is_logged_in();
+    }
 
-    function __construct(){
-        parent::__construct();	
-            // ini adalah function untuk memuat model bernama m_data
-        $this->load->model('m_data1');
-            
-        }
-    //  method yang akan diakses saat controller ini diakses
-        function index(){
-            $data['title'] = 'Dashboard';
+    public function index()
+    {
+        $query = $this->db->query("SELECT * FROM mahasiswa");
+        $tabel = $query->num_rows();
+        $date = date('dm', time());
+        $id_m = "ID-M" . $tabel . $date;
+
+        $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', [
-            'email' =>
-            $this->session->userdata('email')    
-        ])->row_array();
-        // ini adalah variabel array $data yang memiliki index user, berguna untuk menyimpan data 
-        $data['mahasiswa'] = $this->m_data1->tampil_data()->result();
-        // ini adalah baris kode yang berfungsi menampilkan v_tampil dan membawa data dari tabel user
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('mahasiswa/v_mahasiswa', $data);
-        $this->load->view('templates/footer');
-        }
-
-        function tambah(){
-
-            $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('user', [
-            'email' =>
-            $this->session->userdata('email')    
+            'email' => 
+            $this->session->userdata('email')
         ])->row_array();
 
-        $data['mahasiswa'] = $this->m_data1->tampil_data()->result();
+        $data['mhs'] = $this->m_mahasiswa->getMahasiswa();
+        $data['pr'] = $this->m_mahasiswa->getProdi(); 
 
-            $this->load->view('templates/header',$data);
-            $this->load->view('templates/sidebar',$data);
-            $this->load->view('templates/topbar',$data);
-            $this->load->view('mahasiswa/v_inputmahasiswa',$data);
+        $this->form_validation->set_rules('nim', 'Nim', 'required|trim|min_length[9]|max_length[9]', [
+            'required' => 'masukkan nim mahasiswa',
+            'min_length' => 'nim yang anda masukkan salah',
+            'max_length' => 'nim yang anda masukkan salah'
+        ]);
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+            'required' => 'masukkan nama mahasiswa'
+        ]);
+        $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+            'required' => 'pilih program studi mahasiswa'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('mahasiswa/mahasiswa', $data);
             $this->load->view('templates/footer');
-        }
+        } else {
+            $nim = $this->input->post('nim');
+            $nama = $this->input->post('nama');
+            $prodi = $this->input->post('prodi');
 
-        function tambah_mahasiswa(){
-            // ini adalah baris kode yang berfungsi merekam data yang diinput oleh pengguna
-              $ID_M = $this->input->post('ID_M');
-              $NIM = $this->input->post('NIM');
-              $NAMA_M = $this->input->post('NAMA_M');
-              $JK_M = $this->input->post('JK_M');
-              $PRODI_M= $this->input->post('PRODI_M');
-              $SMT = $this->input->post('SMT');
-              $ALAMAT_M = $this->input->post('ALAMAT_M');
-              $HP_M= $this->input->post('HP_M');
-              $EMAIL_M = $this->input->post('EMAIL_M');
-              $PASSWORD_M = $this->input->post('PASSWORD_M');
-             
-            // array yang berguna untuk mennjadikanva variabel diatas menjadi 1 variabel yang nantinya akan di sertakan dalam query insert
-              $data = array(
-                  
-                  'ID_M' => $ID_M,
-                  'NIM' => $NIM,
-                  'NAMA_M' => $NAMA_M,
-                  'JK_M' => $JK_M,
-                  'PRODI_M' => $PRODI_M,
-                  'SMT' => $SMT,
-                  'ALAMAT_M' => $ALAMAT_M,
-                  'HP_M' => $HP_M,
-                  'EMAIL_M' => $EMAIL_M,
-                  'PASSWORD_M' => $PASSWORD_M,
-            );
-            // method yang berfungsi melakukan insert ke dalam database yang mengirim 2 parameter yaitu sebuah array data dan nama tabel yang dimaksud
-              $this->m_data1->input_data($data,'mahasiswa');
-          // kode yang berfungsi mengarahkan pengguna ke link base_url()crud/index/ 
-          redirect('mahasiswa');
-          }
+            $sql = $this->db->query("SELECT mahasiswa.NIM, user.email  FROM mahasiswa LEFT JOIN user ON 
+            user.identity=mahasiswa.NIM WHERE NIM='$nim'");
+            $result = $sql->result_array();
 
-          function hapus($id){
-            // baaris kode ini berisi fungsi untuk menyimpan id user kedalam array $where pada index array bernama 'id'
-          $where = array('ID_M' => $id);
-          // kode di bawah ini untuk menjalankan query hapus yang berasal dari method hapus_data() pada model m_data
-              $this->m_data1->hapus_data($where,'mahasiswa');
-          // kode yang berfungsi mengarakan pengguna ke link base_url()crud/
-          redirect('mahasiswa');
-          }
+            // $data1 = [
+            //     'id_user' => $id_u,
+            //     'identity' => $nip,
+            //     'nama' => $nama,
+            //     'email' => $email,
+            //     'image' => 'default.jpg',
+            //     'password' => $password,
+            //     'about' => '',
+            //     'role_id' => $role,
+            //     'is_active' => 2,
+            //     'date_created' => $date,
+            //     'change_pass' => 0
+            // ];
 
-          function edit($id){
+            $data1 = [
+                'ID_M' => $id_m,
+                'ID_PRODI' => $prodi,
+                'NIM' => $nim,
+                'NAMA_M' => $nama,
+                'JK_M' => "",
+                'SMT' => "",
+                'ALAMAT_M' => "",
+                'HP_M' => "",
+                'ST_KETUA' => ""
+            ];
 
-            $data['title'] = 'Dashboard';
-            $data['user'] = $this->db->get_where('user', [
-                'email' =>
-                $this->session->userdata('email')    
-            ])->row_array();
-            // kode yang berfungsi untuk menyimpan id user ke dalam array $where pada index array benama id
-            $where = array('ID_M' => $id);
-            // kode di bawah ini adalah kode yang mengambil data user berdasarkan id dan disimpan kedalam array $data dengan index bernama user
-            $data['mahasiswa'] = $this->m_data1->edit_data($where,'mahasiswa')->result();
-            // kode ini memuat vie edit dan membawa data hasil query diatas
-            $this->load->view('templates/header',$data);
-            $this->load->view('templates/sidebar',$data);
-            $this->load->view('templates/topbar',$data);
-            $this->load->view('mahasiswa/v_editmahasiswa',$data);
-            $this->load->view('templates/footer');
-           
-        }
-    
-        // baris kode function update adalah method yang diajalankan ketika tombol submit pada form v_edit ditekan, method ini berfungsi untuk merekam data, memperbarui baris database yang dimaksud, lalu mengarahkan pengguna ke controller crud method index
-        function update(){
-            // keempat baris kode ini berfungsi untuk merekam data yang dikirim melalui method post
-            
-            $ID_M = $this->input->post('ID_M');
-            $NIM = $this->input->post('NIM');
-            $NAMA_M = $this->input->post('NAMA_M');
-            $JK_M = $this->input->post('JK_M');
-            $PRODI_M= $this->input->post('PRODI_M');
-            $SMT = $this->input->post('SMT');
-            $ALAMAT_M = $this->input->post('ALAMAT_M');
-            $HP_M= $this->input->post('HP_M');
-            $EMAIL_M = $this->input->post('EMAIL_M');
-            $PASSWORD_M = $this->input->post('PASSWORD_M');
-           
-          // array yang berguna untuk mennjadikanva variabel diatas menjadi 1 variabel yang nantinya akan di sertakan dalam query insert
-            $data = array(
-                
-                'ID_M' => $ID_M,
-                'NIM' => $NIM,
-                'NAMA_M' => $NAMA_M,
-                'JK_M' => $JK_M,
-                'PRODI_M' => $PRODI_M,
-                'SMT' => $SMT,
-                'ALAMAT_M' => $ALAMAT_M,
-                'HP_M' => $HP_M,
-                'EMAIL_M' => $EMAIL_M,
-                'PASSWORD_M' => $PASSWORD_M,
-                );
-            
-                // kode yang berfungsi menyimpan id user ke dalam array $where pada index array bernama id
-                $where = array(
-                    'ID_M' => $ID_M
-                );
-            
-                // kode untuk melakukan query update dengan menjalankan method update_data() 
-                $this->m_data1->update_data($where,$data,'mahasiswa');
-                // baris kode yang mengerahkan pengguna ke link base_url()crud/
-                redirect('mahasiswa');
+            if($result==true)
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">nim/email sudah terdaftar</div>');
+                redirect('Mahasiswa'); 
             }
+        
+            $this->db->insert('mahasiswa', $data1);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
+            redirect('Mahasiswa');
+        }
+    }
+
+    public function hapus_mahasiswa(){
+        $nim = $this->input->post('nim');
+        $this->m_mahasiswa->hapus_mahasiswa($nim);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
+        redirect('Mahasiswa');
+    }
+
+    public function edit_mahasiswa()
+    {   
+        $data['title'] = 'Edit Data';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')
+        ])->row_array();
+
+        $this->form_validation->set_rules('nim', 'Nim', 'required|trim|min_length[9]|max_length[9]', [
+            'required' => 'masukkan nim mahasiswa',
+            'min_length' => 'nim yang anda masukkan salah',
+            'max_length' => 'nim yang anda masukkan salah'
+        ]);
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+            'required' => 'masukkan nama mahasiswa'
+        ]);
+        $this->form_validation->set_rules('jk', 'Jk', 'required|trim', [
+            'required' => 'pilih jenis kelamin'
+        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+            'required' => 'masukkan alamat mahasiswa'
+        ]);
+        $this->form_validation->set_rules('hp', 'Hp', 'required|trim|min_length[11]|max_length[13]', [
+            'required' => 'masukkan nohp mahasiswa',
+            'min_length' => 'no hp yang dimasukkan salah',
+            'max_length' => 'no hp yang dimasukkan salah'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+            'required' => 'masukkan email mahasiswa'
+        ]);
+        $this->form_validation->set_rules('prodi', 'Prodi', 'required|trim', [
+            'required' => 'pilih program studi mahasiswa'
+        ]);
+        $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
+            'required' => 'pilih semester mahasiswa'
+        ]);
+
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('mahasiswa/mahasiswa', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $nim = htmlspecialchars($this->input->post('nim'));
+            $nama = htmlspecialchars($this->input->post('nama'));
+            $jk = $this->input->post('jk');
+            $alamat = htmlspecialchars($this->input->post('alamat'));
+            $hp = htmlspecialchars($this->input->post('hp'));
+            $email = htmlspecialchars($this->input->post('email'));
+            $prodi = $this->input->post('prodi');
+            $semester = $this->input->post('semester');
+            $id_u = htmlspecialchars($this->input->post('id_u'));
+            $id = htmlspecialchars($this->input->post('id'));
+
+            $this->db->query("UPDATE user SET identity='$nim', nama='$nama', email='$email' WHERE id_user='$id_u'");
+            $this->db->query("UPDATE mahasiswa SET ID_PRODI='$prodi' ,NIM='$nim', NAMA_M='$nama', JK_M='$jk', SMT='$semester',
+            ALAMAT_M='$alamat', HP_M='$hp' WHERE ID_M='$id'");
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Diperbarui</div>');
+            redirect('Mahasiswa');
+        }
+    }
 }

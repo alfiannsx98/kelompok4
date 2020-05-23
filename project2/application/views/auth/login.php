@@ -25,7 +25,10 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Your Password">
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+                <a href="#" class="text-secondary" id="icon-click">
+                  <i class="fas fa-eye" id="icon"></i>
+                </a>
+                <!-- <span class="fas fa-lock"></span> -->
               </div>
             </div>
           </div>

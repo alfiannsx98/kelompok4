@@ -33,10 +33,13 @@
         <br>
         <label for="">Password</label>
         <div class="input-group">
-          <input type="password" class="form-control" name="password1" placeholder="masukkan password" value="<?= set_value('password1'); ?>">
+          <input type="password" class="form-control" id="password" name="password1" placeholder="masukkan password" value="<?= set_value('password1'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+                <a href="#" class="text-secondary" id="icon-click">
+                  <i class="fas fa-eye" id="icon"></i>
+                </a>
+              <!-- <span class="fas fa-lock"></span> -->
             </div>
           </div>
         </div>
@@ -44,10 +47,13 @@
         <br>
         <label for="">Ulangi Password</label>
         <div class="input-group">
-          <input type="password" class="form-control" name="password2" placeholder="ketik ulang password" value="<?= set_value('password2'); ?>">
+          <input type="password" class="form-control" id="password1" name="password2" placeholder="ketik ulang password" value="<?= set_value('password2'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+                <a href="#" class="text-secondary" id="icon-click1">
+                  <i class="fas fa-eye" id="icon1"></i>
+                </a>
+              <!-- <span class="fas fa-lock"></span> -->
             </div>
           </div>
         </div>

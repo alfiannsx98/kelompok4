@@ -94,11 +94,12 @@
                                         <label for="smt"><i class="fas fa-graduation-cap mr-1"></i>Semester</label>
                                         <select name="smt" id="smt" class="form-control">
                                             <option value="" selected disabled>Silahkan Pilih Semester</option>
-                                            <option value="4" <?php if($user['SMT']==4) echo 'selected'?>>4</option>
-                                            <option value="5" <?php if($user['SMT']==5) echo 'selected'?>>5</option>
-                                            <option value="6" <?php if($user['SMT']==6) echo 'selected'?>>6</option>
-                                            <option value="7" <?php if($user['SMT']==7) echo 'selected'?>>7</option>
-                                            <option value="8" <?php if($user['SMT']==8) echo 'selected'?>>8</option>
+                                            <option value="<?= $user['SMT']; ?>" selected><?= $user['SMT']; ?></option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
                                         </select>
                                         <?= form_error('smt', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
@@ -168,5 +169,37 @@
         </div>
     </div>
 </div>
+
+<!-- <script>
+    var  prodi={
+        'Teknik Komputer':['4','5','6'],
+        'Manajemen Informatika':['4','5','6'],
+        'Teknik Informatika':['6','7','8']
+    }
+
+    //getting by id
+    var prd = document.getElementById('prodi');
+    var sm = document.getElementById('smt');
+
+    //tirgger when pick the menu
+    prd.addEventListener('change',function()
+        {
+            var selected_option =  prodi[this.value];
+
+            while(sm.options.length>0)
+            {
+                sm.options.remove(0);
+            }
+
+            Array.from(selected_option).forEach(function(el)
+                {
+                    let option = new Option(el, el);
+
+                    sm.appendChild(option);
+                }
+            );
+        }
+    );
+</script> -->
 
 <script src="<?= base_url(); ?>assets/dist/js/display.js"></script>

@@ -35,7 +35,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user mr-1"></i> Name</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['nama']; ?></label>
+                                        <label class="form-control" name="about" id="about"><?= $user['NAMA_M']; ?></label>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>

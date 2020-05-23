@@ -264,6 +264,52 @@
 				$(this).closest('tr').remove();
     		});
 	</script>
+
+	<!-- show hide password -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		
+		$("#icon-click").click(function(){
+			$("#icon").toggleClass('fa-eye-slash');
+
+			var input = $("#password");
+
+			if(input.attr("type")==="password")
+			{
+				input.attr("type","text");
+			}
+			else
+			{
+				input.attr("type","password");
+			}
+			
+		});
+
+		});
+	</script>
+
+	<!-- show hide password -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		
+		$("#icon-click1").click(function(){
+			$("#icon1").toggleClass('fa-eye-slash');
+
+			var input = $("#password1");
+
+			if(input.attr("type")==="password")
+			{
+				input.attr("type","text");
+			}
+			else
+			{
+				input.attr("type","password");
+			}
+			
+		});
+
+		});
+	</script>
     </body>
 
     </html>
