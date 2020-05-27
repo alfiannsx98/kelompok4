@@ -22,7 +22,7 @@ class Dosbing extends CI_Controller
         $id_u = "ID-U" . $tabel . $date;
         $id_ds = "ID-D" .$tabel1 .$date;
 
-        $data['title'] = 'Dosen Pembimbing & Koordinator PKL';
+        $data['title'] = 'Dosbing & Koordinator PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' => 
             $this->session->userdata('email')
@@ -132,6 +132,7 @@ class Dosbing extends CI_Controller
         $this->m_dosbing->hapus_dosbing($nip);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('Dosbing');
+        // var_dump($result);
     }
 
     public function edit_dosbing()

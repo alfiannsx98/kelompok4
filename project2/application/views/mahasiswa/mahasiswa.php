@@ -81,14 +81,28 @@
                                 <td><span class="badge badge-secondary">--</span></td>
                             <?php } ?>
                             <?php if($status == 1): ?>
-                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-success">Activated</span></td>
                             <?php else : ?>
                                 <td><span class="badge badge-danger">Disabled</span></td>
                             <?php endif; ?>
                             <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></>
                             <td class="text-right">
-                                <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Data</button>
+                                <button type="button" id="detail-btn" class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
+                                <script type="text/javascript">
+                                    $("button#detail-btn").click(function(){
+                                        $("button#edit-btn").prop('hidden', false);
+                                        $("button#save-btn").attr('hidden', true);
+                                        $("input#nim").prop('disabled', true);
+                                        $("input#nama").prop('disabled', true);
+                                        $("input#jk").prop('disabled', true);
+                                        $("input#alamat").prop('disabled', true);
+                                        $("input#hp").prop('disabled', true);
+                                        $("input#email").prop('disabled', true);
+                                        $("select#prodi").prop('disabled', true);
+                                        $("select#semester").prop('disabled', true);
+                                    });
+                                </script>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -194,7 +208,8 @@
     $id_pr = $m['ID_PRODI'];
     $prodi = $m['NM_PRODI'];
     $semester = $m['SMT'];
-    $status = $m['ST_KETUA'];
+    $ketua = $m['ST_KETUA'];
+    $status = $m['is_active'];
     $img = $m['image'];
 ?>
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -212,11 +227,31 @@
                             <input name="id" value="<?= $id; ?>" class="form-control" type="text" placeholder="ID menu">
                         </div>
                     </div>
+                    <div class="text-center">
+                        <img class="img-fluid" width="200px" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>">
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        This Account was :
+                        <?php if($status == 1): ?>
+                            <span class="badge badge-success">Activated</span>
+                        <?php else : ?>
+                            <span class="badge badge-danger">Disabled</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="text-center">
+                        <?php if($ketua == 1): ?>
+                            <span class="badge badge-info">Ketua PKL</span>
+                        <?php else : ?>
+                           
+                        <?php endif; ?>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">NIM</label>
-                                <input type="text" class="form-control" name="nim" value="<?=$nim;?>" placeholder="masukkan NIM" <?= set_value('nip');?>>
+                                <input type="text" class="form-control" id="nim" name="nim" value="<?=$nim;?>" placeholder="masukkan NIM" <?= set_value('nip');?> disabled>
                                 <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -225,7 +260,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Mahasiswa</label>
-                                <input type="text" class="form-control" name="nama" value="<?=$nama;?>" placeholder="nama mahasiswa" <?= set_value('nama');?>>
+                                <input type="text" class="form-control" id="nama" name="nama" value="<?=$nama;?>" placeholder="nama mahasiswa" <?= set_value('nama');?> disabled>
                                 <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -235,12 +270,12 @@
                                 <div class="form-group">
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($jk=='Laki-laki') echo 'checked'?>>
+                                            <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($jk=='Laki-laki') echo 'checked'?> disabled>
                                         Laki-laki</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($jk=='Perempuan') echo 'checked'?>>
+                                            <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($jk=='Perempuan') echo 'checked'?> disabled>
                                         Perempuan</label>
                                     </div>
                                 </div>
@@ -252,7 +287,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Alamat Mahasiswa</label>
-                                <input type="text" name="alamat" value="<?=$alamat;?>" placeholder="alamat mahasiswa" class="form-control" <?= set_value('alamat');?>>
+                                <input type="text" id="alamat" name="alamat" value="<?=$alamat;?>" placeholder="alamat mahasiswa" class="form-control" <?= set_value('alamat');?> disabled>
                                 <?= form_error('alamat', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>  
                         </div>
@@ -261,7 +296,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Nomor Telfon</label>
-                                <input type="text" name="hp" value="<?=$hp;?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp');?>>
+                                <input type="text" id="hp" name="hp" value="<?=$hp;?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp');?> disabled>
                                 <?= form_error('hp', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -270,7 +305,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Email Mahasiswa</label>
-                                <input type="email" name="email" value="<?=$email;?>" placeholder="masukkan email" class="form-control" <?= set_value('email');?>>
+                                <input type="email" id="email" name="email" value="<?=$email;?>" placeholder="masukkan email" class="form-control" <?= set_value('email');?> disabled>
                                 <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -279,7 +314,7 @@
                         <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Program Studi</label>
-                                    <select name="prodi" id="prodi" class="form-control">
+                                    <select name="prodi" id="prodi" class="form-control" disabled>
                                         <option value="" selected disabled>Pilih Program Studi</option>
                                         <option value="<?= $id_pr; ?>" selected><?= $prodi; ?></option>
                                         <?php foreach($pr as $p) : ?>
@@ -292,7 +327,7 @@
                         <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Semester</label>
-                                    <select name="semester" id="semester" class="form-control">
+                                    <select name="semester" id="semester" class="form-control" disabled>
                                         <option value="" selected disabled>Pilih Semester</option>
                                         <option value="<?= $semester; ?>" selected><?= $semester; ?></option>
                                         <option value="4">4</option>
@@ -306,8 +341,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                        <button class="btn btn-info">Update</button>
+                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                        <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
+                        <button type="submit" id="save-btn" class="btn btn-info" hidden>Simpan</button>
                     </div>
                 </div>
             </form>
@@ -327,7 +363,7 @@
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="nim" value="<?= $nim; ?>">
+                    <input  name="nim" value="<?= $nim; ?>">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>

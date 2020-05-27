@@ -310,6 +310,46 @@
 
 		});
 	</script>
+
+	<!-- enable input when edit -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$("button#edit-btn").click(function(){
+				$("button#edit-btn").prop('hidden', true);
+				$("button#save-btn").prop('hidden', false);
+				$("input#nim").prop('disabled', false);
+				$("input#nama").prop('disabled', false);
+				$("input#jk").prop('disabled', false);
+				$("input#alamat").prop('disabled', false);
+				$("input#hp").prop('disabled', false);
+				$("input#email").prop('disabled', false);
+				$("select#prodi").prop('disabled', false);
+				$("select#semester").prop('disabled', false);
+			});
+
+		});
+	</script>
+
+	<!-- enable input when edit -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$("button#edit-btn").click(function(){
+				$("button#edit-btn").prop('hidden', true);
+				$("button#save-btn").prop('hidden', false);
+				$("input#nip").prop('disabled', false);
+				$("input#nm-ds").prop('disabled', false);
+				$("input#jk-ds").prop('disabled', false);
+				$("input#almt-ds").prop('disabled', false);
+				$("input#hp-ds").prop('disabled', false);
+				$("input#email-ds").prop('disabled', false);
+				$("select#prodi-ds").prop('disabled', false);
+				$("select#role").prop('disabled', false);
+			});
+
+		});
+	</script>
     </body>
 
     </html>

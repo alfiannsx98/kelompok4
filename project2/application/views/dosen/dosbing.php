@@ -80,8 +80,22 @@
                             <?php endif; ?>
                             <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></td>
                             <td class="text-right">
-                                <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Data</button>
+                                <button class="btn btn-info btn-xs btn-round" id="detail-btn" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
+                                <script type="text/javascript">
+                                    $("button#detail-btn").click(function(){
+                                        $("button#edit-btn").prop('hidden', false);
+                                        $("button#save-btn").attr('hidden', true);
+                                        $("input#nip").prop('disabled', true);
+                                        $("input#nm-ds").prop('disabled', true);
+                                        $("input#jk-ds").prop('disabled', true);
+                                        $("input#almt-ds").prop('disabled', true);
+                                        $("input#hp-ds").prop('disabled', true);
+                                        $("input#email-ds").prop('disabled', true);
+                                        $("select#prodi-ds").prop('disabled', true);
+                                        $("select#role").prop('disabled', true);
+                                    });
+                                </script>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -279,6 +293,7 @@
     $id_r = $d['id_role'];
     $role = $d['role'];
     $img = $d['image'];
+    $status = $d['is_active'];
 ?>
 <div class="modal fade" id="modal_edit<?= $id_ds; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -295,11 +310,24 @@
                             <input name="id_ds" value="<?= $id_ds; ?>" class="form-control" type="text" placeholder="ID menu">
                         </div>
                     </div>
+                    <div class="text-center">
+                        <img class="img-fluid" width="200px" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>">
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        This Account was :
+                        <?php if($status == 1): ?>
+                            <span class="badge badge-success">Activated</span>
+                        <?php else : ?>
+                            <span class="badge badge-danger">Disabled</span>
+                        <?php endif; ?>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">NIP</label>
-                                <input type="text" class="form-control" name="nip" value="<?=$nip;?>" placeholder="masukkan NIP" <?= set_value('nip');?>>
+                                <input type="text" class="form-control" id="nip" name="nip" value="<?=$nip;?>" placeholder="masukkan NIP" <?= set_value('nip');?> disabled>
                                 <?= form_error('nip', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -308,7 +336,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Dosen</label>
-                                <input type="text" class="form-control" name="nama" value="<?=$nama;?>" placeholder="nama dosen" <?= set_value('nama');?>>
+                                <input type="text" class="form-control" id="nm-ds" name="nama" value="<?=$nama;?>" placeholder="nama dosen" <?= set_value('nama');?> disabled>
                                 <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -318,12 +346,12 @@
                                 <div class="form-group">
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($jk=='Laki-laki') echo 'checked'?>>
+                                            <input type="radio" name="jk" id="jk-ds" value="Laki-laki" <?php if($jk=='Laki-laki') echo 'checked'?> disabled>
                                         Laki-laki</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($jk=='Perempuan') echo 'checked'?>>
+                                            <input type="radio" name="jk" id="jk-ds" value="Perempuan" <?php if($jk=='Perempuan') echo 'checked'?> disabled>
                                         Perempuan</label>
                                     </div>
                                 </div>
@@ -335,7 +363,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Alamat Dosen</label>
-                                <input type="text" name="alamat" value="<?=$alamat;?>" placeholder="alamat dosen" class="form-control" <?= set_value('alamat');?>>
+                                <input type="text" id="almt-ds" name="alamat" value="<?=$alamat;?>" placeholder="alamat dosen" class="form-control" <?= set_value('alamat');?> disabled>
                                 <?= form_error('alamat', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>  
                         </div>
@@ -344,7 +372,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Nomor Telefon</label>
-                                <input type="text" name="hp" value="<?=$hp;?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp');?>>
+                                <input type="text" id="hp-ds" name="hp" value="<?=$hp;?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp');?> disabled>
                                 <?= form_error('hp', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -353,7 +381,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Email Dosen</label>
-                                <input type="email" name="email" value="<?=$email;?>" placeholder="masukkan email" class="form-control" <?= set_value('email');?>>
+                                <input type="email" id="email-ds" name="email" value="<?=$email;?>" placeholder="masukkan email" class="form-control" <?= set_value('email');?> disabled>
                                 <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -362,7 +390,7 @@
                         <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Dosen Program Studi</label>
-                                    <select name="prodi" id="prodi" class="form-control">
+                                    <select name="prodi" id="prodi-ds" class="form-control" disabled>
                                         <option value="" selected disabled>Dosen Program Studi</option>
                                         <option value="<?= $id_pr; ?>" selected><?= $prodi; ?></option>
                                         <?php foreach($pr as $p) : ?>
@@ -375,7 +403,7 @@
                         <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Jabatan</label>
-                                    <select name="role" id="role" class="form-control">
+                                    <select name="role" id="role" class="form-control" disabled>
                                         <option value="" selected disabled>Jabatan</option>
                                         <option value="<?= $id_r; ?>" selected><?= $role; ?></option>
                                         <?php foreach($jb as $j) : ?>
@@ -387,8 +415,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                        <button class="btn btn-info">Update</button>
+                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                        <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
+                        <button type="submit" id="save-btn" class="btn btn-info" hidden>Simpan</button>
                     </div>
                 </div>
             </form>

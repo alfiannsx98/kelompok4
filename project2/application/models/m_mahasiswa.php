@@ -16,6 +16,9 @@ class M_mahasiswa extends CI_Model
 
     function hapus_mahasiswa($nim)
     {
-        $this->db->query("DELETE a.*, b.* FROM mahasiswa a JOIN user b ON a.NIM = b.identity WHERE a.NIM = $nim");
+        $this->db->query("DELETE a.*, b.* FROM mahasiswa a JOIN user b ON a.NIM = b.identity WHERE b.identity = $nim");
+        // $this->db->where('NIM', $nim)
+        // return $this->db->delete('user');
+        // return $this->db->delete('mahasiswa');
     }
 }
