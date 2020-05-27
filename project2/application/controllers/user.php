@@ -88,7 +88,7 @@ class User extends CI_Controller
                 $about = $this->input->post('about');
                 $email = $this->input->post('email');
                 //cek jika ada gambar
-                $upload_image = $_FILES['image'];
+                $upload_image = $_FILES['image']['name'];
 
                 if ($upload_image) {
                     $config['allowed_types'] = 'gif|jpg|jpeg|png';
@@ -108,8 +108,10 @@ class User extends CI_Controller
                         echo $this->upload->display_errors();
                     }
                 }
-
-                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE email='$email'");
+                $this->db->set('nama', $nama);
+                $this->db->set('about', $about);
+                $this->db->where('email', $email);
+                $this->db->update('user');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
@@ -187,8 +189,21 @@ class User extends CI_Controller
                         echo $this->upload->display_errors();
                     }
                 }   
-                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nim'");
-                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nama', JK_M='$jk', ID_PRODI='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$hp' WHERE NIM='$nim'");
+                // update tabel user
+                $this->db->set('nama', $nama);
+                $this->db->set('about', $about);
+                $this->db->where('identity', $nim);
+                $this->db->update('user');
+
+                // update tabel mahasiswa
+                $this->db->set('NAMA_M', $nama);
+                $this->db->set('JK_M', $jk);
+                $this->db->set('ID_PRODI', $prodi);
+                $this->db->set('SMT', $semester);
+                $this->db->set('ALAMAT_M', $alamat);
+                $this->db->set('HP_M', $hp);
+                $this->db->where('NIM', $nim);
+                $this->db->update('mahasiswa');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
@@ -263,8 +278,20 @@ class User extends CI_Controller
                     }
                 }
 
-                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nip'");
-                $this->db->query("UPDATE dosbing SET NAMA_DS='$nama', JK_DS='$jk', ALAMAT_DS='$alamat', HP_DS='$hp', ID_PRODI='$prodi' WHERE NIP_DS='$nip'");
+                // update tabel user
+                $this->db->set('nama', $nama);
+                $this->db->set('about', $about);
+                $this->db->where('identity', $nip);
+                $this->db->update('user');
+
+                // update tabel dosbing
+                $this->db->set('NAMA_DS', $nama);
+                $this->db->set('JK_DS', $jk);
+                $this->db->set('ID_PRODI', $prodi);
+                $this->db->set('ALAMAT_DS', $alamat);
+                $this->db->set('HP_DS', $hp);
+                $this->db->where('NIP_DS', $nip);
+                $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
@@ -339,8 +366,20 @@ class User extends CI_Controller
                     }
                 }
 
-                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nip'");
-                $this->db->query("UPDATE dosbing SET NAMA_DS='$nama', JK_DS='$jk', ALAMAT_DS='$alamat', HP_DS='$hp', ID_PRODI='$prodi' WHERE NIP_DS='$nip'");
+                // update tabel user
+                $this->db->set('nama', $nama);
+                $this->db->set('about', $about);
+                $this->db->where('identity', $nip);
+                $this->db->update('user');
+
+                // update tabel dosbing
+                $this->db->set('NAMA_DS', $nama);
+                $this->db->set('JK_DS', $jk);
+                $this->db->set('ID_PRODI', $prodi);
+                $this->db->set('ALAMAT_DS', $alamat);
+                $this->db->set('HP_DS', $hp);
+                $this->db->where('NIP_DS', $nip);
+                $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
@@ -415,8 +454,20 @@ class User extends CI_Controller
                     }
                 }
 
-                $this->db->query("UPDATE user SET nama='$nama', image='$new_image', about='$about' WHERE identity='$nip'");
-                $this->db->query("UPDATE admin_prodi SET NAMA_ADM='$nama', JK_ADM='$jk', ALAMAT_ADM='$alamat', HP_ADM='$hp', ID_PRODI='$prodi' WHERE NIP_ADM='$nip'");
+                // update tabel user
+                $this->db->set('nama', $nama);
+                $this->db->set('about', $about);
+                $this->db->where('identity', $nip);
+                $this->db->update('user');
+
+                // update tabel dosbing
+                $this->db->set('NAMA_ADM', $nama);
+                $this->db->set('JK_ADM', $jk);
+                $this->db->set('ID_PRODI', $prodi);
+                $this->db->set('ALAMAT_ADM', $alamat);
+                $this->db->set('HP_ADM', $hp);
+                $this->db->where('NIP_ADM', $nip);
+                $this->db->update('admin_prodi');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user');
             }
