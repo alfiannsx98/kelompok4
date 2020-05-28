@@ -162,45 +162,41 @@ class Dosen extends CI_Controller
             'email' => 
             $this->session->userdata('email')
         ])->row_array();
+        $data['admin_prodi'] = $this->db->get('admin_prodi')->result_array();
 
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
         $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
-        $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
         $this->form_validation->set_rules('ID_PRODI', 'Program Studi', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
-        if($this->form_validation->run() == false){
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('dosen/admin_prodi', $data);
-            $this->load->view('templates/footer');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Diubah</div>');
-            redirect('dosen/admin_prodi');
-        }else{
-            $id = $this->input->post('ID_ADM');
-            $nip = $this->input->post('NIP_ADM');
-            $nama_adm = $this->input->post('NAMA_ADM');
-            $jk_adm = $this->input->post('JK_ADM');
-            $alamat_admin = $this->input->post('ALAMAT_ADM');
-            $no_hp_admin = $this->input->post('HP_ADM');
-            $prodi_admin = $this->input->post('ID_PRODI');
-            $id_user = $this->input->post('id_user');
-            $is_active = $this->input->post('is_active');
-            $email_admin = $this->input->post('email');
-            $a = $this->model_dosen->edit_admin_prodi($id, $prodi_admin, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin);
-            $b = $this->model_dosen->edit_user_admin_prodi($id_user, $nip, $nama_adm, $is_active, $email_admin);
-            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
-            redirect('dosen/admin_prodi');
-        }
+        
+        $id = $this->input->post('ID_ADM');
+        $nip = $this->input->post('NIP_ADM');
+        $nama_adm = $this->input->post('NAMA_ADM');
+        $jk_adm = $this->input->post('JK_ADM');
+        $alamat_admin = $this->input->post('ALAMAT_ADM');
+        $no_hp_admin = $this->input->post('HP_ADM');
+        $prodi_admin = $this->input->post('ID_PRODI');
+        $id_user = $this->input->post('id_user');
+        $is_active = $this->input->post('is_active');
+        $email_admin = $this->input->post('email');
+        $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin, $id_user, $is_active, $email_admin);
+        
+        $this->db->set('nama', $nama_adm);
+        $this->db->set('email', $email_admin);
+        $this->db->set('is_active', $is_active);
+        $this->db->where('identity', $id);
+        $this->db->update('user');
+        $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
+        redirect('dosen/admin_prodi');
+        
     }
     public function hapus_admin_prodi()
     {
         $id = $this->input->post('ID_ADM');
-        $nip = $this->input->post('NIP_ADM');
-        $this->model_dosen->hapus_user_adm_prodi($nip);
+        $this->model_dosen->hapus_user_adm_prodi($id);
         $this->model_dosen->hapus_admin_prodi($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('dosen/admin_prodi');

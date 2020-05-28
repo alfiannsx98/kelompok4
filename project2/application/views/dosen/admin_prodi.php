@@ -112,6 +112,10 @@
 <!-- Akhir Pembatas -->
 
 <!--MODAL DIALOG UNTUK CREATE DATA!-->
+<?php
+$prd = "SELECT * FROM prodi";
+$prodi1 = $this->db->query($prd)->result_array();
+?>
 <div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -158,7 +162,7 @@
                             <label for="PRODI_ADM">Nama Admin Prodi</label>
                             <select name="ID_PRODI" id="ID_PRODI" class="form-control" required>
                                     <option value="" selected disabled>Silahkan pilih Program Studi</option>
-                                    <?php foreach($prodi as $pr): ?>
+                                    <?php foreach($prodi1 as $pr): ?>
                                     <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                     <?php endforeach; ?>
                             </select>
@@ -189,7 +193,7 @@ foreach ($admin_prodi as $i) :
     $hp_adm = $i['HP_ADM'];
     $prodi_adm = $i['ID_PRODI'];
     
-    $query_user = "SELECT * FROM user WHERE identity = '$nip'"; 
+    $query_user = "SELECT * FROM user WHERE identity = '$id'"; 
     $data_user = $this->db->query($query_user)->result_array();
 
     $query_prodi = "SELECT * FROM prodi";
@@ -204,12 +208,7 @@ foreach ($admin_prodi as $i) :
             </div>
             <form action="<?= base_url() . 'dosen/edit_admin_prodi'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
-                    <div class="form-group" hidden>
-                        <label class="control-label col-xs-3">ID menu</label>
-                        <div class="col-xs-8">
-                            <input name="ID_ADM" id="ID_ADM" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID Admin" hidden>
-                        </div>
-                    </div>
+                    <input name="ID_ADM" id="ID_ADM" value="<?= $id; ?>" class="form-control" type="text" placeholder="ID Admin" hidden>
                     <div class="form-group">
                         <label for="NIP_ADM" class="control-label col-xs-3">NIP Admin Prodi</label>
                         <div class="col-xs-8">
@@ -267,8 +266,7 @@ foreach ($admin_prodi as $i) :
                         <label for="is_active" class="control-label col-xs-3">Status User</label>
                         <div class="col-xs-8">
                             <select name="is_active" id="is_active" class="form-control">
-                                <option value="<?= $jk_adm; ?>"hidden selected></option>
-                                <option value="<?= $jk_adm; ?>" selected disabled>
+                                <option value="<?= $jk_adm; ?>" selected hidden>
                                     <?php if($dt['is_active'] == 1){
                                         echo "Aktif";
                                     } else{
