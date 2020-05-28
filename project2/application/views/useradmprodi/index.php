@@ -123,15 +123,28 @@
                                 <li class="list-group-item">
                                     <b>Status</b> <a class="float-right"> <?php if ($user['role_id'] == 1) {
                                                                                 echo "Administrator";
+                                                                            } elseif($user['role_id'] == 2) {
+                                                                                echo "Mahasiswa";
+                                                                            } elseif($user['role_id'] == 3) {
+                                                                                echo "Dosen Pembimbing";
+                                                                            } elseif($user['role_id'] == 4) {
+                                                                                echo "Koordinator PKL";
                                                                             } else {
-                                                                                echo "Member";
-                                                                            }  ?></a>
+                                                                                echo "Admin Prodi";
+                                                                            }?>    
+                                                                        </a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Joined Date</b> <a class="float-right"><i class="label label-success"><?= date('d F Y', $user['date_created']); ?></i></a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Change Date</b> <a class="float-right"><?= date('d F Y', $user['change_pass']); ?></i></a>
+                                    <b>Change Date</b> <a class="float-right">
+                                        <?php if($user['change_pass']==0){ ?>
+                                            <i class="badge badge-secondary">--</i>
+                                        <?php } else { ?>
+                                            <?= date('d F Y', $user['change_pass']); ?>
+                                        <?php } ?>
+                                    </i></a>
                                 </li>
                             </ul>
 

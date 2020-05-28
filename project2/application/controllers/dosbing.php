@@ -101,7 +101,7 @@ class Dosbing extends CI_Controller
                 'about' => '',
                 'role_id' => $role,
                 'is_active' => 1,
-                'date_created' => $date,
+                'date_created' => time(),
                 'change_pass' => 0
             ];
 

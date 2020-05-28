@@ -74,7 +74,7 @@
                             <!-- <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></td> -->
                             <td class="text-right">
                                 <button class="btn btn-info btn-xs btn-round" id="detail-btn" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
-                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
+                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus</button>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -143,12 +143,12 @@
                                 <div class="form-group">
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input type="radio" name="jk" id="jk" value="Laki-laki" <?= set_radio('jk');?>>
+                                            <input type="radio" name="jk" value="Laki-laki" <?= set_radio('jk');?>>
                                         Laki-laki</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label>
-                                            <input type="radio" name="jk" id="jk" value="Perempuan" <?= set_radio('jk');?>>
+                                            <input type="radio" name="jk" value="Perempuan" <?= set_radio('jk');?>>
                                         Perempuan</label>
                                     </div>
                                 </div>
@@ -246,7 +246,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan Data</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
             </form>
         </div>
@@ -392,7 +392,7 @@
                     <div class="modal-footer">
                         <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                         <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
-                        <button type="submit" id="save-btn" class="btn btn-info" hidden>Simpan</button>
+                        <button type="submit" id="save-btn" class="btn btn-success" hidden>Simpan</button>
                     </div>
                 </div>
             </form>

@@ -63,7 +63,11 @@
                                     <div class="form-group">
                                         <label>Last Update Password </label>
                                     </div>
-                                    <i class="badge badge-success col-md-1"><?= date('d F Y', $user['change_pass']); ?></i>
+                                    <?php if($user['change_pass']==0){?>
+                                        <i class="badge badge-secondary">--</i>
+                                    <?php } else { ?>
+                                        <i class="badge badge-success col-md-1"><?= date('d F Y', $user['change_pass']); ?></i>
+                                    <?php } ?>        
                                 </div>
                             </div>
                             <div class="clearfix text-right p-4">

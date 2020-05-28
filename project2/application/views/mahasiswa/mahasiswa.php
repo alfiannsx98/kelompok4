@@ -79,7 +79,7 @@
                             <?php endif; ?>
                             <td class="text-right">
                                 <button type="button" id="detail-btn" class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
-                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
+                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus</button>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -147,7 +147,7 @@
                         <div class="col-md-12">          
                             <div class="form-group">
                                 <label for="prodi">Program Studi</label>
-                                    <select name="prodi" id="prodi" class="form-control">
+                                    <select name="prodi" class="form-control">
                                         <option value="" selected disabled>Pilih Program Studi</option>
                                         <?php foreach($pr as $p) : ?>
                                         <option value="<?= $p['ID_PRODI']; ?>"><?= $p['NM_PRODI']; ?></option>
@@ -160,7 +160,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan Data</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
             </form>
         </div>
@@ -315,7 +315,7 @@
                     <div class="modal-footer">
                         <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                         <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
-                        <button type="submit" id="save-btn" class="btn btn-info" hidden>Simpan</button>
+                        <button type="submit" id="save-btn" class="btn btn-success" hidden>Simpan</button>
                     </div>
                 </div>
             </form>

@@ -8,7 +8,7 @@ class Mahasiswa extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('m_mahasiswa');
-        // is_logged_in();
+        is_logged_in();
     }
 
     public function index()
@@ -97,7 +97,7 @@ class Mahasiswa extends CI_Controller
         $result = $this->m_mahasiswa->hapus_mahasiswa($nim);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('Mahasiswa');
-        // var_dump($result);
+        var_dump($result);
     }
 
     public function edit_mahasiswa()
