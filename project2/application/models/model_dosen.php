@@ -12,9 +12,9 @@ class model_dosen extends CI_Model
         $hsl = $this->db->query("UPDATE admin_prodi SET NIP_ADM='$nip', NAMA_ADM='$nama_adm', JK_ADM='$jk_adm', ALAMAT_ADM='$alamat_admin', HP_ADM='$no_hp_admin', ID_PRODI='$prodi_admin' WHERE ID_ADM='$id'");
         return $hsl;
     }
-    function edit_user_admin_prodi($id_user, $nip, $nama_adm, $is_active, $email_admin)
+    function edit_user_admin_prodi($id_user, $id, $nama_adm, $is_active, $email_admin)
     {
-        $hsl1 = $this->db->query("UPDATE user SET identity='$nip', nama='$nama_adm', email='$email_admin', is_active='$is_active' WHERE id_user='$id_user'");
+        $hsl1 = $this->db->query("UPDATE user SET identity='$id', nama='$nama_adm', email='$email_admin', is_active='$is_active' WHERE id_user='$id_user'");
         return $hsl1;
     }
     function hapus_admin_prodi($id)
