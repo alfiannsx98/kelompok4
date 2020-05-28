@@ -492,23 +492,23 @@ class User extends CI_Controller
             $this->load->view('templates/topbar', $data);
             if($user['role_id'] == 1)
             {
-                $this->load->view('useradm/edit_password', $data);
+                $this->load->view('editpsw_user/edit_password', $data);
             }
             elseif($user['role_id'] == 2)
             {
-                $this->load->view('usermhs/edit_password', $data);
+                $this->load->view('editpsw_user/edit_password', $data);
             }
             elseif($user['role_id'] == 3)
             {
-                $this->load->view('userdosbing/edit_password', $data);
+                $this->load->view('editpsw_user/edit_password', $data);
             }
             elseif($user['role_id'] == 4)
             {
-                $this->load->view('userdospkl/edit_password', $data);
+                $this->load->view('editpsw_user/edit_password', $data);
             }
             elseif($user['role_id'] == 12)
             {
-                $this->load->view('useradmprodi/edit_password', $data);
+                $this->load->view('editpsw_user/edit_password', $data);
             }
             $this->load->view('templates/footer');
         } else {
