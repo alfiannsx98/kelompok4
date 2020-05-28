@@ -94,9 +94,10 @@ class Mahasiswa extends CI_Controller
 
     public function hapus_mahasiswa(){
         $nim = $this->input->post('nim');
-        $this->m_mahasiswa->hapus_mahasiswa($nim);
+        $result = $this->m_mahasiswa->hapus_mahasiswa($nim);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('Mahasiswa');
+        // var_dump($result);
     }
 
     public function edit_mahasiswa()
