@@ -311,11 +311,12 @@
 		});
 	</script>
 
-	<!-- enable input when edit -->
+	<!-- enable input mahasiswa when edit -->
 	<script type="text/javascript">
 		$(document).ready(function(){
 
-			$("button#edit-btn").click(function(){
+			$("button#edit-btn").click(function(){ 
+				$("h3.title-1").html("Edit Data");
 				$("button#edit-btn").prop('hidden', true);
 				$("button#save-btn").prop('hidden', false);
 				$("input#nim").prop('disabled', false);
@@ -328,14 +329,29 @@
 				$("select#semester").prop('disabled', false);
 			});
 
+			$("button#close-btn").click(function(){
+				$("h3.title-1").html("Detail Data");
+				$("button#edit-btn").prop('hidden', false);
+                $("button#save-btn").prop('hidden', true);
+                $("input#nim").prop('disabled', true);
+                $("input#nama").prop('disabled', true);
+                $("input#jk").prop('disabled', true);
+                $("input#alamat").prop('disabled', true);
+                $("input#hp").prop('disabled', true);
+                $("input#email").prop('disabled', true);
+                $("select#prodi").prop('disabled', true);
+                $("select#semester").prop('disabled', true);
+			});
+
 		});
 	</script>
 
-	<!-- enable input when edit -->
+	<!-- enable input dosen when edit -->
 	<script type="text/javascript">
 		$(document).ready(function(){
 
 			$("button#edit-btn").click(function(){
+				$("h3.title-1").html("Edit Data");
 				$("button#edit-btn").prop('hidden', true);
 				$("button#save-btn").prop('hidden', false);
 				$("input#nip").prop('disabled', false);
@@ -346,6 +362,20 @@
 				$("input#email-ds").prop('disabled', false);
 				$("select#prodi-ds").prop('disabled', false);
 				$("select#role").prop('disabled', false);
+			});
+
+			$("button#close-btn").click(function(){
+				$("h3.title-1").html("Detail Data");
+				$("button#edit-btn").prop('hidden', false);
+				$("button#save-btn").prop('hidden', true);
+				$("input#nip").prop('disabled', true);
+				$("input#nm-ds").prop('disabled', true);
+				$("input#jk-ds").prop('disabled', true);
+				$("input#almt-ds").prop('disabled', true);
+				$("input#hp-ds").prop('disabled', true);
+				$("input#email-ds").prop('disabled', true);
+				$("select#prodi-ds").prop('disabled', true);
+				$("select#role").prop('disabled', true);
 			});
 
 		});

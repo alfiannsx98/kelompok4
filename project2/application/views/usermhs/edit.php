@@ -34,7 +34,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user mr-1"></i> Name</label>
-                                        <input type="text" class="form-control" value="<?= $user['nama']; ?>" name="nama" id="nama" <?= set_value('nama') ?>>
+                                        <input type="text" class="form-control" value="<?= $user['NAMA_M']; ?>" name="nama" id="nama" <?= set_value('nama') ?>>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>

@@ -33,18 +33,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
                         <th>NIM</th>
                         <th>Nama Mahasiswa</th>
                         <th>Jenis Kelamin</th>
-                        <th>Alamat Mahasiswa</th>
-                        <th>No Telfon</th>
                         <th>Email Mahasiswa</th>
                         <th>Program Studi</th>
-                        <th>Semester</th>
                         <th>Ketua</th>
                         <th>Status</th>
-                        <th>Gambar</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </thead>
@@ -66,15 +61,12 @@
                     ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= $id; ?></td>
+                            <!-- <td><?= $id; ?></td> -->
                             <td><?= $nim; ?></td>
                             <td><?= $nama; ?></td>
                             <td><?= $jk; ?></td>
-                            <td><?= $alamat; ?></td>
-                            <td><?= $hp; ?></td>
                             <td><?= $email; ?></td>
                             <td><?= $prodi; ?></td>
-                            <td><?= $semester; ?></td>
                             <?php if($ketua == 1){ ?>
                                 <td><span class="badge badge-info">Ketua PKL</span></td>
                             <?php } else { ?>
@@ -85,24 +77,9 @@
                             <?php else : ?>
                                 <td><span class="badge badge-danger">Disabled</span></td>
                             <?php endif; ?>
-                            <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></>
                             <td class="text-right">
                                 <button type="button" id="detail-btn" class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
-                                <script type="text/javascript">
-                                    $("button#detail-btn").click(function(){
-                                        $("button#edit-btn").prop('hidden', false);
-                                        $("button#save-btn").attr('hidden', true);
-                                        $("input#nim").prop('disabled', true);
-                                        $("input#nama").prop('disabled', true);
-                                        $("input#jk").prop('disabled', true);
-                                        $("input#alamat").prop('disabled', true);
-                                        $("input#hp").prop('disabled', true);
-                                        $("input#email").prop('disabled', true);
-                                        $("select#prodi").prop('disabled', true);
-                                        $("select#semester").prop('disabled', true);
-                                    });
-                                </script>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -111,18 +88,13 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
                         <th>NIM</th>
                         <th>Nama Mahasiswa</th>
                         <th>Jenis Kelamin</th>
-                        <th>Alamat Mahasiswa</th>
-                        <th>No Telfon</th>
                         <th>Email Mahasiswa</th>
                         <th>Program Studi</th>
-                        <th>Semester</th>
                         <th>Ketua</th>
                         <th>Status</th>
-                        <th>Gambar</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </tfoot>
@@ -187,7 +159,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-success">Simpan Data</button>
                 </div>
             </form>
@@ -216,7 +188,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Edit Data Mahasiswa</h3>
+                <h3 class="modal-title title-1" id="myModalLabel">Detail Data</h3>
             </div>
             <?= form_open_multipart('Mahasiswa/edit_mahasiswa'); ?>
                 <div class="modal-body">
@@ -341,7 +313,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                         <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
                         <button type="submit" id="save-btn" class="btn btn-info" hidden>Simpan</button>
                     </div>
@@ -363,8 +335,8 @@
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input  name="nim" value="<?= $nim; ?>">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                    <input  name="nim" value="<?= $nim; ?>" hidden>
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>
             </form>

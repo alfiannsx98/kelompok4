@@ -33,17 +33,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
                         <th>NIP</th>
                         <th>Nama Dosen</th>
                         <th>Jenis Kelamin</th>
-                        <th>Alamat Dosen</th>
-                        <th>No Telefon</th>
                         <th>Email Dosen</th>
                         <th>Dosen Program Studi</th>
                         <th>Jabatan</th>
                         <th>Status</th>
-                        <th>Gambar</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </thead>
@@ -64,12 +60,9 @@
                     ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= $id; ?></td>
                             <td><?= $nip; ?></td>
                             <td><?= $nama; ?></td>
                             <td><?= $jk; ?></td>
-                            <td><?= $alamat; ?></td>
-                            <td><?= $hp; ?></td>
                             <td><?= $email; ?></td>
                             <td><?= $prodi; ?></td>
                             <td><?= $jabatan; ?></td>
@@ -78,24 +71,10 @@
                             <?php else : ?>
                                 <td><span class="badge badge-danger">Disabled</span></td>
                             <?php endif; ?>
-                            <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></td>
+                            <!-- <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>"></td> -->
                             <td class="text-right">
                                 <button class="btn btn-info btn-xs btn-round" id="detail-btn" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
-                                <script type="text/javascript">
-                                    $("button#detail-btn").click(function(){
-                                        $("button#edit-btn").prop('hidden', false);
-                                        $("button#save-btn").attr('hidden', true);
-                                        $("input#nip").prop('disabled', true);
-                                        $("input#nm-ds").prop('disabled', true);
-                                        $("input#jk-ds").prop('disabled', true);
-                                        $("input#almt-ds").prop('disabled', true);
-                                        $("input#hp-ds").prop('disabled', true);
-                                        $("input#email-ds").prop('disabled', true);
-                                        $("select#prodi-ds").prop('disabled', true);
-                                        $("select#role").prop('disabled', true);
-                                    });
-                                </script>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -104,17 +83,13 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
                         <th>NIP</th>
                         <th>Nama Dosen</th>
                         <th>Jenis Kelamin</th>
-                        <th>Alamat Dosen</th>
-                        <th>No Telefon</th>
                         <th>Email Dosen</th>
                         <th>Dosen Program Studi</th>
                         <th>Jabatan</th>
                         <th>Status</th>
-                        <th>Gambar</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </tfoot>
@@ -246,7 +221,7 @@
                         <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Dosen Program Studi</label>
-                                    <select name="prodi" id="prodi" class="form-control">
+                                    <select name="prodi" class="form-control">
                                         <option value="" selected disabled>Dosen Program Studi</option>
                                         <?php foreach($pr as $p) : ?>
                                         <option value="<?= $p['ID_PRODI']; ?>"><?= $p['NM_PRODI']; ?></option>
@@ -258,7 +233,7 @@
                         <div class="col-md-6">          
                             <div class="form-group">
                                 <label for="prodi">Jabatan</label>
-                                    <select name="role" id="role" class="form-control">
+                                    <select name="role" class="form-control">
                                         <option value="" selected disabled>Jabatan</option>
                                         <?php foreach($jb as $j) : ?>
                                         <option value="<?= $j['id_role']; ?>"><?= $j['role']; ?></option>
@@ -270,7 +245,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-success">Simpan Data</button>
                 </div>
             </form>
@@ -299,7 +274,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Edit Data Dosen</h3>
+                <h3 class="modal-title title-1" id="myModalLabel">Detail Data</h3>
             </div>
             <?= form_open_multipart('Dosbing/edit_dosbing'); ?>
                 <div class="modal-body">
@@ -415,7 +390,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                         <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
                         <button type="submit" id="save-btn" class="btn btn-info" hidden>Simpan</button>
                     </div>
@@ -438,7 +413,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="nip" value="<?= $nip; ?>">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>
             </form>
