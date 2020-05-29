@@ -91,34 +91,7 @@ class Pendaftaran extends CI_Controller
         $data['mhs'] = $this->m_pendaftaran->get_mhs();
         $this->load->view('pendaftaran/daftar_siswa', $data);
     }
-
-    // public function baru()
-    // {
-    //     // buat id pendaftaran
-    //     $dariDB = $this->m_pendaftaran->selectMaxID();
-    //     $nourut = substr($dariDB, 3);
-    //     $kodeBarangSekarang = $nourut + 1;
-    //     $data = array('ID_PND' => $kodeBarangSekarang);
-
-    //     // untuk data templates
-    //     $data['title'] = 'Baru';
-    //     $data['user'] = $this->db->get_where('user', [
-    //         'email' =>
-    //         $this->session->userdata('email')    
-    //     ])->row_array();
-
-    //     // load untuk select option nama perusahaan n dosbing
-    //     $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
-    //     $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
-        
-    //     // view
-    //     $this->load->view('templates/header', $data);
-    //     $this->load->view('templates/topbar', $data);
-    //     $this->load->view('templates/sidebar', $data);
-    //     $this->load->view('pendaftaran/new', $data);
-    //     $this->load->view('templates/footer', $data);
-    // }
-
+    
     public function pr_tmbh_pnd(){
         $ID_PND = $this->input->post('ID_PND');
         $ID_PR = $this->input->post('ID_PR');
@@ -151,6 +124,15 @@ class Pendaftaran extends CI_Controller
         //     echo $this->upload->display_errors();
         
         // }
+
+        $ID_PND = $_POST['ID_PND'];
+        $NIM = $_POST['NIM'];
+        $data = array();
+
+        $index = 0;
+        foreach ($NIM as $NIMM){
+            
+        }
     }
 
     public function tampil_detail_pend(){
@@ -171,5 +153,31 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+// public function baru()
+    // {
+    //     // buat id pendaftaran
+    //     $dariDB = $this->m_pendaftaran->selectMaxID();
+    //     $nourut = substr($dariDB, 3);
+    //     $kodeBarangSekarang = $nourut + 1;
+    //     $data = array('ID_PND' => $kodeBarangSekarang);
+
+    //     // untuk data templates
+    //     $data['title'] = 'Baru';
+    //     $data['user'] = $this->db->get_where('user', [
+    //         'email' =>
+    //         $this->session->userdata('email')    
+    //     ])->row_array();
+
+    //     // load untuk select option nama perusahaan n dosbing
+    //     $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
+    //     $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
+        
+    //     // view
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('pendaftaran/new', $data);
+    //     $this->load->view('templates/footer', $data);
+    // }
 
 }

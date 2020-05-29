@@ -39,16 +39,17 @@ class M_pendaftaran extends CI_Model{
                 return $data;
         }
 
-        function comboPR(){
-                $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
-                return $data;
-        }
+        // function comboPR(){
+        //         $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
+        //         return $data;
+        // }
 
         function bulan(){
                 $data = $this->db->query("SELECT BL FROM bulan");
                 return $data;
         }
 
+        // dropdown perusahaan
         function jmlh_pr(){
                 $data = $this->db->query("SELECT perusahaan.ID_PR, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, COUNT(perusahaan.ID_PR) AS JMLH_PR FROM perusahaan, pendaftaran 
                 WHERE perusahaan.ID_PR = pendaftaran.ID_PR
@@ -56,9 +57,14 @@ class M_pendaftaran extends CI_Model{
                 return $data;
         }
 
-        // tambah data pendaftaran
+        // tambah data pendaftaran isian kelompok
         function tmbh_pnd($data, $table){
                 $this->db->insert($table, $data);
+        }
+
+        // tambah data pendaftaran nim anggota
+        function tmbh_nim($data){
+                return $this->db->insert_batch('pendaftaran_klp', $data);
         }
         
         // tampil data Pendaftaran

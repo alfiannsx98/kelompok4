@@ -22,7 +22,7 @@
 			<div class="col-6">
 				<div class="card">
 					<div class="card-body">
-						<form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
+						<!-- <form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
 							class="form-horizontal">
 							<div class="card-content">
 							<?php $nim = $user['identity']; ?>
@@ -36,10 +36,9 @@
 											<option selected disabled>Pilih Tempat PKL</option>
 											<?php foreach($jumlah_pr as $pr){
 												if ($pr->JMLH_PR < 2 ){
-													// echo '<div class="row" border:solid 3px black';
 													echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; 
-													echo  '<option type="text" name="ID_PR"  disabled> Alamat : '.$pr->ALAMAT_PR;
-													// echo "</div>";
+													echo '<br>';
+													echo  '<label name="ID_PR" > Alamat : '.$pr->ALAMAT_PR.'</label>';
 												}
 												// } else {
 												// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
@@ -94,7 +93,7 @@
 								</div>
 
 							</div>
-						</form>
+						</form> -->
 					</div>
 				</div>
 			</div>
@@ -220,9 +219,9 @@
 						</table>
 					</div>
 				</div>
+				<button>simpan</button>
 			</div>
 		</div>
-
 	</section>
 
 	<!-- Modal List Mahasiswa -->
