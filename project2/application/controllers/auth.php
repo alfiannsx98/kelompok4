@@ -75,9 +75,10 @@ class Auth extends CI_Controller
         $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
         // Membuat id_user : gabungan dari date dan field 
-        $tabel = $query1->num_rows();
+        $tabel1 = $query1->num_rows();
+        $tabel = $query->num_rows();
         $date = date('dm', time());
-        $id_u = "ID-U" . $tabel . $date;        
+        $id_u = "ID-U" . $tabel1 . $date;        
         $id_m = "ID-M" . $tabel . $date;
         // $prodi = $this->input->post('prodi');
         // $jk = $this->input->post('jk');
@@ -139,20 +140,23 @@ class Auth extends CI_Controller
             //         }
             //     }
             // }
+            
 
-            $data = [
-                'id_user' => $id_u,
-                'identity' => htmlspecialchars($this->input->post('nim', true)),
-                'email' => htmlspecialchars($email),
-                'image' => 'default.jpg',
-                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 2,
-                'is_active' => 0,
-                'date_created' => time()
-            ];
-
+            // $data = [
+            //     'id_user' => $id_u,
+            //     'identity' => htmlspecialchars($this->input->post('nim', true)),
+            //     'email' => htmlspecialchars($email),
+            //     'image' => 'default.jpg',
+            //     'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+            //     'role_id' => 2,
+            //     'is_active' => 0,
+            //     'date_created' => time()
+            // ];
+            
+            $nim = htmlspecialchars($this->input->post('nim', true));
             $mail = htmlspecialchars($email);
-            $pass = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+            $pass = htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT));
+            $role = htmlspecialchars(2);
             
             // Membuat token dengan angka random
             // Disertai dengan batas waktu kadaluarsa
@@ -169,7 +173,11 @@ class Auth extends CI_Controller
                 /**
                 * kodingan untuk menginsert data user berdasarkan nim
                 */
-                $this->db->insert('user', $data);
+                $this->db->set('email', $mail);
+                $this->db->set('password', $pass);
+                $this->db->set('role_id', $role);
+                $this->db->where('identity', $nim);
+                $this->db->update('user');
                 $this->db->insert('token_user', $token_user);
 
                 $this->_sendEmail($token, 'verify');

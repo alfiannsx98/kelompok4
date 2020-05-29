@@ -481,9 +481,17 @@ class User extends CI_Controller
         $data['title'] = 'Edit Password';
         $data['user'] = $this->db->get_where('user', ['email' => $mail])->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email = '$mail'")->row_array();
-        $this->form_validation->set_rules('passwordSkrg', 'PasswordSkrg', 'required|trim');
-        $this->form_validation->set_rules('passwordBaru1', 'Password Baru', 'required|trim|min_length[8]|matches[passwordBaru2]');
-        $this->form_validation->set_rules('passwordBaru2', 'Pengulangan Password Baru', 'required|trim|min_length[8]|matches[passwordBaru1]');
+        $this->form_validation->set_rules('passwordSkrg', 'PasswordSkrg', 'required|trim', [
+            'required' => 'kolom ini harus di isi'
+        ]);
+
+        $this->form_validation->set_rules('passwordBaru1', 'Password Baru', 'required|trim|min_length[8]|matches[passwordBaru2]', [
+            'required' => 'kolom ini harus di isi'
+        ]);
+
+        $this->form_validation->set_rules('passwordBaru2', 'Pengulangan Password Baru', 'required|trim|min_length[8]|matches[passwordBaru1]', [
+            'required' => 'kolom ini harus di isi'
+        ]);
 
         if ($this->form_validation->run() == false) {
 
@@ -525,51 +533,13 @@ class User extends CI_Controller
                     //Sudah OKE!
                     $passwordHash = password_hash($passwordBaru, PASSWORD_DEFAULT);
                     $date_pass = time();
-                    if($user['role_id'] == 1)
-                    {    
-                        $this->db->set('password', $passwordHash);
-                        $this->db->set('change_pass', $date_pass);
-                        $this->db->where('email', $this->session->userdata('email'));
-                        $this->db->update('user');
-                        $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                        redirect('user');
-                    }
-                    elseif($user['role_id'] == 2)
-                    {
-                        $this->db->set('password', $passwordHash);
-                        $this->db->set('change_pass', $date_pass);
-                        $this->db->where('email', $this->session->userdata('email'));
-                        $this->db->update('user');
-                        $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                        redirect('user');   
-                    }
-                    elseif($user['role_id'] == 3)
-                    {
-                        $this->db->set('password', $passwordHash);
-                        $this->db->set('change_pass', $date_pass);
-                        $this->db->where('email', $this->session->userdata('email'));
-                        $this->db->update('user');
-                        $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                        redirect('user');
-                    }
-                    elseif($user['role_id'] == 4)
-                    {
-                        $this->db->set('password', $passwordHash);
-                        $this->db->set('change_pass', $date_pass);
-                        $this->db->where('email', $this->session->userdata('email'));
-                        $this->db->update('user');
-                        $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                        redirect('user');
-                    }
-                    elseif($user['role_id'] == 12)
-                    {
-                        $this->db->set('password', $passwordHash);
-                        $this->db->set('change_pass', $date_pass);
-                        $this->db->where('email', $this->session->userdata('email'));
-                        $this->db->update('user');
-                        $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                        redirect('user');
-                    }
+
+                    $this->db->set('password', $passwordHash);
+                    $this->db->set('change_pass', $date_pass);
+                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->update('user');
+                    $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
+                    redirect('user');
                 }
             }
         }

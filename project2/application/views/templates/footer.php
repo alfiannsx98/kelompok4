@@ -47,7 +47,9 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url(); ?>assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url(); ?>assets/dist/js/demo.js"></script>
+	<script src="<?= base_url(); ?>assets/dist/js/demo.js"></script>
+	<!-- sweet alert -->
+	<script src="<?= base_url(); ?>assets/dist/js/sweetalert2.all.min.js"></script>
 
 
     <!-- page script -->
@@ -311,6 +313,75 @@
 		});
 	</script>
 
+	<!-- show hide password -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		
+		$("#icon-click3").click(function(){
+			$("#icon3").toggleClass('fa-eye-slash');
+
+			var input = $("#passwordSkrg");
+
+			if(input.attr("type")==="password")
+			{
+				input.attr("type","text");
+			}
+			else
+			{
+				input.attr("type","password");
+			}
+			
+		});
+
+		});
+	</script>
+
+	<!-- show hide password -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		
+		$("#icon-click4").click(function(){
+			$("#icon4").toggleClass('fa-eye-slash');
+
+			var input = $("#passwordBaru1");
+
+			if(input.attr("type")==="password")
+			{
+				input.attr("type","text");
+			}
+			else
+			{
+				input.attr("type","password");
+			}
+			
+		});
+
+		});
+	</script>
+
+	<!-- show hide password -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		
+		$("#icon-click5").click(function(){
+			$("#icon5").toggleClass('fa-eye-slash');
+
+			var input = $("#passwordBaru2");
+
+			if(input.attr("type")==="password")
+			{
+				input.attr("type","text");
+			}
+			else
+			{
+				input.attr("type","password");
+			}
+			
+		});
+
+		});
+	</script>
+
 	<!-- enable input mahasiswa when edit -->
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -380,6 +451,18 @@
 
 		});
 	</script>
+
+	<!-- <script type="text/javascript">
+		const tombol = document.querySelector('#tbh');
+		tombol.addEventListener('click', function(){
+			Swal({
+				title : 'Ini Sweet Alert',
+				text: 'latihan Sweet Alert',
+				type : 'success'
+			});
+		});
+	</script> -->
+
     </body>
 
     </html>

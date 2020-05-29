@@ -13,9 +13,12 @@ class Mahasiswa extends CI_Controller
 
     public function index()
     {
+        $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
+        $tabel1 = $query1->num_rows();
         $tabel = $query->num_rows();
         $date = date('dm', time());
+        $id_u = "ID-U" . $tabel1 . $date;
         $id_m = "ID-M" . $tabel . $date;
 
         $data['title'] = 'Mahasiswa';
@@ -54,21 +57,21 @@ class Mahasiswa extends CI_Controller
             user.identity=mahasiswa.NIM WHERE NIM='$nim'");
             $result = $sql->result_array();
 
-            // $data1 = [
-            //     'id_user' => $id_u,
-            //     'identity' => $nip,
-            //     'nama' => $nama,
-            //     'email' => $email,
-            //     'image' => 'default.jpg',
-            //     'password' => $password,
-            //     'about' => '',
-            //     'role_id' => $role,
-            //     'is_active' => 2,
-            //     'date_created' => $date,
-            //     'change_pass' => 0
-            // ];
-
             $data1 = [
+                'id_user' => $id_u,
+                'identity' => $nim,
+                'nama' => $nama,
+                'email' => '',
+                'image' => 'default.jpg',
+                'password' => '',
+                'about' => '',
+                'role_id' => '',
+                'is_active' => '',
+                'date_created' => time(),
+                'change_pass' => ''
+            ];
+
+            $data2 = [
                 'ID_M' => $id_m,
                 'ID_PRODI' => $prodi,
                 'NIM' => $nim,
@@ -85,8 +88,8 @@ class Mahasiswa extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">nim/email sudah terdaftar</div>');
                 redirect('Mahasiswa'); 
             }
-        
-            $this->db->insert('mahasiswa', $data1);
+            $this->db->insert('user', $data1);
+            $this->db->insert('mahasiswa', $data2);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
             redirect('Mahasiswa');
         }

@@ -16,7 +16,6 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -117,13 +116,13 @@
 
 <!--MODAL DIALOG UNTUK CREATE DATA!-->
 <div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newroleModal">Tambah Data</h5>
                 </button>   
             </div>
-            <form action="Mahasiswa" method="POST">
+            <form action="<?= base_url();?>Mahasiswa" method="POST">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -171,6 +170,7 @@
 <?php foreach ($mhs as $m) :
     $id_u = $m['id_user'];
     $id = $m['ID_M'];
+    $identity = $m['identity'];
     $nim = $m['NIM'];
     $nama = $m['NAMA_M'];
     $jk = $m['JK_M'];
@@ -184,8 +184,72 @@
     $status = $m['is_active'];
     $img = $m['image'];
 ?>
-<div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+<?php if($email == "") {?>
+
+    <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title title-1" id="myModalLabel">Detail Data</h3>
+            </div>
+            <?= form_open_multipart('Mahasiswa/edit_mahasiswa'); ?>
+                <div class="modal-body">
+                    <div class="form-group" hidden>
+                        <label class="control-label col-xs-3">ID menu</label>
+                        <div class="col-xs-8">
+                            <input name="id_u" value="<?= $id_u; ?>" class="form-control" type="text" placeholder="ID menu">
+                            <input name="id" value="<?= $id; ?>" class="form-control" type="text" placeholder="ID menu">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">NIM</label>
+                                <input type="text" class="form-control" id="nim" name="nim" value="<?=$nim;?>" placeholder="masukkan NIM" <?= set_value('nip');?> disabled>
+                                <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Nama Mahasiswa</label>
+                                <input type="text" class="form-control" id="nama" name="nama" value="<?=$nama;?>" placeholder="nama mahasiswa" <?= set_value('nama');?> disabled>
+                                <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">          
+                            <div class="form-group">
+                                <label for="prodi">Program Studi</label>
+                                    <select name="prodi" id="prodi" class="form-control" disabled>
+                                        <option value="" selected disabled>Pilih Program Studi</option>
+                                        <option value="<?= $id_pr; ?>" selected><?= $prodi; ?></option>
+                                        <?php foreach($pr as $p) : ?>
+                                        <option value="<?= $p['ID_PRODI']; ?>"><?= $p['NM_PRODI']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close-btn" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+                        <button type="button" id="edit-btn" class="btn btn-info">Edit</button>
+                        <button type="submit" id="save-btn" class="btn btn-success" hidden>Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+<?php } else {?>
+
+    <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title title-1" id="myModalLabel">Detail Data</h3>
@@ -321,7 +385,9 @@
             </form>
         </div>
     </div>
-</div>
+    </div>
+
+<?php }?>
 
 <!--MODAL HAPUS DATA!-->
 <div class="modal fade" id="modal_hapus<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">

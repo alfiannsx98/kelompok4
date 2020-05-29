@@ -68,7 +68,7 @@
                             <td><?= $mi['NM_PRODI']; ?></td>
                             <?php foreach($dtu as $dtusr): ?>
                                 <?php if($dtusr['is_active'] == 1): ?>
-                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td><span class="badge badge-success">Activated</span></td>
                                 <?php else : ?>
                                     <td><span class="badge badge-danger">Disabled</span></td>
                                 <?php endif; ?>
