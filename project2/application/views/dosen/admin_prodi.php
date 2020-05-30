@@ -225,7 +225,7 @@ foreach ($admin_prodi as $i) :
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="JK_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
+                        <label for="JK_ADM" class="control-label col-xs-3">Jenis Kelamin</label>
                         <div class="col-xs-8">
                             <select name="JK_ADM" id="JK_ADM" class="form-control">
                                 <option value="<?= $jk_adm; ?>" selected hidden><?= $jk_adm; ?></option>
@@ -249,7 +249,7 @@ foreach ($admin_prodi as $i) :
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="PRODI_ADM" class="control-label col-xs-3">Nama Admin Prodi</label>
+                        <label for="PRODI_ADM" class="control-label col-xs-3">Program Studi</label>
                         <div class="col-xs-8">
                             <select name="ID_PRODI" id="ID_PRODI" class="form-control">
                                 <option value="<?= $prodi_adm; ?>" selected hidden><?= $prodi_adm; ?></option>

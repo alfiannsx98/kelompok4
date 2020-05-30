@@ -162,33 +162,30 @@ class Dosen extends CI_Controller
             'email' => 
             $this->session->userdata('email')
         ])->row_array();
-        $data['admin_prodi'] = $this->db->get('admin_prodi')->result_array();
 
-        $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
+        $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required|trim');
         $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
-        $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
+        $this->form_validation->set_rules('HP_ADM', 'No HP', 'required|trim');
         $this->form_validation->set_rules('ID_PRODI', 'Program Studi', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
 
         
-        $id = $this->input->post('ID_ADM');
-        $nip = $this->input->post('NIP_ADM');
-        $nama_adm = $this->input->post('NAMA_ADM');
-        $jk_adm = $this->input->post('JK_ADM');
-        $alamat_admin = $this->input->post('ALAMAT_ADM');
-        $no_hp_admin = $this->input->post('HP_ADM');
-        $prodi_admin = $this->input->post('ID_PRODI');
-        $id_user = $this->input->post('id_user');
-        $is_active = $this->input->post('is_active');
-        $email_admin = $this->input->post('email');
-        $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin, $id_user, $is_active, $email_admin);
+        $id = htmlspecialchars($this->input->post('ID_ADM'));
+        $nip = htmlspecialchars($this->input->post('NIP_ADM'));
+        $nama_adm = htmlspecialchars($this->input->post('NAMA_ADM'));
+        $jk_adm = htmlspecialchars($this->input->post('JK_ADM'));
+        $alamat_admin = htmlspecialchars($this->input->post('ALAMAT_ADM'));
+        $no_hp_admin = htmlspecialchars($this->input->post('HP_ADM'));
+        $prodi_admin = htmlspecialchars($this->input->post('ID_PRODI'));
+        $id_user = htmlspecialchars($this->input->post('id_user'));
+        $is_active = htmlspecialchars($this->input->post('is_active'));
+        $email_admin = htmlspecialchars($this->input->post('email'));
+
+
+        $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin);
+        $this->model_dosen->edit_user_admin_prodi($id_user, $id, $nama_adm, $is_active, $email_admin);
         
-        $this->db->set('nama', $nama_adm);
-        $this->db->set('email', $email_admin);
-        $this->db->set('is_active', $is_active);
-        $this->db->where('identity', $id);
-        $this->db->update('user');
         $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
         redirect('dosen/admin_prodi');
         
