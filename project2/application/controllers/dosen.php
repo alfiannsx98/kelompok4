@@ -50,8 +50,8 @@ class Dosen extends CI_Controller
             $this->load->view('dosen/admin_prodi', $data);
             $this->load->view('templates/footer');
         }else{
-            $email = $this->input->post('email', true);
-            $nama_adm = $this->input->post('NAMA_ADM', true);
+            $email = htmlspecialchars($this->input->$this->input->post('email', true));
+            $nama_adm = htmlspecialchars($this->input->$this->input->post('NAMA_ADM', true));
             $data = [
                 'ID_ADM' => $id_u,
                 'ID_PRODI' => htmlspecialchars($this->input->post('ID_PRODI')),
@@ -64,7 +64,7 @@ class Dosen extends CI_Controller
             $dataUser = [
                 'id_user' => $id_usr,
                 'identity' => $id_u,
-                'nama' => $this->input->post('NAMA_ADM'),
+                'nama' => htmlspecialchars($this->input->$this->input->post('NAMA_ADM')),
                 'email' => htmlspecialchars($email),
                 'image' => "default.jpg",
                 'password' => password_hash("polijesip", PASSWORD_DEFAULT),
@@ -105,7 +105,7 @@ class Dosen extends CI_Controller
             'newline' => "\r\n"
         ];
         // Jika pesan nya = verifikasi
-        $emailAkun = $this->input->post('email');
+        $emailAkun = htmlspecialchars($this->input->$this->input->post('email'));
         $pesanEmail = "
                                 <html>
                                 <head>

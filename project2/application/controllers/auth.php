@@ -30,8 +30,8 @@ class Auth extends CI_Controller
     }
     private function _login()
     {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        $email = htmlspecialchars($this->input->post('email'));
+        $password = htmlspecialchars($this->input->post('password'));
 
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
@@ -210,7 +210,7 @@ class Auth extends CI_Controller
             'newline' => "\r\n"
         ];
         // Jika pesan nya = verifikasi
-        $emailAkun = $this->input->post('email');
+        $emailAkun = htmlspecialchars($this->input->post('email'));
         $pesanEmail = "
                                 <html>
                                 <head>
@@ -242,7 +242,7 @@ class Auth extends CI_Controller
         ";
         $this->load->library('email', $config);
         $this->email->from('arlopaz.uye121299@gmail.com', 'Verifikasi Email');
-        $this->email->to($this->input->post('email'));
+        $this->email->to(htmlspecialchars($this->input->post('email')));
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
             $this->email->message($pesanEmail);
@@ -307,7 +307,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/lupapassword');
             $this->load->view('templates/auth_footer');
         } else {
-            $email = $this->input->post('email');
+            $email = htmlspecialchars($this->input->post('email'));
             $user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
 
             if ($user) {
@@ -331,8 +331,8 @@ class Auth extends CI_Controller
 
     public function resetpassword()
     {
-        $email = $this->input->get('email');
-        $token = $this->input->get('token');
+        $email = htmlspecialchars($this->input->get('email'));
+        $token = htmlspecialchars($this->input->get('token'));
 
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
@@ -364,7 +364,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/ganti-password');
             $this->load->view('templates/auth_footer');
         } else {
-            $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+            $password = password_hash(htmlspecialchars($this->input->post('password1')), PASSWORD_DEFAULT);
             $email = $this->session->userdata('reset_email');
 
             $this->db->set('password', $password);
@@ -381,8 +381,8 @@ class Auth extends CI_Controller
     }
     public function verify_akun_admin()
     {
-        $email = $this->input->get('email');
-        $token = $this->input->get('token');
+        $email = htmlspecialchars($this->input->get('email'));
+        $token = htmlspecialchars($this->input->get('token'));
 
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
