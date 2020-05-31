@@ -31,7 +31,7 @@
                             <?= $this->session->flashdata('message'); ?>
                             <?= form_open_multipart('user/edit'); ?>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user mr-1"></i> Name</label>
                                         <input type="text" class="form-control" value="<?= $user['NAMA_M']; ?>" name="nama" id="nama" <?= set_value('nama') ?>>
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <input type="email" class="" value="<?= $user['email']; ?>" name="email" id="email" hidden>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="far fa-envelope mr-1"></i> Email</label>
                                         <label type="email" class="form-control" value=""><?= $user['email']; ?></label>
@@ -49,26 +49,26 @@
                             </div>
                             <div class="row">
                                 <input type="text" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="far fa-id-badge mr-1"></i> NIM</label>
                                         <label type="text" class="form-control"><?= $user['identity']; ?></label>
                                         <?= form_error('nim', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-male mr-1"></i><i class="fas fa-female mr-1"></i> Jenis Kelamin</label>
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if($user['JK_M']=='Laki-laki') echo 'checked'?> <?= set_radio('jk')?>>
-                                                Laki-laki</label>
+                                                    <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if ($user['JK_M'] == 'Laki-laki') echo 'checked' ?> <?= set_radio('jk') ?>>
+                                                    Laki-laki</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?php if($user['JK_M']=='Perempuan') echo 'checked'?> <?= set_radio('jk')?>>
-                                                Perempuan</label>
+                                                    <input type="radio" name="jk" id="jk" value="Perempuan" <?php if ($user['JK_M'] == 'Perempuan') echo 'checked' ?> <?= set_radio('jk') ?>>
+                                                    Perempuan</label>
                                             </div>
                                         </div>
                                         <?= form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -76,20 +76,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="form-group">
                                         <label for="prodi"><i class="fas fa-user-graduate mr-1"></i>Program Studi</label>
                                         <select name="prodi" id="prodi" class="form-control">
                                             <option value="" selected disabled>Silahkan Pilih Program Studi</option>
                                             <option value="<?= $user['ID_PRODI']; ?>" selected><?= $user['NM_PRODI']; ?></option>
-                                            <?php foreach($prodi as $pr): ?>
-                                            <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
+                                            <?php foreach ($prodi as $pr) : ?>
+                                                <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <?= form_error('prodi', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="smt"><i class="fas fa-graduation-cap mr-1"></i>Semester</label>
                                         <select name="smt" id="smt" class="form-control">
@@ -106,17 +106,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i> Alamat</label>
-                                        <input type="text" class="form-control" value="<?= $user['ALAMAT_M']; ?>" name="alamat" id="alamat" <?= set_value('alamat')?>>
+                                        <input type="text" class="form-control" value="<?= $user['ALAMAT_M']; ?>" name="alamat" id="alamat" <?= set_value('alamat') ?>>
                                         <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-phone mr-1"></i> No HP</label>
-                                        <input type="text" class="form-control" value="<?= $user['HP_M']; ?>" name="hp" id="hp" <?= set_value('hp')?>>
+                                        <input type="text" class="form-control" value="<?= $user['HP_M']; ?>" name="hp" id="hp" <?= set_value('hp') ?>>
                                         <?= form_error('hp', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
