@@ -185,7 +185,7 @@
     $img = $m['image'];
 ?>
 
-<?php if($email == "") {?>
+<?php if($email=="") {?>
 
     <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -201,6 +201,24 @@
                             <input name="id_u" value="<?= $id_u; ?>" class="form-control" type="text" placeholder="ID menu">
                             <input name="id" value="<?= $id; ?>" class="form-control" type="text" placeholder="ID menu">
                         </div>
+                    </div>
+                    <div class="text-center" hidden>
+                        <img class="img-fluid" width="200px" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>">
+                    </div>
+                    <div class="text-center" hidden>
+                        This Account was :
+                        <?php if($status == 1): ?>
+                            <span class="badge badge-success">Activated</span>
+                        <?php else : ?>
+                            <span class="badge badge-danger">Disabled</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="text-center" hiden>
+                        <?php if($ketua == 1): ?>
+                            <span class="badge badge-info">Ketua PKL</span>
+                        <?php else : ?>
+                           
+                        <?php endif; ?>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

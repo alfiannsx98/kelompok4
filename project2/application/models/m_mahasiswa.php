@@ -14,7 +14,13 @@ class M_mahasiswa extends CI_Model
         return $this->db->get('prodi')->result_array();
     }
 
-    function hapus_mahasiswa($nim)
+    public function cekEmail()
+    {
+        $query = "SELECT user.email FROM user LEFT JOIN mahasiswa ON user.identity=mahasiswa.NIM WHERE user.email!=''";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function hapus_mahasiswa($nim)
     {
         $this->db->query("DELETE a.*, b.* FROM mahasiswa a JOIN user b ON a.NIM = b.identity WHERE b.identity = '$nim'");
     }
