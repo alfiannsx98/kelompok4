@@ -32,9 +32,18 @@
                             <?= form_open_multipart('user/edit_password'); ?>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group label-floating">
+                                    <div class="form-group">
                                         <label class="control-label">Your Password</label>
-                                        <input type="password" class="form-control" name="passwordSkrg" id="passwordSkrg" placeholder="Masukkan Password Lama">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="passwordSkrg" id="passwordSkrg" placeholder="Masukkan Password Lama">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <a href="#" class="text-secondary" id="icon-click3">
+                                                        <i class="fas fa-eye" id="icon3"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <?= form_error('passwordSkrg', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -44,7 +53,16 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Your New Password</label>
-                                        <input type="password" class="form-control" name="passwordBaru1" id="passwordBaru1" placeholder="Masukkan Password Baru">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="passwordBaru1" id="passwordBaru1" placeholder="Masukkan Password Baru">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <a href="#" class="text-secondary" id="icon-click4">
+                                                        <i class="fas fa-eye" id="icon4"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <?= form_error('passwordBaru1', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -53,7 +71,16 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Repeat Your New Password</label>
-                                        <input type="password" class="form-control" name="passwordBaru2" id="passwordBaru2" placeholder="Ulangi Password Baru">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="passwordBaru2" id="passwordBaru2" placeholder="Ulangi Password Baru">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <a href="#" class="text-secondary" id="icon-click5">
+                                                        <i class="fas fa-eye" id="icon5"></i>
+                                                    </a>
+                                                </div>
+                                            </div> 
+                                        </div>
                                         <?= form_error('passwordBaru2', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -63,7 +90,11 @@
                                     <div class="form-group">
                                         <label>Last Update Password </label>
                                     </div>
-                                    <i class="badge badge-success col-md-1"><?= date('d F Y', $user['change_pass']); ?></i>
+                                    <?php if($user['change_pass']==0){?>
+                                        <i class="badge badge-secondary">--</i>
+                                    <?php } else { ?>
+                                        <i class="badge badge-success col-md-1"><?= date('d F Y', $user['change_pass']); ?></i>
+                                    <?php } ?>        
                                 </div>
                             </div>
                             <div class="clearfix text-right p-4">

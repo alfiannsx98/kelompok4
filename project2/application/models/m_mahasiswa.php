@@ -2,21 +2,26 @@
 
 class M_mahasiswa extends CI_Model
 {
-  public function getMahasiswa()
-  {
-      $query = "SELECT * FROM mahasiswa LEFT JOIN user ON mahasiswa.EMAIL_M=user.email";
-      return $this->db->query($query)->result_array();
-  }
-  
-  function hapus_mhs($email)
+    public function getMahasiswa()
     {
-        $hasil = $this->db->query("DELETE a.*, b.* FROM mahasiswa a JOIN user b ON a.EMAIL_M=b.email WHERE a.EMAIL_M = '$email'");
-        return $hasil;
+        $query = "SELECT * FROM mahasiswa LEFT JOIN user ON user.identity=mahasiswa.NIM 
+        LEFT JOIN prodi ON prodi.ID_PRODI=mahasiswa.ID_PRODI";
+        return $this->db->query($query)->result_array();
     }
 
-    function lihat_mhs($id, $nim, $nama, $jk, $prodi, $semester, $alamat,  $nohp, $email)
+    public function getProdi()
     {
-        $hasilMhs = $this->db->query("UPDATE mahasiswa SET ID_M='$id', NIM='$nim', NAMA_M='$nama', JK_M='$jk', PRODI_M='$prodi', SMT='$semester', ALAMAT_M='$alamat', HP_M='$nohp', EMAIl_M='$email' WHERE ID_M='$id' ");
-        return $hasilMhs;
+        return $this->db->get('prodi')->result_array();
+    }
+
+    public function cekEmail()
+    {
+        $query = "SELECT user.email FROM user LEFT JOIN mahasiswa ON user.identity=mahasiswa.NIM WHERE user.email!=''";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function hapus_mahasiswa($nim)
+    {
+        $this->db->query("DELETE a.*, b.* FROM mahasiswa a JOIN user b ON a.NIM = b.identity WHERE b.identity = '$nim'");
     }
 }

@@ -1,13 +1,13 @@
-function triggerClick(e) {
+function triggerClick(b) {
     document.querySelector('#profileImage').click();
 }
 
-function displayImage(e) {
-    if (e.files[0]) {
+function displayImage(b) {
+    if (b.files[0]) {
         var reader = new FileReader();
-        reader.onload = function (e) {
-            document.querySelector('#profileDisplay').setAttribute('src', e.target.result);
+        reader.onload = function (b) {
+            document.querySelector('#profileDisplay').setAttribute('src', b.target.result);
         }
-        reader.readAsDataURL(e.files[0]);
+        reader.readAsDataURL(b.files[0]);
     }
 }

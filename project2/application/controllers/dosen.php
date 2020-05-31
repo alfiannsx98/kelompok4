@@ -15,7 +15,7 @@ class Dosen extends CI_Controller
         $query1 = $this->db->query("SELECT * FROM user");
         $tabel = $query1->num_rows();
         $date = date('dm', time());
-        $id_usr = "ID-U" . $tabel . $date;
+        $id_usr = "ID-U" . ($tabel + 1) . $date;
 
         $data['title'] = 'Admin Program Studi';
         $data['user'] = $this->db->get_where('user', [
@@ -37,11 +37,11 @@ class Dosen extends CI_Controller
             'is_unique' => 'Nama Akun Ini telah Terdaftar!'
         ]);
 
+        $this->form_validation->set_rules('ID_PRODI', 'Prodi', 'required');
         $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
         $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
         $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
-        $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
 
         if($this->form_validation->run() == false){
             $this->load->view('templates/header', $data);
@@ -50,24 +50,24 @@ class Dosen extends CI_Controller
             $this->load->view('dosen/admin_prodi', $data);
             $this->load->view('templates/footer');
         }else{
-            $email = $this->input->post('email', true);
-            $nama_adm = $this->input->post('NAMA_ADM', true);
+            $email = htmlspecialchars($this->input->$this->input->post('email', true));
+            $nama_adm = htmlspecialchars($this->input->$this->input->post('NAMA_ADM', true));
             $data = [
                 'ID_ADM' => $id_u,
+                'ID_PRODI' => htmlspecialchars($this->input->post('ID_PRODI')),
                 'NIP_ADM' => htmlspecialchars($this->input->post('NIP_ADM')),
                 'NAMA_ADM' => htmlspecialchars($nama_adm),
                 'JK_ADM' => $this->input->post('JK_ADM'),
                 'ALAMAT_ADM' => htmlspecialchars($this->input->post('ALAMAT_ADM')),
-                'HP_ADM' => htmlspecialchars($this->input->post('HP_ADM')),
-                'PRODI_ADM' => $this->input->post('PRODI_ADM')
+                'HP_ADM' => htmlspecialchars($this->input->post('HP_ADM'))
             ];
             $dataUser = [
                 'id_user' => $id_usr,
-                'identity' => $this->input->post('NIP_ADM'),
-                'nama' => $this->input->post('NAMA_ADM'),
-                'email' => $email,
+                'identity' => $id_u,
+                'nama' => htmlspecialchars($this->input->$this->input->post('NAMA_ADM')),
+                'email' => htmlspecialchars($email),
                 'image' => "default.jpg",
-                'password' => "polijesip" . time(),
+                'password' => password_hash("polijesip", PASSWORD_DEFAULT),
                 'about' => "#",
                 'role_id' => 12,
                 'is_active' => 0,
@@ -105,7 +105,7 @@ class Dosen extends CI_Controller
             'newline' => "\r\n"
         ];
         // Jika pesan nya = verifikasi
-        $emailAkun = $this->input->post('EMAIL_ADM');
+        $emailAkun = htmlspecialchars($this->input->$this->input->post('email'));
         $pesanEmail = "
                                 <html>
                                 <head>
@@ -137,7 +137,7 @@ class Dosen extends CI_Controller
         ";
         $this->load->library('email', $config);
         $this->email->from('emailpass49@gmail.com', 'Verifikasi Email');
-        $this->email->to($this->input->post('EMAIL_ADM'));
+        $this->email->to($this->input->post('email'));
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
             $this->email->message($pesanEmail);
@@ -157,36 +157,43 @@ class Dosen extends CI_Controller
     }
     public function edit_admin_prodi()
     {
-        $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required');
-        $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
-        $this->form_validation->set_rules('JK_ADM', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
-        $this->form_validation->set_rules('HP_ADM', 'No HP', 'required');
-        $this->form_validation->set_rules('PRODI_ADM', 'Program Studi', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $data['title'] = 'Admin Program Studi';
+        $data['user'] = $this->db->get_where('user', [
+            'email' => 
+            $this->session->userdata('email')
+        ])->row_array();
 
-        if($this->form_validation->run() == false){
-            redirect('dosen/admin_prodi');
-        }else{
-            $id = $this->input->post('ID_ADM');
-            $nip = $this->input->post('NIP_ADM');
-            $nama_adm = $this->input->post('NAMA_ADM');
-            $jk_adm = $this->input->post('JK_ADM');
-            $alamat_admin = $this->input->post('ALAMAT_ADM');
-            $no_hp_admin = $this->input->post('HP_ADM');
-            $prodi_admin = $this->input->post('PRODI_ADM');
-            $id_user = $this->input->post('id_user');
-            $is_active = $this->input->post('is_active');
-            $email_admin = $this->input->post('email');
-            $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin);
-            $this->model_dosen->edit_user_admin_prodi($id_user, $nip, $nama_adm, $is_active, $email_admin);
-            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
-            redirect('dosen/admin_prodi');
-        }
+        $this->form_validation->set_rules('NIP_ADM', 'NIP Admin', 'required|trim');
+        $this->form_validation->set_rules('NAMA_ADM', 'Nama Admin', 'required');
+        $this->form_validation->set_rules('ALAMAT_ADM', 'Alamat Admin', 'required');
+        $this->form_validation->set_rules('HP_ADM', 'No HP', 'required|trim');
+        $this->form_validation->set_rules('ID_PRODI', 'Program Studi', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+
+        
+        $id = htmlspecialchars($this->input->post('ID_ADM'));
+        $nip = htmlspecialchars($this->input->post('NIP_ADM'));
+        $nama_adm = htmlspecialchars($this->input->post('NAMA_ADM'));
+        $jk_adm = htmlspecialchars($this->input->post('JK_ADM'));
+        $alamat_admin = htmlspecialchars($this->input->post('ALAMAT_ADM'));
+        $no_hp_admin = htmlspecialchars($this->input->post('HP_ADM'));
+        $prodi_admin = htmlspecialchars($this->input->post('ID_PRODI'));
+        $id_user = htmlspecialchars($this->input->post('id_user'));
+        $is_active = htmlspecialchars($this->input->post('is_active'));
+        $email_admin = htmlspecialchars($this->input->post('email'));
+
+
+        $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin);
+        $this->model_dosen->edit_user_admin_prodi($id_user, $id, $nama_adm, $is_active, $email_admin);
+        
+        $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
+        redirect('dosen/admin_prodi');
+        
     }
     public function hapus_admin_prodi()
     {
         $id = $this->input->post('ID_ADM');
+        $this->model_dosen->hapus_user_adm_prodi($id);
         $this->model_dosen->hapus_admin_prodi($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('dosen/admin_prodi');

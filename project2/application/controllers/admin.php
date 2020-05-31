@@ -53,7 +53,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/role', $data);
             $this->load->view('templates/footer');
         } else {
-            $data = ['role' => $this->input->post('role')];
+            $data = ['role' => htmlspecialchars($this->input->post('role'))];
             $this->db->insert('user_role', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
             redirect('admin/role');
@@ -106,7 +106,7 @@ class Admin extends CI_Controller
             redirect('admin/role');
         } else {
             $id = $this->input->post('id');
-            $role = $this->input->post('role');
+            htmlspecialchars($role = $this->input->post('role'));
             $this->model_admin->edit_role($id, $role);
             $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
             redirect('admin/role');

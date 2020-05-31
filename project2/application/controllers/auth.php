@@ -30,8 +30,8 @@ class Auth extends CI_Controller
     }
     private function _login()
     {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        $email = htmlspecialchars($this->input->post('email'));
+        $password = htmlspecialchars($this->input->post('password'));
 
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
@@ -47,6 +47,10 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     if ($user['role_id'] == 1) {
                         redirect('admin');
+                    } else if ($user['role_id'] == 2) {
+                        redirect('user');
+                    } else if ($user['role_id'] == 3) {
+                        redirect('user');
                     } else {
                         redirect('user');
                     }
@@ -75,9 +79,10 @@ class Auth extends CI_Controller
         $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
         // Membuat id_user : gabungan dari date dan field 
-        $tabel = $query1->num_rows();
+        $tabel1 = $query1->num_rows();
+        $tabel = $query->num_rows();
         $date = date('dm', time());
-        $id_u = "ID-U" . $tabel . $date;        
+        $id_u = "ID-U" . $tabel1 . $date;
         $id_m = "ID-M" . $tabel . $date;
         // $prodi = $this->input->post('prodi');
         // $jk = $this->input->post('jk');
@@ -89,42 +94,12 @@ class Auth extends CI_Controller
         $sql = $this->db->query("SELECT NIM FROM mahasiswa WHERE NIM='$nim'");
         $result = $sql->result_array();
 
-        /**
-         * codingan untuk pemilihan prodi
-         */
-        // if ($prodi == 'D3-Manajemen Informatika') {
-        //     $prodi = 'D3-Manajemen Informatika';
-        // } else if ($prodi == 'D3-Teknik Komputer') {
-        //     $prodi == 'D3-Teknik Komputer';
-        // } else if ($prodi = 'D4-Teknik Informatika') {
-        //     $prodi = 'D4-Teknik Informatika';
-        // }
-        // Validasi form set required(harus terisi atau not null), 
-        // is unique artinya tidak boleh sama, dan
-        // min_length adalah minimum pengisian sebagai contoh sandi minimal pengisian 8 digit.
-        // matches artinya menyamakan, dibuat untuk mencocokan data dari dua value yang berbeda.    
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim|alpha', [
-            'required' => 'nama harus diisi',
-            'alpha' => 'kolom ini hanya bisa diisi huruf'
-        ]);
-        // $this->form_validation->set_rules('semester', 'Semester', 'required|trim', [
-        //     'required' => 'Semester harus diisi'
-        // ]);
-        // $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
-        //     'required' => 'Alamat harus diisi'
-        // ]);
         $this->form_validation->set_rules('nim', 'NIM', 'required|trim|min_length[9]|max_length[9]|alpha_numeric', [
             'required' => 'NIM harus diisi',
             'min_length' => 'NIM terlalu pendek',
             'max_length' => 'NIM terlalu panjang',
             'alpha_numeric' => 'Kolom ini hanya bisa diisi huruf dan angka'
         ]);
-        // $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]|is_natural', [
-        //     'required' => 'No HP harus diisi',
-        //     'min_length' => 'No HP terlalu pendek',
-        //     'max_length' => 'No HP terlalu panjang',
-        //     'is_natural' => 'Kolom ini hanya bisa diisi angka'
-        // ]);
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'required' => 'Email harus diisi',
             'is_unique' => 'Email telah terdaftar di database!'
@@ -170,28 +145,23 @@ class Auth extends CI_Controller
             //     }
             // }
 
-            $data = [
-                'id_user' => $id_u,
-                'identity' => htmlspecialchars($this->input->post('nim', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'email' => htmlspecialchars($email),
-                'image' => 'default.jpg',
-                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 3,
-                'is_active' => 0,
-                'date_created' => time()
-            ];
 
-            /**
-             * kodingan untuk mengupdate data mahasiswa berdasarkan nim
-             */
-            $nma = htmlspecialchars($this->input->post('nama', true));
-            // $smt = htmlspecialchars($this->input->post('semester', true));
-            // $alm = htmlspecialchars($this->input->post('alamat', true));
-            // $hp = htmlspecialchars($this->input->post('nohp', true));
+            // $data = [
+            //     'id_user' => $id_u,
+            //     'identity' => htmlspecialchars($this->input->post('nim', true)),
+            //     'email' => htmlspecialchars($email),
+            //     'image' => 'default.jpg',
+            //     'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+            //     'role_id' => 2,
+            //     'is_active' => 0,
+            //     'date_created' => time()
+            // ];
+
+            $nim = htmlspecialchars($this->input->post('nim', true));
             $mail = htmlspecialchars($email);
-            $pass = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
-            
+            $pass = htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT));
+            $role = htmlspecialchars(2);
+
             // Membuat token dengan angka random
             // Disertai dengan batas waktu kadaluarsa
             $token = base64_encode(random_bytes(32));
@@ -201,11 +171,16 @@ class Auth extends CI_Controller
                 'date_created' => time()
             ];
 
-            if($result == true)
-            {
+            if ($result == true) {
                 // insert token ke database
-                $this->db->insert('user', $data);
-                $this->db->query("UPDATE mahasiswa SET NAMA_M='$nma', JK_M='-', PRODI_M='-', SMT='-', ALAMAT_M='-', HP_M='-', EMAIL_M='$mail', PASSWORD_M='$pass' WHERE NIM='$nim'");
+                /**
+                 * kodingan untuk menginsert data user berdasarkan nim
+                 */
+                $this->db->set('email', $mail);
+                $this->db->set('password', $pass);
+                $this->db->set('role_id', $role);
+                $this->db->where('identity', $nim);
+                $this->db->update('user');
                 $this->db->insert('token_user', $token_user);
 
                 $this->_sendEmail($token, 'verify');
@@ -213,14 +188,11 @@ class Auth extends CI_Controller
                 // Pesan berhasil insert
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat anda berhasil registrasi, Cek email anda untuk aktivasi!!</div>');
                 redirect('auth/index');
-            }
-            else
-            {
+            } else {
                 // Pesan nim tidak terdaftar
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">NIM belum terdaftar, silahkan hubungi admin prodi</div>');
                 redirect('auth/register');
             }
-            
         }
     }
 
@@ -238,7 +210,7 @@ class Auth extends CI_Controller
             'newline' => "\r\n"
         ];
         // Jika pesan nya = verifikasi
-        $emailAkun = $this->input->post('email');
+        $emailAkun = htmlspecialchars($this->input->post('email'));
         $pesanEmail = "
                                 <html>
                                 <head>
@@ -270,7 +242,7 @@ class Auth extends CI_Controller
         ";
         $this->load->library('email', $config);
         $this->email->from('arlopaz.uye121299@gmail.com', 'Verifikasi Email');
-        $this->email->to($this->input->post('email'));
+        $this->email->to(htmlspecialchars($this->input->post('email')));
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
             $this->email->message($pesanEmail);
@@ -335,7 +307,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/lupapassword');
             $this->load->view('templates/auth_footer');
         } else {
-            $email = $this->input->post('email');
+            $email = htmlspecialchars($this->input->post('email'));
             $user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
 
             if ($user) {
@@ -359,8 +331,8 @@ class Auth extends CI_Controller
 
     public function resetpassword()
     {
-        $email = $this->input->get('email');
-        $token = $this->input->get('token');
+        $email = htmlspecialchars($this->input->get('email'));
+        $token = htmlspecialchars($this->input->get('token'));
 
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
@@ -392,7 +364,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/ganti-password');
             $this->load->view('templates/auth_footer');
         } else {
-            $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+            $password = password_hash(htmlspecialchars($this->input->post('password1')), PASSWORD_DEFAULT);
             $email = $this->session->userdata('reset_email');
 
             $this->db->set('password', $password);
@@ -409,8 +381,8 @@ class Auth extends CI_Controller
     }
     public function verify_akun_admin()
     {
-        $email = $this->input->get('email');
-        $token = $this->input->get('token');
+        $email = htmlspecialchars($this->input->get('email'));
+        $token = htmlspecialchars($this->input->get('token'));
 
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
@@ -453,7 +425,9 @@ class Auth extends CI_Controller
     }
     public function blocked()
     {
-        $this->load->view('templates/404_header');
+        $data['title'] = 'Blocked Page';
+        $this->load->view('templates/header', $data);
+        // $this->load->view('templates/404_header');
         $this->load->view('auth/blocked');
     }
 }
