@@ -43,24 +43,36 @@
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
-                      <?php 
-                      foreach ($dosbing as $tb ) { ?>
+                    <?php foreach ($dosbing as $mi) :
+                        $id_mi = $mi['ID_DS'];
+                        $nip_mi = $mi['NIP_DS'];
+
+                        $qwery = "SELECT * FROM user WHERE identity = $nip_mi"; 
+                        $dtu = $this->db->query($qwery)->result_array();
+                    ?>
                         <tr>
-                          <td><?=$tb->NIP_DS?></td>
-                          <td><?=$tb->NAMA_DS?></td>
-                          <td><?=$tb->JK_DS?></td>
-                          <td><?=$tb->ALAMAT_DS?></td>
-                          <td><?=$tb->HP_DS?></td>
-                          <td><?=$tb->EMAIL_DS?></td>
-                          <td><?=$tb->PASSWORD_DS?></td>
-                          
+                            <td><?= $i; ?></td>
+                            <td><?= $mi['NIP_DS']; ?></td>
+                            <td><?= $mi['NAMA_DS']; ?></td>
+                            <td><?= $mi['JK_DS']; ?></td>
+                            <td><?= $mi['ALAMAT_DS']; ?></td>
+                            <td><?= $mi['HP_DS']; ?></td>
+                            <td><?= $mi['EMAIL_DS']; ?></td>
+                            <td><?= $mi['PASSWORD_DS']; ?></td>
+                            <?php foreach($dtu as $dtusr): ?>
+                                <?php if($dtusr['is_active'] == 1): ?>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                <?php else : ?>
+                                    <td><span class="badge badge-danger">Disabled</span></td>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                           <td>
                             <a class="btn btn-primary btn-xs btn-round" href="<?php echo base_url().'dosen/edit/'. $tb->ID_DS; ?>"><i class="">EDIT</i></a>
-                            <a class="btn btn-danger btn-xs btn-round" href="<?php echo base_url().'dosen/hapus/'. $tb->ID_DS; ?>"><i class="">HAPUS</i></a>
+                            <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id_mi; ?>">Hapus Akun</button>
                           </td>
                         </tr>
                         <?php $i++; ?>
-                      <?php } ?>
+                      <?php  ?>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -87,65 +99,30 @@
 <!-- /.content -->
 </div>
 
-
-
-
-
-
-
-<div class="content">
-
-
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Data Kedatangan <a class="btn btn-primary" href="<?= base_url() . 'dosen/tambah'; ?>">
-<i class=""></i>TAMBAH +</a></h1>
-
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Tabel Data DOSEN</h6>
-  </div>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-          <tr>
-            <th>NIP DOSEN</th>
-            <th>NAMA DOSEN</th>
-            <th>JENIS KELAMIN DOSEN</th>
-            <th>ALAMAT DOSEN</th>
-            <th>HP DOSEN</th>
-            <th>EMAIL DOSEN</th>
-            <th>PASSWORD DOSEN</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php 
-        foreach ($dosbing as $tb ) { ?>
-          <tr>
-            
-            <td><?=$tb->NIP_DS?></td>
-            <td><?=$tb->NAMA_DS?></td>
-            <td><?=$tb->JK_DS?></td>
-            <td><?=$tb->ALAMAT_DS?></td>
-            <td><?=$tb->HP_DS?></td>
-            <td><?=$tb->EMAIL_DS?></td>
-            <td><?=$tb->PASSWORD_DS?></td>
-            
-            <td>
-              <a class="btn btn-primary" href="<?php echo base_url().'dosen/edit/'. $tb->ID_DS; ?>"><i class="">EDIT</i></a>
-              <a class="btn btn-danger" href="<?php echo base_url().'dosen/hapus/'. $tb->ID_DS; ?>"><i class="">HAPUS</i></a>
-            </td>
-          </tr>
-        <?php } ?>
-          </tbody>
-        </table>
+<<!--MODAL HAPUS DATA!-->
+<div class="modal fade" id="modal_hapus<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Hapus Menu</h3>
+            </div>
+            <form action="<?= base_url() . 'dosen/hapus'; ?>" method="post" class="form-horizontal">
+                <div class="modal-body">
+                    <p>Apakah Anda yakin mau menghapus data ini? <b><?= $NAMA_DS; ?></b></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="ID_DS" value="<?= $id; ?>">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                    <button class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
         </div>
     </div>
-    </div>
-
 </div>
-<!-- /.container-fluid -->
+
+
+<?php endforeach; ?>
+
 
 
             

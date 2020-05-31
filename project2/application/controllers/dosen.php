@@ -256,11 +256,9 @@ class Dosen extends CI_Controller
     }
 
     function hapus($id){
-        // baaris kode ini berisi fungsi untuk menyimpan id user kedalam array $where pada index array bernama 'id'
-        $where = array('ID_DS' => $id);
-        // kode di bawah ini untuk menjalankan query hapus yang berasal dari method hapus_data() pada model model_dosen
-            $this->model_dosen->hapus_data($where,'dosbing');
-        // kode yang berfungsi mengarakan pengguna ke link base_url()crud/
+        $id = $this->input->post('ID_Ds');
+        $this->model_dosen->hapus_dosbing($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('dosen/dosbing');
         }
 

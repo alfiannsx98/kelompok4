@@ -35,9 +35,9 @@ class model_dosen extends CI_Model
         $this->db->insert($table,$data);
     }
 
-    function hapus_data($where,$table){
-        $this->db->where($where);
-        $this->db->delete($table);
+    function hapus_dosbing($id){
+        $hasil = $this->db->query("DELETE FROM admin_prodi WHERE ID_DS='$id'");
+        return $hasil;
     }
 
     function edit_data($where,$table){		
