@@ -47,6 +47,10 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     if ($user['role_id'] == 1) {
                         redirect('admin');
+                    } else if ($user['role_id'] == 2) {
+                        redirect('user');
+                    } else if ($user['role_id'] == 3) {
+                        redirect('user');
                     } else {
                         redirect('user');
                     }
@@ -78,7 +82,7 @@ class Auth extends CI_Controller
         $tabel1 = $query1->num_rows();
         $tabel = $query->num_rows();
         $date = date('dm', time());
-        $id_u = "ID-U" . $tabel1 . $date;        
+        $id_u = "ID-U" . $tabel1 . $date;
         $id_m = "ID-M" . $tabel . $date;
         // $prodi = $this->input->post('prodi');
         // $jk = $this->input->post('jk');
@@ -140,7 +144,7 @@ class Auth extends CI_Controller
             //         }
             //     }
             // }
-            
+
 
             // $data = [
             //     'id_user' => $id_u,
@@ -152,12 +156,12 @@ class Auth extends CI_Controller
             //     'is_active' => 0,
             //     'date_created' => time()
             // ];
-            
+
             $nim = htmlspecialchars($this->input->post('nim', true));
             $mail = htmlspecialchars($email);
             $pass = htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT));
             $role = htmlspecialchars(2);
-            
+
             // Membuat token dengan angka random
             // Disertai dengan batas waktu kadaluarsa
             $token = base64_encode(random_bytes(32));
@@ -167,12 +171,11 @@ class Auth extends CI_Controller
                 'date_created' => time()
             ];
 
-            if($result == true)
-            {
+            if ($result == true) {
                 // insert token ke database
                 /**
-                * kodingan untuk menginsert data user berdasarkan nim
-                */
+                 * kodingan untuk menginsert data user berdasarkan nim
+                 */
                 $this->db->set('email', $mail);
                 $this->db->set('password', $pass);
                 $this->db->set('role_id', $role);
@@ -185,14 +188,11 @@ class Auth extends CI_Controller
                 // Pesan berhasil insert
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat anda berhasil registrasi, Cek email anda untuk aktivasi!!</div>');
                 redirect('auth/index');
-            }
-            else
-            {
+            } else {
                 // Pesan nim tidak terdaftar
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">NIM belum terdaftar, silahkan hubungi admin prodi</div>');
                 redirect('auth/register');
             }
-            
         }
     }
 
@@ -425,6 +425,7 @@ class Auth extends CI_Controller
     }
     public function blocked()
     {
+        $this->load->view('templates/header');
         $this->load->view('templates/404_header');
         $this->load->view('auth/blocked');
     }
