@@ -425,8 +425,9 @@ class Auth extends CI_Controller
     }
     public function blocked()
     {
-        $this->load->view('templates/header');
-        $this->load->view('templates/404_header');
+        $data['title'] = 'Blocked Page';
+        $this->load->view('templates/header', $data);
+        // $this->load->view('templates/404_header');
         $this->load->view('auth/blocked');
     }
 }
