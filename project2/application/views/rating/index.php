@@ -33,6 +33,7 @@
                         <tr>
                             <th>#</th>
                             <th>Rating</th>
+                            <th>Nama Rating</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                         <tr>
                             <td><?= $i; ?></td>
                             <td><?= $r['RT']; ?></td>
+                            <td><?= $r['nama_rating']; ?></td>
                             <td class="text-right">
                                 <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit <?= $title; ?></button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus <?= $title; ?></button>
@@ -91,6 +93,12 @@
                         <input type="text" class="form-control" id="rating" name="rating" placeholder="Masukkan Rating">
                     </div>
                 </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Nama Rating</label>
+                        <input type="text" class="form-control" id="nm_rating" name="nm_rating" placeholder="Masukkan Rating">
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-success">Simpan Data</button>
@@ -105,6 +113,7 @@
 foreach ($rating as $r) :
     $id = $r['ID_RT'];
     $nm_rating = $r['RT'];
+    $nama_rating = $r['nama_rating'];
     ?>
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -127,6 +136,12 @@ foreach ($rating as $r) :
                             <input name="rating" value="<?php echo $nm_rating; ?>" class="form-control" type="text" placeholder="Nama Rating" required>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">Nama Rating</label>
+                        <div class="col-xs-8">
+                            <input name="nm_rating" value="<?php echo $nama_rating; ?>" class="form-control" type="text" placeholder="Nama Rating" required>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                         <button class="btn btn-info">Update</button>
@@ -146,7 +161,7 @@ foreach ($rating as $r) :
             </div>
             <form action="<?= base_url() . 'rating/hapus_rating'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
-                    <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nm_rating; ?></b></p>
+                    <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama_rating; ?></b></p>
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id_rating" value="<?= $id; ?>">
