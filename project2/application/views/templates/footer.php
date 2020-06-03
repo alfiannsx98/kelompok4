@@ -48,8 +48,6 @@
     <script src="<?= base_url(); ?>assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
 	<script src="<?= base_url(); ?>assets/dist/js/demo.js"></script>
-	<!-- sweet alert -->
-	<script src="<?= base_url(); ?>assets/dist/js/sweetalert2.all.min.js"></script>
 
 	<!-- Coba Jquery Wizard -->
 	<script src="https://unpkg.com/smartwizard@5.0.0/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
@@ -457,6 +455,35 @@
 				$("input#email-ds").prop('disabled', true);
 				$("select#prodi-ds").prop('disabled', true);
 				$("select#role").prop('disabled', true);
+			});
+
+		});
+	</script>
+
+	<!-- enable input perusahaan when edit -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$("button#edit-btn").click(function(){
+				$("h3.title-1").html("Edit Data");
+				$("button#edit-btn").prop('hidden', true);
+				$("button#save-btn").prop('hidden', false);
+				$("input#profileImage1").prop('disabled', false);
+				$("input#nmpr").prop('disabled', false);
+				$("input#almt").prop('disabled', false);
+				$("input#hppr").prop('disabled', false);
+				$("input#mailpr").prop('disabled', false);
+			});
+
+			$("button#close-btn").click(function(){
+				$("h3.title-1").html("Detail Data");
+				$("button#edit-btn").prop('hidden', false);
+				$("button#save-btn").prop('hidden', true);
+				$("input#profileImage1").prop('disabled', true);
+				$("input#nmpr").prop('disabled', true);
+				$("input#almt").prop('disabled', true);
+				$("input#hppr").prop('disabled', true);
+				$("input#mailpr").prop('disabled', true);
 			});
 
 		});
