@@ -30,8 +30,8 @@ class Menu extends CI_Controller
             $this->load->view('templates/footer');
         }else{
             $data = [
-                'menu' => $this->input->post('menu'),
-                'icon' => $this->input->post('icon')
+                'menu' => htmlspecialchars($this->input->post('menu')),
+                'icon' => htmlspecialchars($this->input->post('icon'))
             ];
             $this->db->insert('user_menu', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
@@ -46,9 +46,9 @@ class Menu extends CI_Controller
         if($this->form_validation->run() == false){
             redirect('menu');
         }else{
-            $id = $this->input->post('id_menu');
-            $menu = $this->input->post('menu');
-            $icon = $this->input->post('icon');
+            $id = htmlspecialchars($this->input->post('id_menu'));
+            $menu = htmlspecialchars($this->input->post('menu'));
+            $icon = htmlspecialchars($this->input->post('icon'));
             $this->model_menu->edit_menu($id, $menu, $icon);
             $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
             redirect('menu');
@@ -83,10 +83,10 @@ class Menu extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = [
-                'menu_id' => $this->input->post('menu_id'),
-                'title' => $this->input->post('title'),
-                'url' => $this->input->post('url'),
-                'is_active' => $this->input->post('is_active')
+                'menu_id' => htmlspecialchars($this->input->post('menu_id')),
+                'title' => htmlspecialchars($this->input->post('title')),
+                'url' => htmlspecialchars($this->input->post('url')),
+                'is_active' => htmlspecialchars($this->input->post('is_active'))
             ];
             $this->db->insert('submenu_user', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
@@ -102,11 +102,11 @@ class Menu extends CI_Controller
         if($this->form_validation->run() == false){
             redirect('menu/submenu');
         }else{
-            $id = $this->input->post('id_submenu');
-            $menu_id = $this->input->post('menu_id');
-            $title = $this->input->post('title');
-            $url = $this->input->post('url');
-            $is_active = $this->input->post('is_active');
+            $id = htmlspecialchars($this->input->post('id_submenu'));
+            $menu_id = htmlspecialchars($this->input->post('menu_id'));
+            $title = htmlspecialchars($this->input->post('title'));
+            $url = htmlspecialchars($this->input->post('url'));
+            $is_active = htmlspecialchars($this->input->post('is_active'));
             $this->model_menu->edit_submenu($id,  $menu_id, $title, $url, $is_active);
             $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
             redirect('menu/submenu');

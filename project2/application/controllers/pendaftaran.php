@@ -69,7 +69,7 @@ class Pendaftaran extends CI_Controller
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
         $data['bulan'] = $this->m_pendaftaran->bulan()->result();
         $data['jumlah_pr'] = $this->m_pendaftaran->jmlh_pr()->result();
-        $data['mahasiswa'] = $this->db->get('mahasiswa')->result_array();
+        $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
         $mhs = $this->m_pendaftaran->get_mhs();
         $data['mhs'] = $mhs;
 
@@ -118,13 +118,37 @@ class Pendaftaran extends CI_Controller
             'PROPOSAL'=> $this->upload->file_name
         );
             $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
-            redirect('pendaftaran/tampil_detail_pend');   
+            redirect('pendaftaran/tambah_data');   
         // }
         // else{
         //     echo $this->upload->display_errors();
         
         // }
 
+    }
+
+    public function tambah_data2()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+    
+        $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
+        $mhs = $this->m_pendaftaran->get_mhs();
+        $data['mhs'] = $mhs;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_tmbh_pend2', $data);
+        $this->load->view('templates/footer');
+
+    }
+
+    public function pr_tmbh_pnd2(){
+        
         $ID_PND = $_POST['ID_PND'];
         $NIM = $_POST['NIM'];
         $data = array();

@@ -34,9 +34,11 @@ class rating extends CI_Controller
             $this->load->view('templates/footer');
         }else{
             $rating = $this->input->post('rating');
+            $nm_rating = $this->input->post('nm_rating');
             $data_rating = [
                 'ID_RT' => $id_rt,
-                'RT'    => $rating
+                'RT'    => $rating,
+                'nama_rating' => $nm_rating
             ];
             $this->db->insert('rating', $data_rating);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
@@ -48,7 +50,9 @@ class rating extends CI_Controller
     {
         $rating = $this->input->post('rating');
         $id = $this->input->post('id_rating');
+        $nama_rating = $this->input->post('nm_rating');
         $this->db->set('RT', $rating);
+        $this->db->set('nama_rating', $nama_rating);
         $this->db->where('ID_RT', $id);
         $this->db->update('rating');
         $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diperbarui</div>');

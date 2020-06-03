@@ -63,7 +63,7 @@ class M_pendaftaran extends CI_Model{
         }
 
         // tambah data pendaftaran nim anggota
-        function tmbh_nim($data){
+        function tmbh_nim($data, $table){
                 return $this->db->insert_batch('pendaftaran_klp', $data);
         }
         
@@ -91,5 +91,13 @@ class M_pendaftaran extends CI_Model{
                 }else{
                         return FALSE;
                 }
+        }
+
+        function dropnim(){
+                
+                $data = $this->db->query("SELECT mahasiswa.NIM, mahasiswa.NAMA_M FROM mahasiswa LEFT JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M
+                WHERE pendaftaran_klp.ID_M IS NULL");
+
+                return $data;
         }
 }

@@ -5,12 +5,14 @@
 <div class="card">
   <div class="card-body login-card-body">
     <?= $this->session->flashdata('message'); ?>
-    <p class="login-box-msg">forgot your password?</p>
-
+    <p class="login-box-msg">Forgot your password?</p>
+    <small class="text-center text-success">
+      <p>Masukkan Email Anda, Kami akan mengirimkan link untuk mengganti password</p>
+    </small>
     <form class="user" method="post" action="<?= base_url('auth/lupapassword'); ?>">
       <div class="form-group">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" id="email" name="email" value="<?= set_value('email'); ?>" placeholder="email">
+          <input type="email" class="form-control" id="email" name="email" value="<?= set_value('email'); ?>" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>

@@ -43,10 +43,10 @@ class Perusahaan extends CI_Controller
             $this->load->view('perusahaan/v_perusahaan', $data);
             $this->load->view('templates/footer');
         } else {
-            $nama = $this->input->post('nama');
-            $alamat = $this->input->post('alamat');
-            $no_hp = $this->input->post('nohp');
-            $email = $this->input->post('email');
+            $nama = htmlspecialchars($this->input->post('nama'));
+            $alamat = htmlspecialchars($this->input->post('alamat'));
+            $no_hp = htmlspecialchars($this->input->post('nohp'));
+            $email = htmlspecialchars($this->input->post('email'));
 
             $upload_image = $_FILES['gambar'];
 
@@ -111,12 +111,12 @@ class Perusahaan extends CI_Controller
         $this->form_validation->set_rules('nohp', 'Nohp', 'required|trim|min_length[12]|max_length[13]');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 
-        $nama = $this->input->post('nama');
-        $alamat = $this->input->post('alamat');
-        $nohp = $this->input->post('nohp');
-        $email = $this->input->post('email');
-        $id = $this->input->post('id_pr');
-        $gambar_lama = $this->input->post('gambar_lama');
+        $nama = htmlspecialchars($this->input->post('nama'));
+        $alamat = htmlspecialchars($this->input->post('alamat'));
+        $nohp = htmlspecialchars($this->input->post('nohp'));
+        $email = htmlspecialchars($this->input->post('email'));
+        $id = htmlspecialchars($this->input->post('id_pr'));
+        $gambar_lama = htmlspecialchars($this->input->post('gambar_lama'));
 
         //cek jika ada gambar
 

@@ -49,6 +49,16 @@
     <!-- AdminLTE for demo purposes -->
 	<script src="<?= base_url(); ?>assets/dist/js/demo.js"></script>
 
+	<!-- Coba Jquery Wizard -->
+	<script src="https://unpkg.com/smartwizard@5.0.0/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+	<script>
+	$(document).ready(function(){
+		
+		// SmartWizard initialize
+		$('#smartwizard').smartWizard();
+		
+	});
+   </script>
 
     <!-- page script -->
     <script>
