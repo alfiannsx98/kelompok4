@@ -77,15 +77,15 @@ class Dosbing extends CI_Controller
             $this->load->view('dosen/dosbing', $data);
             $this->load->view('templates/footer');
         } else {
-            $nip = $this->input->post('nip');
-            $nama = $this->input->post('nama');
-            $jk = $this->input->post('jk');
-            $alamat = $this->input->post('alamat');
-            $hp = $this->input->post('hp');
-            $email = $this->input->post('email');
-            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-            $prodi = $this->input->post('prodi');
-            $role = $this->input->post('role');
+            $nip = htmlspecialchars($this->input->post('nip'));
+            $nama = htmlspecialchars($this->input->post('nama'));
+            $jk = htmlspecialchars($this->input->post('jk'));
+            $alamat = htmlspecialchars($this->input->post('alamat'));
+            $hp = htmlspecialchars($this->input->post('hp'));
+            $email = htmlspecialchars($this->input->post('email'));
+            $password = htmlspecialchars(password_hash($this->input->post('password'), PASSWORD_DEFAULT));
+            $prodi = htmlspecialchars($this->input->post('prodi'));
+            $role = htmlspecialchars($this->input->post('role'));
 
             $sql = $this->db->query("SELECT dosbing.NIP_DS, user.email  FROM dosbing LEFT JOIN user ON 
             user.identity=dosbing.NIP_DS WHERE NIP_DS='$nip'");
@@ -179,11 +179,11 @@ class Dosbing extends CI_Controller
         } else {
             $nip = htmlspecialchars($this->input->post('nip'));
             $nama = htmlspecialchars($this->input->post('nama'));
-            $jk = $this->input->post('jk');
+            $jk = htmlspecialchars($this->input->post('jk'));
             $alamat = htmlspecialchars($this->input->post('alamat'));
             $hp = htmlspecialchars($this->input->post('hp'));
             $email = htmlspecialchars($this->input->post('email'));
-            $prodi = $this->input->post('prodi');
+            $prodi = htmlspecialchars($this->input->post('prodi'));
             $id_u = htmlspecialchars($this->input->post('id_u'));
             $id_ds = htmlspecialchars($this->input->post('id_ds'));
             $role = htmlspecialchars($this->input->post('role'));

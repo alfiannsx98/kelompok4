@@ -81,7 +81,7 @@
                                         <label for="prodi"><i class="fas fa-user-graduate mr-1"></i>Admin Program Studi</label>
                                         <select name="prodi" id="prodi" class="form-control">
                                             <option value="" selected disabled>Admin Program Studi</option>
-                                            <option value="<?= $user['ID_PRODI']; ?>" selected><?= $user['ID_PRODI']; ?></option>
+                                            <option value="<?= $user['ID_PRODI']; ?>" selected><?= $user['NM_PRODI']; ?></option>
                                             <?php foreach($prodi as $pr): ?>
                                             <option value="<?= $pr['ID_PRODI'] ?>"><?= $pr['NM_PRODI'] ?></option>
                                             <?php endforeach; ?>
