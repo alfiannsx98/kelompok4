@@ -43,6 +43,8 @@
    $email_pr = $perusahaan['EMAIL_PR'];
    $hp_pr = $perusahaan['HP_PR'];
 
+   $id_perusahaan = $perusahaan['ID_PR'];
+
 
    $dt = [
       'id_perusahaan' => $id_pr
@@ -64,6 +66,7 @@
 
    $q_hitung = $this->db->get_where("rating1", ["id_pr" => $id_pr])->num_rows();
    $row_kuisioner = $q_hitung;
+
 ?>
 <!-- Akhir SQL Query -->
 
@@ -93,7 +96,21 @@
                     <b>HP PR</b> <a class="float-right"><?= $hp_pr; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Rating</b> <a class="float-right">4,5</a>
+                    <b>Rating</b> 
+                    <?php
+                        $q_avg = $this->db->query("SELECT AVG(rating) as rating FROM rating1 WHERE id_pr='$id_perusahaan'");
+                        $avg = $q_avg->result_array();
+                        foreach($avg as $dt_avg):
+                        $dt_average = $dt_avg['rating'];
+
+                        for($count = 1; $count <= 5; $count++) :
+                           if($count <= $dt_average) :
+                              $color = 'color:#ffcc00';
+                     ?>
+                     <p title="<?= $count; ?>" id="<?= $id_perusahaan . "-". $count;?>" data-index="<?= $count; ?>" data-id_pr="<?= $id_perusahaan; ?>" data-rating="<?= $dt_average; ?>" class="float-right rating" style="color:#ffcc00;">&#9733;</p>
+                     <?php endif; ?>
+                     <?php endfor; ?>
+                     <?php endforeach; ?>
                   </li>
                 </ul>
                 <a href="#" class="btn btn-primary btn-block"><b>Cek Detail Perusahaan</b></a>
@@ -288,6 +305,8 @@
                                     <br />
                                     
                                     <span id="business_list"></span>
+
+                                    <button class="btn btn-success" type="submit">Simpan Data Rating</button>
                                  </div>
                            </div>
                         </div>

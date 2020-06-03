@@ -17,6 +17,8 @@ class rating_mhs extends CI_Controller {
         'email' => 
         $this->session->userdata('email')
     ])->row_array();
+    
+
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);

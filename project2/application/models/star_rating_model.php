@@ -4,7 +4,7 @@ class Star_rating_model extends CI_Model
 {
  function get_business_data()
  {
-    $dt_pr = $this->session->userdata('id_perusahaan');
+  $dt_pr = $this->session->userdata('id_perusahaan');
   $this->db->order_by('ID_PR', 'DESC');
   return $this->db->get_where('perusahaan', ["ID_PR" => $dt_pr]);
  }
