@@ -96,21 +96,9 @@
                     <b>HP PR</b> <a class="float-right"><?= $hp_pr; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Rating</b> 
-                    <?php
-                        $q_avg = $this->db->query("SELECT AVG(rating) as rating FROM rating1 WHERE id_pr='$id_perusahaan'");
-                        $avg = $q_avg->result_array();
-                        foreach($avg as $dt_avg):
-                        $dt_average = $dt_avg['rating'];
-
-                        for($count = 1; $count <= 5; $count++) :
-                           if($count <= $dt_average) :
-                              $color = 'color:#ffcc00';
-                     ?>
-                     <p title="<?= $count; ?>" id="<?= $id_perusahaan . "-". $count;?>" data-index="<?= $count; ?>" data-id_pr="<?= $id_perusahaan; ?>" data-rating="<?= $dt_average; ?>" class="float-right rating" style="color:#ffcc00;">&#9733;</p>
-                     <?php endif; ?>
-                     <?php endfor; ?>
-                     <?php endforeach; ?>
+                    <b>Rating</b>
+                    <span id="bintang_"></span> 
+                    
                   </li>
                 </ul>
                 <a href="#" class="btn btn-primary btn-block"><b>Cek Detail Perusahaan</b></a>
@@ -301,7 +289,6 @@
                         <div id="step-3" class="tab-pane" role="tabpanel">
                            <div class="container">
                                  <div class="card-body">
-                                    
                                     <br />
                                     
                                     <span id="business_list"></span>
@@ -355,6 +342,7 @@
 $(document).ready(function(){
 
  load_data();
+ load_bintang();
 
  function load_data()
  {
@@ -367,8 +355,19 @@ $(document).ready(function(){
    }
   })
  }
+ function load_bintang()
+ {
+    $.ajax({
+       url:"<?= base_url(); ?>rating_mhs/fetch_bintang",
+       method:"GET",
+       success:function(data)
+       {
+          $('#bintang_').html(data);
+       }
+    })
+ }
 
- $(document).on('mouseenter', '.rating', function(){
+ $(document).on('mouseenter', '.rating_input', function(){
   var index = $(this).data('index');
   var id_pr = $(this).data('id_pr');
   remove_background(id_pr);
@@ -386,25 +385,27 @@ $(document).ready(function(){
   }
  }
 
- $(document).on('click', '.rating', function(){
+ $(document).on('click', '.rating_input', function(){
   var index = $(this).data('index');
   var id_pr = $(this).data('id_pr');
+  var id_user = $(this).data('id_user');
   $.ajax({
    url:"<?php echo base_url(); ?>rating_mhs/insert",
    method:"POST",
-   data:{index:index, id_pr:id_pr},
+   data:{index:index, id_pr:id_pr, id_user:id_user},
    success:function(data)
    {
     load_data();
+    load_bintang();
     alert("You have rate "+index +" out of 5");
    }
   })
  });
 
- $(document).on('mouseleave', '.rating', function(){
+ $(document).on('mouseleave', '.rating_input', function(){
   var index = $(this).data('index');
   var id_pr = $(this).data('id_pr');
-  var rating = $(this).data('rating');
+  var rating = $(this).data('rating_input');
   remove_background(id_pr);
   for(var count = 1; count <= rating; count++)
   {
