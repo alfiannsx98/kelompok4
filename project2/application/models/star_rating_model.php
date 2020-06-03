@@ -83,27 +83,7 @@ class Star_rating_model extends CI_Model
  }
  function output_sudah_isi()
  {
-  $data = $this->get_business_data();
-  $output = '';
-  foreach($data->result_array() as $row)
-  {
-   $color = '';
-   $rating = $this->get_business_rating($row["ID_PR"]);
-   for($count = 1; $count <= 5; $count++)
-   {
-    if($count <= $rating)
-    {
-     $color = 'color:#ffcc00;';
-    }
-    else
-    {
-     $color = 'color:#ccc;';
-    }
-
-    $output .= '<p title="'.$count.'" data-rating="'.$rating.'" class="float-right rating" style="'.$color.'">&#9733;</p>';
-   }
-  }
-  echo $output;
+  echo '<div class="alert alert-success" role="alert">Data Rating Berhasil Disimpan</div>';
  }
 
  function insert_rating($data)

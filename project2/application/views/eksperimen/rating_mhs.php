@@ -166,12 +166,12 @@
                         </li>
                         <li>
                               <a class="nav-link" href="#step-2">
-                                 Form Kuisioner
+                                 Form Rating Perusahaan
                               </a>
                         </li>
                         <li>
                               <a class="nav-link" href="#step-3">
-                                 Form Rating Perusahaan
+                                 Form Kuisioner
                               </a>
                         </li>
                      </ul>
@@ -202,7 +202,7 @@
                               </div>
                            </div>
                         </div>
-                        <div id="step-2" class="tab-pane" role="tabpanel">
+                        <div id="step-3" class="tab-pane" role="tabpanel">
                            <div class="card card-primary">
                               <div class="card-header">
                                  <h3 class="card-title">Pertanyaan Kuisioner pada perusahaan "<?= $nm_perusahaan; ?>"</h3>
@@ -281,19 +281,22 @@
                                           ?>
                                        </select>
                                     </div>
+                                    <button class="btn btn-success" type="submit">Simpan Data Kuisioner</button>
                                  </div>
                                  <!-- /.card-body -->
                               </form>
                            </div>
                         </div>
-                        <div id="step-3" class="tab-pane" role="tabpanel">
+                        <div id="step-2" class="tab-pane" role="tabpanel">
                            <div class="container">
                                  <div class="card-body">
                                     <br />
                                     
                                     <span id="business_list"></span>
-
-                                    <button class="btn btn-success" type="submit">Simpan Data Rating</button>
+                                    
+                                    <br>
+                                    <br>
+                                    <br>
                                  </div>
                            </div>
                         </div>
