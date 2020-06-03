@@ -211,9 +211,16 @@
                               <!-- form start -->
                               <form role="form">
                                  <div class="card-body">
+                                       <?php 
+                                          $kuisioner = $this->db->query("SELECT * FROM kuisioner");
+                                          $i = 1;
+                                          foreach($kuisioner->result_array() as $ks) :
+                                       ?>
                                     <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda terhadap Pembelajaran di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
+                                       <input type="text" name="kuisioner[]" value="<?= $ks['id_kuisioner']; ?>" hidden>
+                                       <input type="text" name="id_mahasiswa[]" value="<?= $id_user; ?>" hidden>
+                                       <label for="opsi<?= $i ?>"><?= $ks['kuisioner']; ?> <?= $nm_perusahaan; ?></label>
+                                       <select name="opsi<?= $i ?>[]" id="" class="custom-select">
                                           <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
                                           <?php 
                                              $get_rating = $this->db->get("rating")->result_array();
@@ -225,62 +232,10 @@
                                           ?>
                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda terhadap keloyalan di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda Tugas di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda kesesuaian kerja di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda Penempatan di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
+                                       <?php
+                                          $i++; 
+                                          endforeach; 
+                                       ?>
                                     <button class="btn btn-success" type="submit">Simpan Data Kuisioner</button>
                                  </div>
                                  <!-- /.card-body -->
@@ -294,7 +249,6 @@
                                     
                                     <span id="business_list"></span>
                                     
-                                    <br>
                                     <br>
                                     <br>
                                  </div>
