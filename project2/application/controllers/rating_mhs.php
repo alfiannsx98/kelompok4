@@ -18,11 +18,37 @@ class rating_mhs extends CI_Controller {
         $this->session->userdata('email')
     ])->row_array();
     
+    $get_kuis = $this->db->get('kuisioner')->num_rows();
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('eksperimen/rating_mhs', $data);
+    for($i = 1; $i <= $get_kuis; $i++){
+      $this->form_validation->set_rules('opsi'.$i, 'opsi'.$i, 'required');
+    }
+    
+    if($this->form_validation->run() == false){  
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('eksperimen/rating_mhs', $data);
+    }else{
+
+    for($j = 1; $j <= $get_kuis; $j++)
+    {
+      $kuisioner[$j] = $this->input->post('kuisioner'.$j);
+      $opsi[$j] = $this->input->post('opsi'.$j);
+      $id_mahasiswa = $this->input->post('id_mahasiswa');
+
+      $data = [
+        'id_kuis' => htmlspecialchars("IDQ0" . $j),
+        'id_kuisioner' => htmlspecialchars($kuisioner[$j]),
+        'id_m' => $id_mahasiswa,
+        'nilai' => $opsi[$j]
+      ];
+      $this->db->insert('m_kuisioner', $data);
+    }
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Kuisioner Disimpan</div>');
+    redirect('rating_mhs');
+    }
+
  }
 
  function fetch()
@@ -55,6 +81,5 @@ class rating_mhs extends CI_Controller {
    $this->star_rating_model->insert_rating($data);
   }
  }
-
 }
 ?>

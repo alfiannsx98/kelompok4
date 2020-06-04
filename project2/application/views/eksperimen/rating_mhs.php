@@ -190,6 +190,7 @@
                                     </div>
                                  <!-- /.card-header -->
                                  <div class="card-body">
+                                    <?= $this->session->flashdata('message'); ?>
                                     <img class="img-fluid pad" src="<?= base_url() . "assets/dist/img/perusahaan/" . $gmbr_perusahaan; ?>" alt="Photo">
 
                                     <p><small class="badge badge-info"><?= $row_kuisioner; ?> Mahasiswa Telah mengisi kuisioner perusahaan ini</small></p>
@@ -203,24 +204,35 @@
                            </div>
                         </div>
                         <div id="step-3" class="tab-pane" role="tabpanel">
+                              <?php
+                                 $q_kuis_m = $this->db->get_where('m_kuisioner', ['id_m' => $id_user])->num_rows();
+                                 if($q_kuis_m > 0):
+                              ?>
+                                 <div class="card">
+                                    <div class="alert-success small">Data Rating Berhasil Disimpan</div>
+                                 </div>
+                              <?php
+                                 else :
+                              ?>
                            <div class="card card-primary">
                               <div class="card-header">
                                  <h3 class="card-title">Pertanyaan Kuisioner pada perusahaan "<?= $nm_perusahaan; ?>"</h3>
                               </div>
                               <!-- /.card-header -->
                               <!-- form start -->
-                              <form role="form">
+                              <form action="<?= base_url() . 'rating_mhs'; ?>" method="post">
                                  <div class="card-body">
                                        <?php 
                                           $kuisioner = $this->db->query("SELECT * FROM kuisioner");
                                           $i = 1;
                                           foreach($kuisioner->result_array() as $ks) :
                                        ?>
+                                       
                                     <div class="form-group">
-                                       <input type="text" name="kuisioner[]" value="<?= $ks['id_kuisioner']; ?>" hidden>
-                                       <input type="text" name="id_mahasiswa[]" value="<?= $id_user; ?>" hidden>
+                                       <input type="text" name="kuisioner<?= $i ?>" value="<?= $ks['id_kuisioner']; ?>" hidden>
+                                       <input type="text" name="id_mahasiswa" value="<?= $id_user; ?>" hidden>
                                        <label for="opsi<?= $i ?>"><?= $ks['kuisioner']; ?> <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi<?= $i ?>[]" id="" class="custom-select">
+                                       <select name="opsi<?= $i ?>" id="" class="custom-select">
                                           <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
                                           <?php 
                                              $get_rating = $this->db->get("rating")->result_array();
@@ -240,6 +252,7 @@
                                  </div>
                                  <!-- /.card-body -->
                               </form>
+                           <?php endif; ?>
                            </div>
                         </div>
                         <div id="step-2" class="tab-pane" role="tabpanel">
