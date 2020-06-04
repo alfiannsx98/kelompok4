@@ -52,9 +52,9 @@ class Mahasiswa extends CI_Controller
             $this->load->view('mahasiswa/mahasiswa', $data);
             $this->load->view('templates/footer');
         } else {
-            $nim = $this->input->post('nim');
-            $nama = $this->input->post('nama');
-            $prodi = $this->input->post('prodi');
+            $nim = htmlspecialchars($this->input->post('nim'));
+            $nama = htmlspecialchars($this->input->post('nama'));
+            $prodi = htmlspecialchars($this->input->post('prodi'));
 
             $sql = $this->db->query("SELECT mahasiswa.NIM, user.email  FROM mahasiswa LEFT JOIN user ON 
             user.identity=mahasiswa.NIM WHERE NIM='$nim'");
@@ -163,8 +163,8 @@ class Mahasiswa extends CI_Controller
                 $alamat = htmlspecialchars($this->input->post('alamat'));
                 $hp = htmlspecialchars($this->input->post('hp'));
                 $email = htmlspecialchars($this->input->post('email'));
-                $prodi = $this->input->post('prodi');
-                $semester = $this->input->post('semester');
+                $prodi = htmlspecialchars($this->input->post('prodi'));
+                $semester = htmlspecialchars($this->input->post('semester'));
                 $id_u = htmlspecialchars($this->input->post('id_u'));
                 $id = htmlspecialchars($this->input->post('id'));
 

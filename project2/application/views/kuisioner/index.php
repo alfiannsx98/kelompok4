@@ -32,23 +32,21 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Rating</th>
-                            <th>Nama Rating</th>
+                            <th>Kuisioner</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($rating as $r) :
-                        $id = $r['ID_RT'];
+                    <?php foreach ($kuisioner as $m) :
+                        $id = $m['id_kuisioner'];
                     ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td><?= $r['RT']; ?></td>
-                            <td><?= $r['nama_rating']; ?></td>
+                            <td><?= $m['kuisioner']; ?></td>
                             <td class="text-right">
-                                <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit <?= $title; ?></button>
-                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus <?= $title; ?></button>
+                                <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit kuisioner</button>
+                                <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus kuisioner</button>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -57,7 +55,7 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Menu</th>
+                            <th>Kuisioner</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
@@ -86,17 +84,11 @@
                 <h5 class="modal-title" id="newroleModal">Create New Data</h5>
                 </button>   
             </div>
-            <form action="<?= base_url('rating'); ?>" method="post">
+            <form action="<?= base_url('kuisioner'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Rating</label>
-                        <input type="text" class="form-control" id="rating" name="rating" placeholder="Masukkan Rating">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Nama Rating</label>
-                        <input type="text" class="form-control" id="nm_rating" name="nm_rating" placeholder="Masukkan Rating">
+                        <label for="">kuisioner</label>
+                        <input type="text" class="form-control" id="kuisioner" name="kuisioner" placeholder="Masukkan kuisioner">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -110,36 +102,29 @@
 
 <!--MODAL EDIT role!-->
 <?php
-foreach ($rating as $r) :
-    $id = $r['ID_RT'];
-    $nm_rating = $r['RT'];
-    $nama_rating = $r['nama_rating'];
+foreach ($kuisioner as $i) :
+    $id = $i['id_kuisioner'];
+    $kuisioner = $i['kuisioner'];
     ?>
 
 <div class="modal fade" id="modal_edit<?= $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Edit <?= $title; ?></h3>
+                <h3 class="modal-title" id="myModalLabel">Edit role</h3>
             </div>
-            <form action="<?= base_url() . 'rating/edit_rating'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'kuisioner/edit_kuisioner'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group" hidden>
-                        <label class="control-label col-xs-3">ID <?= $title; ?></label>
+                        <label class="control-label col-xs-3">ID Kuisioner</label>
                         <div class="col-xs-8">
-                            <input name="id_rating" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID Rating" hidden>
+                            <input name="id_kuisioner" value="<?php echo $id; ?>" class="form-control" type="text" placeholder="ID Kuisioner" hidden>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Nama Rating</label>
+                        <label class="control-label col-xs-3">Kuisioner</label>
                         <div class="col-xs-8">
-                            <input name="rating" value="<?php echo $nm_rating; ?>" class="form-control" type="text" placeholder="Nama Rating" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-3">Nama Rating</label>
-                        <div class="col-xs-8">
-                            <input name="nm_rating" value="<?php echo $nama_rating; ?>" class="form-control" type="text" placeholder="Nama Rating" required>
+                            <input name="kuisioner" value="<?php echo $kuisioner; ?>" class="form-control" type="text" placeholder="Nama Kuisioner" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -157,14 +142,14 @@ foreach ($rating as $r) :
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Hapus <?= $title; ?></h3>
+                <h3 class="modal-title" id="myModalLabel">Hapus kuisioner</h3>
             </div>
-            <form action="<?= base_url() . 'rating/hapus_rating'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'kuisioner/hapus_kuisioner'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
-                    <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama_rating; ?></b></p>
+                    <p>Apakah Anda yakin mau menghapus data ini? <b><?= $kuisioner; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="id_rating" value="<?= $id; ?>">
+                    <input type="hidden" name="id_kuisioner" value="<?= $id; ?>">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>
