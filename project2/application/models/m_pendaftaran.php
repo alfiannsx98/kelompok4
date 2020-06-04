@@ -63,7 +63,7 @@ class M_pendaftaran extends CI_Model{
         }
 
         // tambah data pendaftaran nim anggota
-        function tmbh_nim($data, $table){
+        function tmbh_nim($data){
                 return $this->db->insert_batch('pendaftaran_klp', $data);
         }
         

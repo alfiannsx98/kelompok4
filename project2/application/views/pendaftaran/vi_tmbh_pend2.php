@@ -17,15 +17,15 @@
 		</div><!-- /.container-fluid -->
 	</section>
 
-    <section class="content">
+	<section class="content">
 		<div class="row">
 			<div class="col-6">
 				<div class="card">
 					<div class="card-body">
-                    <label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
-								<?php $nim = $user['identity']; ?>
-								<input type="hidden" name="nim" id="nim" value="<?= $nim; ?>">
-								<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
+						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
+						<?php $nim = $user['identity']; ?>
+						<input type="hidden" name="nim" id="nim" value="<?= $nim; ?>">
+						<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
@@ -123,29 +123,32 @@
 			</div>
 		</div>
 	</section> -->
-    
+
 	<section class="content">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="box box-widget">
 					<div class="box-body table-responsive">
+						<form method="post" action="<?= base_url("pendaftaran/pr_tmbh_pnd2"); ?>"></form>
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>#</th>
 									<th>NIM</th>
 									<th>Nama</th>
+									<th>id</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
 							<tbody id="tbody">
 
-
 							</tbody>
 						</table>
+						<button class="btn btn-primary">Simpan</button>
+						</form>
+						<input type="hidden" id="jumlah-form" value="1">
 					</div>
 				</div>
-				<button>simpan</button>
 			</div>
 		</div>
 	</section>

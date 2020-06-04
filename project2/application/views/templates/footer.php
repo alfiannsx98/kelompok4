@@ -47,9 +47,9 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url(); ?>assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-	<script src="<?= base_url(); ?>assets/dist/js/demo.js"></script>
-	<!-- sweet alert -->
-	<script src="<?= base_url(); ?>assets/dist/js/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url(); ?>assets/dist/js/demo.js"></script>
+    <!-- sweet alert -->
+    <script src="<?= base_url(); ?>assets/dist/js/sweetalert2.all.min.js"></script>
 
 
     <!-- page script -->
@@ -219,240 +219,237 @@
 
     </script>
     <script>
-		$(document).on('click', '#select', function(){
-			$('#nim').val($(this).data('nim'))
-			$('#nim1').val($(this).data('nim'))
-			$('#nama').val($(this).data('nama'))
+    	$(document).on('click', '#select', function () {
+    		$('#nim').val($(this).data('nim'))
+    		$('#nim1').val($(this).data('nim'))
+    		$('#nama').val($(this).data('nama'))
 
-			$('#modal-item').modal('hide')
-		});
+    		$('#modal-item').modal('hide')
+    	});
 
-		var count = 0;
+    	var count = 0;
+		<?php $nim = $user['identity']; ?>
+		var i = "PND-<?= $nim; ?>";
 
-		$(document).on('click', '#add_siswa', function(){
-			var nim = $('#nim').val()
-			var nama = $('#nama').val()
-			var nim_av = $('#nim_av').val()
+    	$(document).on('click', '#add_siswa', function () {
+    		var nim = $('#nim').val()
+    		var nama = $('#nama').val()
+    		var nim_av = $('#nim_av').val()
 
-			if(nim == ''){
-				alert('Siswa Belum Dipilih')
-				$('#barcode').focus()
-				var nim = $('#nim').val('')
-			var nama = $('#nama').val('')
-			}else{
-				if(nim_av == nim){
-					alert('Siswa Telah Dipilih')
-					$('#barcode').focus()
-					var nim = $('#nim1').val('')
-					var nama = $('#nama').val('')
-				}else{
-					count++;
-					var html = '';
+    		if (nim == '') {
+    			alert('Siswa Belum Dipilih')
+    			$('#barcode').focus()
+    			var nim = $('#nim').val('')
+    			var nama = $('#nama').val('')
+    		} else {
+    			if (nim_av == nim) {
+    				alert('Siswa Telah Dipilih')
+    				$('#barcode').focus()
+    				var nim = $('#nim1').val('')
+    				var nama = $('#nama').val('')
+    			} else {
+    				count++;
+    				var html = '';
 
-					html += '<tr>';
-					html += '<td>' + count + '</td>';
-					
-					html += '<td>' + nim + '<input type="hidden" id="nim_av" value="'+nim+'"></td></td>';
-					html += '<td>' + nama + '<input type="hidden" value="'+nama+'"></td>';
-					html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
-					$('#tbody').append(html);
-					var nim = $('#nim1').val('')
-					var nama = $('#nama').val('')
-				}
-			}
-		});
-		$(document).on('click', '#hapus', function () {
-				count--;
-				$(this).closest('tr').remove();
+    				html += '<tr>';
+    				html += '<td>' + count + '</td>';
+					html += '<td><input type="hidden" name="ID_PND[]" value="' + i + '"></td>'
+
+    				html += '<td>' + nim + '<input type="hidden" id="nim_av" name="NIM[]" value="' + nim + '"></td>';
+    				html += '<td>' + nama + '<input type="hidden" value="' + nama + '"></td>';
+    				// html += '<td>' + i + '</td>';
+    				html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
+    				$('#tbody').append(html);
+    				var nim = $('#nim1').val('')
+    				var nama = $('#nama').val('')
+    			}
+    		}
+    	});
+    	$(document).on('click', '#hapus', function () {
+    		count--;
+    		$(this).closest('tr').remove();
+    	});
+
+    </script>
+
+    <!-- show hide password -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
+
+    		$("#icon-click").click(function () {
+    			$("#icon").toggleClass('fa-eye-slash');
+
+    			var input = $("#password");
+
+    			if (input.attr("type") === "password") {
+    				input.attr("type", "text");
+    			} else {
+    				input.attr("type", "password");
+    			}
+
     		});
-	</script>
 
-	<!-- show hide password -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-		
-		$("#icon-click").click(function(){
-			$("#icon").toggleClass('fa-eye-slash');
+    	});
 
-			var input = $("#password");
+    </script>
 
-			if(input.attr("type")==="password")
-			{
-				input.attr("type","text");
-			}
-			else
-			{
-				input.attr("type","password");
-			}
-			
-		});
+    <!-- show hide password -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
 
-		});
-	</script>
+    		$("#icon-click1").click(function () {
+    			$("#icon1").toggleClass('fa-eye-slash');
 
-	<!-- show hide password -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-		
-		$("#icon-click1").click(function(){
-			$("#icon1").toggleClass('fa-eye-slash');
+    			var input = $("#password1");
 
-			var input = $("#password1");
+    			if (input.attr("type") === "password") {
+    				input.attr("type", "text");
+    			} else {
+    				input.attr("type", "password");
+    			}
 
-			if(input.attr("type")==="password")
-			{
-				input.attr("type","text");
-			}
-			else
-			{
-				input.attr("type","password");
-			}
-			
-		});
+    		});
 
-		});
-	</script>
+    	});
 
-	<!-- show hide password -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-		
-		$("#icon-click3").click(function(){
-			$("#icon3").toggleClass('fa-eye-slash');
+    </script>
 
-			var input = $("#passwordSkrg");
+    <!-- show hide password -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
 
-			if(input.attr("type")==="password")
-			{
-				input.attr("type","text");
-			}
-			else
-			{
-				input.attr("type","password");
-			}
-			
-		});
+    		$("#icon-click3").click(function () {
+    			$("#icon3").toggleClass('fa-eye-slash');
 
-		});
-	</script>
+    			var input = $("#passwordSkrg");
 
-	<!-- show hide password -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-		
-		$("#icon-click4").click(function(){
-			$("#icon4").toggleClass('fa-eye-slash');
+    			if (input.attr("type") === "password") {
+    				input.attr("type", "text");
+    			} else {
+    				input.attr("type", "password");
+    			}
 
-			var input = $("#passwordBaru1");
+    		});
 
-			if(input.attr("type")==="password")
-			{
-				input.attr("type","text");
-			}
-			else
-			{
-				input.attr("type","password");
-			}
-			
-		});
+    	});
 
-		});
-	</script>
+    </script>
 
-	<!-- show hide password -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-		
-		$("#icon-click5").click(function(){
-			$("#icon5").toggleClass('fa-eye-slash');
+    <!-- show hide password -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
 
-			var input = $("#passwordBaru2");
+    		$("#icon-click4").click(function () {
+    			$("#icon4").toggleClass('fa-eye-slash');
 
-			if(input.attr("type")==="password")
-			{
-				input.attr("type","text");
-			}
-			else
-			{
-				input.attr("type","password");
-			}
-			
-		});
+    			var input = $("#passwordBaru1");
 
-		});
-	</script>
+    			if (input.attr("type") === "password") {
+    				input.attr("type", "text");
+    			} else {
+    				input.attr("type", "password");
+    			}
 
-	<!-- enable input mahasiswa when edit -->
-	<script type="text/javascript">
-		$(document).ready(function(){
+    		});
 
-			$("button#edit-btn").click(function(){ 
-				$("h3.title-1").html("Edit Data");
-				$("button#edit-btn").prop('hidden', true);
-				$("button#save-btn").prop('hidden', false);
-				$("input#nim").prop('disabled', false);
-				$("input#nama").prop('disabled', false);
-				$("input#jk").prop('disabled', false);
-				$("input#alamat").prop('disabled', false);
-				$("input#hp").prop('disabled', false);
-				$("input#email").prop('disabled', false);
-				$("select#prodi").prop('disabled', false);
-				$("select#semester").prop('disabled', false);
-			});
+    	});
 
-			$("button#close-btn").click(function(){
-				$("h3.title-1").html("Detail Data");
-				$("button#edit-btn").prop('hidden', false);
-                $("button#save-btn").prop('hidden', true);
-                $("input#nim").prop('disabled', true);
-                $("input#nama").prop('disabled', true);
-                $("input#jk").prop('disabled', true);
-                $("input#alamat").prop('disabled', true);
-                $("input#hp").prop('disabled', true);
-                $("input#email").prop('disabled', true);
-                $("select#prodi").prop('disabled', true);
-                $("select#semester").prop('disabled', true);
-			});
+    </script>
 
-		});
-	</script>
+    <!-- show hide password -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
 
-	<!-- enable input dosen when edit -->
-	<script type="text/javascript">
-		$(document).ready(function(){
+    		$("#icon-click5").click(function () {
+    			$("#icon5").toggleClass('fa-eye-slash');
 
-			$("button#edit-btn").click(function(){
-				$("h3.title-1").html("Edit Data");
-				$("button#edit-btn").prop('hidden', true);
-				$("button#save-btn").prop('hidden', false);
-				$("input#nip").prop('disabled', false);
-				$("input#nm-ds").prop('disabled', false);
-				$("input#jk-ds").prop('disabled', false);
-				$("input#almt-ds").prop('disabled', false);
-				$("input#hp-ds").prop('disabled', false);
-				$("input#email-ds").prop('disabled', false);
-				$("select#prodi-ds").prop('disabled', false);
-				$("select#role").prop('disabled', false);
-			});
+    			var input = $("#passwordBaru2");
 
-			$("button#close-btn").click(function(){
-				$("h3.title-1").html("Detail Data");
-				$("button#edit-btn").prop('hidden', false);
-				$("button#save-btn").prop('hidden', true);
-				$("input#nip").prop('disabled', true);
-				$("input#nm-ds").prop('disabled', true);
-				$("input#jk-ds").prop('disabled', true);
-				$("input#almt-ds").prop('disabled', true);
-				$("input#hp-ds").prop('disabled', true);
-				$("input#email-ds").prop('disabled', true);
-				$("select#prodi-ds").prop('disabled', true);
-				$("select#role").prop('disabled', true);
-			});
+    			if (input.attr("type") === "password") {
+    				input.attr("type", "text");
+    			} else {
+    				input.attr("type", "password");
+    			}
 
-		});
-	</script>
+    		});
 
-	<!-- <script type="text/javascript">
+    	});
+
+    </script>
+
+    <!-- enable input mahasiswa when edit -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
+
+    		$("button#edit-btn").click(function () {
+    			$("h3.title-1").html("Edit Data");
+    			$("button#edit-btn").prop('hidden', true);
+    			$("button#save-btn").prop('hidden', false);
+    			$("input#nim").prop('disabled', false);
+    			$("input#nama").prop('disabled', false);
+    			$("input#jk").prop('disabled', false);
+    			$("input#alamat").prop('disabled', false);
+    			$("input#hp").prop('disabled', false);
+    			$("input#email").prop('disabled', false);
+    			$("select#prodi").prop('disabled', false);
+    			$("select#semester").prop('disabled', false);
+    		});
+
+    		$("button#close-btn").click(function () {
+    			$("h3.title-1").html("Detail Data");
+    			$("button#edit-btn").prop('hidden', false);
+    			$("button#save-btn").prop('hidden', true);
+    			$("input#nim").prop('disabled', true);
+    			$("input#nama").prop('disabled', true);
+    			$("input#jk").prop('disabled', true);
+    			$("input#alamat").prop('disabled', true);
+    			$("input#hp").prop('disabled', true);
+    			$("input#email").prop('disabled', true);
+    			$("select#prodi").prop('disabled', true);
+    			$("select#semester").prop('disabled', true);
+    		});
+
+    	});
+
+    </script>
+
+    <!-- enable input dosen when edit -->
+    <script type="text/javascript">
+    	$(document).ready(function () {
+
+    		$("button#edit-btn").click(function () {
+    			$("h3.title-1").html("Edit Data");
+    			$("button#edit-btn").prop('hidden', true);
+    			$("button#save-btn").prop('hidden', false);
+    			$("input#nip").prop('disabled', false);
+    			$("input#nm-ds").prop('disabled', false);
+    			$("input#jk-ds").prop('disabled', false);
+    			$("input#almt-ds").prop('disabled', false);
+    			$("input#hp-ds").prop('disabled', false);
+    			$("input#email-ds").prop('disabled', false);
+    			$("select#prodi-ds").prop('disabled', false);
+    			$("select#role").prop('disabled', false);
+    		});
+
+    		$("button#close-btn").click(function () {
+    			$("h3.title-1").html("Detail Data");
+    			$("button#edit-btn").prop('hidden', false);
+    			$("button#save-btn").prop('hidden', true);
+    			$("input#nip").prop('disabled', true);
+    			$("input#nm-ds").prop('disabled', true);
+    			$("input#jk-ds").prop('disabled', true);
+    			$("input#almt-ds").prop('disabled', true);
+    			$("input#hp-ds").prop('disabled', true);
+    			$("input#email-ds").prop('disabled', true);
+    			$("select#prodi-ds").prop('disabled', true);
+    			$("select#role").prop('disabled', true);
+    		});
+
+    	});
+
+    </script>
+
+    <!-- <script type="text/javascript">
 		const tombol = document.querySelector('#tbh');
 		tombol.addEventListener('click', function(){
 			Swal({
