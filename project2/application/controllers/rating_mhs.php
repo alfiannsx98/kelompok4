@@ -29,6 +29,7 @@ class rating_mhs extends CI_Controller {
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
       $this->load->view('eksperimen/rating_mhs', $data);
+      $this->load->view('templates/footer');
     }else{
 
     for($j = 1; $j <= $get_kuis; $j++)
@@ -36,10 +37,12 @@ class rating_mhs extends CI_Controller {
       $kuisioner[$j] = $this->input->post('kuisioner'.$j);
       $opsi[$j] = $this->input->post('opsi'.$j);
       $id_mahasiswa = $this->input->post('id_mahasiswa');
+      $id_perusahaan = $this->input->post('id_pr');
 
       $data = [
         'id_kuis' => htmlspecialchars("IDQ0" . $j),
         'id_kuisioner' => htmlspecialchars($kuisioner[$j]),
+        'id_pr' => htmlspecialchars($id_perusahaan),
         'id_m' => $id_mahasiswa,
         'nilai' => $opsi[$j]
       ];

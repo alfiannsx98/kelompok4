@@ -471,6 +471,84 @@
 		});
 	</script> -->
 
-    </body>
+	<!-- JS Untuk Rating -->
+	<script>
+	$(document).ready(function(){
+
+		load_data();
+		load_bintang();
+
+		function load_data()
+		{
+		$.ajax({
+		url:"<?php echo base_url(); ?>rating_mhs/fetch",
+		method:"POST",
+		success:function(data)
+		{
+		$('#business_list').html(data);
+		}
+		})
+		}
+		function load_bintang()
+		{
+		$.ajax({
+			url:"<?= base_url(); ?>rating_mhs/fetch_bintang",
+			method:"GET",
+			success:function(data)
+			{
+				$('#bintang_').html(data);
+				$('#bintang1_').html(data);
+			}
+		})
+		}
+
+		$(document).on('mouseenter', '.rating_input', function(){
+		var index = $(this).data('index');
+		var id_pr = $(this).data('id_pr');
+		remove_background(id_pr);
+		for(var count = 1; count <= index; count++)
+		{
+		$('#'+id_pr+'-'+count).css('color', '#ffcc00');
+		}
+		});
+
+		function remove_background(id_pr)
+		{
+		for(var count = 1; count <= 5; count++)
+		{
+		$('#'+id_pr+'-'+count).css('color', '#ccc');
+		}
+		}
+
+		$(document).on('click', '.rating_input', function(){
+		var index = $(this).data('index');
+		var id_pr = $(this).data('id_pr');
+		var id_user = $(this).data('id_user');
+		$.ajax({
+		url:"<?php echo base_url(); ?>rating_mhs/insert",
+		method:"POST",
+		data:{index:index, id_pr:id_pr, id_user:id_user},
+		success:function(data)
+		{
+		load_data();
+		load_bintang();
+		alert("You have rate "+index +" out of 5");
+		}
+		})
+		});
+
+		$(document).on('mouseleave', '.rating_input', function(){
+		var index = $(this).data('index');
+		var id_pr = $(this).data('id_pr');
+		var rating = $(this).data('rating_input');
+		remove_background(id_pr);
+		for(var count = 1; count <= rating; count++)
+		{
+		$('#'+id_pr+'-'+count).css('color', '#ffcc00');
+		}
+		});
+
+	});
+	</script>
 
     </html>

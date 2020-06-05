@@ -83,7 +83,7 @@ class Star_rating_model extends CI_Model
  }
  function output_sudah_isi()
  {
-  echo '<div class="alert alert-success" role="alert">Data Rating Berhasil Disimpan</div>';
+  echo '<div class="alert-success small" role="alert">&nbsp;Data Rating Berhasil Disimpan</div>';
  }
 
  function insert_rating($data)
