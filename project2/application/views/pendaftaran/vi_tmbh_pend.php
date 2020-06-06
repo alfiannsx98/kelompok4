@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Form pendaftaran PKL</h1>
+					<h1>Form Pendaftaran PKL</h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,30 +25,30 @@
 						<form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
 							class="form-horizontal">
 							<div class="card-content">
-							<label class="col-sm label-on-left" for="ID_PR">Isian kelompok : </label>
-								<?php $nim = $user['identity']; ?>
-								<input type="hidden" name="nim" id="nim" value="<?= $nim; ?>">
-								<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
 								<div class="row">
-									<label class="col-sm label-on-left" for="ID_PR">Tempat PKL</label>
-									<div class="col-lg col-md col-sm">
-										<select name="ID_PR" class="form-control" data-style="btn btn-primary btn-round"
-											title="Single Select" data-size="7">
-											<option selected disabled>Pilih Tempat PKL</option>
-											<?php foreach($jumlah_pr as $pr){
-												if ($pr->JMLH_PR < 2 ){
-													echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; 
-													echo '<br>';
-													echo  '<label name="ID_PR" > Alamat : '.$pr->ALAMAT_PR.'</label>';
-												}
-												// } else {
-												// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
-												// }
-												?>
-											<?php }?>
-										</select>
-									</div>
+									<label class="label-on-left" for="ID_PR">Isian Kelompok : </label>
 								</div>
+								<?php $nim = $user['identity']; ?>
+								<input type="hidden" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
+
+								<div class="form-group">
+									<label for="ID_PR"> Tempat PKL</label>
+									<select name="ID_PR" id="ID_PR" class="form-control col-sm-5" data-size="7">
+									<option selected disabled>Pilih Tempat PKL</option>
+										<?php foreach($jumlah_pr as $pr){
+											if ($pr->JMLH_PR < 2 ){
+												echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; 
+												echo '<br>';
+												echo  '<label name="ID_PR" > Alamat : '.$pr->ALAMAT_PR.'</label>';
+											}
+											// } else {
+											// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
+											// }
+											?>
+										<?php }?>
+									</select>
+								</div>
+
 								<br>
 								<div class="row">
 									<label class="col-sm label-on-left" for="ID_DS">Dosen Pembimbing</label>

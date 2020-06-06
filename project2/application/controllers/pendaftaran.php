@@ -89,8 +89,8 @@ class Pendaftaran extends CI_Controller
         $data['bulan'] = $this->m_pendaftaran->bulan()->result();
         $data['jumlah_pr'] = $this->m_pendaftaran->jmlh_pr()->result();
         $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
-        $mhs = $this->m_pendaftaran->get_mhs();
-        $data['mhs'] = $mhs;
+        // $mhs = $this->m_pendaftaran->get_mhs();
+        // $data['mhs'] = $mhs;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

@@ -111,7 +111,6 @@
 
     </script>
 
-
     <!-- punya didin -->
     <!-- <script>
     	$(document).ready(function () {
@@ -153,6 +152,7 @@
 		});
 
 	</script> -->
+
     <script>
     	$(function () {
     		//Initialize Select2 Elements
@@ -229,6 +229,8 @@
     	})
 
     </script>
+
+	<!-- ambil nim n nama dari modal -->
     <script>
     	$(document).on('click', '#select', function () {
     		$('#nim').val($(this).data('nim'))
@@ -263,10 +265,8 @@
     				var html = '';
 
     				html += '<tr>';
-    				html += '<td>' + count + '</td>';
-					html += '<td><input type="text" name="ID_PND[]" value="' + i + '"></td>'
-
-    				html += '<td>' + nim + '<input type="text" id="nim_av" name="ID_M[]" value="' + nim + '"></td>';
+    				html += '<td>' + count + '<input type="hidden" name="ID_PND[]" value="' + i + '"></td>';
+    				html += '<td>' + nim + '<input type="hidden" id="nim_av" name="ID_M[]" value="' + nim + '"></td>';
     				html += '<td>' + nama + '<input type="hidden" value="' + nama + '"></td>';
     				// html += '<td>' + i + '</td>';
     				html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
@@ -282,6 +282,36 @@
     	});
 
     </script>
+
+<!-- untuk nyimpan ID_PND n ID_M ke database -->
+	<script>
+		$(document).ready(function () {   
+				$("#btn-tambah-anggota").click(function () {   
+					var jumlah = parseInt($("#jumlah-form").val());    
+					var nextform = jumlah + 1;    
+
+					$("#insert-form").append("<b>Data ke " + nextform + " :</b>" +
+						"<table>" +
+						"<tr>" +
+						"<td>ID_PND</td>" +
+						"<td><input type='text' name='ID_PND[]' required></td>" +
+						"</tr>" +
+						"<tr>" +
+						"<td>ID_M</td>" +
+						"<td><input type='text' name='ID_M[]' required></td>" +
+						"</tr>" +
+						"</table>" +
+						"<br><br>");
+					$("#jumlah-form").val(
+						nextform
+					);
+				});
+				$("#btn-reset-form").click(function () {
+					$("#insert-form").html("");  
+					$("#jumlah-form").val("1");
+				});
+			});
+	</script>
 
     <!-- show hide password -->
     <script type="text/javascript">

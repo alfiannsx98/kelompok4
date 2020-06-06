@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Form pendaftaran PKL</h1>
+					<h1>Form Pendaftaran PKL</h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -17,6 +17,7 @@
 		</div><!-- /.container-fluid -->
 	</section>
 
+	<!-- percob -->
 	<!-- <section class="content">
 		<div class="row">
 			<div class="col-12">
@@ -83,6 +84,7 @@
 		</div>
 	</section> -->
 
+	<!-- isian individu -->
 	<section class="content">
 		<div class="row">
 			<div class="col-6">
@@ -90,8 +92,7 @@
 					<div class="card-body">
 						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
 						<?php $nim = $user['identity']; ?>
-						<input type="hidden" value="<?= $nim; ?>">
-						<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
+						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
@@ -140,7 +141,7 @@
 <!-- tabel -->
 	<section class="content">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-10">
 				<div class="box box-widget">
 					<div class="box-body table-responsive">
 						<form method="post" action="<?php echo base_url("pendaftaran/pr_tmbh_pnd2"); ?>">
@@ -150,7 +151,6 @@
 									<th>#</th>
 									<th>NIM</th>
 									<th>Nama</th>
-									<th>id</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -158,10 +158,8 @@
 
 							</tbody>
 						</table>
-
 						<div id="insert-form"></div>
-						<input type="submit" value="Simpan">
-
+						<button class="btn btn-primary">Simpan Isian Individu</button>
 						</form>
 						<input type="hidden" id="jumlah-form" value="1">
 					</div>
@@ -169,39 +167,6 @@
 			</div>
 		</div>
 	</section>
-
-	<script>
-							$(document).ready(
-								function () { // Ketika halaman sudah diload dan siap    
-									$("#btn-tambah-anggota").click(function () { // Ketika tombol Tambah Data Form di klik      
-										var jumlah = parseInt($("#jumlah-form")
-											.val()); // Ambil jumlah data form pada textbox jumlah-form      
-										var nextform = jumlah + 1; // Tambah 1 untuk jumlah form nya            
-										// Kita akan menambahkan form dengan menggunakan append      
-										// pada sebuah tag div yg kita beri id insert-form      
-										$("#insert-form").append("<b>Data ke " + nextform + " :</b>" +
-											"<table>" +
-											"<tr>" +
-											"<td>ID_PND</td>" +
-											"<td><input type='text' name='ID_PND[]' required></td>" +
-											"</tr>" +
-											"<tr>" +
-											"<td>ID_M</td>" +
-											"<td><input type='text' name='ID_M[]' required></td>" +
-											"</tr>" +
-											"</table>" +
-											"<br><br>");
-										$("#jumlah-form").val(
-											nextform
-										); // Ubah value textbox jumlah-form dengan variabel nextform    
-									}); // Buat fungsi untuk mereset form ke semula    
-									$("#btn-reset-form").click(function () {
-										$("#insert-form").html(""); // Kita kosongkan isi dari div insert-form      
-										$("#jumlah-form").val("1"); // Ubah kembali value jumlah form menjadi 1    
-									});
-								});
-
-						</script>
 
 	<!-- Modal List Mahasiswa -->
 	<div class="modal fade" id="modal-item">
