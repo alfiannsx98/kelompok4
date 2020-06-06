@@ -43,6 +43,8 @@
    $email_pr = $perusahaan['EMAIL_PR'];
    $hp_pr = $perusahaan['HP_PR'];
 
+   $id_perusahaan = $perusahaan['ID_PR'];
+
 
    $dt = [
       'id_perusahaan' => $id_pr
@@ -64,6 +66,7 @@
 
    $q_hitung = $this->db->get_where("rating1", ["id_pr" => $id_pr])->num_rows();
    $row_kuisioner = $q_hitung;
+
 ?>
 <!-- Akhir SQL Query -->
 
@@ -93,10 +96,12 @@
                     <b>HP PR</b> <a class="float-right"><?= $hp_pr; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Rating</b> <a class="float-right">4,5</a>
+                    <b>Rating</b>
+                    <span id="bintang_"></span> 
+                    
                   </li>
                 </ul>
-                <a href="#" class="btn btn-primary btn-block"><b>Cek Detail Perusahaan</b></a>
+                <button data-toggle="modal" data-target="#detailPerusahaan<?= $id_perusahaan; ?>" class="btn btn-primary btn-block"><b>Cek Detail Perusahaan </b><i class="fas fa-search-plus"></i></button>
               </div>
               <!-- /.card-body -->
             </div>
@@ -150,9 +155,8 @@
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
-              <div class="card-body">
                <div class="tab-content">
-                  <div id="smartwizard">
+                  <di id="smartwizard">
                      <ul class="nav">
                         <li>
                               <a class="nav-link" href="#step-1">
@@ -161,12 +165,12 @@
                         </li>
                         <li>
                               <a class="nav-link" href="#step-2">
-                                 Form Kuisioner
+                                 Form Rating Perusahaan
                               </a>
                         </li>
                         <li>
                               <a class="nav-link" href="#step-3">
-                                 Form Rating Perusahaan
+                                 Form Kuisioner
                               </a>
                         </li>
                      </ul>
@@ -185,6 +189,7 @@
                                     </div>
                                  <!-- /.card-header -->
                                  <div class="card-body">
+                                    <?= $this->session->flashdata('message'); ?>
                                     <img class="img-fluid pad" src="<?= base_url() . "assets/dist/img/perusahaan/" . $gmbr_perusahaan; ?>" alt="Photo">
 
                                     <p><small class="badge badge-info"><?= $row_kuisioner; ?> Mahasiswa Telah mengisi kuisioner perusahaan ini</small></p>
@@ -192,23 +197,50 @@
                                  </div>
                                  
                                  <!-- /.card-footer -->
-                                 </div>
-                                 <!-- /.card -->
                               </div>
+                              <!-- /.card -->
                            </div>
                         </div>
+                     </div>
                         <div id="step-2" class="tab-pane" role="tabpanel">
+                           <span id="business_list">asd</span>
+                              <div class="card">
+                                 
+                                 <br />
+                                 
+                              </div>
+                        </div>
+                        <div id="step-3" class="tab-pane" role="tabpanel">
+                              <?php
+                                 $q_kuis_m = $this->db->get_where('m_kuisioner', ['id_m' => $id_user])->num_rows();
+                                 if($q_kuis_m > 0):
+                              ?>
+                                 <div class="card">
+                                    <div class="alert-success small">&nbsp;Data Kuisioner Berhasil Disimpan</div>
+                                 </div>
+                              <?php
+                                 else :
+                              ?>
                            <div class="card card-primary">
                               <div class="card-header">
                                  <h3 class="card-title">Pertanyaan Kuisioner pada perusahaan "<?= $nm_perusahaan; ?>"</h3>
                               </div>
                               <!-- /.card-header -->
                               <!-- form start -->
-                              <form role="form">
+                              <form action="<?= base_url() . 'rating_mhs'; ?>" method="post">
                                  <div class="card-body">
+                                       <?php 
+                                          $kuisioner = $this->db->query("SELECT * FROM kuisioner");
+                                          $i = 1;
+                                          foreach($kuisioner->result_array() as $ks) :
+                                       ?>
+                                       
                                     <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda terhadap Pembelajaran di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
+                                       <input type="text" name="kuisioner<?= $i ?>" value="<?= $ks['id_kuisioner']; ?>" hidden>
+                                       <input type="text" name="id_pr" value="<?= $id_perusahaan; ?>" hidden>
+                                       <input type="text" name="id_mahasiswa" value="<?= $id_user; ?>" hidden>
+                                       <label for="opsi<?= $i ?>"><?= $ks['kuisioner']; ?> <?= $nm_perusahaan; ?></label>
+                                       <select name="opsi<?= $i ?>" id="" class="custom-select">
                                           <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
                                           <?php 
                                              $get_rating = $this->db->get("rating")->result_array();
@@ -220,76 +252,15 @@
                                           ?>
                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda terhadap keloyalan di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda Tugas di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda kesesuaian kerja di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="opsi1">Penilaian Anda Penempatan di perusahaan <?= $nm_perusahaan; ?></label>
-                                       <select name="opsi1" id="" class="custom-select">
-                                          <option value="" disabled selected>Silahkan Pilih Pilihan Anda</option>
-                                          <?php 
-                                             $get_rating = $this->db->get("rating")->result_array();
-                                             foreach($get_rating as $rt ) : 
-                                          ?>
-                                          <option value="<?= $rt["RT"]; ?>"><?= $rt["nama_rating"]; ?></option>
-                                          <?php 
-                                             endforeach; 
-                                          ?>
-                                       </select>
-                                    </div>
+                                       <?php
+                                          $i++; 
+                                          endforeach; 
+                                       ?>
+                                    <button class="btn btn-success" type="submit">Simpan Data Kuisioner</button>
                                  </div>
                                  <!-- /.card-body -->
                               </form>
-                           </div>
-                        </div>
-                        <div id="step-3" class="tab-pane" role="tabpanel">
-                           <div class="container">
-                                 <div class="card-body">
-                                    
-                                    <br />
-                                    
-                                    <span id="business_list"></span>
-                                 </div>
-                           </div>
+                           <?php endif; ?>
                         </div>
                      </div>
                   </div>
@@ -307,91 +278,38 @@
 </div>
 </div>
 
-<!-- Main content -->
-<!-- <section class="content">
-    <div class="row">
-        <div class="col-12">
-            <div class="card"> 
-                <div class="card-header"> 
-                    <h3 class="card-title"><?= $title ?> </h3> 
-                </div> -->
-            <!-- /.card-header -->
-            
-            <!-- /.card-body -->
-            <!-- </div> -->
-            <!-- /.card -->
-        <!-- </div> -->
-    <!-- /.col -->
-    <!-- </div> -->
-    <!-- /.row -->
-<!-- </section> -->
-<!-- /.content -->
-<!-- </div> -->
-<!-- /.content-wrapper -->
-
-<?php
-    $this->load->view('templates/footer');
-?>
-<script>
-$(document).ready(function(){
-
- load_data();
-
- function load_data()
- {
-  $.ajax({
-   url:"<?php echo base_url(); ?>rating_mhs/fetch",
-   method:"POST",
-   success:function(data)
-   {
-    $('#business_list').html(data);
-   }
-  })
- }
-
- $(document).on('mouseenter', '.rating', function(){
-  var index = $(this).data('index');
-  var id_pr = $(this).data('id_pr');
-  remove_background(id_pr);
-  for(var count = 1; count <= index; count++)
-  {
-   $('#'+id_pr+'-'+count).css('color', '#ffcc00');
-  }
- });
-
- function remove_background(id_pr)
- {
-  for(var count = 1; count <= 5; count++)
-  {
-   $('#'+id_pr+'-'+count).css('color', '#ccc');
-  }
- }
-
- $(document).on('click', '.rating', function(){
-  var index = $(this).data('index');
-  var id_pr = $(this).data('id_pr');
-  $.ajax({
-   url:"<?php echo base_url(); ?>rating_mhs/insert",
-   method:"POST",
-   data:{index:index, id_pr:id_pr},
-   success:function(data)
-   {
-    load_data();
-    alert("You have rate "+index +" out of 5");
-   }
-  })
- });
-
- $(document).on('mouseleave', '.rating', function(){
-  var index = $(this).data('index');
-  var id_pr = $(this).data('id_pr');
-  var rating = $(this).data('rating');
-  remove_background(id_pr);
-  for(var count = 1; count <= rating; count++)
-  {
-   $('#'+id_pr+'-'+count).css('color', '#ffcc00');
-  }
- });
-
-});
-</script>
+<div class="modal fade" id="detailPerusahaan<?= $id_perusahaan; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h3 class="modal-title" id="myModalLabel">Detail Perusahaan</h3>
+         </div>
+         <div class="col-lg">
+                <div class="card-header text-muted border-bottom-0">
+                  <?= $nm_perusahaan; ?>
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b><?= $email_pr; ?></b></h2>
+                      <p class="text-muted text-sm"><b>Email: </b> <?= $email_pr; ?> </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span><?= $alamat_pr; ?></li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span><?= $hp_pr; ?></li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="<?= base_url() . "assets/dist/img/perusahaan/" . $gmbr_perusahaan; ?>" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                  <b>Rating&nbsp;</b>
+                    <span id="bintang1_"></span> 
+                  </div>
+                </div>
+              </div>
+      </div>
+   </div>
+</div>

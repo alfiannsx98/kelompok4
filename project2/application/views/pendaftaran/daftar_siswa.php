@@ -1,4 +1,4 @@
-<?php $no = 1;
+<!-- <?php $no = 1;
 if($mhs) {
     foreach ($mhs->result() as $c => $data) { ?>
         <tr>
@@ -25,4 +25,4 @@ if($mhs) {
             echo '<tr>
                 <td colspan="8" class="text-center">Tidak Ada data</td>
                 </tr>';
-        }?>
+        }?> -->

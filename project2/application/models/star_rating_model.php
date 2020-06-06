@@ -4,7 +4,7 @@ class Star_rating_model extends CI_Model
 {
  function get_business_data()
  {
-    $dt_pr = $this->session->userdata('id_perusahaan');
+  $dt_pr = $this->session->userdata('id_perusahaan');
   $this->db->order_by('ID_PR', 'DESC');
   return $this->db->get_where('perusahaan', ["ID_PR" => $dt_pr]);
  }
@@ -23,6 +23,8 @@ class Star_rating_model extends CI_Model
 
  function html_output()
  {
+  $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+  $rslt_user = $user['id_user'];
   $data = $this->get_business_data();
   $output = '';
   foreach($data->result_array() as $row)
@@ -44,7 +46,7 @@ class Star_rating_model extends CI_Model
      $color = 'color:#ccc;';
     }
 
-    $output .= '<li title="'.$count.'" id="'.$row['ID_PR'].'-'.$count.'" data-index="'.$count.'" data-id_pr="'.$row["ID_PR"].'" data-rating="'.$rating.'" class="list-inline-item rating" style="cursor:pointer; '.$color.' font-size:24px;">&#9733;</li>';
+    $output .= '<li title="'.$count.'" id="'.$row['ID_PR'].'-'.$count.'" data-index="'.$count.'" data-id_pr="'.$row["ID_PR"].'" data-id_user="'.$rslt_user.'" data-rating_input="'.$rating.'" class="list-inline-item rating rating_input" style="cursor:pointer; '.$color.' font-size:24px;">&#9733;</li>';
    }
    $output .= '</ul>
    <p>'.$row["ALAMAT_PR"].'</p>
@@ -53,6 +55,35 @@ class Star_rating_model extends CI_Model
    ';
   }
   echo $output;
+ }
+
+ function output_bintang()
+ {
+  $data = $this->get_business_data();
+  $output = '';
+  foreach($data->result_array() as $row)
+  {
+   $color = '';
+   $rating = $this->get_business_rating($row["ID_PR"]);
+   for($count = 1; $count <= 5; $count++)
+   {
+    if($count <= $rating)
+    {
+     $color = 'color:#ffcc00;';
+    }
+    else
+    {
+     $color = 'color:#ccc;';
+    }
+
+    $output .= '<p title="'.$count.'" data-rating="'.$rating.'" class="float-right rating" style="'.$color.'">&#9733;</p>';
+   }
+  }
+  echo $output;
+ }
+ function output_sudah_isi()
+ {
+  echo '<div class="alert-success small" role="alert">&nbsp;Data Rating Berhasil Disimpan</div>';
  }
 
  function insert_rating($data)

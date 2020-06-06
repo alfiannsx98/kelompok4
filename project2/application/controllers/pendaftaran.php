@@ -2,7 +2,8 @@
 
 class Pendaftaran extends CI_Controller
 {
-    function __construct(){
+    function __construct()
+    {
 		parent::__construct();		
 		$this->load->model('m_pendaftaran');
         $this->load->helper('url');
@@ -34,6 +35,23 @@ class Pendaftaran extends CI_Controller
 		// $this->load->view('pendaftaran/vi_pendaftaran', $data);
     }
 
+    public function coba()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+
+        // $data['mahasiswa'] = $this->m_pendaftaran->mhsiswa()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_coba', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function tampil_detail($ID_PND)
     {
         $data['title'] = 'Dashboard';
@@ -52,7 +70,8 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function tambah_data() {
+    public function tambah_data() 
+    {
         // method yang dibuat didin
         // $dariDB = $this->m_pendaftaran->selectMaxID();
         // $nourut = substr($dariDB, 3);
@@ -70,8 +89,8 @@ class Pendaftaran extends CI_Controller
         $data['bulan'] = $this->m_pendaftaran->bulan()->result();
         $data['jumlah_pr'] = $this->m_pendaftaran->jmlh_pr()->result();
         $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
-        $mhs = $this->m_pendaftaran->get_mhs();
-        $data['mhs'] = $mhs;
+        // $mhs = $this->m_pendaftaran->get_mhs();
+        // $data['mhs'] = $mhs;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -81,18 +100,19 @@ class Pendaftaran extends CI_Controller
 
     }
 
-    public function data_mhs()
-    {
-        $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('user', [
-            'email' =>
-            $this->session->userdata('email')    
-        ])->row_array();
-        $data['mhs'] = $this->m_pendaftaran->get_mhs();
-        $this->load->view('pendaftaran/daftar_siswa', $data);
-    }
+    // public function data_mhs()
+    // {
+    //     $data['title'] = 'Dashboard';
+    //     $data['user'] = $this->db->get_where('user', [
+    //         'email' =>
+    //         $this->session->userdata('email')    
+    //     ])->row_array();
+    //     $data['mhs'] = $this->m_pendaftaran->get_mhs();
+    //     $this->load->view('pendaftaran/daftar_siswa', $data);
+    // }
     
-    public function pr_tmbh_pnd(){
+    public function pr_tmbh_pnd()
+    {
         $ID_PND = $this->input->post('ID_PND');
         $ID_PR = $this->input->post('ID_PR');
         $ID_DS = $this->input->post('ID_DS');
@@ -118,7 +138,7 @@ class Pendaftaran extends CI_Controller
             'PROPOSAL'=> $this->upload->file_name
         );
             $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
-            redirect('pendaftaran/tambah_data');   
+            redirect('pendaftaran/tambah_data2');   
         // }
         // else{
         //     echo $this->upload->display_errors();
@@ -136,8 +156,8 @@ class Pendaftaran extends CI_Controller
         ])->row_array();
     
         $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
-        $mhs = $this->m_pendaftaran->get_mhs();
-        $data['mhs'] = $mhs;
+        // $mhs = $this->m_pendaftaran->get_mhs();
+        // $data['mhs'] = $mhs;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -147,19 +167,27 @@ class Pendaftaran extends CI_Controller
 
     }
 
-    public function pr_tmbh_pnd2(){
-        
+    public function pr_tmbh_pnd2()
+    {
         $ID_PND = $_POST['ID_PND'];
-        $NIM = $_POST['NIM'];
+        $ID_M = $_POST['ID_M'];
         $data = array();
 
         $index = 0;
-        foreach ($NIM as $NIMM){
-            
+        foreach ($ID_PND as $PND){
+            array_push($data, array(
+                'ID_PND' => $PND,
+                'ID_M' => $ID_M[$index],
+            ));
+
+            $index++;
         }
+        $sql = $this->m_pendaftaran->tmbh_nim($data);
+        redirect ('pendaftaran/tambah_data2');
     }
 
-    public function tampil_detail_pend(){
+    public function tampil_detail_pend()
+    {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
