@@ -24,17 +24,13 @@ class model_dosen extends CI_Model
         $hsl1 = $this->db->query("UPDATE user SET identity='$id', nama='$nama_adm', email='$email_admin', is_active='$is_active' WHERE id_user='$id_user'");
         return $hsl1;
     }
-    function hapus_aAdmin_prodi($id)
+    function hapus_admin_prodi($id)
     {
         $hasil = $this->db->query("DELETE FROM admin_prodi WHERE ID_ADM='$id'");
         return $hasil;
     }
 
-<<<<<<< HEAD
-     //Dosen Pembimbing
-=======
     // Dosen Pembimbing
->>>>>>> d9ddf36d9c0cb984341efb544ce6b8923e82639e
     public function tampil_data(){
         return $this->db->get('dosbing');
     }
