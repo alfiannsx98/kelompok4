@@ -30,7 +30,11 @@ class model_dosen extends CI_Model
         return $hasil;
     }
 
+<<<<<<< HEAD
      //Dosen Pembimbing
+=======
+    // Dosen Pembimbing
+>>>>>>> d9ddf36d9c0cb984341efb544ce6b8923e82639e
     public function tampil_data(){
         return $this->db->get('dosbing');
     }
