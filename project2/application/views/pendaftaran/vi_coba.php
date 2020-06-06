@@ -5,7 +5,6 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1><?= $title; ?></h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -22,19 +21,16 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header">
-						<h3 class="card-title"><?= $title ?> Table</h3>
-					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
 						<div class="form-group">
-						<input type="text" name="NIM">
-							<!-- <select name="NIM" id="" class="form-control select2" style="width: 100%">
+							<input type="text" name="NIM">
+							<select name="NIM" id="" class="form-control select2" style="width: 100%">
 								<option value="" selected disabled>Pilih Mahasiswa</option>
-								<?php foreach($mahasiswa as $mhs) : ?>
-								<option name="NIM" value="<?= $mhs['ID_M']; ?>">
-									<?= $mhs['NIM']; ?></option><?php endforeach; ?>
-							</select> -->
+								<?php foreach($mahasiswa as $mhs) { ?>
+								<option name="NIM" value="<?= $mhs->ID_M; ?>"> <?= $mhs->ID_M; ?> </option>
+								<?php } ?>
+							</select>
 						</div>
 						<div class="form-group">
 							<button type="submit" name="simpan" class="btn btn-success btn-xs add">Tambahkan</button>
@@ -50,9 +46,9 @@
 								</tr>
 							</thead>
 							<tbody>
-							<td></td>
-							<td></td>
-							<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
 								<!-- <?php $i = 1; ?>
 								<?php foreach ($mahasiswa as $m) :
                         $id = $m['ID_M'];
@@ -84,7 +80,16 @@
 			</div>
 			<!-- /.card -->
 		</div>
-		<!-- /.col -->
+	</section>
 </div>
-<!-- /.row -->
-</section>
+<!-- <section class="content">
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+				lkfnk
+				</div>
+			</div>
+		</div>
+	</div>
+</section> -->

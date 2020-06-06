@@ -35,6 +35,23 @@ class Pendaftaran extends CI_Controller
 		// $this->load->view('pendaftaran/vi_pendaftaran', $data);
     }
 
+    public function coba()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+
+        // $data['mahasiswa'] = $this->m_pendaftaran->mhsiswa()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_coba', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function tampil_detail($ID_PND)
     {
         $data['title'] = 'Dashboard';
@@ -83,16 +100,16 @@ class Pendaftaran extends CI_Controller
 
     }
 
-    public function data_mhs()
-    {
-        $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('user', [
-            'email' =>
-            $this->session->userdata('email')    
-        ])->row_array();
-        $data['mhs'] = $this->m_pendaftaran->get_mhs();
-        $this->load->view('pendaftaran/daftar_siswa', $data);
-    }
+    // public function data_mhs()
+    // {
+    //     $data['title'] = 'Dashboard';
+    //     $data['user'] = $this->db->get_where('user', [
+    //         'email' =>
+    //         $this->session->userdata('email')    
+    //     ])->row_array();
+    //     $data['mhs'] = $this->m_pendaftaran->get_mhs();
+    //     $this->load->view('pendaftaran/daftar_siswa', $data);
+    // }
     
     public function pr_tmbh_pnd()
     {
@@ -139,8 +156,8 @@ class Pendaftaran extends CI_Controller
         ])->row_array();
     
         $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
-        $mhs = $this->m_pendaftaran->get_mhs();
-        $data['mhs'] = $mhs;
+        // $mhs = $this->m_pendaftaran->get_mhs();
+        // $data['mhs'] = $mhs;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -153,20 +170,20 @@ class Pendaftaran extends CI_Controller
     public function pr_tmbh_pnd2()
     {
         $ID_PND = $_POST['ID_PND'];
-        $NIM = $_POST['NIM'];
+        $ID_M = $_POST['ID_M'];
         $data = array();
 
         $index = 0;
         foreach ($ID_PND as $PND){
             array_push($data, array(
                 'ID_PND' => $PND,
-                'NIM' => $NIM
+                'ID_M' => $ID_M[$index],
             ));
 
             $index++;
         }
-        $sql = $this->m_pendaftaran->tmbh_nim($data,'pendaftaran_klp');
-        redirect ('pendaftaran/vi_tmbh_pend');
+        $sql = $this->m_pendaftaran->tmbh_nim($data);
+        redirect ('pendaftaran/tambah_data2');
     }
 
     public function tampil_detail_pend()

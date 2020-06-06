@@ -264,9 +264,9 @@
 
     				html += '<tr>';
     				html += '<td>' + count + '</td>';
-					html += '<td><input type="hidden" name="ID_PND[]" value="' + i + '"></td>'
+					html += '<td><input type="text" name="ID_PND[]" value="' + i + '"></td>'
 
-    				html += '<td>' + nim + '<input type="hidden" id="nim_av" name="NIM[]" value="' + nim + '"></td>';
+    				html += '<td>' + nim + '<input type="text" id="nim_av" name="ID_M[]" value="' + nim + '"></td>';
     				html += '<td>' + nama + '<input type="hidden" value="' + nama + '"></td>';
     				// html += '<td>' + i + '</td>';
     				html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
