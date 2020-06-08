@@ -37,7 +37,7 @@
 							<?php foreach($pendaftaran as $pnd){ ?>
 							<tbody>
 								<tr>
-									<td class="text-center"><?= $pnd->ID_PND; //$nmr++; ?></td>
+									<td class="text-center"><?= $nmr++; ?></td>
 									<td><?= $pnd->NAMA_M; ?></td>
 									<td><?= $pnd->NAMA_PR; ?></td>
 									<td><?= $pnd->NAMA_DS; ?></td>
@@ -99,16 +99,17 @@
 ?>
 
 <div class="modal fade" id="modal_edit<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title title-1" id="myModalLabel">Ubah Status</h3>
+				<h4 class="modal-title title-1" id="myModalLabel">Ubah Status</h4>
 			</div>
 			<form method="post" action="<?= base_url('pendaftaran/pr_ubah_st_pendaftaran'); ?>">
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
+						<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
 						<select name="ST_PENDAFTARAN" id="ST_PENDAFTARAN" class="form-control">
+							<option disabled selected value="<?= $ST_PENDAFTARAN; ?>"><?= $ST_PENDAFTARAN; ?></option>
 							<option value="Belum Disetujui">Belum Disetujui</option>
 							<option value="Disetujui">Disetujui</option>
 						</select>

@@ -37,7 +37,7 @@
 										data-style="btn btn-primary btn-round" data-size="7" autofocus required>
 										<option selected disabled>Pilih Tempat PKL</option>
 										<?php foreach($jumlah_pr as $pr){
-											if ($pr->JMLH_PR < 2 ){
+											if ($pr->JMLH_PR < 2){
 												echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; 
 												echo '	||	';
 												echo  '<label name="ID_PR" >Alamat : '.$pr->ALAMAT_PR.'</label>';
