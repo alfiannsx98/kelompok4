@@ -184,7 +184,7 @@ class User extends CI_Controller
                             unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
                         }
                         $new_image = $this->upload->data('file_name');
-                        $this->db->set('image', $new_image);
+                        $h = $this->db->set('image', $new_image);
                     } else {
                         echo $this->upload->display_errors();
                     }
@@ -354,7 +354,7 @@ class User extends CI_Controller
                     $config['upload_path'] = './assets/dist/img/user/';
 
                     $this->load->library('upload', $config);
-                    $old_image == $data['user']['image'];
+                    $old_image = $data['user']['image'];
                     if ($this->upload->do_upload('image')) {
                         if ($old_image != 'default.jpg') {
                             unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
