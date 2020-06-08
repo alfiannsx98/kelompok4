@@ -17,7 +17,6 @@ class model_dosen extends CI_Model
         $this->db->set('ID_PRODI', $prodi_admin);
         $this->db->where('ID_ADM', $id);
         $this->db->update('admin_prodi');
-
     }
     function edit_user_admin_prodi($id_user, $id, $nama_adm, $is_active, $email_admin)
     {
@@ -28,6 +27,12 @@ class model_dosen extends CI_Model
     {
         $hasil = $this->db->query("DELETE FROM admin_prodi WHERE ID_ADM='$id'");
         return $hasil;
+    }
+
+    function hapus_user_adm_prodi($id)
+    {
+        $hps_adm_prodi = $this->db->query("DELETE FROM user WHERE identity='$id'");
+        return $hps_adm_prodi;
     }
 
     // Dosen Pembimbing
