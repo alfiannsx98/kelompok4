@@ -14,6 +14,7 @@ class Pendaftaran extends CI_Controller
         $this->load->model('search_model_pend');
 	}
 
+    // tampil data pendaftar pada admin
     public function index()
     {
         $data['title'] = 'Dashboard';
@@ -35,23 +36,7 @@ class Pendaftaran extends CI_Controller
 		// $this->load->view('pendaftaran/vi_pendaftaran', $data);
     }
 
-    public function coba()
-    {
-        $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('user', [
-            'email' =>
-            $this->session->userdata('email')    
-        ])->row_array();
-
-        // $data['mahasiswa'] = $this->m_pendaftaran->mhsiswa()->result();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('pendaftaran/vi_coba', $data);
-        $this->load->view('templates/footer');
-    }
-
+    // tampil data 1 tim pendaftar pada admin
     public function tampil_detail($ID_PND)
     {
         $data['title'] = 'Dashboard';
@@ -70,6 +55,16 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    // proses ubah status pendaftaran
+    public function pr_ubah_st_pendaftaran()
+    {
+        $ID_PND = $this->input->post('ID_PND');
+        $ST_PENDAFTARAN = $this->input->post('ST_PENDAFTARAN');
+        $this->m_pendaftaran->ubah_status($ST_PENDAFTARAN, $ID_PND);
+        redirect('pendaftaran/index');
+    }
+
+    // masuk form pendaftaran pada mahasiswa (Isian kelompok)
     public function tambah_data() 
     {
         // method yang dibuat didin
@@ -111,6 +106,7 @@ class Pendaftaran extends CI_Controller
     //     $this->load->view('pendaftaran/daftar_siswa', $data);
     // }
     
+    // proses tambah data pada mahasiswa (Isian kelompok)
     public function pr_tmbh_pnd()
     {
         $ID_PND = $this->input->post('ID_PND');
@@ -147,6 +143,7 @@ class Pendaftaran extends CI_Controller
 
     }
 
+    // masuk form pendaftaran pada mahasiswa (Isian individu)
     public function tambah_data2()
     {
         $data['title'] = 'Dashboard';
@@ -167,6 +164,7 @@ class Pendaftaran extends CI_Controller
 
     }
 
+    // proses tambah data pada mahasiswa (Isian individu)
     public function pr_tmbh_pnd2()
     {
         $ID_PND = $_POST['ID_PND'];
@@ -183,7 +181,22 @@ class Pendaftaran extends CI_Controller
             $index++;
         }
         $sql = $this->m_pendaftaran->tmbh_nim($data);
-        redirect ('pendaftaran/tambah_data2');
+        redirect ('pendaftaran/pnd_mhs');
+    }
+
+    public function pnd_mhs()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pendaftaran/vi_pnd_mhs', $data);
+        $this->load->view('templates/footer');
     }
 
     public function tampil_detail_pend()
@@ -194,7 +207,7 @@ class Pendaftaran extends CI_Controller
             $this->session->userdata('email')    
         ])->row_array();
         
-        $nim = $user['identity'];
+        // $nim = $user['identity'];
 
         $data['data_kelompok'] = $this->m_pendaftaran->data_kel()->result();
 
