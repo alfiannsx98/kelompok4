@@ -2,7 +2,7 @@
 
 class M_pendaftaran extends CI_Model{
 	function tampil_pnd(){
-        $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ST_PENDAFTARAN, perusahaan.NAMA_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M 
+        $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ST_PENDAFTARAN, pendaftaran.ID_PR, pendaftaran.ID_DS, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M 
                                 FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp
                                 WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
                                 AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
@@ -13,7 +13,7 @@ class M_pendaftaran extends CI_Model{
 
         function tampil_dt_pnd($ID_PND)
         {
-                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ST_PENDAFTARAN, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
+                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL, pendaftaran.ST_PENDAFTARAN, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
                                         FROM pendaftaran, perusahaan, dosbing
                                         WHERE pendaftaran.ID_PR = perusahaan.ID_PR 
                                         AND pendaftaran.ID_DS = dosbing.ID_DS
@@ -36,6 +36,13 @@ class M_pendaftaran extends CI_Model{
                                         WHERE ID_PND = '$ID_PND'");
                         // return $data;
         }
+
+        // ubah data pendaftaran
+        function ubah_data_pnd($where, $data, $table)
+        {
+		$this->db->where($where);
+		$this->db->update($table, $data);
+	}	
 
         function selectMaxID(){
                 $query = $this->db->query("SELECT MAX(ID_PND) as ID_PND from pendaftaran");
