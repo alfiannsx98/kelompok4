@@ -262,5 +262,3 @@ foreach ($pt as $i) :
     </div>
 
 <?php endforeach; ?>
-
-<script src="<?= base_url(); ?>assets/dist/js/display.js"></script>
