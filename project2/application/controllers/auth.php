@@ -48,11 +48,13 @@ class Auth extends CI_Controller
                     if ($user['role_id'] == 1) {
                         redirect('admin');
                     } else if ($user['role_id'] == 2) {
-                        redirect('user');
+                        redirect('user/index');
                     } else if ($user['role_id'] == 3) {
-                        redirect('user');
+                        redirect('user/profil');
+                    } else if ($user['role_id'] == 4) {
+                        redirect('user/profil');
                     } else {
-                        redirect('user');
+                        redirect('user/profil');
                     }
                     redirect('user');
                 } else {
@@ -180,6 +182,7 @@ class Auth extends CI_Controller
                 $this->db->set('password', $pass);
                 $this->db->set('role_id', $role);
                 $this->db->where('identity', $nim);
+                $this->db->set('date_created', time());
                 $this->db->update('user');
                 $this->db->insert('token_user', $token_user);
 

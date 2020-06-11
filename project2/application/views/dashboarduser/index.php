@@ -19,12 +19,20 @@
     <!-- /.content-header -->
     <div class="alert alert-success m-3 text-center text-bold" role="alert">
         Selamat Datang <?= $user['email']; ?>, Anda login sebagai
-        <?php if ($user['role_id'] == 1) {
-            echo '<b>Admin</b>';
-        }
-
+        <?php
+            if ($user['role_id'] == 2) {
+                echo '<b>Mahasiswa</b>';
+            } else if ($user['role_id'] == 3) {
+                echo '<b>Dosen Pembimbing</b>';
+            } else if ($user['role_id'] == 4) {
+                echo '<b>Koordinator PKL</b>';
+            } else {
+                echo '<b>Admin Prodi</b>';
+            }
         ?>
     </div>
+    <input type="text" name="email" value="<?= $user['email']; ?>" hidden>
+    <input type="text" name="identity" value="<?= $user['identity']; ?>" hidden>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -34,14 +42,17 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3><?= $jml_dosen; ?></h3>
-
-                            <p>Lecturer</p>
+                            <?php if($mhs==NULL) { ?>
+                                <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
+                            <?php } else { ?>
+                                <h6 class="font-weight-bolder"><?= $mhs['NAMA_DS']; ?></h6>
+                            <?php } ?>
+                            <p>Dosen Pembimbing</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-user-tie"></i>
                         </div>
-                        <a href="<?= base_url('Dosbing');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= base_url('pendaftaran/tampil_detail_pend'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -49,14 +60,17 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3><?= $jml_perusahaan; ?></h3>
-
-                            <p>Company</p>
+                            <?php if($pr==NULL) { ?>
+                                <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
+                            <?php } else { ?>
+                                <h6 class="font-weight-bold"><?= $pr['NAMA_PR']; ?></h6>
+                            <?php } ?>
+                            <p>Tempat PKL</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-building"></i>
                         </div>
-                        <a href="<?= base_url('perusahaan');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= base_url('pendaftaran/tampil_detail_pend'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -64,14 +78,26 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3><?= $jml_aktif; ?></h3>
+                            <h6 class="font-weight-bolder">
+                                <?php if($mhs==NULL&&$pr==NULL) { ?>
+                                    <span class="badge-pill badge-secondary">Belum Daftar PKL</span>
+                                <?php 
+                                    } else {
+                                        if ($stts['ST_KETUA'] == 1) {
+                                            echo "Ketua PKL";
+                                        } else if ($stts['ST_KETUA'] == 0){
+                                            echo "Anggota PKL";
+                                        }
+                                    } 
+                                ?>
+                            </h6>
 
-                            <p>Active User</p>
+                            <p>Status</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-user-plus"></i>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <a href="<?= base_url('mahasiswa');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -79,14 +105,17 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3><?= $jml_admin; ?></h3>
-
-                            <p>Admin</p>
+                            <?php if($mhs==NULL&&$pr==NULL) { ?>
+                                    <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
+                            <?php } else { ?>
+                                <h6 class="font-weight-bolder"><?= $jml_anggota; ?></h6>
+                            <?php } ?>
+                            <p>Anggota</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-book-reader"></i>
+                            <i class="fas fa-users"></i>
                         </div>
-                        <a href="<?= base_url('dosen/admin_prodi');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -94,9 +123,9 @@
             <!-- /.row -->
             <!-- Main row -->
             <!-- Main content -->
-            <div class="row">
-                <!-- Left col -->
-                <div class="col-md-6">
+            <!-- <div class="row"> -->
+            <!-- Left col -->
+            <!-- <div class="col-md-6">
                     <div class="card">
                         <div class="card-header card-header-icon" data-background-color="blue">
                             <i class="fas fa-chart-bar text-right bg-pink p-4"></i>
@@ -133,14 +162,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
 
-Modal Info User
+<!-- Modal Info User
 <div class="modal fade jumbotron-fluid" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -211,29 +240,29 @@ Modal Info User
                                                         <?php $i++; ?>
                                                     <?php endforeach; ?>
                                                 <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- end content-->
-                            </div>
-                            <!--  end card  -->
-                        </div>
-                        <!-- end col-md-12 -->
-                    </div>
-                    <!-- end row -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                            <!-- </tbody> -->
+<!-- </table> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- end content -->
+<!-- </div> -->
+<!--  end card  -->
+<!-- </div> -->
+<!-- end col-md-12 -->
+<!-- </div> -->
+<!-- end row -->
+<!-- <div class="modal-footer"> -->
+<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
 
-</div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <script type="text/javascript">
@@ -296,5 +325,5 @@ Modal Info User
 
         // Configuration options go here
         options: {}
-    });
-</script>
+    }); -->
+<!-- </script> -->

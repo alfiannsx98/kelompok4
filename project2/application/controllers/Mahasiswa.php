@@ -105,6 +105,14 @@ class Mahasiswa extends CI_Controller
         redirect('Mahasiswa');
     }
 
+    public function deleteAll(){
+        $this->m_mahasiswa->getMahasiswa();
+        $nim = $this->input->post('cb');
+        $this->m_mahasiswa->hapus_mahasiswa($nim);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
+        redirect('Mahasiswa');
+    }
+
     public function edit_mahasiswa()
     {   
         $nim = $this->input->post('nim');
