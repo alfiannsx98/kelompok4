@@ -21,7 +21,6 @@ class User extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['mhs'] = $this->m_dashboard->dosbingmhs($mail);
         $data['pr'] = $this->m_dashboard->perusahaanmhs($mail);
-        var_dump($data['mhs']);
         $data['stts'] = $this->m_dashboard->get_status($mail);
         $data['jml_anggota'] = $this->m_dashboard->anggota($mail);
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
