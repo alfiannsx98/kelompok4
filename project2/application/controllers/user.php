@@ -8,12 +8,54 @@ class User extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('model_admin');
+        $this->load->model('m_dashboard');
     }
 
     /**
      * Fungsi menampilkan dashboard per user
      */
     public function index()
+    {
+        $mail = $this->session->userdata('email');
+        $identity = $this->session->userdata('identity');
+        $data['title'] = 'Dashboard';
+        $data['mhs'] = $this->m_dashboard->dosbingmhs($mail);
+        $data['pr'] = $this->m_dashboard->perusahaanmhs($mail);
+        $data['stts'] = $this->m_dashboard->get_status($mail);
+        $data['jml_anggota'] = $this->m_dashboard->anggota($mail);
+        $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
+        // $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
+        // LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity
+        // LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI OR admin_prodi.ID_PRODI=prodi.ID_PRODI 
+        // OR mahasiswa.ID_PRODI=prodi.ID_PRODI
+        // WHERE user.email ='$mail'")->row_array();
+        $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        if($user['role_id'] == 2)
+        {
+            $this->load->view('dashboarduser/index', $data);
+        }
+        elseif($user['role_id'] == 3)
+        {
+            // $this->load->view('userdosbing/index', $data);
+        }
+        elseif($user['role_id'] == 4)
+        {
+            // $this->load->view('userdospkl/index', $data);
+        }
+        elseif($user['role_id'] == 12)
+        {
+            // $this->load->view('useradmprodi/index', $data);
+        }
+        $this->load->view('templates/footer');
+    }
+
+    /**
+     * Fungsi menampilkan profil per user
+     */
+    public function profil()
     {
         $mail = $this->session->userdata('email');
         $identity = $this->session->userdata('identity');
@@ -30,23 +72,23 @@ class User extends CI_Controller
         $this->load->view('templates/topbar', $data);
         if($user['role_id'] == 1)
         {
-            $this->load->view('useradm/index', $data);
+            $this->load->view('useradm/profil', $data);
         }
         elseif($user['role_id'] == 2)
         {
-            $this->load->view('usermhs/index', $data);
+            $this->load->view('usermhs/profil', $data);
         }
         elseif($user['role_id'] == 3)
         {
-            $this->load->view('userdosbing/index', $data);
+            $this->load->view('userdosbing/profil', $data);
         }
         elseif($user['role_id'] == 4)
         {
-            $this->load->view('userdospkl/index', $data);
+            $this->load->view('userdospkl/profil', $data);
         }
         elseif($user['role_id'] == 12)
         {
-            $this->load->view('useradmprodi/index', $data);
+            $this->load->view('useradmprodi/profil', $data);
         }
         $this->load->view('templates/footer');
     }
@@ -113,7 +155,7 @@ class User extends CI_Controller
                 $this->db->where('email', $email);
                 $this->db->update('user');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 2)
@@ -205,7 +247,7 @@ class User extends CI_Controller
                 $this->db->where('NIM', $nim);
                 $this->db->update('mahasiswa');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 3)
@@ -293,7 +335,7 @@ class User extends CI_Controller
                 $this->db->where('NIP_DS', $nip);
                 $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 4)
@@ -381,7 +423,7 @@ class User extends CI_Controller
                 $this->db->where('NIP_DS', $nip);
                 $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 12)
@@ -469,7 +511,7 @@ class User extends CI_Controller
                 $this->db->where('NIP_ADM', $nip);
                 $this->db->update('admin_prodi');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         
@@ -539,7 +581,7 @@ class User extends CI_Controller
                     $this->db->where('email', $this->session->userdata('email'));
                     $this->db->update('user');
                     $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                    redirect('user');
+                    redirect('user/profil');
                 }
             }
         }

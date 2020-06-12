@@ -2,7 +2,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_dashboard extends CI_Model
-{
+{	
+	/**
+	 * dashboard admin
+	 */
 	public function select_by_user()
 	{
 		$sql = "SELECT * FROM user WHERE role_id=2 AND is_active=1";
@@ -41,6 +44,51 @@ class m_dashboard extends CI_Model
 
 		return $data->num_rows();
 	}
+
+	/**
+	 * dashboard mahasiswa
+	 */
+	public function dosbingmhs($mail)
+	{
+		$data = $this->db->query("SELECT dosbing.NAMA_DS FROM pendaftaran LEFT JOIN dosbing ON 
+		dosbing.ID_DS=pendaftaran.ID_DS LEFT JOIN pendaftaran_klp ON pendaftaran_klp.ID_PND=pendaftaran.ID_PND 
+		LEFT JOIN mahasiswa ON mahasiswa.nim=pendaftaran_klp.ID_M LEFT JOIN user ON user.identity=mahasiswa.NIM
+		WHERE user.email='$mail'");
+
+		return $data->row_array();
+	}
+
+	public function perusahaanmhs($mail)
+	{
+		$data = $this->db->query("SELECT perusahaan.NAMA_PR FROM pendaftaran LEFT JOIN perusahaan ON 
+		perusahaan.ID_PR=pendaftaran.ID_PR LEFT JOIN pendaftaran_klp ON pendaftaran_klp.ID_PND=pendaftaran.ID_PND 
+		LEFT JOIN mahasiswa ON mahasiswa.nim=pendaftaran_klp.ID_M LEFT JOIN user ON user.identity=mahasiswa.NIM
+		WHERE user.email='$mail'");
+
+		return $data->row_array();	
+	}
+
+	public function get_status($mail)
+	{
+		$data = $this->db->query("SELECT mahasiswa.ST_KETUA FROM mahasiswa LEFT JOIN user ON user.identity=mahasiswa.NIM 
+		WHERE user.email='$mail'");
+
+		return $data->row_array();
+	}
+
+	public function anggota($mail)
+	{
+		// $data = $this->db->query("SELECT COUNT(pendaftaran_klp.ID_M) FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
+		// pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN user ON user.identity=pendaftaran_klp.ID_M LEFT JOIN 
+		// mahasiswa ON mahasiswa.NIM=user.identity WHERE mahasiswa.ST_KETUA=0 GROUP BY pendaftaran_klp.ID_PND");
+		$data = $this->db->query("SELECT COUNT(pendaftaran_klp.ID_M) FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
+		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.NIM=pendaftaran_klp.ID_M
+		LEFT JOIN user ON user.identity=mahasiswa.NIM WHERE mahasiswa.ST_KETUA=0 AND user.email='$mail'
+		GROUP BY pendaftaran.ID_PND");
+
+		return $data->num_rows();	
+	}
+
 }
 
 /* End of file M_posisi.php */
