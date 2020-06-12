@@ -19,4 +19,11 @@ class M_perusahaan extends CI_Model
     //     $hasilSubmenu = $this->db->query("UPDATE perusahaan SET NAMA_PR='$nama',  ALAMAT_PR='$alamat', HP_PR='$nohp', EMAIl_PR='$email', gambar='$gambar' WHERE ID_PR='$id' ");
     //     return $hasilSubmenu;
     // }
+
+    // Query Pagination
+    function get_perusahaan_list($limit, $start)
+    {
+        $query = $this->db->get('perusahaan', $limit, $start);
+        return $query;
+    }
 }
