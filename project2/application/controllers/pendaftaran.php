@@ -87,6 +87,15 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran/index');
     }
 
+    // hapus data pendaftaran
+    public function hapus_data()
+    {
+        $ID_PND = htmlspecialchars($this->input->post('ID_PND'));
+        $this->m_pendaftaran->hapus_data_klp($ID_PND);
+        $this->m_pendaftaran->hapus_data_pnd($ID_PND);
+        redirect('pendaftaran');
+    }
+
     // masuk form pendaftaran pada mahasiswa (Isian kelompok)
     public function tambah_data() 
     {

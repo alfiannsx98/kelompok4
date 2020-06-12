@@ -6,7 +6,7 @@ class M_pendaftaran extends CI_Model{
                                 FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp
                                 WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
                                 AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
-                                AND mahasiswa.ST_KETUA = 0
+                                AND mahasiswa.ST_KETUA = 1
                                 ORDER BY pendaftaran.ID_PND ASC");
 		return $data;
         }
@@ -42,7 +42,19 @@ class M_pendaftaran extends CI_Model{
         {
 		$this->db->where($where);
 		$this->db->update($table, $data);
-	}	
+        }
+        
+        // hapus data pendaftaran
+        function hapus_data_pnd($ID_PND)
+        {
+                $this->db->query("DELETE FROM pendaftaran WHERE ID_PND = '$ID_PND'");
+        }
+
+        // hapus data kelompok
+        function hapus_data_klp($ID_PND)
+        {
+                $this->db->query("DELETE FROM pendaftaran_klp WHERE ID_PND = '$ID_PND'");
+        }
 
         function selectMaxID(){
                 $query = $this->db->query("SELECT MAX(ID_PND) as ID_PND from pendaftaran");
