@@ -23,6 +23,8 @@ class User extends CI_Controller
         $data['pr'] = $this->m_dashboard->perusahaanmhs($mail);
         $data['stts'] = $this->m_dashboard->get_status($mail);
         $data['jml_anggota'] = $this->m_dashboard->anggota($mail);
+        $data['upload'] = $this->m_dashboard->proposal($mail);
+        $data['waktu'] = $this->m_dashboard->waktupkl($mail);
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
         $this->load->view('templates/header', $data);
