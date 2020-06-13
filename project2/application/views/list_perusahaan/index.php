@@ -46,6 +46,23 @@
                       <p class="text-muted text-sm"><b>Alamat: </b> <?= $alamat_pr; ?> </p>
                         <ul class="ml-4 mb-0 fa-ul text-muted">
                           <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: <?= $hp_pr; ?></li>
+                          <?php
+                            $q_count = $this->db->query("SELECT ID_PR FROM pendaftaran WHERE ID_PR='$id_perusahaan'")->num_rows();
+                            $status = '';
+                            $color = '';
+                            $alert = '';
+
+                            if($q_count >= 2)
+                            {
+                              $status = 'Slot Kelompok Sudah Penuh';
+                              $color = 'alert-warning small';
+                            }else{
+                              $status = 'Slot Kelompok Tersedia';
+                              $color = 'alert-success small';
+                            }
+                            $alert .='<div class="'.$color.'">&nbsp;'.$status.'</div>';
+                          ?>
+                          <li class="small"><span class="fa-li"><i class="fas fa-lg fa-check"></i></span><?= $alert; ?></li>
                           <!-- looping untuk keluarin jumlah bintang -->
                           <?php
                             $count_bintang = $this->db->query("SELECT AVG(rating) as rating FROM rating1 WHERE id_pr='$id_perusahaan'")->result_array();
@@ -64,7 +81,7 @@
                             }
                           ?>
                           <li class="small"><span class="fa-li"><i class="fas fa-lg fa-star"></i></span><?= $output; ?></li>
-                            <?php endforeach; ?>
+                          <?php endforeach; ?>
                         </ul>
                     </div>
                     <div class="col-5 text-center">
