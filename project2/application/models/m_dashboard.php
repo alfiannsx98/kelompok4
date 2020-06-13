@@ -78,12 +78,9 @@ class m_dashboard extends CI_Model
 
 	public function anggota($mail)
 	{
-		// $data = $this->db->query("SELECT COUNT(pendaftaran_klp.ID_M) FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
-		// pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN user ON user.identity=pendaftaran_klp.ID_M LEFT JOIN 
-		// mahasiswa ON mahasiswa.NIM=user.identity WHERE mahasiswa.ST_KETUA=0 GROUP BY pendaftaran_klp.ID_PND");
 		$data = $this->db->query("SELECT COUNT(pendaftaran_klp.ID_M) FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
 		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.NIM=pendaftaran_klp.ID_M
-		LEFT JOIN user ON user.identity=mahasiswa.NIM WHERE mahasiswa.ST_KETUA=0 AND user.email='$mail'
+		LEFT JOIN user ON user.identity=mahasiswa.NIM WHERE user.email!='$mail'
 		GROUP BY pendaftaran.ID_PND");
 
 		return $data->num_rows();	
