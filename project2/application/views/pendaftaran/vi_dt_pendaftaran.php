@@ -137,13 +137,7 @@
 			</div>
 		</div>
 	</div>
-	<?php } ?>
-<?php foreach($pendaftaran_klp as $klp){
-	$ID_PND = $klp->ID_PND;
-	$ID_M = $klp->ID_M;
-	$NIM = $klp->NIM;
-	$NAMA_M = $klp->NAMA_M;
-	?>
+	
 
 	<section class="content">
 		<div class="row">
@@ -159,19 +153,19 @@
 								</tr>
 							</thead>
 							<?php $nmr=1; ?>
-							<?php foreach($pendaftaran_klp as $klp) {?>
+							<?php foreach($pendaftaran_klp as $klpp) {?>
 							<tbody>
 								<tr>
 									<td class="col-md-1 text-center"><?= $nmr++; ?></td>
-									<td class="col-md-2"><?= $klp->NIM; ?></td>
-									<td><?= $klp->NAMA_M; ?></td>
+									<td class="col-md-2"><?= $klpp->NIM; ?></td>
+									<td><?= $klpp->NAMA_M; ?></td>
 								</tr>
 							</tbody>
 							<?php } ?>
 						</table>
 						<div class="form-group">
 							<button type="button" id="edit_pnd" class="btn btn-primary btn-round" data-toggle="modal"
-								data-target="#modal_edit_anggota<?= $ID_PND; ?>">Ubah</button>
+								data-target="#modal_edit_anggota<?=$ID_PND; ?>">Ubah</button>
 						</div>
 					</div>
 					<!-- /.row -->
@@ -229,5 +223,4 @@
 		</div>
 	</div>
 </div>
-
 <?php } ?>

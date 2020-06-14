@@ -236,7 +236,7 @@
 		$('#modal-item').modal('hide')
 	});
 
-	var count = 0;
+	var count = 1;
 	<?php $nim = $user['identity']; ?>
 	var i = "PND-<?= $nim; ?>";
 

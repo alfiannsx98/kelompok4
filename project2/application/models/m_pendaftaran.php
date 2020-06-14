@@ -90,6 +90,18 @@ class M_pendaftaran extends CI_Model{
                 $this->db->insert($table, $data);
         }
 
+        // tambah user sebagai anggota kelompoko
+        function tmbh_ketua($tim, $table)
+        {
+                $this->db->insert($table, $tim);
+        }
+
+        // ubah status ketua saat pendaftaran isian kelompok
+        function ubah_st_ketua($NIM)
+        {
+                $this->db->query("UPDATE mahasiswa SET ST_KETUA = 1 WHERE NIM = '$NIM'");
+        }
+
         // tambah data pendaftaran nim anggota
         function tmbh_nim($data){
                 return $this->db->insert_batch('pendaftaran_klp', $data);

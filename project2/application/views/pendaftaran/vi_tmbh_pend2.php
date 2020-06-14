@@ -151,14 +151,19 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>ID</th>
 										<th>NIM</th>
 										<th>Nama</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody id="tbody">
-
+									<tr>
+										<td>1</td>
+										<td><?= $nim; ?></td>
+										<?php $nama = $user['nama']; ?>
+										<td><?= $nama; ?></td>
+										<td><button class="btn btn-danger" id="hapus" disabled>Hapus</button></td>
+									</tr>
 								</tbody>
 							</table>
 							<div id="insert-form"></div>
