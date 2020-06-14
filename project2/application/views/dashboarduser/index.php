@@ -60,7 +60,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <?php if($pr==NULL) { ?>
+                            <?php if($mhs==NULL&&$pr==NULL) { ?>
                                 <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
                             <?php } else { ?>
                                 <h6 class="font-weight-bold"><?= $pr['NAMA_PR']; ?></h6>
@@ -77,6 +77,102 @@
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-warning">
+                        <div class="inner">
+                        <?php if($mhs==NULL&&$pr==NULL) { ?>
+                            <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
+                        <?php } else { ?>
+                            <?php if($upload=="") { ?>
+                                <h6 class="font-weight-bolder"><span class="badge-pill badge-danger">Belum Upload Proposal</span></h6>
+                            <?php } else { ?>
+                                <h6 class="font-weight-bolder"><span class="badge-pill badge-success">Sudah Upload Proposal</span></h6>
+                                <h6 class="font-weight-bolder">JUDUL : <?= $upload['PROPOSAL']; ?></h6>
+                            <?php } ?>
+                        <?php }?>
+                            <p>Status Upload Proposal</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <a href="<?= base_url('pendaftaran/tampil_detail_pend'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <?php if($mhs==NULL&&$pr==NULL) { ?>
+                                <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
+                            <?php } else { ?>
+                                <h6 class="font-weight-bold"><?= $waktu['WAKTU']; ?></h6>
+                            <?php } ?>
+                            <p>Waktu Pelaksanaan PKL</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <a href="<?= base_url('pendaftaran/tampil_detail_pend'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- /.content 2 -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-gradient-gray-dark">
+                        <div class="inner">
+                            <h6 class="font-weight-bolder">
+                                <?php if($mhs==NULL&&$pr==NULL) { ?>
+                                    <span class="badge-pill badge-secondary">Belum Daftar PKL</span>
+                                <?php 
+                                    } else {
+                                        if ($stts['ST_KETUA'] == 1) {
+                                            echo "Ketua PKL";
+                                        } else if ($stts['ST_KETUA'] == 0){
+                                            echo "Anggota PKL";
+                                        }
+                                    } 
+                                ?>
+                            </h6>
+                            <p>Status</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-gradient-primary">
+                        <div class="inner">
+                            <?php if($mhs==NULL&&$pr==NULL) { ?>
+                                <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
+                            <?php } else { ?>
+                                <?php foreach($jml_anggota as $jml) : ?>
+                                    <h6 class="font-weight-bolder"><i class="fas fa-check-circle"></i>  <?= $jml['NAMA_M']?> (<?= $jml['NIM']; ?>)</h6>
+                                <?php endforeach; ?>
+                            <?php } ?>
+                            <p>Anggota Kelompok</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <!-- <div class="col-lg-3 col-6"> -->
+                    <!-- small box -->
+                    <!-- <div class="small-box bg-warning">
                         <div class="inner">
                             <h6 class="font-weight-bolder">
                                 <?php if($mhs==NULL&&$pr==NULL) { ?>
@@ -99,11 +195,11 @@
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
+                </div> -->
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <!-- <div class="col-lg-3 col-6"> -->
                     <!-- small box -->
-                    <div class="small-box bg-danger">
+                    <!-- <div class="small-box bg-danger">
                         <div class="inner">
                             <?php if($mhs==NULL&&$pr==NULL) { ?>
                                     <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
@@ -117,58 +213,12 @@
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
+                </div> -->
                 <!-- ./col -->
             </div>
-            <!-- /.row -->
-            <!-- Main row -->
-            <!-- Main content -->
-            <!-- <div class="row"> -->
-            <!-- Left col -->
-            <!-- <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header card-header-icon" data-background-color="blue">
-                            <i class="fas fa-chart-bar text-right bg-pink p-4"></i>
-                        </div>
-                        <div class="card-content">
-                            <h4 class="card-title text-center m-4">Grafik User Pendaftar
-                                <small><?= date('Y'); ?></small>
-                            </h4>
-                        </div>
-                        <div id="colouredBarsChart" class="ct-chart">
-                            <canvas id="dataMhs" style="height:250px"></canvas>
-                        </div>
-                        <div class="card-footer">
-                            <h6>KET:</h6>
-                            <i class="fa fa-circle text-info"></i> Data tersebut merupakan data pendaftar dari setiap bulan pada tahun <?= date('Y'); ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header card-header-icon" data-background-color="red">
-                            <i class="fas fa-chart-pie bg-warning p-4"></i>
-                        </div>
-                        <div class="card-content">
-                            <h4 class="card-title text-center m-4">Grafik Mahasiswa per Prodi
-                                <small><?= date('Y'); ?></small></h4>
-                        </div>
-                        <div id="chartPreferences" class="ct-chart">
-                            <canvas id="dataPrd" style="height:250px"></canvas>
-                        </div>
-                        <div class="card-footer">
-                            <h6>KET:</h6>
-                            <i class="fa fa-circle text-info"></i> Data tersebut adalah grafik data prodi pada tahun <?= date('Y'); ?>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
 </div>
-
 <!-- Modal Info User
 <div class="modal fade jumbotron-fluid" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

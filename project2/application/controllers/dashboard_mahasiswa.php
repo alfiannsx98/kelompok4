@@ -24,7 +24,7 @@ class dashboard_mahasiswa extends CI_Controller
         // Start konfigurasi Pagination
         $config['base_url'] = site_url('dashboard_mahasiswa/index');
         $config['total_rows'] = $this->db->count_all('perusahaan');
-        $config['per_page'] = 5;
+        $config['per_page'] = 10;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
         $config['num_links'] = floor($choice);
