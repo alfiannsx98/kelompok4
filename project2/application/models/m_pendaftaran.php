@@ -79,9 +79,9 @@ class M_pendaftaran extends CI_Model{
 
         // dropdown perusahaan
         function jmlh_pr(){
-                $data = $this->db->query("SELECT perusahaan.ID_PR, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, COUNT(perusahaan.ID_PR) AS JMLH_PR 
+                $data = $this->db->query("SELECT perusahaan.ID_PR, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, COUNT(pendaftaran.ID_PR) AS JMLH_PR 
                                         FROM perusahaan LEFT JOIN pendaftaran ON perusahaan.ID_PR = pendaftaran.ID_PR 
-                                        GROUP BY pendaftaran.ID_PR");
+                                        GROUP BY perusahaan.ID_PR");
                 return $data;
         }
 
@@ -107,7 +107,7 @@ class M_pendaftaran extends CI_Model{
 
         function dropnim(){
                 
-                $data = $this->db->query("SELECT mahasiswa.NIM, mahasiswa.NAMA_M FROM mahasiswa LEFT JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M
+                $data = $this->db->query("SELECT mahasiswa.ID_M, mahasiswa.NIM, mahasiswa.NAMA_M FROM mahasiswa LEFT JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M
                 WHERE pendaftaran_klp.ID_M IS NULL");
 
                 return $data;

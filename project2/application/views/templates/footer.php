@@ -228,6 +228,7 @@
 <!-- ambil nim n nama dari modal -->
 <script>
 	$(document).on('click', '#select', function() {
+		$('#id').val($(this).data('id'))
 		$('#nim').val($(this).data('nim'))
 		$('#nim1').val($(this).data('nim'))
 		$('#nama').val($(this).data('nama'))
@@ -240,6 +241,7 @@
 	var i = "PND-<?= $nim; ?>";
 
 	$(document).on('click', '#add_siswa', function() {
+		var id = $('#id').val()
 		var nim = $('#nim').val()
 		var nama = $('#nama').val()
 		var nim_av = $('#nim_av').val()
@@ -247,12 +249,14 @@
 		if (nim == '') {
 			alert('Siswa Belum Dipilih')
 			$('#barcode').focus()
+			var id = $('#id').val('')
 			var nim = $('#nim').val('')
 			var nama = $('#nama').val('')
 		} else {
 			if (nim_av == nim) {
 				alert('Siswa Telah Dipilih')
 				$('#barcode').focus()
+				var id = $('#id').val('')
 				var nim = $('#nim1').val('')
 				var nama = $('#nama').val('')
 			} else {
@@ -261,11 +265,13 @@
 
 				html += '<tr>';
 				html += '<td>' + count + '<input type="hidden" name="ID_PND[]" value="' + i + '"></td>';
-				html += '<td>' + nim + '<input type="hidden" id="nim_av" name="ID_M[]" value="' + nim + '"></td>';
+				// html += '<td><input type="text" name="ID_M[]" value="' + id + '"></td>';
+				html += '<td>' + nim + '<input type="hidden" id="nim_av" name="ID_M[]" value="' + id + '"></td>';
 				html += '<td>' + nama + '<input type="hidden" value="' + nama + '"></td>';
 				// html += '<td>' + i + '</td>';
 				html += '<td><button class="btn btn-danger" id="hapus">Hapus</button></td>';
 				$('#tbody').append(html);
+				var id = $('#id').val('')
 				var nim = $('#nim1').val('')
 				var nama = $('#nama').val('')
 			}

@@ -100,6 +100,7 @@
 								</td>
 								<td>
 									<div class="form-group input-group">
+										<input type="hidden" id="id" value="">
 										<input type="hidden" id="nim" value="">
 										<input type="text" id="nim1" class="form-control" value="" autofocus readonly>
 										<span class="input-group-btn">
@@ -125,7 +126,8 @@
 								<td></td>
 								<td>
 									<div>
-										<button type="button" name="btn-tambah-anggota" id="add_siswa" class="btn btn-primary">
+										<button type="button" name="btn-tambah-anggota" id="add_siswa"
+											class="btn btn-primary">
 											<i class="fas fa-users"></i> Tambah Anggota
 										</button>
 									</div>
@@ -138,52 +140,29 @@
 		</div>
 	</section>
 
-<!-- tabel -->
+	<!-- tabel -->
 	<section class="content">
 		<div class="row">
 			<div class="col-lg-10">
 				<div class="box box-widget">
 					<div class="box-body table-responsive">
 						<form method="post" action="<?php echo base_url("pendaftaran/pr_tmbh_pnd2"); ?>">
-						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>NIM</th>
-									<th>Nama</th>
-									<th>Aksi</th>
-								</tr>
-							</thead>
-							<tbody id="tbody">
+							<table class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>ID</th>
+										<th>NIM</th>
+										<th>Nama</th>
+										<th>Aksi</th>
+									</tr>
+								</thead>
+								<tbody id="tbody">
 
-							</tbody>
-						</table>
-						<div id="insert-form"></div>
-						<button class="btn btn-primary">Simpan Isian Individu</button>
-
-						<!-- Button trigger modal -->
-						<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-						Simpan Isian Individu
-						</button> -->
-
-						<!-- Modal -->
-						<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span></button>
-								</div>
-								<div class="modal-body">
-								<h5 class="modal-title" id="exampleModalLabel">Simpan Pendaftaran?</h5>
-								</div>
-								<div class="modal-footer">
-									
-									<a type="button" class="btn btn-primary" href="<?= base_url("pendaftaran/pr_tmbh_pnd2"); ?>">Simpan</a>
-								</div>
-							</div>
-						</div>
-						</div> -->
+								</tbody>
+							</table>
+							<div id="insert-form"></div>
+							<button class="btn btn-primary">Simpan Isian Individu</button>
 
 						</form>
 						<input type="hidden" id="jumlah-form" value="1">
@@ -215,11 +194,11 @@
 						<tbody>
 							<?php foreach($mahasiswa as $data ) { ?>
 							<tr>
-
+								<td hidden><?= $data->ID_M?></td>
 								<td><?= $data->NIM; ?></td>
 								<td><?= $data->NAMA_M; ?></td>
 								<td class="text-right">
-									<button class="btn btn-xs btn-info" id="select" data-nim="<?= $data->NIM; ?>"
+									<button class="btn btn-xs btn-info" id="select" data-id="<?= $data->ID_M; ?>" data-nim="<?= $data->NIM; ?>"
 										data-nama="<?= $data->NAMA_M; ?>">
 										<i class="fa fa-check"></i> Pilih
 									</button>
