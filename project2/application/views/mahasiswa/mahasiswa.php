@@ -427,7 +427,7 @@
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input  name="nim" value="<?= $nim; ?>" hidden>
+                    <input  name="id" value="<?= $id; ?>" hidden>
                     <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>

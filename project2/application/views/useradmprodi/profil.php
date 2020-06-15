@@ -51,7 +51,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-id-badge mr-1"></i> NIP</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['identity']; ?></label>
+                                        <label class="form-control" name="about" id="about"><?= $user['NIP_ADM']; ?></label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

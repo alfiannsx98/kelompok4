@@ -52,7 +52,7 @@ class m_dashboard extends CI_Model
 	{
 		$data = $this->db->query("SELECT dosbing.NAMA_DS FROM pendaftaran LEFT JOIN dosbing ON 
 		dosbing.ID_DS=pendaftaran.ID_DS LEFT JOIN pendaftaran_klp ON pendaftaran_klp.ID_PND=pendaftaran.ID_PND 
-		LEFT JOIN mahasiswa ON mahasiswa.nim=pendaftaran_klp.ID_M LEFT JOIN user ON user.identity=mahasiswa.NIM
+		LEFT JOIN mahasiswa ON mahasiswa.ID_M=pendaftaran_klp.ID_M LEFT JOIN user ON user.identity=mahasiswa.ID_M
 		WHERE user.email='$mail'");
 
 		return $data->row_array();
@@ -62,7 +62,7 @@ class m_dashboard extends CI_Model
 	{
 		$data = $this->db->query("SELECT perusahaan.NAMA_PR FROM pendaftaran LEFT JOIN perusahaan ON 
 		perusahaan.ID_PR=pendaftaran.ID_PR LEFT JOIN pendaftaran_klp ON pendaftaran_klp.ID_PND=pendaftaran.ID_PND 
-		LEFT JOIN mahasiswa ON mahasiswa.nim=pendaftaran_klp.ID_M LEFT JOIN user ON user.identity=mahasiswa.NIM
+		LEFT JOIN mahasiswa ON mahasiswa.ID_M=pendaftaran_klp.ID_M LEFT JOIN user ON user.identity=mahasiswa.ID_M
 		WHERE user.email='$mail'");
 
 		return $data->row_array();	
@@ -70,7 +70,7 @@ class m_dashboard extends CI_Model
 
 	public function get_status($mail)
 	{
-		$data = $this->db->query("SELECT mahasiswa.ST_KETUA FROM mahasiswa LEFT JOIN user ON user.identity=mahasiswa.NIM 
+		$data = $this->db->query("SELECT mahasiswa.ST_KETUA FROM mahasiswa LEFT JOIN user ON user.identity=mahasiswa.ID_M 
 		WHERE user.email='$mail'");
 
 		return $data->row_array();
@@ -78,9 +78,9 @@ class m_dashboard extends CI_Model
 
 	public function anggota($mail)
 	{
-		$data = $this->db->query("SELECT mahasiswa.NAMA_M, mahasiswa.NIM FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
-		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.NIM=pendaftaran_klp.ID_M
-		LEFT JOIN user ON user.identity=mahasiswa.NIM WHERE user.email!='$mail'
+		$data = $this->db->query("SELECT * FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
+		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.ID_M=pendaftaran_klp.ID_M
+		LEFT JOIN user ON user.identity=mahasiswa.ID_M WHERE user.email!='$mail'
 		GROUP BY pendaftaran.ID_PND");
 
 		return $data->result_array();	
@@ -89,8 +89,8 @@ class m_dashboard extends CI_Model
 	public function proposal($mail)
 	{
 		$data = $this->db->query("SELECT pendaftaran.PROPOSAL FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
-		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.NIM=pendaftaran_klp.ID_M
-		LEFT JOIN user ON user.identity=mahasiswa.NIM WHERE user.email='$mail' GROUP BY pendaftaran.ID_PND");
+		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.ID_M=pendaftaran_klp.ID_M
+		LEFT JOIN user ON user.identity=mahasiswa.ID_M WHERE user.email='$mail' GROUP BY pendaftaran.ID_PND");
 
 		return $data->row_array();
 	}
@@ -98,8 +98,8 @@ class m_dashboard extends CI_Model
 	public function waktupkl($mail)
 	{
 		$data = $this->db->query("SELECT pendaftaran.WAKTU FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
-		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.NIM=pendaftaran_klp.ID_M
-		LEFT JOIN user ON user.identity=mahasiswa.NIM WHERE user.email='$mail' GROUP BY pendaftaran.ID_PND");
+		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.ID_M=pendaftaran_klp.ID_M
+		LEFT JOIN user ON user.identity=mahasiswa.ID_M WHERE user.email='$mail' GROUP BY pendaftaran.ID_PND");
 
 		return $data->row_array();
 	}

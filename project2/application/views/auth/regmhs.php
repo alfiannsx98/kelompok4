@@ -16,6 +16,17 @@
         <input type="text" class="form-control" name="nim" placeholder="masukkan nim" value="<?= set_value('nim'); ?>">
         <div class="input-group-append">
           <div class="input-group-text">
+            <span class="fas fa-id-badge"></span>
+          </div>
+        </div>
+      </div>
+      <?= form_error('nim', '<small class="text-danger col-md">', '</small>'); ?>
+      <br>
+      <label for="">Nama Lengkap</label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="nama" placeholder="masukkan nama lengkap" value="<?= set_value('nama'); ?>">
+        <div class="input-group-append">
+          <div class="input-group-text">
             <span class="fas fa-user"></span>
           </div>
         </div>

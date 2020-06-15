@@ -55,11 +55,10 @@ class User extends CI_Controller
     public function profil()
     {
         $mail = $this->session->userdata('email');
-        $identity = $this->session->userdata('identity');
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
-        $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
-        LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity
+        $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.ID_M=user.identity 
+        LEFT JOIN admin_prodi ON admin_prodi.ID_ADM=user.identity LEFT JOIN dosbing ON dosbing.ID_DS=user.identity
         LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI OR admin_prodi.ID_PRODI=prodi.ID_PRODI 
         OR mahasiswa.ID_PRODI=prodi.ID_PRODI
         WHERE user.email ='$mail'")->row_array();
@@ -160,7 +159,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.ID_M=user.identity 
             LEFT JOIN prodi ON mahasiswa.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space', [
@@ -198,7 +197,7 @@ class User extends CI_Controller
             {
                 $nama = $this->input->post('nama');
                 $email = $this->input->post('email');
-                $nim = $this->input->post('identity');
+                $id = $this->input->post('id');
                 $jk = $this->input->post('jk');
                 $prodi = $this->input->post('prodi');
                 $semester = $this->input->post('smt');
@@ -223,7 +222,7 @@ class User extends CI_Controller
                             unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
                         }
                         $new_image = $this->upload->data('file_name');
-                        $h = $this->db->set('image', $new_image);
+                        $this->db->set('image', $new_image);
                     } else {
                         echo $this->upload->display_errors();
                     }
@@ -231,7 +230,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nim);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel mahasiswa
@@ -241,7 +240,7 @@ class User extends CI_Controller
                 $this->db->set('SMT', $semester);
                 $this->db->set('ALAMAT_M', $alamat);
                 $this->db->set('HP_M', $hp);
-                $this->db->where('NIM', $nim);
+                $this->db->where('ID_M', $id);
                 $this->db->update('mahasiswa');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user/profil');
@@ -252,7 +251,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.ID_DS=user.identity 
             LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
@@ -292,7 +291,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('identity');
+                $id = $this->input->post('id');
 
                 //cek jika ada gambar
 
@@ -320,7 +319,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nip);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel dosbing
@@ -329,7 +328,7 @@ class User extends CI_Controller
                 $this->db->set('ID_PRODI', $prodi);
                 $this->db->set('ALAMAT_DS', $alamat);
                 $this->db->set('HP_DS', $hp);
-                $this->db->where('NIP_DS', $nip);
+                $this->db->where('ID_DS', $id);
                 $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user/profil');
@@ -340,7 +339,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.ID_DS=user.identity 
             LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
             $pictures = $this->db->query("SELECT user.image FROM user WHERE email='$mail'")->row_array();
 
@@ -381,7 +380,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('identity');
+                $id = $this->input->post('id');
 
                 //cek jika ada gambar
 
@@ -408,7 +407,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nip);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel dosbing
@@ -417,7 +416,7 @@ class User extends CI_Controller
                 $this->db->set('ID_PRODI', $prodi);
                 $this->db->set('ALAMAT_DS', $alamat);
                 $this->db->set('HP_DS', $hp);
-                $this->db->where('NIP_DS', $nip);
+                $this->db->where('ID_DS', $id);
                 $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user/profil');
@@ -428,7 +427,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.ID_ADM=user.identity 
             LEFT JOIN prodi ON admin_prodi.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
@@ -468,7 +467,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('identity');
+                $id = $this->input->post('id');
 
                 //cek jika ada gambar
 
@@ -496,7 +495,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nip);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel dosbing
@@ -505,7 +504,7 @@ class User extends CI_Controller
                 $this->db->set('ID_PRODI', $prodi);
                 $this->db->set('ALAMAT_ADM', $alamat);
                 $this->db->set('HP_ADM', $hp);
-                $this->db->where('NIP_ADM', $nip);
+                $this->db->where('ID_ADM', $id);
                 $this->db->update('admin_prodi');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
                 redirect('user/profil');

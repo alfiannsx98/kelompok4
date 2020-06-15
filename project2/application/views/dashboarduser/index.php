@@ -157,8 +157,18 @@
                             <?php if($mhs==NULL&&$pr==NULL) { ?>
                                 <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
                             <?php } else { ?>
-                                <?php foreach($jml_anggota as $jml) : ?>
-                                    <h6 class="font-weight-bolder"><i class="fas fa-check-circle"></i>  <?= $jml['NAMA_M']?> (<?= $jml['NIM']; ?>)</h6>
+                                <?php foreach ($jml_anggota as $jml) : 
+                                    $stt = $jml['ST_KETUA']; 
+                                    if($stt==1) 
+                                    {
+                                        $stt = "Ketua";
+                                    } 
+                                    else
+                                    {
+                                        $stt = "Anggota";
+                                    }    
+                                ?>
+                                    <h6 class="font-weight-bolder"><i class="fas fa-check-circle"></i>  <?= $jml['NAMA_M']?> (<?= $jml['NIM']; ?>, <?= $stt; ?>)</h6>
                                 <?php endforeach; ?>
                             <?php } ?>
                             <p>Anggota Kelompok</p>

@@ -49,11 +49,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <input type="email" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-id-badge mr-1"></i> NIM</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['identity']; ?></label>
+                                        <label class="form-control" name="about" id="about"><?= $user['NIM']; ?></label>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
@@ -85,14 +84,14 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i> Alamat</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['identity']; ?></label>
+                                        <label class="form-control" name="about" id="about"><?= $user['ALAMAT_M']; ?></label>
                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-phone mr-1"></i> No HP</label>
-                                        <label type="email" class="form-control" value=""><?= $user['JK_M']; ?></label>
+                                        <label type="email" class="form-control" value=""><?= $user['HP_M']; ?></label>
                                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>

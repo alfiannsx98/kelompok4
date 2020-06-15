@@ -22,8 +22,15 @@ class Mahasiswa extends CI_Controller
         $tabel = $query->num_rows();
         $date = date('dm', time());
         $id_u = "ID-U" . $tabel1 . $date;
-        $id_m = "ID-M" . $tabel . $date;
-
+        if($tabel>0 && $tabel<10) { 
+            $id_m = "M000" . ($tabel + 1);
+        } elseif($tabel>=10 && $tabel<100) {
+            $id_m = "M00" . ($tabel + 1);
+        } elseif($tabel>=100 && $tabel<1000) {
+            $id_m = "M0" . ($tabel + 1);
+        } else {
+            $id_m = "M" . ($tabel + 1);
+        }
         $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', [
             'email' => 
@@ -57,12 +64,12 @@ class Mahasiswa extends CI_Controller
             $prodi = htmlspecialchars($this->input->post('prodi'));
 
             $sql = $this->db->query("SELECT mahasiswa.NIM, user.email  FROM mahasiswa LEFT JOIN user ON 
-            user.identity=mahasiswa.NIM WHERE NIM='$nim'");
+            user.identity=mahasiswa.ID_M WHERE NIM='$nim'");
             $result = $sql->result_array();
 
             $data1 = [
                 'id_user' => $id_u,
-                'identity' => $nim,
+                'identity' => $id_m,
                 'nama' => $nama,
                 'email' => '',
                 'image' => 'default.jpg',
@@ -99,8 +106,8 @@ class Mahasiswa extends CI_Controller
     }
 
     public function hapus_mahasiswa(){
-        $nim = $this->input->post('nim');
-        $this->m_mahasiswa->hapus_mahasiswa($nim);
+        $id = $this->input->post('id');
+        $this->m_mahasiswa->hapus_mahasiswa($id);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus</div>');
         redirect('Mahasiswa');
     }
@@ -176,7 +183,7 @@ class Mahasiswa extends CI_Controller
                 $id_u = htmlspecialchars($this->input->post('id_u'));
                 $id = htmlspecialchars($this->input->post('id'));
 
-                $this->db->query("UPDATE user SET identity='$nim', nama='$nama', email='$email' WHERE id_user='$id_u'");
+                $this->db->query("UPDATE user SET nama='$nama', email='$email' WHERE id_user='$id_u'");
                 $this->db->query("UPDATE mahasiswa SET ID_PRODI='$prodi' ,NIM='$nim', NAMA_M='$nama', JK_M='$jk', SMT='$semester',
                 ALAMAT_M='$alamat', HP_M='$hp' WHERE ID_M='$id'");
             }
@@ -188,7 +195,7 @@ class Mahasiswa extends CI_Controller
                 $id_u = htmlspecialchars($this->input->post('id_u'));
                 $id = htmlspecialchars($this->input->post('id'));
     
-                $this->db->query("UPDATE user SET identity='$nim', nama='$nama' WHERE id_user='$id_u'");
+                $this->db->query("UPDATE user SET nama='$nama' WHERE id_user='$id_u'");
                 $this->db->query("UPDATE mahasiswa SET ID_PRODI='$prodi' ,NIM='$nim', NAMA_M='$nama' WHERE ID_M='$id'");
 
             }
