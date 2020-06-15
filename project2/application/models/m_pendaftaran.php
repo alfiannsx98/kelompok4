@@ -1,6 +1,7 @@
 <?php
 
 class M_pendaftaran extends CI_Model{
+        // UNTUK ADMIN
 	function tampil_pnd(){
         $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ST_PENDAFTARAN, pendaftaran.ID_PR, pendaftaran.ID_DS, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M 
                                 FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp
@@ -54,6 +55,14 @@ class M_pendaftaran extends CI_Model{
         function hapus_data_klp($ID_PND)
         {
                 $this->db->query("DELETE FROM pendaftaran_klp WHERE ID_PND = '$ID_PND'");
+        }
+
+        // UNTUK MAHASISWA
+        // cek sudah daftar atau belum
+        function cek_daftar($ID_PND)
+        {
+                $data = $this->db->query("SELECT ST_PENDAFTARAN FROM pendaftaran WHERE ID_PND = '$ID_PND'");
+                return $data;
         }
 
         function selectMaxID(){

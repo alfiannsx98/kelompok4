@@ -96,6 +96,35 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran');
     }
 
+    public function cek_pendaftaran()
+    {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', [
+            'email' =>
+            $this->session->userdata('email')    
+        ])->row_array();
+
+        $email = $this->session->userdata('email');
+        $query = $this->db->query("SELECT * FROM user WHERE email = '$email';");
+        foreach ($query->result() as $user)
+        {
+                $ID = $user->identity;
+        }
+        $ID_PND = 'PND-'. $ID;
+        $status = $this->db->query("SELECT ST_PENDAFTARAN FROM pendaftaran WHERE ID_PND = '$ID_PND';");
+        foreach ($status->result() as $st)
+        {
+            $stts = $st->ST_PENDAFTARAN;
+        }
+        if ($stts == "")
+        {
+            redirect('pendaftaran/tambah_data');
+        }  else
+        {
+            redirect('pendaftaran/pnd_mhs');
+        }
+    }
+
     // masuk form pendaftaran pada mahasiswa (Isian kelompok)
     public function tambah_data() 
     {
@@ -110,7 +139,7 @@ class Pendaftaran extends CI_Controller
             'email' =>
             $this->session->userdata('email')    
         ])->row_array();
-    
+
         // $data['comboPR'] = $this->m_pendaftaran->comboPR()->result();
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
         $data['bulan'] = $this->m_pendaftaran->bulan()->result();
@@ -124,8 +153,9 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('pendaftaran/vi_tmbh_pend', $data);
         $this->load->view('templates/footer');
+        }
 
-    }
+    
 
     // public function data_mhs()
     // {
@@ -147,6 +177,7 @@ class Pendaftaran extends CI_Controller
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
         $WAKTU = "$bulan, "."$tahun";
+        $ID_ST = $this->input->post('ID_ST');
         $NIM = $this->input->post('NIM');
         $ID_M = $this->input->post('ID_M');
 
@@ -165,7 +196,8 @@ class Pendaftaran extends CI_Controller
             'ID_PR' => $ID_PR,
             'ID_DS' => $ID_DS,
             'WAKTU' => $WAKTU,
-            'PROPOSAL'=> $this->upload->file_name
+            'PROPOSAL'=> $this->upload->file_name,
+            'ID_ST' => $ID_ST
         );
 
         $tim = array(

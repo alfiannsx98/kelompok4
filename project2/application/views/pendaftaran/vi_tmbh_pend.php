@@ -95,6 +95,10 @@
 									<label class="" for="PROPOSAL">Upload Proposal</label>
 									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-md-5 form-control" required>
 								</div>
+								<!-- <div class="form-group">
+									<label for="ID_ST">Status pendaftaran</label>
+									<input type="hidden" name="ID_ST" value="ST0001">
+								</div> -->
 								<div class="form-group">
 									<button class="btn btn-success">Tambah Isian Kelompok</button>
 								</div>

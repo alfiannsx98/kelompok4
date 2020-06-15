@@ -4,9 +4,9 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{F4E213A4-8988-4A8F-8152-F33336687FBC}" Loaded="No" Name="sim_pkl" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="sim_pkl/sim_pkl.prj"/>
+		<Model Expanded="Yes" ID="{F4E213A4-8988-4A8F-8152-F33336687FBC}" Name="sim_pkl" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="sim_pkl/sim_pkl.prj"/>
 		<Model Expanded="Yes" ID="{877AD1E5-C49F-4722-B881-70C0284F2DF0}" Loaded="No" Name="PDM" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="file:///E|/KULIAH/BASIS DATA/aksata/PDM.pdm"/>
-		<Model Expanded="Yes" ID="{7F5EB16B-9CA4-4C79-AD7D-13CB53982722}" Name="Garuda Indonesia" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="/Users/Lenovo/Documents/Garuda Indonesia/Garuda Indonesia.prj"/>
+		<Model Expanded="Yes" ID="{7F5EB16B-9CA4-4C79-AD7D-13CB53982722}" Loaded="No" Name="Garuda Indonesia" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="/Users/Lenovo/Documents/Garuda Indonesia/Garuda Indonesia.prj"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
