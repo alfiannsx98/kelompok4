@@ -147,6 +147,8 @@ class Pendaftaran extends CI_Controller
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
         $WAKTU = "$bulan, "."$tahun";
+        $NIM = $this->input->post('NIM');
+        $ID_M = $this->input->post('ID_M');
 
         // untuk upload proposal
         $config['upload_path'] = './assets/proposal/';
@@ -165,7 +167,14 @@ class Pendaftaran extends CI_Controller
             'WAKTU' => $WAKTU,
             'PROPOSAL'=> $this->upload->file_name
         );
+
+        $tim = array(
+            'ID_PND' => $ID_PND,
+            'ID_M' => $ID_M
+        );
             $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
+            $this->m_pendaftaran->tmbh_ketua($tim, 'pendaftaran_klp');
+            $this->m_pendaftaran->ubah_st_ketua($NIM);
             redirect('pendaftaran/tambah_data2');   
         // }
         // else{
