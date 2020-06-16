@@ -22,8 +22,20 @@
         <div class="col-12">
             <div class="card"> 
                 <div class="card-header"> 
-                    <h3 class="card-title">Tabel <?= $title ?> 
-                    <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button></h3> 
+                    <h3 class="card-title">Tabel <?= $title ?></h3> 
+                    <!-- button add data -->
+                    <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success" id="add">Add Data <i class="fa fa-plus"></i></button>
+                    <!-- button select -->
+                    <!-- <button class="btn btn-just-icon btn-round btn-primary" id="check">Select <i class="fa fa-check-square"></i></button> -->
+                    <!-- button batal -->
+                    <button class="btn btn-just-icon btn-round btn-secondary" id="cls" hidden>Batal</button>
+                    <?php foreach($mhs as $m) :
+                        $id = $m['ID_M'];
+                    ?>
+                    <?php endforeach; ?>
+                    <!-- button delete all -->
+                    <button type="button" class="btn btn-just-icon btn-round btn-danger" id="dellall1" data-toggle="modal" data-target="#error"  hidden>Delete all <i class="fa fa-trash"></i></button>
+                    <button type="submit" class="btn btn-just-icon btn-round btn-danger" id="dellall" data-toggle="modal" data-target="#modal_dellall" hidden>Delete all <i class="fa fa-trash"></i></button> 
                 </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -31,6 +43,16 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th id="all1" hidden>
+                            <!-- button cek all -->
+                            <button type="button" class="btn btn-just-icon btn-round btn-xs btn-primary" id="checkall">
+                                Select All <i class="fa fa-check-square"></i>
+                            </button>
+                            <!-- button uncek all -->
+                            <button type="button" class="btn btn-just-icon btn-round btn-xs btn-danger" id="uncheckall" hidden>
+                                Unselect All <i class="fa fa-check-square"></i>
+                            </button>
+                        </th>
                         <th>#</th>
                         <th>NIM</th>
                         <th>Nama Mahasiswa</th>
@@ -39,7 +61,7 @@
                         <th>Program Studi</th>
                         <th>Ketua</th>
                         <th>Status</th>
-                        <th class="disabled-sorting text-right">Actions</th>
+                        <th id="acc" class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +81,9 @@
                         $img = $m['image'];
                     ?>
                         <tr>
+                            <td class="text-center" id="list" hidden> 
+                                <input type="checkbox" id="cb" name="cb" value="<?= $nim; ?>">
+                            </td>
                             <td><?= $i; ?></td>
                             <!-- <td><?= $id; ?></td> -->
                             <td><?= $nim; ?></td>
@@ -76,7 +101,7 @@
                             <?php else : ?>
                                 <td><span class="badge badge-danger">Disabled</span></td>
                             <?php endif; ?>
-                            <td class="text-right">
+                            <td id="bt" class="text-right">
                                 <button type="button" id="detail-btn" class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Detail</button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus</button>
                             </td>
@@ -86,6 +111,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th id="all" hidden>#</th>
                         <th>#</th>
                         <th>NIM</th>
                         <th>Nama Mahasiswa</th>
@@ -94,7 +120,7 @@
                         <th>Program Studi</th>
                         <th>Ketua</th>
                         <th>Status</th>
-                        <th class="disabled-sorting text-right">Actions</th>
+                        <th id="acc" class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </tfoot>
             </table>
@@ -201,24 +227,6 @@
                             <input name="id_u" value="<?= $id_u; ?>" class="form-control" type="text" placeholder="ID menu">
                             <input name="id" value="<?= $id; ?>" class="form-control" type="text" placeholder="ID menu">
                         </div>
-                    </div>
-                    <div class="text-center" hidden>
-                        <img class="img-fluid" width="200px" src="<?= base_url() . 'assets/dist/img/user/' . $img; ?>">
-                    </div>
-                    <div class="text-center" hidden>
-                        This Account was :
-                        <?php if($status == 1): ?>
-                            <span class="badge badge-success">Activated</span>
-                        <?php else : ?>
-                            <span class="badge badge-danger">Disabled</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="text-center" hiden>
-                        <?php if($ketua == 1): ?>
-                            <span class="badge badge-info">Ketua PKL</span>
-                        <?php else : ?>
-                           
-                        <?php endif; ?>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -419,7 +427,7 @@
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama; ?></b></p>
                 </div>
                 <div class="modal-footer">
-                    <input  name="nim" value="<?= $nim; ?>" hidden>
+                    <input  name="id" value="<?= $id; ?>" hidden>
                     <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
                     <button class="btn btn-danger">Hapus</button>
                 </div>
@@ -428,4 +436,42 @@
     </div>
 </div>
 
+<!--MODAL HAPUS BANYAK DATA!-->
+<div class="modal fade" id="modal_dellall" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Hapus Data</h3>
+            </div>
+            <form action="<?= base_url() . 'Mahasiswa/deleteAll'; ?>" method="post" class="form-horizontal">
+                <div class="modal-body">
+                    <p>Apakah Anda yakin mau menghapus data ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+                    <button class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--MODAL EROR JIKA TIDAK ADA DATA YANG DIPILIH!-->
+<div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Error</h3>
+            </div>
+            <form action="" method="post" class="form-horizontal">
+                <div class="modal-body">
+                    <p>Tidak ada data yang dipilih</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <?php endforeach; ?>

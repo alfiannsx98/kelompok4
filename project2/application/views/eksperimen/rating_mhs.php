@@ -28,44 +28,63 @@
    $moto = $user['about'];
 
    // get id_pnd dari pendaftaran_klp
-   $id_pnd = $this->db->get_where("pendaftaran_klp", ['ID_M' => $id_user])->row_array(); 
-   $id_pendaftar = $id_pnd['ID_PND'];
-
-   // get id_pendaftaran dari tb pendaftaran
-   $id_pendaftaran = $this->db->get_where("pendaftaran", ['ID_PND' => $id_pendaftar])->row_array();
-   $id_pr = $id_pendaftaran['ID_PR'];
-
-   // get perusahaan dari tb perusahaan
-   $perusahaan = $this->db->get_where("perusahaan", ["ID_PR" => $id_pr])->row_array();
-   $nm_perusahaan = $perusahaan['NAMA_PR'];
-   $gmbr_perusahaan = $perusahaan['gambar'];
-   $alamat_pr = $perusahaan['ALAMAT_PR'];
-   $email_pr = $perusahaan['EMAIL_PR'];
-   $hp_pr = $perusahaan['HP_PR'];
-
-   $id_perusahaan = $perusahaan['ID_PR'];
-
-
-   $dt = [
-      'id_perusahaan' => $id_pr
-   ];
-
-   $masuk_dt = $this->session->set_userdata($dt);
+   $id_pnd = $this->db->get_where("pendaftaran_klp", ['ID_M' => $id_user])->row_array();
+   if($id_pnd > 0){
+      $cek_pendaftaran = 0;
+      $id_pendaftar = $id_pnd['ID_PND'];
    
-
-   // get data_siswa dari mahasiswa
-   $mhs = $this->db->get_where("mahasiswa", ["ID_M" => $id_user])->row_array();
-   $id_prodi = $mhs['ID_PRODI'];
-   $prodi = $this->db->get_where("prodi", ["ID_PRODI" => $id_prodi])->row_array();
-   $nama = $mhs['NAMA_M'];
-   $prodi_mhs = $prodi['NM_PRODI'];
-   $alamat = $mhs['ALAMAT_M'];
-   $no_hp = $mhs['HP_M'];
+      // get id_pendaftaran dari tb pendaftaran
+      $id_pendaftaran = $this->db->get_where("pendaftaran", ['ID_PND' => $id_pendaftar])->row_array();
+      $id_pr = $id_pendaftaran['ID_PR'];
    
-   // Hitung total row sudah mengisi kuisioner/rating
+      // get perusahaan dari tb perusahaan
+      $perusahaan = $this->db->get_where("perusahaan", ["ID_PR" => $id_pr])->row_array();
+      $nm_perusahaan = $perusahaan['NAMA_PR'];
+      $gmbr_perusahaan = $perusahaan['gambar'];
+      $alamat_pr = $perusahaan['ALAMAT_PR'];
+      $email_pr = $perusahaan['EMAIL_PR'];
+      $hp_pr = $perusahaan['HP_PR'];
+   
+      $id_perusahaan = $perusahaan['ID_PR'];
+   
+   
+      $dt = [
+         'id_perusahaan' => $id_pr
+      ];
+   
+      $masuk_dt = $this->session->set_userdata($dt);
+      
+   
+      // get data_siswa dari mahasiswa
+      $mhs = $this->db->get_where("mahasiswa", ["ID_M" => $id_user])->row_array();
+      $id_prodi = $mhs['ID_PRODI'];
+      $prodi = $this->db->get_where("prodi", ["ID_PRODI" => $id_prodi])->row_array();
+      $nama = $mhs['NAMA_M'];
+      $prodi_mhs = $prodi['NM_PRODI'];
+      $alamat = $mhs['ALAMAT_M'];
+      $no_hp = $mhs['HP_M'];
+      
+      // Hitung total row sudah mengisi kuisioner/rating
+   
+      $q_hitung = $this->db->get_where("rating1", ["id_pr" => $id_pr])->num_rows();
+      $row_kuisioner = $q_hitung;
+   }else{
+      $cek_pendaftaran = 1;
+      $id_perusahaan = "Belum Terdaftar";
+      $nm_perusahaan = "Belum Terdaftar";
+      $gmbr_perusahaan = "default.jpg";
+      $alamat_pr = "Belum Terdaftar";
+      $email_pr = "Belum Terdaftar";
+      $hp_pr = "Belum Terdaftar";
 
-   $q_hitung = $this->db->get_where("rating1", ["id_pr" => $id_pr])->num_rows();
-   $row_kuisioner = $q_hitung;
+      $mhs = $this->db->get_where("mahasiswa", ["ID_M" => $id_user])->row_array();
+      $id_prodi = $mhs['ID_PRODI'];
+      $prodi = $this->db->get_where("prodi", ["ID_PRODI" => $id_prodi])->row_array();
+      $nama = $mhs['NAMA_M'];
+      $prodi_mhs = $prodi['NM_PRODI'];
+      $alamat = $mhs['ALAMAT_M'];
+      $no_hp = $mhs['HP_M'];
+   }
 
 ?>
 <!-- Akhir SQL Query -->
@@ -155,6 +174,11 @@
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
+               <?php if($cek_pendaftaran == 1) : ?>
+                  <div class="tab-content">
+                  <p><center><small class="badge badge-warning">Anda Belum Terdaftar dalam Kelompok</small></center></p>
+                  </div>
+               <?php else : ?>
                <div class="tab-content">
                   <di id="smartwizard">
                      <ul class="nav">
@@ -265,6 +289,7 @@
                      </div>
                   </div>
                </div>
+               <?php endif; ?>
                 <!-- /.tab-content -->
               </div><!-- /.card-body -->
             </div>

@@ -38,7 +38,6 @@
                         <th>No Telefon</th>
                         <th>Email Perusahaan</th>
                         <th>Gambar</th>
-                        <th>Rating</th>
                         <th class="disabled-sorting text-right">Actions</th>
                     </tr>
                 </thead>
@@ -50,7 +49,6 @@
                         $alamat = $p['ALAMAT_PR'];
                         $hp = $p['HP_PR'];
                         $email = $p['EMAIL_PR'];
-                        $rating = $p['RATING'];
                         $image = $p['gambar'];
                     ?>
                         <tr>
@@ -61,7 +59,6 @@
                             <td><?= $hp; ?></td>
                             <td><?= $email; ?></td>
                             <td><img class="profile-user-img img-fluid" src="<?= base_url() . 'assets/dist/img/perusahaan/' . $image; ?>"></td>
-                            <td><?= $rating; ?></td>
                             <td class="text-right">
                                 <button class="btn btn-info btn-xs btn-round" data-toggle="modal" data-target="#modal_edit<?= $id; ?>">Edit Data</button>
                                 <button class="btn btn-danger btn-xs btn-round" data-toggle="modal" data-target="#modal_hapus<?= $id; ?>">Hapus Data</button>
@@ -79,7 +76,6 @@
                         <th>No Telefon</th>
                         <th>Email Perusahaan</th>
                         <th>Gambar</th>
-                        <th>Rating</th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </tfoot>
@@ -155,7 +151,6 @@ foreach ($pt as $i) :
     $alamat = $i['ALAMAT_PR'];
     $nohp = $i['HP_PR'];
     $email = $i['EMAIL_PR'];
-    $rating = $i['RATING'];
     $gambar = $i['gambar'];
 ?>
 

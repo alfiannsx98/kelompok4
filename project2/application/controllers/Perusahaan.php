@@ -73,7 +73,6 @@ class Perusahaan extends CI_Controller
                     'ALAMAT_PR' => $alamat,
                     'HP_PR' => $no_hp,
                     'EMAIL_PR' => $email,
-                    'RATING' => 0,
                     'gambar' => $gambar
                 ];
                 $this->db->insert('perusahaan', $data);

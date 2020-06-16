@@ -48,11 +48,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <input type="text" class="" value="<?= $user['identity']; ?>" name="identity" id="identity" hidden>
+                                <input type="text" class="" value="<?= $user['identity']; ?>" name="id" id="id" hidden>
                                 <div class="col-md-7">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="far fa-id-badge mr-1"></i> NIM</label>
-                                        <label type="text" class="form-control"><?= $user['identity']; ?></label>
+                                        <label type="text" class="form-control"><?= $user['NIM']; ?></label>
                                         <?= form_error('nim', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>

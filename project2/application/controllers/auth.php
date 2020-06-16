@@ -48,11 +48,13 @@ class Auth extends CI_Controller
                     if ($user['role_id'] == 1) {
                         redirect('admin');
                     } else if ($user['role_id'] == 2) {
-                        redirect('user');
+                        redirect('user/index');
                     } else if ($user['role_id'] == 3) {
-                        redirect('user');
+                        redirect('user/profil');
+                    } else if ($user['role_id'] == 4) {
+                        redirect('user/profil');
                     } else {
-                        redirect('user');
+                        redirect('user/profil');
                     }
                     redirect('user');
                 } else {
@@ -75,15 +77,12 @@ class Auth extends CI_Controller
         if ($this->session->userdata('email')) {
             redirect('user');
         }
-
         $query1 = $this->db->query("SELECT * FROM user");
         $query = $this->db->query("SELECT * FROM mahasiswa");
         // Membuat id_user : gabungan dari date dan field 
         $tabel1 = $query1->num_rows();
-        $tabel = $query->num_rows();
         $date = date('dm', time());
         $id_u = "ID-U" . $tabel1 . $date;
-        $id_m = "ID-M" . $tabel . $date;
         // $prodi = $this->input->post('prodi');
         // $jk = $this->input->post('jk');
 
@@ -99,6 +98,9 @@ class Auth extends CI_Controller
             'min_length' => 'NIM terlalu pendek',
             'max_length' => 'NIM terlalu panjang',
             'alpha_numeric' => 'Kolom ini hanya bisa diisi huruf dan angka'
+        ]);
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
+            'required' => 'Nama harus diisi'
         ]);
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'required' => 'Email harus diisi',
@@ -156,8 +158,9 @@ class Auth extends CI_Controller
             //     'is_active' => 0,
             //     'date_created' => time()
             // ];
-
+            
             $nim = htmlspecialchars($this->input->post('nim', true));
+            $nama = htmlspecialchars($this->input->post('nama'));
             $mail = htmlspecialchars($email);
             $pass = htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT));
             $role = htmlspecialchars(2);
@@ -179,7 +182,8 @@ class Auth extends CI_Controller
                 $this->db->set('email', $mail);
                 $this->db->set('password', $pass);
                 $this->db->set('role_id', $role);
-                $this->db->where('identity', $nim);
+                $this->db->where('nama', $nama);
+                $this->db->set('date_created', time());
                 $this->db->update('user');
                 $this->db->insert('token_user', $token_user);
 

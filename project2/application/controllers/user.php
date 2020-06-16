@@ -8,6 +8,7 @@ class User extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('model_admin');
+        $this->load->model('m_dashboard');
     }
 
     /**
@@ -17,10 +18,47 @@ class User extends CI_Controller
     {
         $mail = $this->session->userdata('email');
         $identity = $this->session->userdata('identity');
+        $data['title'] = 'Dashboard';
+        $data['mhs'] = $this->m_dashboard->dosbingmhs($mail);
+        $data['pr'] = $this->m_dashboard->perusahaanmhs($mail);
+        $data['stts'] = $this->m_dashboard->get_status($mail);
+        $data['jml_anggota'] = $this->m_dashboard->anggota($mail);
+        $data['upload'] = $this->m_dashboard->proposal($mail);
+        $data['waktu'] = $this->m_dashboard->waktupkl($mail);
+        $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
+        $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        if($user['role_id'] == 2)
+        {
+            $this->load->view('dashboarduser/index', $data);
+        }
+        elseif($user['role_id'] == 3)
+        {
+            // $this->load->view('userdosbing/index', $data);
+        }
+        elseif($user['role_id'] == 4)
+        {
+            // $this->load->view('userdospkl/index', $data);
+        }
+        elseif($user['role_id'] == 12)
+        {
+            // $this->load->view('useradmprodi/index', $data);
+        }
+        $this->load->view('templates/footer');
+    }
+
+    /**
+     * Fungsi menampilkan profil per user
+     */
+    public function profil()
+    {
+        $mail = $this->session->userdata('email');
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
-        $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
-        LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity
+        $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.ID_M=user.identity 
+        LEFT JOIN admin_prodi ON admin_prodi.ID_ADM=user.identity LEFT JOIN dosbing ON dosbing.ID_DS=user.identity
         LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI OR admin_prodi.ID_PRODI=prodi.ID_PRODI 
         OR mahasiswa.ID_PRODI=prodi.ID_PRODI
         WHERE user.email ='$mail'")->row_array();
@@ -30,23 +68,23 @@ class User extends CI_Controller
         $this->load->view('templates/topbar', $data);
         if($user['role_id'] == 1)
         {
-            $this->load->view('useradm/index', $data);
+            $this->load->view('useradm/profil', $data);
         }
         elseif($user['role_id'] == 2)
         {
-            $this->load->view('usermhs/index', $data);
+            $this->load->view('usermhs/profil', $data);
         }
         elseif($user['role_id'] == 3)
         {
-            $this->load->view('userdosbing/index', $data);
+            $this->load->view('userdosbing/profil', $data);
         }
         elseif($user['role_id'] == 4)
         {
-            $this->load->view('userdospkl/index', $data);
+            $this->load->view('userdospkl/profil', $data);
         }
         elseif($user['role_id'] == 12)
         {
-            $this->load->view('useradmprodi/index', $data);
+            $this->load->view('useradmprodi/profil', $data);
         }
         $this->load->view('templates/footer');
     }
@@ -113,7 +151,7 @@ class User extends CI_Controller
                 $this->db->where('email', $email);
                 $this->db->update('user');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 2)
@@ -121,7 +159,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.NIM=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN mahasiswa ON mahasiswa.ID_M=user.identity 
             LEFT JOIN prodi ON mahasiswa.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim|callback_alpha_dash_space', [
@@ -159,7 +197,7 @@ class User extends CI_Controller
             {
                 $nama = $this->input->post('nama');
                 $email = $this->input->post('email');
-                $nim = $this->input->post('identity');
+                $id = $this->input->post('id');
                 $jk = $this->input->post('jk');
                 $prodi = $this->input->post('prodi');
                 $semester = $this->input->post('smt');
@@ -192,7 +230,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nim);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel mahasiswa
@@ -202,10 +240,10 @@ class User extends CI_Controller
                 $this->db->set('SMT', $semester);
                 $this->db->set('ALAMAT_M', $alamat);
                 $this->db->set('HP_M', $hp);
-                $this->db->where('NIM', $nim);
+                $this->db->where('ID_M', $id);
                 $this->db->update('mahasiswa');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 3)
@@ -213,7 +251,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.ID_DS=user.identity 
             LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
@@ -253,7 +291,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('identity');
+                $id = $this->input->post('id');
 
                 //cek jika ada gambar
 
@@ -281,7 +319,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nip);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel dosbing
@@ -290,10 +328,10 @@ class User extends CI_Controller
                 $this->db->set('ID_PRODI', $prodi);
                 $this->db->set('ALAMAT_DS', $alamat);
                 $this->db->set('HP_DS', $hp);
-                $this->db->where('NIP_DS', $nip);
+                $this->db->where('ID_DS', $id);
                 $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 4)
@@ -301,7 +339,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.NIP_DS=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN dosbing ON dosbing.ID_DS=user.identity 
             LEFT JOIN prodi ON dosbing.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
             $pictures = $this->db->query("SELECT user.image FROM user WHERE email='$mail'")->row_array();
 
@@ -342,7 +380,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('identity');
+                $id = $this->input->post('id');
 
                 //cek jika ada gambar
 
@@ -354,7 +392,7 @@ class User extends CI_Controller
                     $config['upload_path'] = './assets/dist/img/user/';
 
                     $this->load->library('upload', $config);
-                    $old_image == $data['user']['image'];
+                    $old_image = $data['user']['image'];
                     if ($this->upload->do_upload('image')) {
                         if ($old_image != 'default.jpg') {
                             unlink(FCPATH . 'assets/dist/img/user/' . $old_image);
@@ -369,7 +407,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nip);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel dosbing
@@ -378,10 +416,10 @@ class User extends CI_Controller
                 $this->db->set('ID_PRODI', $prodi);
                 $this->db->set('ALAMAT_DS', $alamat);
                 $this->db->set('HP_DS', $hp);
-                $this->db->where('NIP_DS', $nip);
+                $this->db->where('ID_DS', $id);
                 $this->db->update('dosbing');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         elseif($user['role_id'] == 12)
@@ -389,7 +427,7 @@ class User extends CI_Controller
             $mail = $this->session->userdata('email');
             $data['title'] = 'Edit Profile';
             $data['prodi'] = $this->db->get('prodi')->result_array();
-            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.NIP_ADM=user.identity 
+            $data['user'] = $this->db->query("SELECT * FROM user LEFT JOIN admin_prodi ON admin_prodi.ID_ADM=user.identity 
             LEFT JOIN prodi ON admin_prodi.ID_PRODI=prodi.ID_PRODI WHERE user.email='$mail'")->row_array();
 
             $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
@@ -429,7 +467,7 @@ class User extends CI_Controller
                 $alamat = $this->input->post('alamat');
                 $hp = $this->input->post('hp');
                 $about = $this->input->post('about');
-                $nip = $this->input->post('identity');
+                $id = $this->input->post('id');
 
                 //cek jika ada gambar
 
@@ -457,7 +495,7 @@ class User extends CI_Controller
                 // update tabel user
                 $this->db->set('nama', $nama);
                 $this->db->set('about', $about);
-                $this->db->where('identity', $nip);
+                $this->db->where('identity', $id);
                 $this->db->update('user');
 
                 // update tabel dosbing
@@ -466,10 +504,10 @@ class User extends CI_Controller
                 $this->db->set('ID_PRODI', $prodi);
                 $this->db->set('ALAMAT_ADM', $alamat);
                 $this->db->set('HP_ADM', $hp);
-                $this->db->where('NIP_ADM', $nip);
+                $this->db->where('ID_ADM', $id);
                 $this->db->update('admin_prodi');
                 $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert">Selamat Data telah diperbarui</div>');
-                redirect('user');
+                redirect('user/profil');
             }
         }
         
@@ -539,7 +577,7 @@ class User extends CI_Controller
                     $this->db->where('email', $this->session->userdata('email'));
                     $this->db->update('user');
                     $this->session->set_flashdata('message', '<div class="text-center alert alert-success" role="alert"><i class="far fa-check-square"></i> Password Telah Berhasil Diganti</div>');
-                    redirect('user');
+                    redirect('user/profil');
                 }
             }
         }

@@ -3,8 +3,11 @@
 </div>
 <div class="card">
     <div class="card-body login-card-body">
-        <p class="login-box-msg">Reset Password Form</p>
         <?= $this->session->flashdata('message'); ?>
+        <p class="login-box-msg">Reset Password Form</p>
+        <small class="text-center text-success">
+            <p>Silahkan Masukkan Password Baru Anda</p>
+        </small>
         <form class="user" method="post" action="<?= base_url('auth/gantipassword'); ?>">
             <div class="form-group">
                 <div class="input-group mb-3">

@@ -28,18 +28,24 @@
 								<div class="row">
 									<label class="label-on-left" for="ID_PR">Isian Kelompok : </label>
 								</div>
-								<?php $nim = $user['identity']; ?>
-								<input type="hidden" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
-
+								<?php 
+								$NIM = $user['identity']; 
+								$ID_M =$user['id_user'];
+								?>
+								<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$NIM; ?>">
+								<input type="text" name="NIM" value="<?= $NIM; ?>">
+								<input type="text" name="ID_M" value=<?= $ID_M; ?>>
+								<br>
 								<div class="form-group">
 									<label for="ID_PR"> Tempat PKL</label>
-									<select name="ID_PR" id="ID_PR" class="form-control col-sm-5" data-size="7">
-									<option selected disabled>Pilih Tempat PKL</option>
+									<select name="ID_PR" id="ID_PR" class="form-control col-sm-5"
+										data-style="btn btn-primary btn-round" data-size="7" autofocus required>
+										<option selected disabled>Pilih Tempat PKL</option>
 										<?php foreach($jumlah_pr as $pr){
-											if ($pr->JMLH_PR < 2 ){
+											if ($pr->JMLH_PR < 2){
 												echo '<option type="text" name="ID_PR"  value="'.$pr->ID_PR.'">'.$pr->NAMA_PR; 
-												echo '<br>';
-												echo  '<label name="ID_PR" > Alamat : '.$pr->ALAMAT_PR.'</label>';
+												echo '	||	';
+												echo  '<label name="ID_PR" >Alamat : '.$pr->ALAMAT_PR.'</label>';
 											}
 											// } else {
 											// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
@@ -49,49 +55,58 @@
 									</select>
 								</div>
 
-								<br>
-								<div class="row">
-									<label class="col-sm label-on-left" for="ID_DS">Dosen Pembimbing</label>
-									<div class="col-lg col-md col-sm">
-										<select name="ID_DS" class="form-control" data-style="btn btn-primary btn-round"
-											title="Single Select" data-size="7">
-											<option selected disabled>Pilih Dosen Pembimbing</option>
-											<?php foreach($comboDS as $ds){ ?>
-											<option type="text" name="ID_DS" value="<?= $ds->ID_DS; ?>">
-												<?= $ds->NAMA_DS; ?>
+								<div class="form-group">
+									<label class="" for="ID_DS">Dosen Pembimbing</label>
+									<select name="ID_DS" class="form-control col-sm-5"
+										data-style="btn btn-primary btn-round" data-size="7" required>
+										<option selected disabled>Pilih Dosen Pembimbing</option>
+										<?php foreach($comboDS as $ds){ ?>
+										<option type="text" name="ID_DS" value="<?= $ds->ID_DS; ?>">
+											<?= $ds->NAMA_DS; ?>
+											<?php } ?>
+									</select>
+								</div>
+
+								<label class="col-form-label">Waktu Pelaksanaan</label>
+								<div class="form-group row">
+									<label for="bulan" class="col-sm-1 col-form-label">Bulan : </label>
+									<div class=".col-xs-3">
+										<select name="bulan" id="bulan" class="form-control" required>
+											<option selected disabled>Pilih Bulan</option>
+											<?php foreach($bulan as $bl){ ?>
+											<option type="text" name="bulan" value="<?= $bl->BL; ?>">
+												<?= $bl->BL; ?>
 												<?php } ?>
 										</select>
 									</div>
+									<div class="col-md-1"></div>
+									<label for="tahun" class="col-sm-1 col-form-label">Tahun : </label>
+									<div class=".col-xs-3">
+										<select class="form-control" name="tahun" required>
+											<?php $y = date('Y'); ?>
+											<option name="tahun" selected="selected" value="<?= $y;?>"><?= $y;?>
+											</option>
+											<option name="tahun" value="<?= $y+1;?>"><?= $y+1; ?></option>
+										</select>
+									</div>
 								</div>
-								<br>
-								<div class="row">
-									<label class="col-sm-2">Waktu</label>
-									<label class="col-sm-2" for="bulan">Bulan :</label>
-									<select name="bulan" id="bulan" class="col-sm-2 form-control	"
-										data-style="btn btn-primary btn-round" required>
-										<option selected disabled>Pilih Bulan</option>
-										<?php foreach($bulan as $bl){ ?>
-										<option type="text" name="bulan" value="<?= $bl->BL; ?>">
-											<?= $bl->BL; ?>
-											<?php } ?>
-									</select>
-									<label class="col-sm-2" for="tahun">Tahun :</label>
-									<select class="col-sm-2 form-control" name="tahun" required>
-										<?php $y = date('Y'); ?>
-										<option name="tahun" selected="selected" value="<?= $y;?>"><?= $y;?></option>
-										<option name="tahun" value="<?= $y+1;?>"><?= $y+1; ?></option>
-									</select>
+								
+								<div class="form-group">
+									<label class="" for="PROPOSAL">Upload Proposal</label>
+									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-md-5 form-control" required>
 								</div>
-								<br>
-								<div class="row">
-									<label class="col-sm label-on-left" for="PROPOSAL">Upload Proposal</label>
-									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-sm-6 form-control"
-										required>
+								<div class="form-group" hidden>
+									<label for="ST_PENDAFTARAN">Status</label>
+									<input type="text" name="ST_PENDAFTARAN" value="1">
 								</div>
-								<br>
-								<div class="row">
-									<button class="btn btn-success">Simpan Form</button>
+								<div class="form-group" hidden>
+									<label for="ID_ST">Status pendaftaran</label>
+									<input type="text" name="ID_ST" value="ST0001">
 								</div>
+								<div class="form-group">
+									<button class="btn btn-success">Tambah Isian Kelompok</button>
+								</div>
+								<label font="10">Lanjut ke isian individu</label>
 							</div>
 						</form>
 					</div>
@@ -100,6 +115,6 @@
 		</div>
 	</section>
 
-	
+
 </div>
 <!-- /.row -->

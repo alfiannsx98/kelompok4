@@ -35,7 +35,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-user mr-1"></i> Nama</label>
-                                        <label class="form-control" name="nama" id="nama"><?= $user['NAMA_ADM']; ?></label>
+                                        <label class="form-control" name="nama" id="nama"><?= $user['NAMA_DS']; ?></label>
                                     </div>
                                 </div>
                                 <input type="email" class="" value="<?= $user['email']; ?>" name="email" id="email" hidden>
@@ -51,27 +51,27 @@
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-id-badge mr-1"></i> NIP</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['identity']; ?></label>
+                                        <label class="form-control" name="about" id="about"><?= $user['NIP_DS']; ?></label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-male mr-1"></i><i class="fas fa-female mr-1"></i> Jenis Kelamin</label>
-                                        <label class="form-control" value=""><?= $user['JK_ADM']; ?></label>
+                                        <label class="form-control" value=""><?= $user['JK_DS']; ?></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group label-floating">
-                                        <label class="control-label"><i class="fas fa-user-graduate mr-1"></i>Admin Program Studi</label>
+                                        <label class="control-label"><i class="fas fa-user-graduate mr-1"></i>Dosen Program Studi</label>
                                         <label class="form-control" name="prodi" id="prodi"><?= $user['NM_PRODI']; ?></label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-phone mr-1"></i> No HP</label>
-                                        <label class="form-control" value=""><?= $user['HP_ADM']; ?></label>
+                                        <label class="form-control" value=""><?= $user['HP_DS']; ?></label>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-map-marker-alt mr-1"></i> Alamat</label>
-                                        <label class="form-control" name="about" id="about"><?= $user['ALAMAT_ADM']; ?></label>
+                                        <label class="form-control" name="about" id="about"><?= $user['ALAMAT_DS']; ?></label>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
 
                             <ul class="list-group mb-3">
                                 <li class="list-group-item">
-                                    <b>Status</b> <a class="float-right"> <?php if ($user['role_id'] == 1) {
+                                <b>Status</b> <a class="float-right"> <?php if ($user['role_id'] == 1) {
                                                                                 echo "Administrator";
                                                                             } elseif($user['role_id'] == 2) {
                                                                                 echo "Mahasiswa";

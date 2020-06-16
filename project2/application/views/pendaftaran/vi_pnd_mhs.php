@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Data pendaftaran</h1>
+					<h1>Pendaftaran Peserta PKL</h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,48 +25,41 @@
 	$ID_DS = $pnd->ID_DS;
 	$NAMA_DS = $pnd->NAMA_DS;
 	$WAKTU = $pnd->WAKTU;
+	$NAMA_ST = $pnd->NAMA_ST;
 	?>
 	<section class="content">
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<div class="row">
-							<label class="col-sm-2 label-on-left">Tempat PKL</label>
-							<div class="col-sm-10">
-								<div class="form-group">
-									<p class="form-control-static"><?= $NAMA_PR; ?></p>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<label class="col-sm-2 label-on-left"> Alamat </label>
-							<div class="col-sm-10">
-								<div class="form-group">
-									<p class="form-control-static"><?= $ALAMAT_PR; ?></p>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<label class="col-sm-2 label-on-left">Dosen Pembimbing</label>
-							<div class="col-sm-10">
-								<div class="form-group">
-									<p class="form-control-static"><?= $NAMA_DS; ?></p>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<label class="col-sm-2 label-on-left">Waktu Pelaksanaan</label>
-							<div class="col-sm-10">
-								<div class="form-group">
-									<p class="form-control-static"><?= $WAKTU; ?></p>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
+                        <div class="form-row">
+                            <label for="NAMA_PR" class="col-sm-2 col-form-label">Tempat PKL</label>
+                            <input type="text" id="NAMA_PR" class="form-control col-sm-10" value="<?= $NAMA_PR; ?>" readonly>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <label for="ALAMAT_PR" class="col-sm-2 col-form-label">Alamat</label>
+                            <input type="text" id="ALAMAT_PR" class="form-control col-sm-10" value="<?= $ALAMAT_PR; ?>" readonly>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <label for="NAMA_DS" class="col-sm-2 col-form-label">Dosen Pembimbing</label>
+                            <input type="text" id="NAMA_DS" class="form-control col-sm-10" value="<?= $NAMA_DS; ?>" readonly>
+                        </div>
+						<br>
+						<div class="form-row">
+                            <label for="WAKTU" class="col-sm-2 col-form-label">Waktu Pelaksanaan</label>
+                            <input type="text" id="WAKTU" class="form-control col-sm-2" value="<?= $WAKTU; ?>" readonly>
+                        </div>
+						<br>
+						<div class="form-row">
+                            <label for="NAMA_ST" class="col-sm-2 col-form-label">Status Persetujuan</label>
+                            <input type="text" id="NAMA_ST" class="form-control col-sm-2" style="font-weight:bold" value="<?= $NAMA_ST; ?>" readonly>
+                        </div>
+						<!-- <div class="form-group">
 							<button type="button" id="edit_pnd" class="btn btn-primary btn-round" data-toggle="modal"
 								data-target="#modal_edit_pnd<?= $ID_PND; ?>">Ubah</button>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -74,7 +67,7 @@
 	</section>
 
 	<!-- modal ubah pnd -->
-	<div class="modal fade" id="modal_edit_pnd<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- <div class="modal fade" id="modal_edit_pnd<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -136,8 +129,8 @@
 				</form>
 			</div>
 		</div>
-	</div>
-	
+	</div> -->
+
 
 	<section class="content">
 		<div class="row">
@@ -163,10 +156,10 @@
 							</tbody>
 							<?php } ?>
 						</table>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<button type="button" id="edit_pnd" class="btn btn-primary btn-round" data-toggle="modal"
 								data-target="#modal_edit_anggota<?=$ID_PND; ?>">Ubah</button>
-						</div>
+						</div> -->
 					</div>
 					<!-- /.row -->
 				</div>
@@ -176,51 +169,52 @@
 		</div>
 		<!-- /.col -->
 	</section>
+
 </div>
 <!-- /.row -->
 
 <!-- modal ubah data anggota -->
-<div class="modal fade" id="modal_edit_anggota<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title title-1" id="myModalLabel">Ubah Data Anggota</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form method="post" action="<?= base_url('pendaftaran/pr_ubah_anggota'); ?>">
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
-						<table class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th class="col-md-1">#</th>
-									<th class="col-md-2">NIM</th>
-									<th>Nama</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<?php $nmr=1; ?>
-							<?php foreach($pendaftaran_klp as $klp) {?>
-							<tbody>
-								<tr>
-									<td class="col-md-1 text-center"><?= $nmr++; ?></td>
-									<td class="col-md-2"><?= $klp->NIM; ?></td>
-									<td><?= $klp->NAMA_M; ?></td>
-									<td>skj</td>
-								</tr>
-							</tbody>
-							<?php } ?>
-						</table>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" id="save-btn" class="btn btn-success">Simpan</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+    <!-- <div class="modal fade" id="modal_edit_anggota<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title title-1" id="myModalLabel">Ubah Data Anggota</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="<?= base_url('pendaftaran/pr_ubah_anggota'); ?>">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-1">#</th>
+                                        <th class="col-md-2">NIM</th>
+                                        <th>Nama</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <?php $nmr=1; ?>
+                                <?php foreach($pendaftaran_klp as $klp) {?>
+                                <tbody>
+                                    <tr>
+                                        <td class="col-md-1 text-center"><?= $nmr++; ?></td>
+                                        <td class="col-md-2"><?= $klp->NIM; ?></td>
+                                        <td><?= $klp->NAMA_M; ?></td>
+                                        <td>skj</td>
+                                    </tr>
+                                </tbody>
+                                <?php } ?>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="save-btn" class="btn btn-success">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
 <?php } ?>
