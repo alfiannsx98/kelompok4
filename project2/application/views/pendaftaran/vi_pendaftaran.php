@@ -41,7 +41,7 @@
 									<td><?= $pnd->NAMA_M; ?></td>
 									<td><?= $pnd->NAMA_PR; ?></td>
 									<td><?= $pnd->NAMA_DS; ?></td>
-									<td align="right"><?= $pnd->ST_PENDAFTARAN; ?>
+									<td align="right"><?= $pnd->NAMA_ST; ?>
 										<button type="button" id="edit_status" class="btn btn-info btn-xs btn-round"
 											data-toggle="modal"
 											data-target="#modal_edit_status<?= $pnd->ID_PND; ?>">Ubah</button>
@@ -91,7 +91,8 @@
 
 <?php foreach ($pendaftaran as $pnd) {
 	$ID_PND = $pnd->ID_PND;
-	$ST_PENDAFTARAN = $pnd->ST_PENDAFTARAN;
+	$ID_ST = $pnd->ID_ST;
+	$NAMA_ST = $pnd->NAMA_ST;
 ?>
 <!-- Modal ubah status -->
 <div class="modal fade" id="modal_edit_status<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
@@ -107,10 +108,11 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
-						<select name="ST_PENDAFTARAN" id="ST_PENDAFTARAN" class="form-control">
-							<option disabled selected value="<?= $ST_PENDAFTARAN; ?>"><?= $ST_PENDAFTARAN; ?></option>
-							<option value="Belum Disetujui">Belum Disetujui</option>
-							<option value="Disetujui">Disetujui</option>
+						<select name="ID_ST" id="ID_ST" class="form-control">
+							<option disabled selected value="<?= $ID_ST; ?>"><?= $NAMA_ST; ?></option>
+							<?php foreach ($status as $sts){?>
+							<option value="<?= $sts->ID_ST; ?>"><?= $sts->NAMA_ST; ?></option>
+							<?php } ?>
 						</select>
 					</div>
 				</div>

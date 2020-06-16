@@ -29,12 +29,12 @@
 									<label class="label-on-left" for="ID_PR">Isian Kelompok : </label>
 								</div>
 								<?php 
-								$nim = $user['identity']; 
-								$nama =$user['id_user'];
+								$NIM = $user['identity']; 
+								$ID_M =$user['id_user'];
 								?>
-								<input type="hidden" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
-								<input type="hidden" name="NIM" value="<?= $nim; ?>">
-								<input type="hidden" name="ID_M" value=<?= $nama; ?>>
+								<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$NIM; ?>">
+								<input type="text" name="NIM" value="<?= $NIM; ?>">
+								<input type="text" name="ID_M" value=<?= $ID_M; ?>>
 								<br>
 								<div class="form-group">
 									<label for="ID_PR"> Tempat PKL</label>
@@ -95,10 +95,14 @@
 									<label class="" for="PROPOSAL">Upload Proposal</label>
 									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-md-5 form-control" required>
 								</div>
-								<!-- <div class="form-group">
+								<div class="form-group" hidden>
+									<label for="ST_PENDAFTARAN">Status</label>
+									<input type="text" name="ST_PENDAFTARAN" value="1">
+								</div>
+								<div class="form-group" hidden>
 									<label for="ID_ST">Status pendaftaran</label>
-									<input type="hidden" name="ID_ST" value="ST0001">
-								</div> -->
+									<input type="text" name="ID_ST" value="ST0001">
+								</div>
 								<div class="form-group">
 									<button class="btn btn-success">Tambah Isian Kelompok</button>
 								</div>

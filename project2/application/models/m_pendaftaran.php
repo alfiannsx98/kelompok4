@@ -3,15 +3,35 @@
 class M_pendaftaran extends CI_Model{
         // UNTUK ADMIN
 	function tampil_pnd(){
-        $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ST_PENDAFTARAN, pendaftaran.ID_PR, pendaftaran.ID_DS, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M 
-                                FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp
-                                WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
+        $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS,  pendaftaran.ID_ST, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M, status_pendaftaran.NAMA_ST 
+                                FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp, status_pendaftaran
+                                WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS AND pendaftaran.ID_ST = status_pendaftaran.ID_ST
                                 AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
                                 AND mahasiswa.ST_KETUA = 1
                                 ORDER BY pendaftaran.ID_PND ASC");
 		return $data;
         }
 
+        function status_pnd()
+        {
+                $data = $this->db->query("SELECT ID_ST, NAMA_ST FROM status_pendaftaran");
+                return $data;
+        }
+
+        function ubah_status($ID_ST, $ID_PND)
+        {
+                $this->db->query("UPDATE pendaftaran SET ID_ST = '$ID_ST' 
+                                        WHERE ID_PND = '$ID_PND'");
+                        // return $data;
+        }
+
+        // hapus data pendaftaran
+        function hapus_data_pnd($ID_PND)
+        {
+                $this->db->query("DELETE FROM pendaftaran WHERE ID_PND = '$ID_PND'");
+        }
+
+        // tampil data pendaftaran di detail
         function tampil_dt_pnd($ID_PND)
         {
                 $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL, pendaftaran.ST_PENDAFTARAN, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
@@ -20,8 +40,9 @@ class M_pendaftaran extends CI_Model{
                                         AND pendaftaran.ID_DS = dosbing.ID_DS
                                         AND pendaftaran.ID_PND =  '$ID_PND'");
                         return $data;
-                }
+        }
 
+        // tampil data anggota kelompok di detail
         function tampil_dt_klp($ID_PND)
         {
                 $data = $this->db->query("SELECT pendaftaran_klp.ID_PND, pendaftaran_klp.ID_M, mahasiswa.NIM, mahasiswa.NAMA_M
@@ -31,13 +52,6 @@ class M_pendaftaran extends CI_Model{
                         return $data;
         }
 
-        function ubah_status($ST_PENDAFTARAN, $ID_PND)
-        {
-                $this->db->query("UPDATE pendaftaran SET ST_PENDAFTARAN = '$ST_PENDAFTARAN' 
-                                        WHERE ID_PND = '$ID_PND'");
-                        // return $data;
-        }
-
         // ubah data pendaftaran
         function ubah_data_pnd($where, $data, $table)
         {
@@ -45,13 +59,8 @@ class M_pendaftaran extends CI_Model{
 		$this->db->update($table, $data);
         }
         
-        // hapus data pendaftaran
-        function hapus_data_pnd($ID_PND)
-        {
-                $this->db->query("DELETE FROM pendaftaran WHERE ID_PND = '$ID_PND'");
-        }
-
         // hapus data kelompok
+        // BELOMM
         function hapus_data_klp($ID_PND)
         {
                 $this->db->query("DELETE FROM pendaftaran_klp WHERE ID_PND = '$ID_PND'");
@@ -65,13 +74,16 @@ class M_pendaftaran extends CI_Model{
                 return $data;
         }
 
+        // select max id untuk auto increment. gak kepake
         function selectMaxID(){
                 $query = $this->db->query("SELECT MAX(ID_PND) as ID_PND from pendaftaran");
                 $hasil = $query->row();
                 return $hasil->ID_PND;       
         }
 
-        function comboDS(){
+        // dropdown dosen pembimbing
+        function comboDS()
+        {
                 $data = $this->db->query("SELECT ID_DS, NAMA_DS FROM dosbing");
                 return $data;
         }
@@ -80,7 +92,8 @@ class M_pendaftaran extends CI_Model{
         //         $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
         //         return $data;
         // }
-
+        
+        // dropdown bulan
         function bulan(){
                 $data = $this->db->query("SELECT BL FROM bulan");
                 return $data;
@@ -115,17 +128,8 @@ class M_pendaftaran extends CI_Model{
         function tmbh_nim($data){
                 return $this->db->insert_batch('pendaftaran_klp', $data);
         }
-        
-        // tampil data Pendaftaran
-        function data_kel(){
-                $data = $this->db->query("SELECT perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL
-                FROM pendaftaran, perusahaan, dosbing, pendaftaran_klp, mahasiswa
-                WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
-                AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
-                AND mahasiswa.NIM = '".$user['identity']."'");
-        return $data;
-        }
 
+        // modal untuk nambah anggota kelompok
         function dropnim(){
                 
                 $data = $this->db->query("SELECT mahasiswa.ID_M, mahasiswa.NIM, mahasiswa.NAMA_M FROM mahasiswa LEFT JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M
@@ -134,8 +138,30 @@ class M_pendaftaran extends CI_Model{
                 return $data;
         }
 
-        function mhsiswa(){
-                $data = $this->db->query("SELECT mahasiswa.ID_M FROM mahasiswa");
+        // setelah daftar
+        function tampil_pnd_mhs($ID_PND)
+        {
+                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.ID_ST, status_pendaftaran.NAMA_ST, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
+                                        FROM pendaftaran, perusahaan, dosbing, status_pendaftaran
+                                        WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_ST = status_pendaftaran.ID_ST
+                                        AND pendaftaran.ID_DS = dosbing.ID_DS
+                                        AND pendaftaran.ID_PND =  '$ID_PND'");
                 return $data;
         }
+
+        // tampil data Pendaftaran
+        // function data_kel(){
+        //         $data = $this->db->query("SELECT perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL
+        //         FROM pendaftaran, perusahaan, dosbing, pendaftaran_klp, mahasiswa
+        //         WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
+        //         AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
+        //         AND mahasiswa.NIM = '".$user['identity']."'");
+        // return $data;
+        // }
+
+        // function mhsiswa(){
+        //         $data = $this->db->query("SELECT mahasiswa.ID_M FROM mahasiswa");
+        //         return $data;
+        // }
+
 }
