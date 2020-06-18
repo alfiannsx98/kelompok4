@@ -81,7 +81,7 @@
                         <?php if($mhs==NULL&&$pr==NULL) { ?>
                             <h6 class="font-weight-bolder"><span class="badge-pill badge-secondary">Belum Daftar PKL</span></h6>
                         <?php } else { ?>
-                            <?php if($upload=="") { ?>
+                            <?php if($upload['PROPOSAL']=="") { ?>
                                 <h6 class="font-weight-bolder"><span class="badge-pill badge-danger">Belum Upload Proposal</span></h6>
                             <?php } else { ?>
                                 <h6 class="font-weight-bolder"><span class="badge-pill badge-success">Sudah Upload Proposal</span></h6>

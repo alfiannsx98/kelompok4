@@ -81,7 +81,7 @@ class m_dashboard extends CI_Model
 		$data = $this->db->query("SELECT * FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
 		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN mahasiswa ON mahasiswa.ID_M=pendaftaran_klp.ID_M
 		LEFT JOIN user ON user.identity=mahasiswa.ID_M WHERE user.email!='$mail'
-		GROUP BY pendaftaran.ID_PND");
+		GROUP BY pendaftaran_klp.ID_PND");
 
 		return $data->result_array();	
 	}

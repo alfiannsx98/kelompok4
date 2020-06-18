@@ -22,15 +22,16 @@ class Mahasiswa extends CI_Controller
         $tabel = $query->num_rows();
         $date = date('dm', time());
         $id_u = "ID-U" . $tabel1 . $date;
-        if($tabel>0 && $tabel<10) { 
-            $id_m = "M000" . ($tabel + 1);
-        } elseif($tabel>=10 && $tabel<100) {
-            $id_m = "M00" . ($tabel + 1);
-        } elseif($tabel>=100 && $tabel<1000) {
-            $id_m = "M0" . ($tabel + 1);
-        } else {
-            $id_m = "M" . ($tabel + 1);
-        }
+        $id_m = "ID-M" . $tabel .$date;
+        // if($tabel>0 && $tabel<10) { 
+        //     $id_m = "M000" . ($tabel + 1);
+        // } elseif($tabel>=10 && $tabel<100) {
+        //     $id_m = "M00" . ($tabel + 1);
+        // } elseif($tabel>=100 && $tabel<1000) {
+        //     $id_m = "M0" . ($tabel + 1);
+        // } else {
+        //     $id_m = "M" . ($tabel + 1);
+        // }
         $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', [
             'email' => 

@@ -46,7 +46,7 @@
     				<!-- Menu Body -->
     				<!-- Menu Footer-->
     				<li class="user-footer">
-    					<a href="<?= base_url('user'); ?>" class="btn btn-default btn-flat">Profile</a>
+    					<a href="<?= base_url('user/profil'); ?>" class="btn btn-default btn-flat">Profile</a>
     					<a href="<?= base_url('auth/logout'); ?>" class="btn btn-default btn-flat float-right">Sign out</a>
     				</li>
     			</ul>
