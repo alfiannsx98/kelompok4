@@ -62,6 +62,22 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('pendaftaran/vi_dt_pendaftaran', $data);
         $this->load->view('templates/footer');
+
+        // $ID_PND = $_POST['ID_PND'];
+        // $ID_M = $_POST['ID_M'];
+        // $data = array();
+
+        // $index = 0;
+        // foreach ($ID_PND as $PND){
+        //     array_push($data, array(
+        //         'ID_PND' => $PND,
+        //         'ID_M' => $ID_M[$index],
+        //     ));
+
+        //     $index++;
+        // }
+        // $sql = $this->m_pendaftaran->tmbh_nim($data);
+        // redirect ('pendaftaran/index');
     }
 
     // proses ubah data pendaftaran
@@ -97,6 +113,34 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran');
     }
 
+    // hapus data anggota
+    public function hapus_data_anggota()
+    {
+        $ID_M = $this->input->post('ID_M');
+        $this->m_pendaftaran->hapus_anggota($ID_M);
+        redirect('pendaftaran');
+    }
+
+    // proses tambah data anggita di detail
+    public function pr_dt_tmbh_anggota()
+    {
+        $ID_PND = htmlspecialchars($this->input->post('ID_PND'));
+        $NIM = htmlspecialchars($this->input->post('NIM'));
+        $sql = "SELECT ID_M FROM mahasiswa WHERE NIM = '$NIM';";
+        foreach ($sql->result() as $mhs)
+        {
+                $ID = $mhs->ID_M;
+        }
+        $ID_M = $ID;
+        // $data = array(
+        //     'ID_PND' => $ID_PND,
+        //     'ID_M' => $ID_M 
+        // );
+        $this->m_pendaftaran->dt_tmbh_anggota($ID_PND, $ID_M);
+        redirect('pendaftaran');
+    }
+
+    // UNTUK MAHASISWA
     public function cek_pendaftaran()
     {
         $data['title'] = 'Dashboard';

@@ -58,12 +58,24 @@ class M_pendaftaran extends CI_Model{
 		$this->db->where($where);
 		$this->db->update($table, $data);
         }
+
+        // tambah data anggota di detail pendaftaran
+        function dt_tmbh_anggota($ID_PND, $ID_M)
+        {
+                $this->db->query("INSERT INTO pendaftaran_klp VALUES ('$ID_PND', '$ID_M')");
+        }
         
         // hapus data kelompok
         // BELOMM
         function hapus_data_klp($ID_PND)
         {
                 $this->db->query("DELETE FROM pendaftaran_klp WHERE ID_PND = '$ID_PND'");
+        }
+
+        // hapus data anggota 
+        function hapus_anggota($ID_M)
+        {
+                $this->db->query("DELETE FROM pendaftaran_klp WHERE ID_M = '$ID_M'");
         }
 
         // UNTUK MAHASISWA
@@ -112,7 +124,7 @@ class M_pendaftaran extends CI_Model{
                 $this->db->insert($table, $data);
         }
 
-        // tambah user sebagai anggota kelompoko
+        // tambah user sebagai anggota kelompok
         function tmbh_ketua($tim, $table)
         {
                 $this->db->insert($table, $tim);

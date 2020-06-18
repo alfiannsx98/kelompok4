@@ -47,14 +47,8 @@
 											data-target="#modal_edit_status<?= $pnd->ID_PND; ?>">Ubah</button>
 									</td>
 									<td class="text-right">
-										
-
 										<?= anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,
 									'<button type="button" id="detail" class="btn btn-info btn-sm btn-round">Detail</button>'); ?>
-										<button type="button" id="detail" class="btn btn-success btn-sm btn-round"
-											data-toggle="modal"
-											data-target="#modal_edit<?= $pnd->ID_PND; ?>">Ubah</button>
-										<!-- <button class="btn btn-success btn-sm">ubah</button> -->
 										<button type="button" id="detail" class="btn btn-danger btn-sm btn-round"
 											data-toggle="modal"
 											data-target="#modal_hapus<?= $pnd->ID_PND; ?>">Hapus</button>
@@ -73,9 +67,6 @@
 								</tr>
 							</tfoot>
 						</table>
-
-
-
 					</div>
 					<!-- /.row -->
 				</div>
@@ -85,9 +76,10 @@
 			<!-- /.card -->
 		</div>
 		<!-- /.col -->
+	</section>
 </div>
 <!-- /.row -->
-</section>
+
 
 <?php foreach ($pendaftaran as $pnd) {
 	$ID_PND = $pnd->ID_PND;
@@ -126,23 +118,23 @@
 
 <!-- modal hapus data pendaftaran -->
 <div class="modal fade" id="modal_hapus<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Hapus Data</h3>
-            </div>
-            <form action="<?= base_url('pendaftaran/hapus_data'); ?>" method="post" class="form-horizontal">
-                <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data ini?</p>
-                </div>
-                <div class="modal-footer">
-                    <input type="text" name="ID_PND" value="<?= $ID_PND; ?>">
-                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
-                    <button class="btn btn-danger">Hapus</button>
-                </div>
-            </form>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="myModalLabel">Hapus Data</h3>
+			</div>
+			<form action="<?= base_url('pendaftaran/hapus_data'); ?>" method="post" class="form-horizontal">
+				<div class="modal-body">
+					<p>Apakah Anda yakin ingin menghapus data ini?</p>
+				</div>
+				<div class="modal-footer">
+					<input type="text" name="hidden" value="<?= $ID_PND; ?>">
+					<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+					<button class="btn btn-danger">Hapus</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <?php } ?>

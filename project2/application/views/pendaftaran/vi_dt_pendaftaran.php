@@ -137,7 +137,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<section class="content">
 		<div class="row">
@@ -150,6 +150,7 @@
 									<th class="col-md-1">#</th>
 									<th class="col-md-2">NIM</th>
 									<th>Nama</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<?php $nmr=1; ?>
@@ -159,14 +160,21 @@
 									<td class="col-md-1 text-center"><?= $nmr++; ?></td>
 									<td class="col-md-2"><?= $klpp->NIM; ?></td>
 									<td><?= $klpp->NAMA_M; ?></td>
+									<td><button type="button" id="detail" class="btn btn-danger btn-sm btn-round"
+											data-toggle="modal" data-target="#modal_hapus<?= $klpp->ID_M; ?>">Hapus</button>
+									</td>
 								</tr>
 							</tbody>
 							<?php } ?>
 						</table>
-						<div class="form-group">
-							<button type="button" id="edit_pnd" class="btn btn-primary btn-round" data-toggle="modal"
-								data-target="#modal_edit_anggota<?=$ID_PND; ?>">Ubah</button>
-						</div>
+						<form method="post" action="<?= base_url("pendaftaran/pr_dt_tmbh_anggota"); ?>">
+							<div class="form-group">
+								<input type="text" class="form-control" name="ID_PND" value="<?= $ID_PND; ?>">
+								<label for="NIM">Masukkan NIM </label>
+								<input type="text" class="form-control" name="NIM">
+								<button type="button" class="btn btn-primary">Tambah</button>
+							</div>
+						</form>
 					</div>
 					<!-- /.row -->
 				</div>
@@ -178,49 +186,29 @@
 	</section>
 </div>
 <!-- /.row -->
+<?php foreach($pendaftaran_klp as $klpp){
+	$ID_M = $klpp->ID_M;
+	
+	?>
 
-<!-- modal ubah data anggota -->
-<div class="modal fade" id="modal_edit_anggota<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<!-- modal hapus data anggota -->
+<div class="modal fade" id="modal_hapus<?= $ID_M; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title title-1" id="myModalLabel">Ubah Data Anggota</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+				<h3 class="modal-title" id="myModalLabel">Hapus Data</h3>
 			</div>
-			<form method="post" action="<?= base_url('pendaftaran/pr_ubah_anggota'); ?>">
+			<form action="<?= base_url('pendaftaran/hapus_data_anggota'); ?>" method="post" class="form-horizontal">
 				<div class="modal-body">
-					<div class="form-group">
-						<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
-						<table class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th class="col-md-1">#</th>
-									<th class="col-md-2">NIM</th>
-									<th>Nama</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<?php $nmr=1; ?>
-							<?php foreach($pendaftaran_klp as $klp) {?>
-							<tbody>
-								<tr>
-									<td class="col-md-1 text-center"><?= $nmr++; ?></td>
-									<td class="col-md-2"><?= $klp->NIM; ?></td>
-									<td><?= $klp->NAMA_M; ?></td>
-									<td>skj</td>
-								</tr>
-							</tbody>
-							<?php } ?>
-						</table>
-					</div>
+					<p>Apakah Anda yakin ingin menghapus data ini?</p>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" id="save-btn" class="btn btn-success">Simpan</button>
+					<input type="hidden" name="ID_M" value="<?= $ID_M; ?>">
+					<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+					<button class="btn btn-danger">Hapus</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<?php } ?>
+<?php }}?>
