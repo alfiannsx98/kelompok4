@@ -65,7 +65,7 @@
 						<br>
 						<?php
 						$status = $ST_KETUA;
-						if ($status == 1 ){
+						if ($status == 1 && $NAMA_ST == 'BELUM DISETUJUI'){
 							echo '<div class="form-row">
 							<label class="col-sm-4 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
 								PKL?</label>
@@ -74,11 +74,22 @@
 							<button type="button" id="ditolak" class="btn btn-danger btn-round" data-toggle="modal"
 								data-target="#modal_ditolak'. $ID_PND.'">Tidak</button>
 						</div>';
+						} elseif($status == 1 && $NAMA_ST == 'DISETUJUI'){
+							echo '<div class="form-row">
+							<label class="col-sm-4 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
+								PKL?</label>
+							<button type="button" id="diterima" class="btn btn-primary btn-round" data-toggle="modal"
+								data-target="#modal_diterima'. $ID_PND.'">Ya</button>
+							<button type="button" id="ditolak" class="btn btn-danger btn-round" data-toggle="modal"
+								data-target="#modal_ditolak'. $ID_PND.'">Tidak</button>
+						</div>';
+						} elseif($NAMA_ST == 'DITERIMA') {
+							echo '';
 						} else {
 							echo '';
 						}
-						?>
 						
+						?>
 					</div>
 				</div>
 			</div>
