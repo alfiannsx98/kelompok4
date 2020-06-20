@@ -65,9 +65,14 @@ class M_pendaftaran extends CI_Model{
                 $this->db->query("INSERT INTO pendaftaran_klp ( ID_PND, ID_M ) 
                 VALUES('$ID_PND', (SELECT ID_M FROM mahasiswa WHERE mahasiswa.NIM = '$NIM'))");
         }
+
+        // hapus status ketua
+        function hapus_st_ketua($ID_M)
+        {
+                $this->db->query("UPDATE mahasiswa SET ST_KETUA = 0 WHERE ID_M = '$ID_M'");
+        }
         
         // hapus data kelompok
-        // BELOMM
         function hapus_data_klp($ID_PND)
         {
                 $this->db->query("DELETE FROM pendaftaran_klp WHERE ID_PND = '$ID_PND'");

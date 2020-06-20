@@ -111,7 +111,7 @@
 						<div class="form-group">
 							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
 							<h6>Bukti penerimaan PKL dapat berupa screenshoot chat,
-								surat balasan elektronik, atau yang lainnya.</h6>
+								surat balasan elektronik, atau yang lainnya. Kirim format gambar(jpg, jpeg, png).</h6>
 							<br>
 							<input type="file" name="BUKTI" required>
 						</div>
@@ -139,7 +139,7 @@
 						<div class="form-group">
 							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
 							<h6>Bukti penolakan PKL dapat berupa screenshoot chat,
-								surat balasan elektronik, atau yang lainnya.</h6>
+								surat balasan elektronik, atau yang lainnya. Kirim format gambar(jpg, jpeg, png).</h6>
 							<br>
 							<input type="file" name="BUKTI" required>
 						</div>
