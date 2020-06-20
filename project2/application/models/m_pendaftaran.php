@@ -60,9 +60,10 @@ class M_pendaftaran extends CI_Model{
         }
 
         // tambah data anggota di detail pendaftaran
-        function dt_tmbh_anggota($ID_PND, $ID_M)
+        function dt_tmbh_anggota($ID_PND, $NIM)
         {
-                $this->db->query("INSERT INTO pendaftaran_klp VALUES ('$ID_PND', '$ID_M')");
+                $this->db->query("INSERT INTO pendaftaran_klp ( ID_PND, ID_M ) 
+                VALUES('$ID_PND', (SELECT ID_M FROM mahasiswa WHERE mahasiswa.NIM = '$NIM'))");
         }
         
         // hapus data kelompok
@@ -153,12 +154,17 @@ class M_pendaftaran extends CI_Model{
         // setelah daftar
         function tampil_pnd_mhs($ID_PND)
         {
-                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.ID_ST, status_pendaftaran.NAMA_ST, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
+                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.ID_ST, status_pendaftaran.NAMA_ST, status_pendaftaran.KET_MHS, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
                                         FROM pendaftaran, perusahaan, dosbing, status_pendaftaran
                                         WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_ST = status_pendaftaran.ID_ST
                                         AND pendaftaran.ID_DS = dosbing.ID_DS
                                         AND pendaftaran.ID_PND =  '$ID_PND'");
                 return $data;
+        }
+
+        function diterima($ID_PND, $BUKTI)
+        {
+                $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0003' WHERE ID_PND = '$ID_PND'");
         }
 
         // tampil data Pendaftaran

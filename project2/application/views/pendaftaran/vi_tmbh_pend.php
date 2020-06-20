@@ -28,13 +28,9 @@
 								<div class="row">
 									<label class="label-on-left" for="ID_PR">Isian Kelompok : </label>
 								</div>
-								<?php 
-								$NIM = $user['identity']; 
-								$ID_M =$user['id_user'];
-								?>
-								<input type="text" name="ID_PND" id="ID_PND" value="<?= "PND-".$NIM; ?>">
-								<input type="text" name="NIM" value="<?= $NIM; ?>">
-								<input type="text" name="ID_M" value=<?= $ID_M; ?>>
+								<input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
+								<input type="hidden" name="NIM" value="<?= $NIM; ?>">
+								<input type="hidden" name="ID_M" value=<?= $ID_M; ?>>
 								<br>
 								<div class="form-group">
 									<label for="ID_PR"> Tempat PKL</label>

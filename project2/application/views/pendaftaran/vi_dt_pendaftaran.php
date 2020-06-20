@@ -169,10 +169,12 @@
 						</table>
 						<form method="post" action="<?= base_url("pendaftaran/pr_dt_tmbh_anggota"); ?>">
 							<div class="form-group">
-								<input type="text" class="form-control" name="ID_PND" value="<?= $ID_PND; ?>">
+								<label for="">Tambah Anggota</label>
+								<br>
+								<input type="hidden" class="form-control" name="ID_PND" value="<?= $ID_PND; ?>">
 								<label for="NIM">Masukkan NIM </label>
 								<input type="text" class="form-control" name="NIM">
-								<button type="button" class="btn btn-primary">Tambah</button>
+								<button type="submit" class="btn btn-primary">Tambah</button>
 							</div>
 						</form>
 					</div>

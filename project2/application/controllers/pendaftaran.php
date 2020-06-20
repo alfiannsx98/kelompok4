@@ -101,7 +101,7 @@ class Pendaftaran extends CI_Controller
         );
      
         $this->m_pendaftaran->ubah_data_pnd($where, $data,'pendaftaran');
-        redirect('pendaftaran/index');
+        redirect('pendaftaran/tampil_detail/'.$ID_PND);
     }
 
     // hapus data pendaftaran
@@ -124,23 +124,14 @@ class Pendaftaran extends CI_Controller
     // proses tambah data anggita di detail
     public function pr_dt_tmbh_anggota()
     {
-        $ID_PND = htmlspecialchars($this->input->post('ID_PND'));
+        $ID_PND = $this->input->post('ID_PND');
         $NIM = htmlspecialchars($this->input->post('NIM'));
-        $sql = "SELECT ID_M FROM mahasiswa WHERE NIM = '$NIM';";
-        foreach ($sql->result() as $mhs)
-        {
-                $ID = $mhs->ID_M;
-        }
-        $ID_M = $ID;
-        // $data = array(
-        //     'ID_PND' => $ID_PND,
-        //     'ID_M' => $ID_M 
-        // );
-        $this->m_pendaftaran->dt_tmbh_anggota($ID_PND, $ID_M);
-        redirect('pendaftaran');
+        $this->m_pendaftaran->dt_tmbh_anggota($ID_PND, $NIM);
+        redirect('pendaftaran/tampil_detail/'.$ID_PND);
     }
 
     // UNTUK MAHASISWA
+    // proses cek pendaftaran
     public function cek_pendaftaran()
     {
         $data['title'] = 'Dashboard';
@@ -156,6 +147,7 @@ class Pendaftaran extends CI_Controller
                 $ID = $user->identity;
         }
         $ID_PND = 'PND-'. $ID;
+        // cek status pendaftaran
         $status = $this->db->query("SELECT ST_PENDAFTARAN FROM pendaftaran WHERE ID_PND = '$ID_PND';");
         foreach ($status->result() as $st)
         {
@@ -185,13 +177,28 @@ class Pendaftaran extends CI_Controller
             'email' =>
             $this->session->userdata('email')    
         ])->row_array();
+        $email = $this->session->userdata('email');
+        // select NIM
+        $query = $this->db->query("SELECT * FROM user WHERE email = '$email';");
+        foreach ($query->result() as $user)
+        {
+                $NIM = $user->identity;
+        }
+        $ID_PND = 'PND-'. $NIM;
+        $data['NIM'] = $NIM;
+        $data['ID_PND'] = $ID_PND;
+        // select ID_M
+        $sqll = $this->db->query("SELECT ID_M FROM mahasiswa WHERE NIM = '$NIM';");
+        foreach ($sqll->result() as $mhs)
+        {
+                $ID_M = $mhs->ID_M;
+        }
+        $data['ID_M'] = $ID_M;
 
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
         $data['bulan'] = $this->m_pendaftaran->bulan()->result();
         $data['jumlah_pr'] = $this->m_pendaftaran->jmlh_pr()->result();
-        $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
-        // $mhs = $this->m_pendaftaran->get_mhs();
-        // $data['mhs'] = $mhs;
+        // $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -216,16 +223,16 @@ class Pendaftaran extends CI_Controller
     // proses tambah data pada mahasiswa (Isian kelompok)
     public function pr_tmbh_pnd()
     {
-        $ID_PND = $this->input->post('ID_PND');
-        $ID_PR = $this->input->post('ID_PR');
-        $ID_DS = $this->input->post('ID_DS');
-        $bulan = $this->input->post('bulan');
-        $tahun = $this->input->post('tahun');
+        $ID_PND = htmlspecialchars($this->input->post('ID_PND'));
+        $ID_PR = htmlspecialchars($this->input->post('ID_PR'));
+        $ID_DS = htmlspecialchars($this->input->post('ID_DS'));
+        $bulan = htmlspecialchars($this->input->post('bulan'));
+        $tahun = htmlspecialchars($this->input->post('tahun'));
         $WAKTU = "$bulan, "."$tahun";
-        $ID_ST = $this->input->post('ID_ST');
-        $NIM = $this->input->post('NIM');
-        $ID_M = $this->input->post('ID_M');
-        $ST_PENDAFTARAN = $this->input->post('ST_PENDAFTARAN');
+        $ID_ST = htmlspecialchars($this->input->post('ID_ST'));
+        $NIM = htmlspecialchars($this->input->post('NIM'));
+        $ID_M = htmlspecialchars($this->input->post('ID_M'));
+        $ST_PENDAFTARAN = htmlspecialchars($this->input->post('ST_PENDAFTARAN'));
 
         // untuk upload proposal
         $config['upload_path'] = './assets/proposal/';
@@ -319,11 +326,13 @@ class Pendaftaran extends CI_Controller
                 $ID = $user->identity;
         }
         $ID_PND = 'PND-'. $ID;
-        // $status = $this->db->query("SELECT ST_PENDAFTARAN FROM pendaftaran WHERE ID_PND = '$ID_PND';");
-        // foreach ($status->result() as $st)
-        // {
-        //     $stts = $st->ST_PENDAFTARAN;
-        // }
+        $sql= $this->db->query("SELECT ST_KETUA FROM mahasiswa WHERE NIM = '$ID';");
+        foreach ($sql->result() as $mhs)
+        {
+                $ST_KETUA = $mhs->ST_KETUA;
+        }
+        $data['ST_KETUA'] = $ST_KETUA;
+
         $data['pendaftaran'] = $this->m_pendaftaran->tampil_pnd_mhs($ID_PND, 'pendaftaran')->result();
         $data['pendaftaran_klp'] = $this->m_pendaftaran->tampil_dt_klp($ID_PND, 'pendaftaran_klp')->result();
 
@@ -332,6 +341,43 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('pendaftaran/vi_pnd_mhs', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function bukti_diterima()
+    {
+        $ID_PND = $this->input->post('ID_PND');
+
+        $config['upload_path'] = './assets/proposal/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        // ambil nama berkas dari input file
+        $config['file_name'] = url_title($this->input->post('BUKTI'));
+        $config['overwrite'] = true;
+        $config['max_size'] = 2048; // 2 MB
+        $this->upload->initialize($config); //meng set config yang sudah di atur
+        
+        $BUKTI = $this->upload->file_name;
+        $this->m_pendaftaran->diterima($ID_PND, $BUKTI);
+        redirect('pendaftaran/pnd_mhs');
+    }
+
+    public function bukti_ditolak()
+    {
+        $ID_PND = $this->input->post('ID_PND');
+
+        $config['upload_path'] = './assets/proposal/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        // ambil nama berkas dari input file
+        $config['file_name'] = url_title($this->input->post('BUKTI'));
+        $config['overwrite'] = true;
+        $config['max_size'] = 2048; // 2 MB
+        $this->upload->initialize($config); //meng set config yang sudah di atur
+        
+        $BUKTI = $this->upload->file_name;
+        $this->m_pendaftaran->diterima($ID_PND, $BUKTI);
+        $this->m_pendaftaran->hapus_data_klp($ID_PND);
+        $this->m_pendaftaran->hapus_data_pnd($ID_PND);
+
+        redirect('pendaftaran/cek_pendaftaran');
     }
 
     // public function tampil_detail_pend()

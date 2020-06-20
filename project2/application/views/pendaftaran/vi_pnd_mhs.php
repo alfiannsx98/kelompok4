@@ -26,111 +26,120 @@
 	$NAMA_DS = $pnd->NAMA_DS;
 	$WAKTU = $pnd->WAKTU;
 	$NAMA_ST = $pnd->NAMA_ST;
+	$KET_MHS = $pnd->KET_MHS;
 	?>
 	<section class="content">
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-                        <div class="form-row">
-                            <label for="NAMA_PR" class="col-sm-2 col-form-label">Tempat PKL</label>
-                            <input type="text" id="NAMA_PR" class="form-control col-sm-10" value="<?= $NAMA_PR; ?>" readonly>
-                        </div>
-                        <br>
-                        <div class="form-row">
-                            <label for="ALAMAT_PR" class="col-sm-2 col-form-label">Alamat</label>
-                            <input type="text" id="ALAMAT_PR" class="form-control col-sm-10" value="<?= $ALAMAT_PR; ?>" readonly>
-                        </div>
-                        <br>
-                        <div class="form-row">
-                            <label for="NAMA_DS" class="col-sm-2 col-form-label">Dosen Pembimbing</label>
-                            <input type="text" id="NAMA_DS" class="form-control col-sm-10" value="<?= $NAMA_DS; ?>" readonly>
-                        </div>
+						<div class="form-row">
+							<label for="NAMA_PR" class="col-sm-2 col-form-label">Tempat PKL</label>
+							<input type="text" id="NAMA_PR" class="form-control col-sm-10" value="<?= $NAMA_PR; ?>"
+								readonly>
+						</div>
 						<br>
 						<div class="form-row">
-                            <label for="WAKTU" class="col-sm-2 col-form-label">Waktu Pelaksanaan</label>
-                            <input type="text" id="WAKTU" class="form-control col-sm-2" value="<?= $WAKTU; ?>" readonly>
-                        </div>
+							<label for="ALAMAT_PR" class="col-sm-2 col-form-label">Alamat</label>
+							<input type="text" id="ALAMAT_PR" class="form-control col-sm-10" value="<?= $ALAMAT_PR; ?>"
+								readonly>
+						</div>
 						<br>
 						<div class="form-row">
-                            <label for="NAMA_ST" class="col-sm-2 col-form-label">Status Persetujuan</label>
-                            <input type="text" id="NAMA_ST" class="form-control col-sm-2" style="font-weight:bold" value="<?= $NAMA_ST; ?>" readonly>
-                        </div>
-						<!-- <div class="form-group">
-							<button type="button" id="edit_pnd" class="btn btn-primary btn-round" data-toggle="modal"
-								data-target="#modal_edit_pnd<?= $ID_PND; ?>">Ubah</button>
-						</div> -->
+							<label for="NAMA_DS" class="col-sm-2 col-form-label">Dosen Pembimbing</label>
+							<input type="text" id="NAMA_DS" class="form-control col-sm-10" value="<?= $NAMA_DS; ?>"
+								readonly>
+						</div>
+						<br>
+						<div class="form-row">
+							<label for="WAKTU" class="col-sm-2 col-form-label">Waktu Pelaksanaan</label>
+							<input type="text" id="WAKTU" class="form-control col-sm-2" value="<?= $WAKTU; ?>" readonly>
+						</div>
+						<br>
+						<div class="form-row">
+							<label for="NAMA_ST" class="col-sm-2 col-form-label">Status Persetujuan</label>
+							<input type="text" id="NAMA_ST" class="form-control col-sm-2" style="font-weight:bold"
+								value="<?= $NAMA_ST; ?>" readonly>
+							<label class="col-sm-7 col-from-label" name="NAMA_ST"><?= $KET_MHS; ?></label>
+						</div>
+						<br>
+						<?php
+						$status = $ST_KETUA;
+						if ($status == 1 ){
+							echo '<div class="form-row">
+							<label class="col-sm-4 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
+								PKL?</label>
+							<button type="button" id="diterima" class="btn btn-primary btn-round" data-toggle="modal"
+								data-target="#modal_diterima'. $ID_PND.'">Ya</button>
+							<button type="button" id="ditolak" class="btn btn-danger btn-round" data-toggle="modal"
+								data-target="#modal_ditolak'. $ID_PND.'">Tidak</button>
+						</div>';
+						} else {
+							echo '';
+						}
+						?>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- modal ubah pnd -->
-	<!-- <div class="modal fade" id="modal_edit_pnd<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- modal diterima -->
+	<div class="modal fade" id="modal_diterima<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title title-1" id="myModalLabel">Ubah Data</h4>
+					<h4 class="modal-title title-1" id="myModalLabel">Kirim bukti penerimaan PKL oleh Tempat PKL</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form method="post" action="<?= base_url('pendaftaran/pr_ubah_pnd'); ?>">
+				<form method="post" action="<?= base_url('pendaftaran/bukti_diterima'); ?>">
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="ID_PR">Tempat PKL</label>
-							<select name="ID_PR" id="ID_PR" class="form-control">
-								<option value="<?= $ID_PR; ?>" selected><?= $NAMA_PR;?></option>
-								<?php foreach ($jumlah_pr as $pr){?>
-								<option value="<?= $pr->ID_PR; ?>"><?= $pr->NAMA_PR; ?></option>
-								<?php } ?>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="ID_DS">Dosen Pembimbing</label>
-							<select name="ID_DS" id="ID_DS" class="form-control">
-								<option value="<?= $ID_DS; ?>"><?= $NAMA_DS; ?></option>
-								<?php foreach ($comboDS as $ds) { ?>
-								<option value="<?= $ds->ID_DS; ?>"><?= $ds->NAMA_DS; ?></option>
-								<?php } ?>
-							</select>
-						</div>
-						<label class="col-form-label">Waktu Pelaksanaan</label>
-						<div class="form-group row">
-							<label for="bulan" class="col-sm-2 col-form-label">Bulan : </label>
-							<div class=".col-xs-3">
-								<select name="bulan" id="bulan" class="form-control" required>
-									<option selected disabled>Pilih Bulan</option>
-									<?php foreach($bulan as $bl){ ?>
-									<option type="text" name="bulan" value="<?= $bl->BL; ?>">
-										<?= $bl->BL; ?>
-										<?php } ?>
-								</select>
-							</div>
-							<div class="col-md-1"></div>
-							<label for="tahun" class="col-sm-2 col-form-label">Tahun : </label>
-							<div class=".col-xs-3">
-								<select class="form-control" name="tahun" required>
-									<?php $y = date('Y'); ?>
-									<option name="tahun" selected="selected" value="<?= $y;?>"><?= $y;?>
-									</option>
-									<option name="tahun" value="<?= $y+1;?>"><?= $y+1; ?></option>
-								</select>
-							</div>
+							<h6>Bukti penerimaan PKL dapat berupa screenshoot chat,
+								surat balasan elektronik, atau yang lainnya.</h6>
+							<br>
+							<input type="file" name="BUKTI" required>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="submit" id="save-btn" class="btn btn-success">Simpan</button>
+						<button type="submit" id="save-btn" class="btn btn-success">Kirim</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
+	<!-- modal ditolak -->
+	<div class="modal fade" id="modal_ditolak<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title title-1" id="myModalLabel">Kirim bukti penolakan PKL oleh Tempat PKL</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" action="<?= base_url('pendaftaran/bukti_ditolak'); ?>">
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
+							<h6>Bukti penolakan PKL dapat berupa screenshoot chat,
+								surat balasan elektronik, atau yang lainnya.</h6>
+							<br>
+							<input type="file" name="BUKTI" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" id="save-btn" class="btn btn-success">Kirim</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<section class="content">
 		<div class="row">
@@ -156,65 +165,15 @@
 							</tbody>
 							<?php } ?>
 						</table>
-						<!-- <div class="form-group">
-							<button type="button" id="edit_pnd" class="btn btn-primary btn-round" data-toggle="modal"
-								data-target="#modal_edit_anggota<?=$ID_PND; ?>">Ubah</button>
-						</div> -->
+						<!-- /.row -->
 					</div>
-					<!-- /.row -->
+					<!-- /.card-body -->
 				</div>
-				<!-- /.card-body -->
+				<!-- /.card -->
 			</div>
-			<!-- /.card -->
-		</div>
-		<!-- /.col -->
+			<!-- /.col -->
 	</section>
-
 </div>
 <!-- /.row -->
 
-<!-- modal ubah data anggota -->
-    <!-- <div class="modal fade" id="modal_edit_anggota<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title title-1" id="myModalLabel">Ubah Data Anggota</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="post" action="<?= base_url('pendaftaran/pr_ubah_anggota'); ?>">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-1">#</th>
-                                        <th class="col-md-2">NIM</th>
-                                        <th>Nama</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <?php $nmr=1; ?>
-                                <?php foreach($pendaftaran_klp as $klp) {?>
-                                <tbody>
-                                    <tr>
-                                        <td class="col-md-1 text-center"><?= $nmr++; ?></td>
-                                        <td class="col-md-2"><?= $klp->NIM; ?></td>
-                                        <td><?= $klp->NAMA_M; ?></td>
-                                        <td>skj</td>
-                                    </tr>
-                                </tbody>
-                                <?php } ?>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" id="save-btn" class="btn btn-success">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
 <?php } ?>
