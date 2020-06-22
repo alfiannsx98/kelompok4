@@ -16,7 +16,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
         public function index() 
         {
             $mail = $this->session->userdata('email');
-            var_dump($mail);
             $data['title'] = "Mahasiswa Bimbingan";
             $data['bimbingan'] = $this->m_mhs->mhs($mail);        
             $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();

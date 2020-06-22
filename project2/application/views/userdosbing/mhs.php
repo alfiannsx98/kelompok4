@@ -32,11 +32,10 @@
                                     <th>#</th>
                                     <th>NIM</th>
                                     <th>Nama Mahasiswa</th>
-                                    <th>Jenis Kelamin</th>
                                     <th>Program Studi</th>
                                     <th>Status</th>
                                     <th>Proposal</th>
-                                    <th id="acc" class="disabled-sorting text-right">Actions</th>
+                                    <th id="acc" class="disabled-sorting text-left">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,7 +57,6 @@
                                         <td><?= $i; ?></td>
                                         <td><?= $nim; ?></td>
                                         <td><?= $nama; ?></td>
-                                        <td><?= $jk; ?></td>
                                         <td><?= $prodi; ?></td>
                                         <td>
                                             <?php if ($ketua == 1) { ?>
@@ -86,11 +84,10 @@
                                     <th>#</th>
                                     <th>NIM</th>
                                     <th>Nama Mahasiswa</th>
-                                    <th>Jenis Kelamin</th>
                                     <th>Program Studi</th>
                                     <th>Status</th>
                                     <th>Proposal</th>
-                                    <th id="acc" class="disabled-sorting text-right">Actions</th>
+                                    <th id="acc" class="disabled-sorting text-left">Actions</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -147,7 +144,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">NIM</label>
-                                <input type="text" class="form-control" id="nim" name="nim" value="<?= $nim; ?>" placeholder="masukkan NIM" <?= set_value('nip'); ?> disabled>
+                                <input type="text" class="form-control" value="<?= $nim; ?>" placeholder="NIM" disabled>
                             </div>
                         </div>
                     </div>
@@ -155,24 +152,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Mahasiswa</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $nama; ?>" placeholder="nama mahasiswa" <?= set_value('nama'); ?> disabled>
+                                <input type="text" class="form-control" value="<?= $nama; ?>" placeholder="nama mahasiswa" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label"> Jenis Kelamin</label>
-                                <div class="form-group">
-                                    <div class="form-check form-check-inline">
-                                        <label>
-                                            <input type="radio" name="jk" id="jk" value="Laki-laki" <?php if ($jk == 'Laki-laki') echo 'checked' ?> disabled>
-                                            Laki-laki</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label>
-                                            <input type="radio" name="jk" id="jk" value="Perempuan" <?php if ($jk == 'Perempuan') echo 'checked' ?> disabled>
-                                            Perempuan</label>
-                                    </div>
-                                </div>
+                                <input type="text" class="form-control" value="<?= $jk; ?>" placeholder="jenis kelamin" disabled>
                             </div>
                         </div>
                     </div>
@@ -180,7 +166,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Alamat Mahasiswa</label>
-                                <input type="text" id="alamat" name="alamat" value="<?= $alamat; ?>" placeholder="alamat mahasiswa" class="form-control" <?= set_value('alamat'); ?> disabled>
+                                <input type="text" value="<?= $alamat; ?>" placeholder="alamat mahasiswa" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
@@ -188,7 +174,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Nomor Telfon</label>
-                                <input type="text" id="hp" name="hp" value="<?= $hp; ?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp'); ?> disabled>
+                                <input type="text"  value="<?= $hp; ?>" placeholder="no telefon mahasiswa" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
@@ -218,7 +204,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Tempat PKL</label>
-                                <input type="email" id="email" name="email" value="<?= $pkl; ?>" placeholder="masukkan email" class="form-control" <?= set_value('email'); ?> disabled>
+                                <input type="text" value="<?= $pkl; ?>" placeholder="tempat pkl" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
@@ -226,27 +212,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="prodi">Program Studi</label>
-                                <select name="prodi" id="prodi" class="form-control" disabled>
-                                    <option value="" selected disabled>Pilih Program Studi</option>
-                                    <option value="<?= $id_pr; ?>" selected><?= $prodi; ?></option>
-                                    <?php foreach ($pr as $p) : ?>
-                                        <option value="<?= $p['ID_PRODI']; ?>"><?= $p['NM_PRODI']; ?></option>
-                                    <?php endforeach; ?>
+                                <input type="text" value="<?= $prodi; ?>" placeholder="program studi" class="form-control" disabled>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="prodi">Semester</label>
-                                <select name="semester" id="semester" class="form-control" disabled>
-                                    <option value="" selected disabled>Pilih Semester</option>
-                                    <option value="<?= $semester; ?>" selected><?= $semester; ?></option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                </select>
+                                <input type="text" value="<?= $semester; ?>" placeholder="program studi" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
