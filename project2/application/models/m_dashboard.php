@@ -103,8 +103,31 @@ class m_dashboard extends CI_Model
 
 		return $data->row_array();
 	}
+	/**end dashboard mahasiswa */
 
+	/**dashboard dosbing */
+	public function mhs($mail)
+	{
+		$data = $this->db->query("SELECT pendaftaran_klp.ID_M FROM pendaftaran LEFT JOIN pendaftaran_klp ON 
+		pendaftaran_klp.ID_PND=pendaftaran.ID_PND LEFT JOIN dosbing ON dosbing.ID_DS=pendaftaran.ID_DS LEFT JOIN
+		user ON user.identity=dosbing.ID_DS WHERE user.email='$mail'");
+
+		return $data->num_rows();
+	}
+
+	public function sudahUpload($mail)
+	{
+		$data = $this->db->query("SELECT pendaftaran.PROPOSAL FROM pendaftaran LEFT JOIN dosbing ON 
+		dosbing.ID_DS=pendaftaran.ID_DS LEFT JOIN user ON user.identity=dosbing.ID_DS WHERE 
+		user.email='$mail' AND pendaftaran.PROPOSAL!=''");
+
+		return $data->num_rows();
+	}
+	/**end dashboard dosbing */
 }
+
+
+
 
 /* End of file M_posisi.php */
 /* Location: ./application/models/M_posisi.php */

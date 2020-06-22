@@ -19,12 +19,19 @@ class User extends CI_Controller
         $mail = $this->session->userdata('email');
         $identity = $this->session->userdata('identity');
         $data['title'] = 'Dashboard';
+        /**dashboard mahasiswa */
         $data['mhs'] = $this->m_dashboard->dosbingmhs($mail);
         $data['pr'] = $this->m_dashboard->perusahaanmhs($mail);
         $data['stts'] = $this->m_dashboard->get_status($mail);
         $data['jml_anggota'] = $this->m_dashboard->anggota($mail);
         $data['upload'] = $this->m_dashboard->proposal($mail);
         $data['waktu'] = $this->m_dashboard->waktupkl($mail);
+
+        /**dashboard dosbing */
+        $data['jmlmhs'] = $this->m_dashboard->mhs($mail);
+        $data['jmlpt'] = $this->m_dashboard->total_perusahaan();
+        $data['sdhUpload'] = $this->m_dashboard->sudahUpload($mail);
+
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
         $this->load->view('templates/header', $data);
@@ -32,11 +39,11 @@ class User extends CI_Controller
         $this->load->view('templates/topbar', $data);
         if($user['role_id'] == 2)
         {
-            $this->load->view('dashboarduser/index', $data);
+            $this->load->view('usermhs/index', $data);
         }
         elseif($user['role_id'] == 3)
         {
-            // $this->load->view('userdosbing/index', $data);
+            $this->load->view('userdosbing/index', $data);
         }
         elseif($user['role_id'] == 4)
         {
