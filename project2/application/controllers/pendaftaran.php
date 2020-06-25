@@ -17,12 +17,20 @@ class Pendaftaran extends CI_Controller
     // tampil data pendaftar pada admin
     public function index()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Data Pendaftaran | SI JTI-PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
         ])->row_array();
 
+        $email = $this->session->userdata('email');
+        $sql = $this->db->query("SELECT role FROM user_role WHERE id_role IN 
+                                (SELECT role_id FROM user WHERE email = '$email');");
+        foreach ($sql->result() as $rl)
+        {
+            $role = $rl->role;
+        }
+        $data['role'] = $role;
         $data['pendaftaran'] = $this->m_pendaftaran->tampil_pnd()->result();
         $data['status'] = $this->m_pendaftaran->status_pnd()->result();
 
@@ -45,7 +53,7 @@ class Pendaftaran extends CI_Controller
     // tampil data 1 tim pendaftar pada admin
     public function tampil_detail($ID_PND)
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Detail Pendaftaran | SI JTI-PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -81,7 +89,7 @@ class Pendaftaran extends CI_Controller
     }
 
     // proses ubah data pendaftaran
-    public function pr_ubah_pnd()
+    public function  pr_ubah_pnd()
     {
         $ID_PND = htmlspecialchars($this->input->post('ID_PND'));
         $ID_PR = htmlspecialchars($this->input->post('ID_PR'));
@@ -141,7 +149,7 @@ class Pendaftaran extends CI_Controller
     // proses cek pendaftaran
     public function cek_pendaftaran()
     {
-        $data['title'] = 'Dashboard';
+        // $data['title'] = 'Form Pendaftaran PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -179,7 +187,7 @@ class Pendaftaran extends CI_Controller
         // $kodeBarangSekarang = $nourut + 1;
         // $data = array('ID_PND' => $kodeBarangSekarang);
 
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Pendaftaran Peserta PKL | SI JTI-PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -280,7 +288,7 @@ class Pendaftaran extends CI_Controller
     // masuk form pendaftaran pada mahasiswa (Isian individu)
     public function tambah_data2()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Pendaftaran Peserta PKL | SI JTI-PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -321,7 +329,7 @@ class Pendaftaran extends CI_Controller
 
     public function pnd_mhs()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Pendaftaran Peserta PKL | SI JTI-PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    

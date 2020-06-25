@@ -169,7 +169,7 @@ class M_pendaftaran extends CI_Model{
 
         function diterima($ID_PND, $BUKTI)
         {
-                $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0003' WHERE ID_PND = '$ID_PND'");
+                $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0004' WHERE ID_PND = '$ID_PND'");
         }
 
         // tampil data Pendaftaran

@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Form Pendaftaran PKL</h1>
+					<h1>Pendaftaran Peserta PKL</h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

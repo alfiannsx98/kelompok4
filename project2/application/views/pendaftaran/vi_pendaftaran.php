@@ -34,7 +34,8 @@
 								</tr>
 							</thead>
 							<?php $nmr=1;?>
-							<?php foreach($pendaftaran as $pnd){ ?>
+							<?php foreach($pendaftaran as $pnd){ 
+								$NAMA_ST = $pnd->NAMA_ST; ?>
 							<tbody>
 								<tr>
 									<td class="text-center"><?= $nmr++; ?></td>
@@ -42,9 +43,26 @@
 									<td><?= $pnd->NAMA_PR; ?></td>
 									<td><?= $pnd->NAMA_DS; ?></td>
 									<td align="right"><?= $pnd->NAMA_ST; ?>
-										<button type="button" id="edit_status" class="btn btn-info btn-xs btn-round"
+									<?php $button = '<button type="button" id="edit_status" class="btn btn-info btn-xs btn-round"
 											data-toggle="modal"
-											data-target="#modal_edit_status<?= $pnd->ID_PND; ?>">Ubah</button>
+											data-target="#modal_edit_status'.$pnd->ID_PND.'">Ubah</button>'; ?>
+
+									<?php if ($role == 'Koordinator PKL'){
+										echo $button;
+									} elseif ($role == 'Admin Prodi' && $NAMA_ST == 'DISETUJUI'){
+										echo $button; 
+									} elseif ($role == 'Admin Prodi' && $NAMA_ST == 'SUDAH TERIMA SURAT PENGAJUAN PKL'){
+										echo $button; 
+									} elseif ($role == 'Admin Prodi' && $NAMA_ST == 'DITERIMA') {
+										echo $button;
+									} elseif ($role == 'Admin Prodi' && $NAMA_ST == 'SUDAH TERIMA SURAT PELAKSANAAN PKL'){
+										echo $button;
+									} elseif ($role == 'Admin Prodi' && $NAMA_ST == 'SELESAI PKL'){
+										echo $button;
+									} else {
+										echo '';
+									}?>
+										
 									</td>
 									<td class="text-right">
 										<?= anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,
@@ -80,7 +98,6 @@
 </div>
 <!-- /.row -->
 
-
 <?php foreach ($pendaftaran as $pnd) {
 	$ID_PND = $pnd->ID_PND;
 	$ID_ST = $pnd->ID_ST;
@@ -102,9 +119,15 @@
 						<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
 						<select name="ID_ST" id="ID_ST" class="form-control">
 							<option disabled selected value="<?= $ID_ST; ?>"><?= $NAMA_ST; ?></option>
-							<?php foreach ($status as $sts){?>
+							<?php if ($role == 'Admin Prodi'){
+								echo '<option value="ST0002">DISETUJUI</option>';
+								echo '<option value="ST0003">SUDAH TERIMA SURAT PENGAJUAN PKL</option>';
+								echo '<option value="ST0005">SUDAH TERIMA SURAT PELAKSANAAN PKL</option>';
+								echo '<option value="ST0007">SELESAI PKL</option>';
+							} else {
+							foreach ($status as $sts){?>
 							<option value="<?= $sts->ID_ST; ?>"><?= $sts->NAMA_ST; ?></option>
-							<?php } ?>
+							<?php }} ?>
 						</select>
 					</div>
 				</div>
