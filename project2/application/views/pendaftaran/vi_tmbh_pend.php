@@ -22,7 +22,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
+						<form method="post" enctype="multipart/form-data" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
 							class="form-horizontal">
 							<div class="card-content">
 								<div class="row">
@@ -110,7 +110,5 @@
 			</div> <!-- col 12 -->
 		</div>
 	</section>
-
-
 </div>
 <!-- /.row -->

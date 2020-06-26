@@ -43,11 +43,11 @@
 									<td><?= $pnd->NAMA_PR; ?></td>
 									<td><?= $pnd->NAMA_DS; ?></td>
 									<td align="right"><?= $pnd->NAMA_ST; ?>
-									<?php $button = '<button type="button" id="edit_status" class="btn btn-info btn-xs btn-round"
+										<?php $button = '<button type="button" id="edit_status" class="btn btn-info btn-xs btn-round"
 											data-toggle="modal"
 											data-target="#modal_edit_status'.$pnd->ID_PND.'">Ubah</button>'; ?>
 
-									<?php if ($role == 'Koordinator PKL'){
+										<?php if ($role == 'Koordinator PKL'){
 										echo $button;
 									} elseif ($role == 'Admin Prodi' && $NAMA_ST == 'DISETUJUI'){
 										echo $button; 
@@ -62,7 +62,7 @@
 									} else {
 										echo '';
 									}?>
-										
+
 									</td>
 									<td class="text-right">
 										<?= anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,
@@ -85,6 +85,7 @@
 								</tr>
 							</tfoot>
 						</table>
+						
 					</div>
 					<!-- /.row -->
 				</div>

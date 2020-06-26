@@ -88,6 +88,17 @@ class Pendaftaran extends CI_Controller
         // redirect ('pendaftaran/index');
     }
 
+    public function download_proposal($PROPOSAL)
+    {
+        // $PROPOSAL = $this->input->post('PROPOSAL');
+        force_download('assets/proposal/'.$PROPOSAL,NULL);
+    }
+
+    public function download_bukti($BUKTI)
+    {
+        force_download('assets/bukti/'.$BUKTI,NULL);
+    }
+
     // proses ubah data pendaftaran
     public function  pr_ubah_pnd()
     {
@@ -145,13 +156,13 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran/tampil_detail/'.$ID_PND);
     }
 
+    
     // UNTUK MAHASISWA
     // proses cek pendaftaran
     public function cek_pendaftaran()
     {
-        // $data['title'] = 'Form Pendaftaran PKL';
-        $data['user'] = $this->db->get_where('user', [
-            'email' =>
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['email' =>
             $this->session->userdata('email')    
         ])->row_array();
 
@@ -181,13 +192,7 @@ class Pendaftaran extends CI_Controller
     // masuk form pendaftaran pada mahasiswa (Isian kelompok)
     public function tambah_data() 
     {
-        // method yang dibuat didin
-        // $dariDB = $this->m_pendaftaran->selectMaxID();
-        // $nourut = substr($dariDB, 3);
-        // $kodeBarangSekarang = $nourut + 1;
-        // $data = array('ID_PND' => $kodeBarangSekarang);
-
-        $data['title'] = 'Pendaftaran Peserta PKL | SI JTI-PKL';
+        $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -213,7 +218,6 @@ class Pendaftaran extends CI_Controller
         $data['comboDS'] = $this->m_pendaftaran->comboDS()->result();
         $data['bulan'] = $this->m_pendaftaran->bulan()->result();
         $data['jumlah_pr'] = $this->m_pendaftaran->jmlh_pr()->result();
-        // $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -222,19 +226,6 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/footer');
         }
 
-    
-
-    // public function data_mhs()
-    // {
-    //     $data['title'] = 'Dashboard';
-    //     $data['user'] = $this->db->get_where('user', [
-    //         'email' =>
-    //         $this->session->userdata('email')    
-    //     ])->row_array();
-    //     $data['mhs'] = $this->m_pendaftaran->get_mhs();
-    //     $this->load->view('pendaftaran/daftar_siswa', $data);
-    // }
-    
     // proses tambah data pada mahasiswa (Isian kelompok)
     public function pr_tmbh_pnd()
     {
@@ -250,45 +241,49 @@ class Pendaftaran extends CI_Controller
         $ST_PENDAFTARAN = htmlspecialchars($this->input->post('ST_PENDAFTARAN'));
 
         // untuk upload proposal
-        $config['upload_path'] = './assets/proposal/';
-        $config['allowed_types'] = 'pdf|doc|docx';
-        // ambil nama berkas dari input file
-        $config['file_name'] = url_title($this->input->post('PROPOSAL'));
-        $config['overwrite'] = true;
-        $config['max_size'] = 2048; // 2 MB
+        $config['upload_path']          = './assets/proposal/';
+        $config['allowed_types']        = 'doc|docx';
+        $config['max_size']             = 0;
+        // $config['encrypt_name']         = true;
 
-        $this->upload->initialize($config); //meng set config yang sudah di atur
-        // if( $this->upload->do_upload('PROPOSAL')) {
-            $data = array(
-            'ID_PND' => $ID_PND,
-            'ID_PR' => $ID_PR,
-            'ID_DS' => $ID_DS,
-            'WAKTU' => $WAKTU,
-            'PROPOSAL'=> $this->upload->file_name,
-            'ID_ST' => $ID_ST,
-            'ST_PENDAFTARAN' => $ST_PENDAFTARAN
-        );
+        $this->load->library('upload');
+        $this->upload->initialize($config);
 
-        $tim = array(
-            'ID_PND' => $ID_PND,
-            'ID_M' => $ID_M
-        );
+        if ( ! $this->upload->do_upload('PROPOSAL'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('pendaftaran/tambah_data', $error);
+        }
+        else
+        {
+                $upload_data = $this->upload->data();
+                $data = array(
+                    'ID_PND' => $ID_PND,
+                    'ID_PR' => $ID_PR,
+                    'ID_DS' => $ID_DS,
+                    'WAKTU' => $WAKTU,
+                    'PROPOSAL' => $upload_data['file_name'],
+                    'ID_ST' => $ID_ST,
+                    'ST_PENDAFTARAN' => $ST_PENDAFTARAN
+                );
+
+                $tim = array(
+                    'ID_PND' => $ID_PND,
+                    'ID_M' => $ID_M
+                );
+
             $this->m_pendaftaran->tmbh_pnd($data,'pendaftaran');
             $this->m_pendaftaran->tmbh_ketua($tim, 'pendaftaran_klp');
             $this->m_pendaftaran->ubah_st_ketua($NIM);
-            redirect('pendaftaran/tambah_data2');   
-        // }
-        // else{
-        //     echo $this->upload->display_errors();
-        
-        // }
-
+            redirect('pendaftaran/tambah_data2');
+        }   
     }
 
     // masuk form pendaftaran pada mahasiswa (Isian individu)
     public function tambah_data2()
     {
-        $data['title'] = 'Pendaftaran Peserta PKL | SI JTI-PKL';
+        $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -329,7 +324,7 @@ class Pendaftaran extends CI_Controller
 
     public function pnd_mhs()
     {
-        $data['title'] = 'Pendaftaran Peserta PKL | SI JTI-PKL';
+        $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -362,17 +357,27 @@ class Pendaftaran extends CI_Controller
     {
         $ID_PND = $this->input->post('ID_PND');
 
-        $config['upload_path'] = './assets/proposal/';
-        $config['allowed_types'] = 'jpg|jpeg|png';
-        // ambil nama berkas dari input file
-        $config['file_name'] = url_title($this->input->post('BUKTI'));
-        $config['overwrite'] = true;
-        $config['max_size'] = 2048; // 2 MB
-        $this->upload->initialize($config); //meng set config yang sudah di atur
-        
-        $BUKTI = $this->upload->file_name;
-        $this->m_pendaftaran->diterima($ID_PND, $BUKTI);
-        redirect('pendaftaran/pnd_mhs');
+        $config['upload_path']          = './assets/bukti/';
+        $config['allowed_types']        = 'jpg|jpeg|png';
+        $config['max_size']             = 0;
+        // $config['encrypt_name']         = true;
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
+        if ( ! $this->upload->do_upload('BUKTI'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('pendaftaran/pnd_mhs', $error);
+        }
+        else
+        {
+            $upload_data = $this->upload->data();
+            $BUKTI = $upload_data['file_name'];
+            $this->m_pendaftaran->diterima($ID_PND, $BUKTI);
+            redirect('pendaftaran/pnd_mhs');
+        }
     }
 
     public function bukti_ditolak()
@@ -400,6 +405,39 @@ class Pendaftaran extends CI_Controller
         $this->m_pendaftaran->hapus_data_pnd($ID_PND);
 
         redirect('pendaftaran/cek_pendaftaran');
+    }
+
+    public function vi()
+    {
+        $this->load->view('pendaftaran/vi_upload');
+    }
+
+    public function pr_upload()
+    {
+        $config['upload_path']          = './assets/proposal/';
+        $config['allowed_types']        = 'doc|docx';
+        $config['max_size']             = 0;
+        // $config['max_width']            = 1024;
+        // $config['max_height']           = 768;
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
+        if ( ! $this->upload->do_upload('PROPOSAL'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('pendaftaran/vi_upload', $error);
+        }
+        else
+        {
+                $upload_data = $this->upload->data();
+                $data = array(
+                    'PROPOSAL' => $upload_data['file_name']
+                );
+                $this->m_pendaftaran->upload($data);
+                redirect('pendaftaran/vi');
+        }
     }
 
     // public function tampil_detail_pend()

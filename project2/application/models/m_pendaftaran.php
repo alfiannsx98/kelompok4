@@ -34,10 +34,11 @@ class M_pendaftaran extends CI_Model{
         // tampil data pendaftaran di detail
         function tampil_dt_pnd($ID_PND)
         {
-                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL, pendaftaran.ST_PENDAFTARAN, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS  
-                                        FROM pendaftaran, perusahaan, dosbing
+                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL, pendaftaran.BUKTI, pendaftaran.ST_PENDAFTARAN, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.ID_ST, status_pendaftaran.NAMA_ST  
+                                        FROM pendaftaran, perusahaan, dosbing, status_pendaftaran
                                         WHERE pendaftaran.ID_PR = perusahaan.ID_PR 
                                         AND pendaftaran.ID_DS = dosbing.ID_DS
+                                        AND pendaftaran.ID_ST = status_pendaftaran.ID_ST
                                         AND pendaftaran.ID_PND =  '$ID_PND'");
                         return $data;
         }
@@ -94,7 +95,7 @@ class M_pendaftaran extends CI_Model{
 
         // select max id untuk auto increment. gak kepake
         function selectMaxID(){
-                $query = $this->db->query("SELECT MAX(ID_PND) as ID_PND from pendaftaran");
+                $query = $this->db->query("SELECT MAX(ID_PND) AS ID_PND FROM pendaftaran");
                 $hasil = $query->row();
                 return $hasil->ID_PND;       
         }
@@ -143,8 +144,8 @@ class M_pendaftaran extends CI_Model{
         }
 
         // tambah data pendaftaran nim anggota
-        function tmbh_nim($data){
-                return $this->db->insert_batch('pendaftaran_klp', $data);
+        function tmbh_nim($data1){
+                return $this->db->insert_batch('pendaftaran_klp', $data1);
         }
 
         // modal untuk nambah anggota kelompok
@@ -170,6 +171,11 @@ class M_pendaftaran extends CI_Model{
         function diterima($ID_PND, $BUKTI)
         {
                 $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0004' WHERE ID_PND = '$ID_PND'");
+        }
+
+        function upload($data)
+        {
+                return $this->db->insert('tbl_upload', $data);
         }
 
         // tampil data Pendaftaran

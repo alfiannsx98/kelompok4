@@ -92,7 +92,7 @@
 					<div class="card-body">
 						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
 						<?php $nim = $user['identity']; ?>
-						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
+						<!-- <input type="text" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>"> -->
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
