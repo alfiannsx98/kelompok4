@@ -149,11 +149,24 @@ class M_pendaftaran extends CI_Model{
         }
 
         // modal untuk nambah anggota kelompok
-        function dropnim(){
-                
+        function dropnim()
+        {        
                 $data = $this->db->query("SELECT mahasiswa.ID_M, mahasiswa.NIM, mahasiswa.NAMA_M FROM mahasiswa LEFT JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M
                 WHERE pendaftaran_klp.ID_M IS NULL");
 
+                return $data;
+        }
+
+        // modal untuk nambah anggota kelompok yang pernah ditolak
+        function dropnim2()
+        {
+                $data = $this->db->query("SELECT mahasiswa.ID_M, mahasiswa.NIM, mahasiswa.NAMA_M, status_pendaftaran.NAMA_ST 
+                                        FROM mahasiswa, pendaftaran, pendaftaran_klp, status_pendaftaran 
+                                        WHERE mahasiswa.ID_M = pendaftaran_klp.ID_M
+                                        AND pendaftaran_klp.ID_PND = pendaftaran.ID_PND 
+                                        AND pendaftaran.ID_ST = status_pendaftaran.ID_ST 
+                                        AND status_pendaftaran.NAMA_ST = 'DITOLAK' 
+                                        AND mahasiswa.ST_KETUA = 0");
                 return $data;
         }
 
@@ -171,6 +184,12 @@ class M_pendaftaran extends CI_Model{
         function diterima($ID_PND, $BUKTI)
         {
                 $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0004' WHERE ID_PND = '$ID_PND'");
+        }
+
+        // bukti ditolak
+        function ditolak($ID_PND, $BUKTI)
+        {
+                $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0006' WHERE ID_PND = '$ID_PND'");
         }
 
         function upload($data)

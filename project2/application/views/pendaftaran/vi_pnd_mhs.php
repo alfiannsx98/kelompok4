@@ -135,7 +135,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form method="post" action="<?= base_url('pendaftaran/bukti_ditolak'); ?>">
+				<form method="post" enctype="multipart/form-data" action="<?= base_url('pendaftaran/bukti_ditolak'); ?>">
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
