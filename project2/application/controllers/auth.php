@@ -54,7 +54,7 @@ class Auth extends CI_Controller
                     } else if ($user['role_id'] == 4) {
                         redirect('user/profil');
                     } else {
-                        redirect('user/profil');
+                        redirect('user/index');
                     }
                     redirect('user');
                 } else {
@@ -175,7 +175,6 @@ class Auth extends CI_Controller
             ];
 
             if ($result == true) {
-                // insert token ke database
                 /**
                  * kodingan untuk menginsert data user berdasarkan nim
                  */

@@ -32,6 +32,13 @@ class User extends CI_Controller
         $data['jmlpt'] = $this->m_dashboard->total_perusahaan();
         $data['sdhUpload'] = $this->m_dashboard->sudahUpload($mail);
 
+        /**dashboard admin prodi */
+        $data['jml_aktif'] = $this->m_dashboard->select_by_user();
+        $data['jml_dosen'] = $this->m_dashboard->total_dosen();
+        $data['jml_admin'] = $this->m_dashboard->total_admin();
+        $data['jml_perusahaan'] = $this->m_dashboard->total_perusahaan();
+        $data['aktif'] = $this->m_dashboard->select_by_role();
+
         $data['user'] = $this->db->get_where('user', "email='$mail'")->row_array();
         $user = $this->db->query("SELECT * FROM user WHERE email='$mail'")->row_array();
         $this->load->view('templates/header', $data);
@@ -51,7 +58,7 @@ class User extends CI_Controller
         }
         elseif($user['role_id'] == 12)
         {
-            // $this->load->view('useradmprodi/index', $data);
+            $this->load->view('useradmprodi/index', $data);
         }
         $this->load->view('templates/footer');
     }

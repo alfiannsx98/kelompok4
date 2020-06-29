@@ -18,18 +18,7 @@
     </div>
     <!-- /.content-header -->
     <div class="alert alert-success m-3 text-center text-bold" role="alert">
-        Selamat Datang <?= $user['email']; ?>, Anda login sebagai
-        <?php
-            if ($user['role_id'] == 2) {
-                echo '<b>Mahasiswa</b>';
-            } else if ($user['role_id'] == 3) {
-                echo '<b>Dosen Pembimbing</b>';
-            } else if ($user['role_id'] == 4) {
-                echo '<b>Koordinator PKL</b>';
-            } else {
-                echo '<b>Admin Prodi</b>';
-            }
-        ?>
+        Selamat Datang <?= $user['email']; ?>, Anda login sebagai Dosen Pembimbing
     </div>
     <!-- Main content -->
     <section class="content">
@@ -62,7 +51,7 @@
                         <div class="icon">
                             <i class="fas fa-building"></i>
                         </div>
-                        <a href="<?= base_url('dashboard_mahasiswa');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= base_url('listpt');?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
