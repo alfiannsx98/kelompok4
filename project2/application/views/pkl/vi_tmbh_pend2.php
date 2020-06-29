@@ -92,7 +92,7 @@
 					<div class="card-body">
 						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
 						<?php $nim = $user['identity']; ?>
-						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= "PND-".$nim; ?>">
+						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
@@ -146,7 +146,7 @@
 			<div class="col-lg-10">
 				<div class="box box-widget">
 					<div class="box-body table-responsive">
-						<form method="post" action="<?php echo base_url("pendaftaran/pr_tmbh_pnd2"); ?>">
+						<form method="post" action="<?php echo base_url("pkl/pr_tmbh_pnd2"); ?>">
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
@@ -198,6 +198,19 @@
 						</thead>
 						<tbody>
 							<?php foreach($mahasiswa as $data ) { ?>
+							<tr>
+								<td hidden><?= $data->ID_M?></td>
+								<td><?= $data->NIM; ?></td>
+								<td><?= $data->NAMA_M; ?></td>
+								<td class="text-right">
+									<button class="btn btn-xs btn-info" id="select" data-id="<?= $data->ID_M; ?>" data-nim="<?= $data->NIM; ?>"
+										data-nama="<?= $data->NAMA_M; ?>">
+										<i class="fa fa-check"></i> Pilih
+									</button>
+								</td>
+							</tr>
+							<?php } ?>
+							<?php foreach($mhsiswa as $data ) { ?>
 							<tr>
 								<td hidden><?= $data->ID_M?></td>
 								<td><?= $data->NIM; ?></td>

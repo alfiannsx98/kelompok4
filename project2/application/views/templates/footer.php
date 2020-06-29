@@ -226,6 +226,7 @@
 </script>
 
 <!-- ambil nim n nama dari modal -->
+<!-- <input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>"> -->
 <script>
 	$(document).on('click', '#select', function() {
 		$('#id').val($(this).data('id'))
@@ -238,7 +239,7 @@
 
 	var count = 1;
 	<?php $nim = $user['identity']; ?>
-	var i = "PND-<?= $nim; ?>";
+	var i = "<?= $ID_PND; ?>";
 
 	$(document).on('click', '#add_siswa', function() {
 		var id = $('#id').val()
@@ -265,7 +266,7 @@
 
 				html += '<tr>';
 				html += '<td>' + count + '<input type="hidden" name="ID_PND[]" value="' + i + '"></td>';
-				// html += '<td><input type="text" name="ID_M[]" value="' + id + '"></td>';
+				// html += '<td><input type="hidden" name="ID_M[]" value="' + id + '"></td>';
 				html += '<td>' + nim + '<input type="hidden" id="nim_av" name="ID_M[]" value="' + id + '"></td>';
 				html += '<td>' + nama + '<input type="hidden" value="' + nama + '"></td>';
 				// html += '<td>' + i + '</td>';

@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Form Pendaftaran PKL</h1>
+					<h1>Pendaftaran Peserta PKL</h1>
 				</div>
 				<!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -22,7 +22,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<form method="post" action="<?= base_url(). 'pendaftaran/pr_tmbh_pnd';?>"
+						<form method="post" enctype="multipart/form-data" action="<?= base_url(). 'pkl/pr_tmbh_pnd';?>"
 							class="form-horizontal">
 							<div class="card-content">
 								<div class="row">
@@ -30,7 +30,7 @@
 								</div>
 								<input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
 								<input type="hidden" name="NIM" value="<?= $NIM; ?>">
-								<input type="hidden" name="ID_M" value=<?= $ID_M; ?>>
+								<input type="hidden" name="ID_M" value="<?= $ID_M; ?>">
 								<br>
 								<div class="form-group">
 									<label for="ID_PR"> Tempat PKL</label>
@@ -110,7 +110,5 @@
 			</div> <!-- col 12 -->
 		</div>
 	</section>
-
-
 </div>
 <!-- /.row -->

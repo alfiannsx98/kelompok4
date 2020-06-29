@@ -58,29 +58,39 @@
 						<br>
 						<div class="form-row">
 							<label for="NAMA_ST" class="col-sm-2 col-form-label">Status Persetujuan</label>
-							<input type="text" id="NAMA_ST" class="form-control col-sm-2" style="font-weight:bold"
+							<input type="text" id="NAMA_ST" class="form-control col-sm-4" style="font-weight:bold"
 								value="<?= $NAMA_ST; ?>" readonly>
-							<label class="col-sm-7 col-from-label" name="NAMA_ST"><?= $KET_MHS; ?></label>
+							<br>
+							<label class="col-sm-6" name="NAMA_ST"><?= $KET_MHS; ?></label>
 						</div>
 						<br>
 						<?php
 						$status = $ST_KETUA;
 						if ($status == 1 && $NAMA_ST == 'BELUM DISETUJUI'){
 							echo '<div class="form-row">
-							<label class="col-sm-4 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
+							<label class="col-sm-5 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
 								PKL?</label>
-							<button type="button" id="diterima" class="btn btn-primary btn-round" data-toggle="modal"
+							<button type="button" id="diterima" class="btn btn-primary btn-round mr-2" data-toggle="modal"
 								data-target="#modal_diterima'. $ID_PND.'">Ya</button>
-							<button type="button" id="ditolak" class="btn btn-danger btn-round" data-toggle="modal"
+							<button type="button" id="ditolak" class="btn btn-danger btn-round ml-2" data-toggle="modal"
 								data-target="#modal_ditolak'. $ID_PND.'">Tidak</button>
 						</div>';
 						} elseif($status == 1 && $NAMA_ST == 'DISETUJUI'){
 							echo '<div class="form-row">
-							<label class="col-sm-4 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
+							<label class="col-sm-5 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
 								PKL?</label>
-							<button type="button" id="diterima" class="btn btn-primary btn-round" data-toggle="modal"
+							<button type="button" id="diterima" class="btn btn-primary btn-round mr-2" data-toggle="modal"
 								data-target="#modal_diterima'. $ID_PND.'">Ya</button>
-							<button type="button" id="ditolak" class="btn btn-danger btn-round" data-toggle="modal"
+							<button type="button" id="ditolak" class="btn btn-danger btn-round ml-2" data-toggle="modal"
+								data-target="#modal_ditolak'. $ID_PND.'">Tidak</button>
+						</div>';
+						} elseif ($status == 1 && $NAMA_ST == 'SUDAH TERIMA SURAT PENGAJUAN PKL'){
+							echo '<div class="form-row">
+							<label class="col-sm-5 col-form-label">Apakah pengajuan PKL telah diterima oleh Tempat
+								PKL?</label>
+							<button type="button" id="diterima" class="btn btn-primary btn-round mr-2" data-toggle="modal"
+								data-target="#modal_diterima'. $ID_PND.'">Ya</button>
+							<button type="button" id="ditolak" class="btn btn-danger btn-round ml-2" data-toggle="modal"
 								data-target="#modal_ditolak'. $ID_PND.'">Tidak</button>
 						</div>';
 						} elseif($NAMA_ST == 'DITERIMA') {
@@ -106,7 +116,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form method="post" action="<?= base_url('pendaftaran/bukti_diterima'); ?>">
+				<form method="post" enctype="multipart/form-data" action="<?= base_url('pkl/bukti_diterima'); ?>">
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
@@ -134,7 +144,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form method="post" action="<?= base_url('pendaftaran/bukti_ditolak'); ?>">
+				<form method="post" enctype="multipart/form-data" action="<?= base_url('pkl/bukti_ditolak'); ?>">
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>" class="form-control">
