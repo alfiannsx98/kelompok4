@@ -84,7 +84,7 @@
                 <h5 class="modal-title" id="newroleModal">Create New Data</h5>
                 </button>
             </div>
-            <form action="<?= base_url('Prodi'); ?>" method="post">
+            <form action="<?= base_url('dataprodi'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group label-floating">
                         <label for="">Program Studi
@@ -115,7 +115,7 @@
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel">Edit role</h3>
                 </div>
-                <form action="<?= base_url('Prodi/edit_prodi'); ?>" method="post">
+                <form action="<?= base_url('dataprodi/edit_prodi'); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group label-floating">
                             <input type="hidden" name="id_prd" id="id_prd" value="<?= $id; ?>">
@@ -142,7 +142,7 @@
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel">Hapus Menu</h3>
                 </div>
-                <form action="<?= base_url() . 'Perusahaan/hapus_perusahaan'; ?>" method="post" class="form-horizontal">
+                <form action="<?= base_url() . 'dataprodi/hapus_prodi'; ?>" method="post" class="form-horizontal">
                     <div class="modal-body">
                         <p>Apakah Anda yakin mau menghapus data ini? <b><?= $title; ?></b></p>
                     </div>

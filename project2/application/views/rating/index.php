@@ -86,7 +86,7 @@
                 <h5 class="modal-title" id="newroleModal">Create New Data</h5>
                 </button>   
             </div>
-            <form action="<?= base_url('rating'); ?>" method="post">
+            <form action="<?= base_url('datarating'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Rating</label>
@@ -122,7 +122,7 @@ foreach ($rating as $r) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Edit <?= $title; ?></h3>
             </div>
-            <form action="<?= base_url() . 'rating/edit_rating'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'datarating/edit_rating'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group" hidden>
                         <label class="control-label col-xs-3">ID <?= $title; ?></label>
@@ -159,7 +159,7 @@ foreach ($rating as $r) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Hapus <?= $title; ?></h3>
             </div>
-            <form action="<?= base_url() . 'rating/hapus_rating'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'datarating/hapus_rating'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama_rating; ?></b></p>
                 </div>

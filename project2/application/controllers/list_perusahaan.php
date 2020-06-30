@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-/** Controllers untuk user mahasiswa */
-
-class dashboard_mahasiswa extends CI_Controller
+class list_perusahaan extends CI_Controller
 {
     public function __construct()
     {

@@ -2,13 +2,13 @@
 defined('BASEPATH') or exit('No direct script access allowed');
     /** Controllers untuk user dosbing */
 
-    class Mhs extends CI_Controller
+    class mabing extends CI_Controller
     {
         public function __construct()
         {
             parent::__construct();
             $this->load->model('m_mhs');
-            // is_logged_in();
+            is_logged_in();
         }
 
         /**

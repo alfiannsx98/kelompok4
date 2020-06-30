@@ -434,7 +434,7 @@
 
 		function load_data() {
 			$.ajax({
-				url: "<?php echo base_url(); ?>rating_mhs/fetch",
+				url: "<?php echo base_url(); ?>rating/fetch",
 				method: "POST",
 				success: function(data) {
 					$('#business_list').html(data);
@@ -444,7 +444,7 @@
 
 		function load_bintang() {
 			$.ajax({
-				url: "<?= base_url(); ?>rating_mhs/fetch_bintang",
+				url: "<?= base_url(); ?>rating/fetch_bintang",
 				method: "GET",
 				success: function(data) {
 					$('#bintang_').html(data);
@@ -473,7 +473,7 @@
 			var id_pr = $(this).data('id_pr');
 			var id_user = $(this).data('id_user');
 			$.ajax({
-				url: "<?php echo base_url(); ?>rating_mhs/insert",
+				url: "<?php echo base_url(); ?>rating/insert",
 				method: "POST",
 				data: {
 					index: index,
