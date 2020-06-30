@@ -10,7 +10,7 @@ class dashboard_mahasiswa extends CI_Controller
         parent::__construct();
         $this->load->library('pagination');
         $this->load->model('m_perusahaan');
-        is_logged_in();
+        // is_logged_in();
     }
 
     public function index()
