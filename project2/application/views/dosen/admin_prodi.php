@@ -123,7 +123,7 @@ $prodi1 = $this->db->query($prd)->result_array();
                 <h5 class="modal-title" id="newroleModal">Create New Data</h5>
                 </button>   
             </div>
-            <form action="<?= base_url('dosen/admin_prodi'); ?>" method="post">
+            <form action="<?= base_url('prodi/admin_prodi'); ?>" method="post">
                 <div class="modal-body">
                         <div class="form-group">
                             <label for="">NIP Admin</label>
@@ -206,7 +206,7 @@ foreach ($admin_prodi as $i) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Edit Admin Prodi</h3>
             </div>
-            <form action="<?= base_url() . 'dosen/edit_admin_prodi'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'prodi/edit_admin_prodi'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <input name="ID_ADM" id="ID_ADM" value="<?= $id; ?>" class="form-control" type="text" placeholder="ID Admin" hidden>
                     <div class="form-group">
@@ -304,7 +304,7 @@ foreach ($admin_prodi as $i) :
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Hapus Menu</h3>
             </div>
-            <form action="<?= base_url() . 'dosen/hapus_admin_prodi'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'prodi/hapus_admin_prodi'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama_adm; ?></b></p>
                 </div>

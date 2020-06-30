@@ -17,7 +17,7 @@ class Pendaftaran extends CI_Controller
     // tampil data pendaftar pada admin
     public function index()
     {
-        $data['title'] = 'Data Pendaftaran | SI JTI-PKL';
+        $data['title'] = 'Data Pendaftaran';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
@@ -196,7 +196,7 @@ class Pendaftaran extends CI_Controller
     // masuk form pendaftaran pada mahasiswa (Isian kelompok)
     public function tambah_data() 
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Pendaftaran Peserta PKL';
         $data['user'] = $this->db->get_where('user', [
             'email' =>
             $this->session->userdata('email')    
