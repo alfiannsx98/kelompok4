@@ -6,6 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1><?= $title; ?></h1>
+                <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button>
             </div>
             <!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -22,6 +23,7 @@
 
 
 <!-- Default box -->
+<?= $this->session->flashdata('message'); ?>
 <div class="card card-solid">
         <div class="card-body pb-0">
           <div class="row d-flex align-items-stretch">
@@ -120,4 +122,49 @@
 
 </section>
 <!-- /.content -->
+</div>
+
+<!--MODAL DIALOG UNTUK CREATE DATA!-->
+<div class="modal fade" id="newroleModal" tabindex="-1" role="dialog" aria-labelledby="newroleModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newroleModal">Tambah Tempat PKL Baru</h5>
+                </button>   
+            </div>
+            <?= form_open_multipart('list_perusahaan/pklbaru'); ?>
+                <input type="text" name="nim" value="<?= $user['identity'] ?>" hidden>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Nama Perusahaan</label>
+                        <input type="text" class="form-control" name="nama" placeholder="nama perusahaan">
+                        <?= form_error('nama', '<small class="text-danger col-md">', '</small>'); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Alamat Perusahaan</label>
+                        <input type="text" name="alamat" placeholder="alamat perusahaan" class="form-control">
+                        <?= form_error('alamat', '<small class="text-danger col-md">', '</small>'); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nomor Telpon Perusahaan</label>
+                        <input type="text" name="nohp" placeholder="masukkan no telefon" class="form-control">
+                        <?= form_error('nohp', '<small class="text-danger col-md">', '</small>'); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email Perusahaan</label>
+                        <input type="email" name="email" placeholder="masukkan email" class="form-control">
+                        <?= form_error('email', '<small class="text-danger col-md">', '</small>'); ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">Upload Gambar Perusahaan</label>
+                        <input type="file" name="gambar" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
