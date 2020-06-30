@@ -92,7 +92,7 @@
 					<div class="card-body">
 						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
 						<?php $nim = $user['identity']; ?>
-						<input type="text" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
+						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
@@ -146,7 +146,7 @@
 			<div class="col-lg-10">
 				<div class="box box-widget">
 					<div class="box-body table-responsive">
-						<form method="post" action="<?php echo base_url("pendaftaran/pr_tmbh_pnd2"); ?>">
+						<form method="post" action="<?php echo base_url("pkl/pr_tmbh_pnd2"); ?>">
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
