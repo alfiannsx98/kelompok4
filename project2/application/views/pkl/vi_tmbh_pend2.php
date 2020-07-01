@@ -92,7 +92,7 @@
 					<div class="card-body">
 						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
 						<?php $nim = $user['identity']; ?>
-						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
+						<input type="text" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
@@ -159,9 +159,8 @@
 								<tbody id="tbody">
 									<tr>
 										<td>1</td>
-										<td><?= $nim; ?></td>
-										<?php $nama = $user['nama']; ?>
-										<td><?= $nama; ?></td>
+										<td><?= $NIM; ?></td>
+										<td><?= $NAMA_M; ?></td>
 										<td><button class="btn btn-danger" id="hapus" disabled>Hapus</button></td>
 									</tr>
 								</tbody>

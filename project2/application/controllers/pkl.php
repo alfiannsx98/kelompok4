@@ -16,7 +16,7 @@ class Pkl extends CI_Controller
 
     // UNTUK MAHASISWA
     // proses cek pendaftaran
-    public function cek_pendaftaran()
+    public function index()
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -24,13 +24,13 @@ class Pkl extends CI_Controller
         ])->row_array();
 
         $email = $this->session->userdata('email');
-        $query = $this->db->query("SELECT pendaftaran_klp.ID_M, pendaftaran.ID_PND, status_pendaftaran.NAMA_ST 
+        $query = $this->db->query("SELECT pendaftaran_klp.ID_M, pendaftaran.ID_PND, mahasiswa.NIM, status_pendaftaran.NAMA_ST 
                             FROM pendaftaran_klp, pendaftaran, status_pendaftaran, mahasiswa 
                             WHERE pendaftaran_klp.ID_M = mahasiswa.ID_M 
                             AND pendaftaran_klp.ID_PND = pendaftaran.ID_PND 
                             AND pendaftaran.ID_ST = status_pendaftaran.ID_ST 
                             AND status_pendaftaran.NAMA_ST != 'DITOLAK'
-                            AND mahasiswa.NIM IN (SELECT user.identity FROM user WHERE user.email = '$email');");
+                            AND mahasiswa.ID_M IN (SELECT user.identity FROM user WHERE user.email = '$email');");
         foreach ($query->result() as $que)
         {
                 $ID_M = $que->ID_M;
@@ -58,16 +58,14 @@ class Pkl extends CI_Controller
 
         // select NIM n ID M
         $email = $this->session->userdata('email');
-        $query = $this->db->query("SELECT identity FROM user WHERE email = '$email';");
+        $query = $this->db->query("SELECT mahasiswa.NIM, mahasiswa.ID_M FROM mahasiswa WHERE ID_M IN 
+                                (SELECT user.identity FROM user WHERE email = '$email');");
         foreach ($query->result() as $que){
-            $NIM = $que->identity;
-        }
-        $data['NIM'] = $NIM;
-        $query = $this->db->query("SELECT ID_M FROM mahasiswa WHERE NIM = '$NIM';");
-        foreach ($query->result() as $que){
-            $ID_M = $que->ID_M;
+            $ID_M = $que->ID_M; 
+            $NIM = $que->NIM;
         }
         $data['ID_M'] = $ID_M;
+        $data['NIM'] = $NIM;
         // buat id pendaftaran
         $ID = $this->m_pendaftaran->selectMaxID();
         if ($ID == NULL) {
@@ -98,6 +96,7 @@ class Pkl extends CI_Controller
         $bulan = htmlspecialchars($this->input->post('bulan'));
         $tahun = htmlspecialchars($this->input->post('tahun'));
         $WAKTU = "$bulan, "."$tahun";
+        $TGL_PND = date('Y-m-d');
         $ID_ST = htmlspecialchars($this->input->post('ID_ST'));
         $NIM = htmlspecialchars($this->input->post('NIM'));
         $ID_M = htmlspecialchars($this->input->post('ID_M'));
@@ -126,6 +125,7 @@ class Pkl extends CI_Controller
                     'ID_PR' => $ID_PR,
                     'ID_DS' => $ID_DS,
                     'WAKTU' => $WAKTU,
+                    'TGL_PND' => $TGL_PND,
                     'PROPOSAL' => $upload_data['file_name'],
                     'ID_ST' => $ID_ST,
                     'ST_PENDAFTARAN' => $ST_PENDAFTARAN
@@ -151,11 +151,32 @@ class Pkl extends CI_Controller
             'email' =>
             $this->session->userdata('email')    
         ])->row_array();
-    
+        // select NIM n ID M
+        $email = $this->session->userdata('email');
+        $query = $this->db->query("SELECT mahasiswa.NIM, mahasiswa.ID_M, mahasiswa.NAMA_M FROM mahasiswa WHERE ID_M IN 
+                                (SELECT user.identity FROM user WHERE email = '$email');");
+        foreach ($query->result() as $que){
+            $ID_M = $que->ID_M; 
+            $NIM = $que->NIM;
+            $NAMA_M = $que->NAMA_M;
+        }
+        $data['ID_M'] = $ID_M;
+        $data['NIM'] = $NIM;
+        $data['NAMA_M'] = $NAMA_M;
+        
+        $email = $this->session->userdata('email');
+        $sql = $this->db->query("SELECT pendaftaran_klp.ID_M 
+                                FROM pendaftaran_klp, pendaftaran, status_pendaftaran 
+                                WHERE pendaftaran_klp.ID_PND = pendaftaran.ID_PND 
+                                AND pendaftaran.ID_ST = status_pendaftaran.ID_ST 
+                                AND status_pendaftaran.NAMA_ST = 'DITOLAK'
+                                AND pendaftaran_klp.ID_M IN 
+                                (SELECT user.identity FROM user WHERE email = '$email')");
+        
         $data['mahasiswa'] = $this->m_pendaftaran->dropnim()->result();
         $data['mhsiswa'] = $this->m_pendaftaran->dropnim2()->result();
-        $data['ID_PND'] = $ID_PND;
 
+        $data['ID_PND'] = $ID_PND;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -182,7 +203,7 @@ class Pkl extends CI_Controller
             $index++;
         }
         $sql = $this->m_pendaftaran->tmbh_nim($data);
-        redirect ('pkl/cek_pendaftaran');
+        redirect ('pkl');
     }
 
     public function pnd_mhs($ID_PND)
@@ -193,12 +214,7 @@ class Pkl extends CI_Controller
             $this->session->userdata('email')    
         ])->row_array();
         $email = $this->session->userdata('email');
-        $query = $this->db->query("SELECT * FROM user WHERE email = '$email';");
-        foreach ($query->result() as $user)
-        {
-                $ID = $user->identity;
-        }
-        $sql= $this->db->query("SELECT ST_KETUA FROM mahasiswa WHERE NIM = '$ID';");
+        $sql= $this->db->query("SELECT ST_KETUA FROM mahasiswa WHERE ID_M IN (SELECT user.identity FROM user WHERE user.email = '$email');");
         foreach ($sql->result() as $mhs)
         {
                 $ST_KETUA = $mhs->ST_KETUA;
@@ -238,7 +254,7 @@ class Pkl extends CI_Controller
             $upload_data = $this->upload->data();
             $BUKTI = $upload_data['file_name'];
             $this->m_pendaftaran->diterima($ID_PND, $BUKTI);
-            redirect('pkl/cek_pendaftaran');
+            redirect('pkl');
         }
     }
 
@@ -273,7 +289,7 @@ class Pkl extends CI_Controller
             }
             $this->m_pendaftaran->hapus_st_ketua($ID_M);
             $this->m_pendaftaran->ditolak($ID_PND, $BUKTI);
-            redirect('pkl/cek_pendaftaran');
+            redirect('pkl');
         }
         
     }

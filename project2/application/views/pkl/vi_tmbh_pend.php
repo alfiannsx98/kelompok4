@@ -56,9 +56,9 @@
 									<select name="ID_DS" class="form-control col-sm-5"
 										data-style="btn btn-primary btn-round" data-size="7" required>
 										<option selected disabled>Pilih Dosen Pembimbing</option>
-										<?php foreach($comboDS as $ds){ ?>
-										<option type="text" name="ID_DS" value="<?= $ds->ID_DS; ?>">
-											<?= $ds->NAMA_DS; ?>
+										<?php foreach($comboDS as $ds) {?>
+										<option type="text" name="ID_DS" value="<?= $ds->ID_DS?>">
+											<?= $ds->NAMA_DS; ?></option>
 											<?php } ?>
 									</select>
 								</div>
