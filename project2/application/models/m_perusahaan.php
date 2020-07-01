@@ -49,10 +49,10 @@ class M_perusahaan extends CI_Model
         return $query;
     }
 
-    public function batal($id) 
-    {
-        $this->db->query("DELETE a.*, b.* FROM pkl_baru a JOIN perusahaan b ON a.ID_PR = b.ID_PR WHERE b.ID_PR = '$id'");
-    }
+    // public function batal($id) 
+    // {
+    //     $this->db->query("DELETE a.*, b.* FROM pkl_baru a JOIN perusahaan b ON a.ID_PR = b.ID_PR WHERE b.ID_PR = '$id'");
+    // }
 
     // public function del($id) 
     // {

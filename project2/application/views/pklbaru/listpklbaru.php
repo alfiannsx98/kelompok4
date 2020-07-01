@@ -99,7 +99,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newroleModal">Bat Pengajuan</h5>
+                <h5 class="modal-title" id="newroleModal">Buat Pengajuan</h5>
                 </button>
             </div>
             <?= form_open_multipart('dashboard_mahasiswa/pklbaru'); ?>
