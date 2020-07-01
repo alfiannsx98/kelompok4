@@ -92,7 +92,7 @@
 					<div class="card-body">
 						<label class="col-sm label-on-left" for="ID_PR">Isian individu : </label>
 						<?php $nim = $user['identity']; ?>
-						<input type="text" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
+						<input type="hidden" name="ID_PND" id="ID_PND" value="<?= $ID_PND; ?>">
 						<table width="100%">
 							<tr>
 								<td style="vertical-align:top; width:30%">
@@ -146,7 +146,7 @@
 			<div class="col-lg-10">
 				<div class="box box-widget">
 					<div class="box-body table-responsive">
-						<form method="post" action="<?php echo base_url("pkl/pr_tmbh_pnd2"); ?>">
+						<form action="<?= base_url('pkl/pr_tmbh_pnd2'); ?>" method="post" class="form-horizontal">
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
@@ -166,15 +166,36 @@
 								</tbody>
 							</table>
 							<div id="insert-form"></div>
-							<button class="btn btn-primary">Simpan Isian Individu</button>
+							<button type="button" id="pr_tmbh2d" class="btn btn-success btn-round" data-toggle="modal"
+								data-target="#pr_tmbh2">Simpan Isian Individu</button>
 
-						</form>
-						<input type="hidden" id="jumlah-form" value="1">
+							<!-- </form> -->
+							<!-- <input type="hidden" id="jumlah-form" value="1"> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<!-- modal simpan data -->
+	<div class="modal fade" id="pr_tmbh2" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="myModalLabel">Simpan Data</h3>
+				</div>
+				<div class="modal-body">
+					<p>Simpan data jika isian sudah lengkap</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+					<button class="btn btn-success">Simpan</button>
+				</div>
+				</form>
+				<input type="hidden" id="jumlah-form" value="1">
+			</div>
+		</div>
+	</div>
 
 	<!-- Modal List Mahasiswa -->
 	<div class="modal fade" id="modal-item">
@@ -202,8 +223,8 @@
 								<td><?= $data->NIM; ?></td>
 								<td><?= $data->NAMA_M; ?></td>
 								<td class="text-right">
-									<button class="btn btn-xs btn-info" id="select" data-id="<?= $data->ID_M; ?>" data-nim="<?= $data->NIM; ?>"
-										data-nama="<?= $data->NAMA_M; ?>">
+									<button class="btn btn-xs btn-info" id="select" data-id="<?= $data->ID_M; ?>"
+										data-nim="<?= $data->NIM; ?>" data-nama="<?= $data->NAMA_M; ?>">
 										<i class="fa fa-check"></i> Pilih
 									</button>
 								</td>
@@ -215,8 +236,8 @@
 								<td><?= $data->NIM; ?></td>
 								<td><?= $data->NAMA_M; ?></td>
 								<td class="text-right">
-									<button class="btn btn-xs btn-info" id="select" data-id="<?= $data->ID_M; ?>" data-nim="<?= $data->NIM; ?>"
-										data-nama="<?= $data->NAMA_M; ?>">
+									<button class="btn btn-xs btn-info" id="select" data-id="<?= $data->ID_M; ?>"
+										data-nim="<?= $data->NIM; ?>" data-nama="<?= $data->NAMA_M; ?>">
 										<i class="fa fa-check"></i> Pilih
 									</button>
 								</td>

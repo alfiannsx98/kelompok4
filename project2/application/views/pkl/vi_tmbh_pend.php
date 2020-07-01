@@ -22,7 +22,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<form method="post" enctype="multipart/form-data" action="<?= base_url(). 'pkl/pr_tmbh_pnd';?>"
+						<form action="<?= base_url('pkl/pr_tmbh_pnd'); ?>" method="post" enctype="multipart/form-data"
 							class="form-horizontal">
 							<div class="card-content">
 								<div class="row">
@@ -43,9 +43,6 @@
 												echo '	||	';
 												echo  '<label name="ID_PR" >Alamat : '.$pr->ALAMAT_PR.'</label>';
 											}
-											// } else {
-											// 	echo '<option type="text" name="ID_PR" value="'.$pr->ID_PR.'">'.$pr->NAMA_PR;
-											// }
 											?>
 										<?php }?>
 									</select>
@@ -59,7 +56,7 @@
 										<?php foreach($comboDS as $ds) {?>
 										<option type="text" name="ID_DS" value="<?= $ds->ID_DS?>">
 											<?= $ds->NAMA_DS; ?></option>
-											<?php } ?>
+										<?php } ?>
 									</select>
 								</div>
 
@@ -86,10 +83,11 @@
 										</select>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label class="" for="PROPOSAL">Upload Proposal</label>
-									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-md-5 form-control" required>
+									<input type="file" id="PROPOSAL" name="PROPOSAL" class="col-md-5 form-control"
+										required>
 								</div>
 								<div class="form-group" hidden>
 									<label for="ST_PENDAFTARAN">Status</label>
@@ -100,11 +98,12 @@
 									<input type="text" name="ID_ST" value="ST0001">
 								</div>
 								<div class="form-group">
-									<button class="btn btn-success">Tambah Isian Kelompok</button>
+									<button type="button" id="pr_tmbhd" class="btn btn-success btn-round"
+										data-toggle="modal" data-target="#pr_tmbh">Simpan Isian Kelompok</button>
 								</div>
 								<label font="10">Lanjut ke isian individu</label>
 							</div>
-						</form>
+							<!-- </form> -->
 					</div>
 				</div>
 			</div> <!-- col 12 -->
@@ -112,3 +111,23 @@
 	</section>
 </div>
 <!-- /.row -->
+
+<!-- modal simpan data -->
+<div class="modal fade" id="pr_tmbh" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="myModalLabel">Simpan Data</h3>
+			</div>
+			<div class="modal-body">
+				<p>Simpan data jika isian sudah lengkap</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+				<button class="btn btn-success">Simpan</button>
+			</div>
+			</form>
+			<input type="hidden" id="jumlah-form" value="1">
+		</div>
+	</div>
+</div>
