@@ -3,7 +3,7 @@
 <head>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta charset="utf-8">
-    <title>Create PDF from View in CodeIgniter Example</title>
+    <title>REKAP DATA Logbook</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
@@ -32,7 +32,7 @@
             // $tgl = $q_daftar['TGL_PND'];
             $tgl = "2020-06-29";
             $data['tgl'] = $tgl;
-            $rekap = $this->db->query("SELECT * FROM logbook WHERE id_mahasiswa='$id_mahasiswa' AND tanggal >= $tgl AND tanggal <= $tgl_selesai")->result_array()
+            $rekap = $this->db->query("SELECT * FROM logbook WHERE id_mahasiswa='$id_mahasiswa' OR tanggal >= $tgl AND tanggal <= $tgl_selesai")->result_array()
             ?>
             <?php $i = 1; ?>
                 <?php foreach ($rekap as $m) :

@@ -111,13 +111,13 @@ class logbook extends CI_Controller
         // $this->load->view('templates/header', $data);
         // $this->load->view('templates/sidebar', $data);
         // $this->load->view('templates/topbar', $data);
-        $this->load->view('logbook/rekap_data', $data);
+        // $this->load->view('logbook/rekap_data', $data);
         // $this->load->view('templates/footer');
         
-        // $this->load->library('pdf');
-        // $this->pdf->setPaper('A4', 'potrait');
-        // $this->pdf->filename = "logbook-mahasiswa.pdf";
-        // $this->pdf->load_view('logbook/rekap_data', $data);
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->load_view('logbook/rekap_data', $data);
+        $this->pdf->filename = "logbook-mahasiswa.pdf";
     }
 }
 
