@@ -21,7 +21,7 @@
 <?php 
     $id_mhs = $mahasiswa;
     $cek_daftar = $this->db->get_where('pendaftaran_klp', ['ID_M' => $id_mhs])->num_rows();
-    if($cek_daftar == 0) :
+    if($cek_daftar != 0) :
 ?>
 <!-- Main content -->
 <section class="content">
@@ -29,7 +29,12 @@
         <div class="col-12">
             <div class="card"> 
                 <div class="card-header"> 
-                    <h3 class="card-title"><?= $title ?> Table <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button> <button class="btn btn-just-icon btn-round btn-warning" data-toggle="modal" data-target="#cetakModal">Cetak Logbook Mingguan <i class="fas fa-print"></i></button></h3> 
+                    <h3 class="card-title"><?= $title ?> Table 
+                        <button data-toggle="modal" data-target="#newroleModal" class="btn btn-just-icon btn-round btn-success">Add Data <i class="fa fa-plus"></i></button> 
+                        <?php if($logbook != null): ?>
+                        <button class="btn btn-just-icon btn-round btn-warning" data-toggle="modal" data-target="#cetakModal">Cetak Logbook Mingguan <i class="fas fa-print"></i></button>
+                        <?php endif; ?>
+                    </h3> 
                 </div>
             <!-- /.card-header -->
             <div class="card-body">
