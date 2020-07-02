@@ -31,6 +31,7 @@ class Pendaftaran extends CI_Controller
             $role = $rl->role;
         }
         $data['role'] = $role;
+        $data['pendaftaran_ditolak'] = $this->m_pendaftaran->tampil_ditolak()->result();
         $data['pendaftaran'] = $this->m_pendaftaran->tampil_pnd()->result();
         $data['status'] = $this->m_pendaftaran->status_pnd()->result();
 
