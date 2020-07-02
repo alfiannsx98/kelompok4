@@ -23,15 +23,22 @@
             if($user['role_id'] == 1)
             {
                 $level = "<span title='Koordinator PKL' class='badge badge-danger'>Koordinator PKL</span>";
-			}elseif($user['role_id'] == 2)
+			}
+			elseif($user['role_id'] == 2)
 			{
 				$level = "<span title='User' class='badge badge-success'>Mahasiswa</span>";
-			}elseif($user['role_id'] == 3)
+			}
+			elseif($user['role_id'] == 3)
 			{
                 $level = "<span title='User' class='badge badge-success'>Dosen Pembimbing</span>";
-			}elseif($user['role_id'] == 4)
+			}
+			elseif($user['role_id'] == 4)
 			{
                 $level = "<span title='User' class='badge badge-success'>Admin Prodi</span>";
+			}
+			else
+			{
+				$level = "<span title='User' class='badge badge-success'>Admin Prodi</span>";
 			}
             ?>
     					<p>

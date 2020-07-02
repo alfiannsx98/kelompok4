@@ -179,12 +179,18 @@ class prodi extends CI_Controller
         $no_hp_admin = htmlspecialchars($this->input->post('HP_ADM'));
         $prodi_admin = htmlspecialchars($this->input->post('ID_PRODI'));
         $id_user = htmlspecialchars($this->input->post('id_user'));
+        
+
+        // // Misah variabel
+        // $identity_user = htmlspecialchars($this->input->post('ID_ADM'));
+        // $nama_user = htmlspecialchars($this->input->post('NAMA_ADM'));
         $is_active = htmlspecialchars($this->input->post('is_active'));
         $email_admin = htmlspecialchars($this->input->post('email'));
+        
+        
 
-
-        $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin);
-        $this->model_dosen->edit_user_admin_prodi($id_user, $id, $nama_adm, $is_active, $email_admin);
+        $this->model_dosen->edit_admin_prodi($id, $nip, $nama_adm, $jk_adm, $alamat_admin, $no_hp_admin, $prodi_admin,$id_user, $is_active, $email_admin);
+        $this->model_dosen->edit_user_admin_prodi($id, $is_active, $email_admin,$id_user, $nama_adm);
         
         $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Data Berhasil Diubah</div>');
         redirect('prodi/admin_prodi');

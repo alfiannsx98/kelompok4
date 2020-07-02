@@ -8,7 +8,7 @@ class list_perusahaan extends CI_Controller
         parent::__construct();
         $this->load->library('pagination');
         $this->load->model('m_perusahaan');
-        is_logged_in();
+        // is_logged_in();
     }
 
     public function index()
@@ -110,7 +110,7 @@ class list_perusahaan extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('listper_usahaan/index', $data);
+            $this->load->view('list_perusahaan/index', $data);
             $this->load->view('templates/footer');
         } else {
             $nama = htmlspecialchars($this->input->post('nama'));

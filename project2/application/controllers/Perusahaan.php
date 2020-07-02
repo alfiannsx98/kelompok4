@@ -29,7 +29,7 @@ class Perusahaan extends CI_Controller
             $id_p = "PR000" . ($tabel + 1);
         }
 
-        $data['pt'] = $this->db->get_where('perusahaan', ['confirm' => '1'])->result_array();
+        $data['pt'] = $this->db->get_where('perusahaan')->result_array();
         
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');

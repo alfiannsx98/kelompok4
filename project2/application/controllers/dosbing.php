@@ -87,13 +87,13 @@ class Dosbing extends CI_Controller
             $prodi = htmlspecialchars($this->input->post('prodi'));
             $role = htmlspecialchars($this->input->post('role'));
 
-            $sql = $this->db->query("SELECT dosbing.NIP_DS, user.email  FROM dosbing LEFT JOIN user ON 
-            user.identity=dosbing.NIP_DS WHERE NIP_DS='$nip'");
+            $sql = $this->db->query("SELECT dosbing.ID_DS, user.email  FROM dosbing LEFT JOIN user ON 
+            user.identity=dosbing.ID_DS WHERE ID_DS='$id_ds'");
             $result = $sql->result_array();
 
             $data1 = [
                 'id_user' => $id_u,
-                'identity' => $nip,
+                'identity' => $id_ds,
                 'nama' => $nama,
                 'email' => $email,
                 'image' => 'default.jpg',

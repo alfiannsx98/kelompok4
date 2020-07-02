@@ -357,8 +357,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="">Nomor Telfon</label>
-                                <input type="text" id="hp" name="hp" value="<?=$hp;?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp');?> disabled>
+                                <label for="">No HP</label>
+                                <input type="number" id="hp" name="hp" value="<?=$hp;?>" placeholder="masukkan no telefon" class="form-control" <?= set_value('hp');?> disabled>
                                 <?= form_error('hp', '<small class="text-danger col-md">', '</small>'); ?>
                             </div>
                         </div>
@@ -437,7 +437,7 @@
 </div>
 
 <!--MODAL HAPUS BANYAK DATA!-->
-<div class="modal fade" id="modal_dellall" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<!-- <div class="modal fade" id="modal_dellall" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -454,10 +454,10 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
 <!--MODAL EROR JIKA TIDAK ADA DATA YANG DIPILIH!-->
-<div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<!-- <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -473,5 +473,5 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 <?php endforeach; ?>

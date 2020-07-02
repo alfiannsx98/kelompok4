@@ -219,7 +219,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="prodi">Semester</label>
-                                <input type="text" value="<?= $semester; ?>" placeholder="program studi" class="form-control" disabled>
+                                <input type="text" value="<?= $semester; ?>" placeholder="Semester" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
