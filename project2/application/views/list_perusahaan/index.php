@@ -147,7 +147,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nomor Telpon Perusahaan</label>
-                        <input type="text" name="nohp" placeholder="masukkan no telefon" class="form-control">
+                        <input type="number" name="nohp" placeholder="masukkan no telefon" class="form-control">
                         <?= form_error('nohp', '<small class="text-danger col-md">', '</small>'); ?>
                     </div>
                     <div class="form-group">

@@ -92,7 +92,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating">
                                         <label class="control-label"><i class="fas fa-phone mr-1"></i> No HP</label>
-                                        <input type="text" class="form-control" value="<?= $user['HP_ADM']; ?>" name="hp" id="hp" <?= set_value('hp')?>>
+                                        <input type="number" class="form-control" value="<?= $user['HP_ADM']; ?>" name="hp" id="hp" <?= set_value('hp')?>>
                                         <?= form_error('hp', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>

@@ -138,7 +138,7 @@
                                     <b>Joined Date</b> <a class="float-right"><i class="label label-success"><?= date('d F Y', $user['date_created']); ?></i></a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Change Date</b> <a class="float-right">
+                                    <b>Last Update Password</b> <a class="float-right">
                                         <?php if($user['change_pass']==0){ ?>
                                             <i class="badge badge-secondary">--</i>
                                         <?php } else { ?>
