@@ -120,10 +120,13 @@ class Dosbing extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">nip/email sudah terdaftar</div>');
                 redirect('Dosbing'); 
             }
-            $this->db->insert('user', $data1);
-            $this->db->insert('dosbing', $data2);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
-            redirect('Dosbing');
+            else
+            {
+                $this->db->insert('user', $data1);
+                $this->db->insert('dosbing', $data2);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil Disimpan</div>');
+                redirect('Dosbing');
+            }
         }
     }
 

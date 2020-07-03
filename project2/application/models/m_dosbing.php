@@ -4,7 +4,7 @@ class M_dosbing extends CI_Model
 {
     public function getDosbing()
     {
-        $query = "SELECT * FROM user LEFT JOIN dosbing ON user.identity=dosbing.NIP_DS 
+        $query = "SELECT * FROM user LEFT JOIN dosbing ON user.identity=dosbing.ID_DS 
         LEFT JOIN prodi ON prodi.ID_PRODI=dosbing.ID_PRODI LEFT JOIN user_role ON 
         user.role_id=user_role.id_role WHERE user.role_id=3 OR user.role_id=4";
         return $this->db->query($query)->result_array();
