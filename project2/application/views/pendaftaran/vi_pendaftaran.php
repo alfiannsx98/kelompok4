@@ -34,6 +34,25 @@
 								</tr>
 							</thead>
 							<?php $nmr=1;?>
+							<?php foreach($pendaftaran_ditolak as $pnd){ 
+								$NAMA_ST = $pnd->NAMA_ST; ?>
+							<tbody>
+								<tr>
+									<td class="text-center"><?= $nmr++; ?></td>
+									<td><?= $pnd->NAMA_M; ?></td>
+									<td><?= $pnd->NAMA_PR; ?></td>
+									<td><?= $pnd->NAMA_DS; ?></td>
+									<td align="right"><?= $pnd->NAMA_ST; ?></td>
+									<td class="text-right">
+										<?= anchor('pendaftaran/tampil_detail/'.$pnd->ID_PND,
+									'<button type="button" id="detail" class="btn btn-info btn-sm btn-round">Detail</button>'); ?>
+										<button type="button" id="detail" class="btn btn-danger btn-sm btn-round"
+											data-toggle="modal"
+											data-target="#modal_hapus<?= $pnd->ID_PND; ?>">Hapus</button>
+									</td>
+								</tr>
+							</tbody>
+							<?php } ?>
 							<?php foreach($pendaftaran as $pnd){ 
 								$NAMA_ST = $pnd->NAMA_ST; ?>
 							<tbody>

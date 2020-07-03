@@ -2,12 +2,24 @@
 
 class M_pendaftaran extends CI_Model{
         // UNTUK ADMIN
+        function tampil_ditolak(){
+                $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS,  pendaftaran.ID_ST, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M, status_pendaftaran.NAMA_ST 
+                                        FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp, status_pendaftaran
+                                        WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS AND pendaftaran.ID_ST = status_pendaftaran.ID_ST
+                                        AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
+                                        AND mahasiswa.ST_DITOLAK = 1
+                                        AND status_pendaftaran.NAMA_ST = 'DITOLAK'
+                                        ORDER BY pendaftaran.ID_PND ASC");
+                        return $data;
+                }
+
 	function tampil_pnd(){
         $data=$this->db->query("SELECT pendaftaran.ID_PND, pendaftaran.ID_PR, pendaftaran.ID_DS,  pendaftaran.ID_ST, perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, mahasiswa.NAMA_M, status_pendaftaran.NAMA_ST 
                                 FROM pendaftaran, perusahaan, dosbing, mahasiswa, pendaftaran_klp, status_pendaftaran
                                 WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS AND pendaftaran.ID_ST = status_pendaftaran.ID_ST
                                 AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
                                 AND mahasiswa.ST_KETUA = 1
+                                AND status_pendaftaran.NAMA_ST != 'DITOLAK' 
                                 ORDER BY pendaftaran.ID_PND ASC");
 		return $data;
         }
@@ -70,7 +82,7 @@ class M_pendaftaran extends CI_Model{
         // hapus status ketua
         function hapus_st_ketua($ID_M)
         {
-                $this->db->query("UPDATE mahasiswa SET ST_KETUA = 0 WHERE ID_M = '$ID_M'");
+                $this->db->query("UPDATE mahasiswa SET ST_KETUA = 0, ST_DITOLAK = 1 WHERE ID_M = '$ID_M'");
         }
         
         // hapus data kelompok
@@ -106,11 +118,6 @@ class M_pendaftaran extends CI_Model{
                 $data = $this->db->query("SELECT ID_DS, NAMA_DS FROM dosbing");
                 return $data;
         }
-
-        // function comboPR(){
-        //         $data = $this->db->query("SELECT ID_PR, NAMA_PR FROM perusahaan");
-        //         return $data;
-        // }
         
         // dropdown bulan
         function bulan(){
@@ -191,25 +198,5 @@ class M_pendaftaran extends CI_Model{
         {
                 $this->db->query("UPDATE pendaftaran SET BUKTI = '$BUKTI', ID_ST = 'ST0006' WHERE ID_PND = '$ID_PND'");
         }
-
-        function upload($data)
-        {
-                return $this->db->insert('tbl_upload', $data);
-        }
-
-        // tampil data Pendaftaran
-        // function data_kel(){
-        //         $data = $this->db->query("SELECT perusahaan.NAMA_PR, perusahaan.ALAMAT_PR, dosbing.NAMA_DS, pendaftaran.WAKTU, pendaftaran.PROPOSAL
-        //         FROM pendaftaran, perusahaan, dosbing, pendaftaran_klp, mahasiswa
-        //         WHERE pendaftaran.ID_PR = perusahaan.ID_PR AND pendaftaran.ID_DS = dosbing.ID_DS
-        //         AND pendaftaran.ID_PND = pendaftaran_klp.ID_PND AND pendaftaran_klp.ID_M = mahasiswa.ID_M
-        //         AND mahasiswa.NIM = '".$user['identity']."'");
-        // return $data;
-        // }
-
-        // function mhsiswa(){
-        //         $data = $this->db->query("SELECT mahasiswa.ID_M FROM mahasiswa");
-        //         return $data;
-        // }
 
 }
