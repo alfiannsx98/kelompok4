@@ -54,9 +54,9 @@
     <div class="card">
       <div class="card-body login-card-body">
         <p class="text-center">Download Aplikasi Android SIM-PKL 
-        <br><b>(Khusus Mahasiswa)</b>
+          <br><b>(Khusus Mahasiswa)</b>
         </p>
-        <a href="#" class="btn btn-primary btn-block"><i class="fa fa-arrow-down" aria-hidden="true"></i> Download App</a>
+        <a href="<?= base_url('auth/downloadApp') ?>" class="btn btn-primary btn-block"><i class="fa fa-arrow-down" aria-hidden="true"></i> Download App</a>
       </div>
     </div>
   </div>

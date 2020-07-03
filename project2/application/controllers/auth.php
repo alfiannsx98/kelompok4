@@ -434,4 +434,9 @@ class Auth extends CI_Controller
         // $this->load->view('templates/404_header');
         $this->load->view('auth/blocked');
     }
+
+    public function downloadApp() 
+    {
+        force_download('assets/app/Hello.docx', NULL);
+    }
 }
