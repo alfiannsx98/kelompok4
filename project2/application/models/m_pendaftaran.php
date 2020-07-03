@@ -79,7 +79,13 @@ class M_pendaftaran extends CI_Model{
                 VALUES('$ID_PND', (SELECT ID_M FROM mahasiswa WHERE mahasiswa.NIM = '$NIM'))");
         }
 
-        // hapus status ketua
+        // hapus status ketua ketika ditolak
+        function hapusst_ketua($ID_M)
+        {
+                $this->db->query("UPDATE mahasiswa SET ST_KETUA = 0 WHERE ID_M = '$ID_M'");
+        }
+
+        // hapus status ketua ketika ditolak
         function hapus_st_ketua($ID_M)
         {
                 $this->db->query("UPDATE mahasiswa SET ST_KETUA = 0, ST_DITOLAK = 1 WHERE ID_M = '$ID_M'");
