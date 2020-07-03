@@ -111,13 +111,13 @@ class Pendaftaran extends CI_Controller
     public function hapus_data()
     {
         $ID_PND = htmlspecialchars($this->input->post('ID_PND'));
-        $sql = $this->db->query("SELECT mahasiswa.ID_M FROM mahasiswa INNER JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M 
-                                WHERE mahasiswa.ST_KETUA =	1 AND pendaftaran_klp.ID_PND = '$ID_PND';");
-        foreach ($sql->result() as $id)
-        {
-                $ID_M = $id->ID_M;
-        }
-        $this->m_pendaftaran->hapus_st_ketua($ID_M);
+        // $sql = $this->db->query("SELECT mahasiswa.ID_M FROM mahasiswa INNER JOIN pendaftaran_klp ON mahasiswa.ID_M = pendaftaran_klp.ID_M 
+        //                         WHERE mahasiswa.ST_KETUA =	1 AND pendaftaran_klp.ID_PND = '$ID_PND';");
+        // foreach ($sql->result() as $id)
+        // {
+        //         $ID_M = $id->ID_M;
+        // }
+        // $this->m_pendaftaran->hapusst_ketua($ID_M);
         $this->m_pendaftaran->hapus_data_klp($ID_PND);
         $this->m_pendaftaran->hapus_data_pnd($ID_PND);
         redirect('pendaftaran');

@@ -171,7 +171,34 @@
 					<p>Apakah Anda yakin ingin menghapus data ini?</p>
 				</div>
 				<div class="modal-footer">
-					<input type="text" name="hidden" value="<?= $ID_PND; ?>">
+					<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>">
+					<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
+					<button class="btn btn-danger">Hapus</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php } ?>
+
+<?php foreach ($pendaftaran_ditolak as $pnd) {
+	$ID_PND = $pnd->ID_PND;
+	$ID_ST = $pnd->ID_ST;
+	$NAMA_ST = $pnd->NAMA_ST;
+?>
+<!-- modal hapus data pendaftaran yang ditolak -->
+<div class="modal fade" id="modal_hapus<?= $ID_PND; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="myModalLabel">Hapus Data</h3>
+			</div>
+			<form action="<?= base_url('pendaftaran/hapus_data'); ?>" method="post" class="form-horizontal">
+				<div class="modal-body">
+					<p>Apakah Anda yakin ingin menghapus data ini?</p>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="ID_PND" value="<?= $ID_PND; ?>">
 					<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Batal</button>
 					<button class="btn btn-danger">Hapus</button>
 				</div>
@@ -181,3 +208,4 @@
 </div>
 
 <?php } ?>
+
