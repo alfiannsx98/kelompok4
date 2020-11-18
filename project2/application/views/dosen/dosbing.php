@@ -408,7 +408,7 @@
             <div class="modal-header">
                 <h3 class="modal-title" id="myModalLabel">Hapus Menu</h3>
             </div>
-            <form action="<?= base_url() . 'Dosbing/hapus_dosbing'; ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url() . 'dosbing/hapus_dosbing'; ?>" method="post" class="form-horizontal">
                 <div class="modal-body">
                     <p>Apakah Anda yakin mau menghapus data ini? <b><?= $nama; ?></b></p>
                 </div>
